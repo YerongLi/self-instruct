@@ -204,7 +204,7 @@ if __name__ == "__main__":
                 batch_inputs.append(prompt)
             print(' ==== len(batch_inputs) ==== ')
             print(len(batch_inputs))
-            results = [run_llama_command(batch_inputs[0])]
+            results = [{'response':run_llama_command(batch_inputs[0])}]
 
             # results = make_gpt3_requests(
             #     engine=args.engine,
