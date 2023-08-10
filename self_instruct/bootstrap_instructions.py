@@ -204,7 +204,29 @@ if __name__ == "__main__":
                 batch_inputs.append(prompt)
             print(' ==== len(batch_inputs) ==== ')
             print(len(batch_inputs))
-            results = [{'response':run_llama_command(batch_inputs[0])}]
+            results = [
+                            {
+                   "id":"chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+                   "object":"chat.completion",
+                   "created":1677649420,
+                   "model":"gpt-3.5-turbo",
+                   "usage":{
+                      "prompt_tokens":56,
+                      "completion_tokens":31,
+                      "total_tokens":87
+                   },
+                   "choices":[
+                      {
+                         "message":{
+                            "role":"assistant",
+                            "content": run_llama_command(ipt)
+                         },
+                         "finish_reason":"stop",
+                         "index":0
+                      }
+                   ]
+                } for ipt in batch_inputs
+            ]
 
             # results = make_gpt3_requests(
             #     engine=args.engine,
