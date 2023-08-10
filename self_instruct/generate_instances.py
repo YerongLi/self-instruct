@@ -11,6 +11,56 @@ from templates.instance_gen_template import output_first_template_for_clf, input
 
 
 random.seed(42)
+def run_llama_command(input_string, gpt3=True):
+    if not gpt3:
+        # Define the command as a list of individual components
+        command = [
+            "$SCRATCH/llama.cpp/main",
+            "-m",
+            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
+            "-p",
+            f'"{input_string}"',  # Wrap input_string with double quotes
+            "-t",
+            "1",
+            "-n",
+            "128",
+            "--temp",
+            "0.1",
+            "--top-p",
+            "0.90",
+            "-ngl",
+            "83"
+        ]
+
+        # Join the command list into a single string with spaces
+        command_str = " ".join(command)
+
+        try:
+            result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error executing the command: {e}"
+    else:
+        # Return GPT-3 format response
+        return { 'response' : {
+            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+            "object": "chat.completion",
+            "created": 1677649420,
+            "model": "gpt-3.5-turbo",
+            "usage": {
+                "prompt_tokens": 56,
+                "completion_tokens": 31,
+                "total_tokens": 87
+            },
+            "choices": [
+                {
+                    "text": run_llama_command(input_string, False),
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+            }
+        }
 
 
 def parse_args():
@@ -138,21 +188,24 @@ if __name__ == '__main__':
                     else:
                         prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
                         prompts.append(prompt)
-                results = make_gpt3_requests(
-                    engine=args.engine,
-                    prompts=prompts,
-                    # because the clf template is longer, we need to decrease the max_tokens
-                    max_tokens=300 if any(task_clf_types[task["instruction"]] for task in batch) else 350,
-                    temperature=0,
-                    top_p=0,
-                    frequency_penalty=0,
-                    presence_penalty=1.5,
-                    stop_sequences=[f"Example {args.max_instances_to_generate + 1}", "Task:"],
-                    logprobs=1,
-                    n=1,
-                    best_of=1,
-                    api_key=args.api_key,
-                    organization=args.organization)
+                results = [
+                    run_llama_command(prompt) for prompt in prompts
+                ]
+                # results = make_gpt3_requests(
+                #     engine=args.engine,
+                #     prompts=prompts,
+                #     # because the clf template is longer, we need to decrease the max_tokens
+                #     max_tokens=300 if any(task_clf_types[task["instruction"]] for task in batch) else 350,
+                #     temperature=0,
+                #     top_p=0,
+                #     frequency_penalty=0,
+                #     presence_penalty=1.5,
+                #     stop_sequences=[f"Example {args.max_instances_to_generate + 1}", "Task:"],
+                #     logprobs=1,
+                #     n=1,
+                #     best_of=1,
+                #     api_key=args.api_key,
+                #     organization=args.organization)
                 for i in range(len(batch)):
                     data = batch[i]
                     data["instance_metadata"] = results[i]
