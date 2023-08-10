@@ -3,6 +3,7 @@ import json
 import random
 import re
 import string
+import subprocess
 import tqdm
 import argparse
 import numpy as np
@@ -14,6 +15,36 @@ from gpt3_api import make_requests as make_gpt3_requests
 
 
 random.seed(42)
+
+def run_llama_command(input_string):
+    # Define the command as a list of individual components
+    command = [
+        "$SCRATCH/llama.cpp/main",
+        "-m",
+        "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
+        "-p",
+        f'"{input_string}"',  # Wrap input_string with double quotes
+        "-t",
+        "1",
+        "-n",
+        "128",
+        "--temp",
+        "0.1",
+        "--top-p",
+        "0.90",
+        "-ngl",
+        "83"
+    ]
+
+    # Join the command list into a single string with spaces
+    command_str = " ".join(command)
+
+    try:
+        result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+        return result.stdout
+    except subprocess.CalledProcessError as e:
+        return f"Error executing the command: {e}"
+
 
 
 def encode_prompt(prompt_instructions, classification=False):
@@ -173,28 +204,31 @@ if __name__ == "__main__":
                 batch_inputs.append(prompt)
             print(' ==== len(batch_inputs) ==== ')
             print(len(batch_inputs))
-            results = make_gpt3_requests(
-                engine=args.engine,
-                prompts=batch_inputs,
-                max_tokens=1024,
-                temperature=0.7,
-                top_p=0.5,
-                frequency_penalty=0,
-                presence_penalty=2,
-                stop_sequences=["\n\n", "\n16", "16.", "16 ."],
-                logprobs=1,
-                n=1,
-                best_of=1,
-                api_key=args.api_key,
-                organization=args.organization,
-            )
+            results = [run_llama_command(batch_inputs[0])]
+
+            # results = make_gpt3_requests(
+            #     engine=args.engine,
+            #     prompts=batch_inputs,
+            #     max_tokens=1024,
+            #     temperature=0.7,
+            #     top_p=0.5,
+            #     frequency_penalty=0,
+            #     presence_penalty=2,
+            #     stop_sequences=["\n\n", "\n16", "16.", "16 ."],
+            #     logprobs=1,
+            #     n=1,
+            #     best_of=1,
+            #     api_key=args.api_key,
+            #     organization=args.organization,
+            # )
             instructions = []
             all_metadata = []
             for result in results:
                 new_instructions = post_process_gpt3_response(result["response"])
                 instructions += new_instructions
                 all_metadata += [result] * len(new_instructions)
-
+            print('all_metadata')
+            print(all_metadata)
             for inst, metadata in zip(instructions, all_metadata):
                 with Pool(4) as p:
                     rouge_scores = p.map(partial(scorer.score, inst), seed_instructions + machine_instructions)
