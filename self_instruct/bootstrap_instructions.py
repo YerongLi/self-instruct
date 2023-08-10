@@ -171,6 +171,8 @@ if __name__ == "__main__":
                 prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
                 print(prompt)
                 batch_inputs.append(prompt)
+            print(' ==== len(batch_inputs) ==== ')
+            print(len(batch_inputs))
             results = make_gpt3_requests(
                 engine=args.engine,
                 prompts=batch_inputs,
