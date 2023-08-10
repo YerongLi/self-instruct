@@ -59,10 +59,7 @@ def run_llama_command(input_string, gpt3=True):
             },
             "choices": [
                 {
-                    "message": {
-                        "role": "assistant",
-                        "text": run_llama_command(input_string, False)
-                    },
+                    "text": run_llama_command(input_string, False)
                     "finish_reason": "stop",
                     "index": 0
                 }
