@@ -1,9 +1,10 @@
+import argparse
 import os
 import json
 import random
 import tqdm
 import re
-import argparse
+import subprocess
 import pandas as pd
 from collections import OrderedDict
 from gpt3_api import make_requests as make_gpt3_requests
@@ -11,6 +12,57 @@ from templates.clf_task_template import template_1
 
 
 random.seed(42)
+
+def run_llama_command(input_string, gpt3=True):
+    if not gpt3:
+        # Define the command as a list of individual components
+        command = [
+            "$SCRATCH/llama.cpp/main",
+            "-m",
+            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
+            "-p",
+            f'"{input_string}"',  # Wrap input_string with double quotes
+            "-t",
+            "1",
+            "-n",
+            "128",
+            "--temp",
+            "0.1",
+            "--top-p",
+            "0.90",
+            "-ngl",
+            "83"
+        ]
+
+        # Join the command list into a single string with spaces
+        command_str = " ".join(command)
+
+        try:
+            result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error executing the command: {e}"
+    else:
+        # Return GPT-3 format response
+        return { 'response' : {
+            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+            "object": "chat.completion",
+            "created": 1677649420,
+            "model": "gpt-3.5-turbo",
+            "usage": {
+                "prompt_tokens": 56,
+                "completion_tokens": 31,
+                "total_tokens": 87
+            },
+            "choices": [
+                {
+                    "text": run_llama_command(input_string, False),
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+            }
+        }
 
 
 templates = {
@@ -98,20 +150,23 @@ if __name__ == '__main__':
                 # prefix = compose_prompt_prefix(human_written_tasks, batch[0]["instruction"], 8, 2)
                 prefix = templates[args.template]
                 prompts = [prefix + " " + d["instruction"].strip() + "\n" + "Is it classification?" for d in batch]
-                results = make_gpt3_requests(
-                    engine=args.engine,
-                    prompts=prompts,
-                    max_tokens=3,
-                    temperature=0,
-                    top_p=0,
-                    frequency_penalty=0,
-                    presence_penalty=0,
-                    stop_sequences=["\n", "Task"],
-                    logprobs=1,
-                    n=1,
-                    best_of=1,
-                    api_key=args.api_key,
-                    organization=args.organization)
+                results = [
+                    run_llama_command(ipt) for ipt in prompts
+                ]
+                # results = make_gpt3_requests(
+                #     engine=args.engine,
+                #     prompts=prompts,
+                #     max_tokens=3,
+                #     temperature=0,
+                #     top_p=0,
+                #     frequency_penalty=0,
+                #     presence_penalty=0,
+                #     stop_sequences=["\n", "Task"],
+                #     logprobs=1,
+                #     n=1,
+                #     best_of=1,
+                #     api_key=args.api_key,
+                #     organization=args.organization)
                 for i in range(len(batch)):
                     data = batch[i]
                     if results[i]["response"] is not None:
