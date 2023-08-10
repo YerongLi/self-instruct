@@ -16,34 +16,59 @@ from gpt3_api import make_requests as make_gpt3_requests
 
 random.seed(42)
 
-def run_llama_command(input_string):
-    # Define the command as a list of individual components
-    command = [
-        "$SCRATCH/llama.cpp/main",
-        "-m",
-        "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
-        "-p",
-        f'"{input_string}"',  # Wrap input_string with double quotes
-        "-t",
-        "1",
-        "-n",
-        "128",
-        "--temp",
-        "0.1",
-        "--top-p",
-        "0.90",
-        "-ngl",
-        "83"
-    ]
+def run_llama_command(input_string, gpt3=True):
+    if not gpt3:
+        # Define the command as a list of individual components
+        command = [
+            "$SCRATCH/llama.cpp/main",
+            "-m",
+            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
+            "-p",
+            f'"{input_string}"',  # Wrap input_string with double quotes
+            "-t",
+            "1",
+            "-n",
+            "128",
+            "--temp",
+            "0.1",
+            "--top-p",
+            "0.90",
+            "-ngl",
+            "83"
+        ]
 
-    # Join the command list into a single string with spaces
-    command_str = " ".join(command)
+        # Join the command list into a single string with spaces
+        command_str = " ".join(command)
 
-    try:
-        result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
-        return result.stdout
-    except subprocess.CalledProcessError as e:
-        return f"Error executing the command: {e}"
+        try:
+            result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            return f"Error executing the command: {e}"
+    else:
+        # Return GPT-3 format response
+        return { 'response' : {
+            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+            "object": "chat.completion",
+            "created": 1677649420,
+            "model": "gpt-3.5-turbo",
+            "usage": {
+                "prompt_tokens": 56,
+                "completion_tokens": 31,
+                "total_tokens": 87
+            },
+            "choices": [
+                {
+                    "message": {
+                        "role": "assistant",
+                        "content": run_llama_command(input_string, False)
+                    },
+                    "finish_reason": "stop",
+                    "index": 0
+                }
+            ]
+            }
+        }
 
 
 
@@ -205,27 +230,7 @@ if __name__ == "__main__":
             print(' ==== len(batch_inputs) ==== ')
             print(len(batch_inputs))
             results = [
-                            {
-                   "id":"chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
-                   "object":"chat.completion",
-                   "created":1677649420,
-                   "model":"gpt-3.5-turbo",
-                   "usage":{
-                      "prompt_tokens":56,
-                      "completion_tokens":31,
-                      "total_tokens":87
-                   },
-                   "choices":[
-                      {
-                         "message":{
-                            "role":"assistant",
-                            "content": run_llama_command(ipt)
-                         },
-                         "finish_reason":"stop",
-                         "index":0
-                      }
-                   ]
-                } for ipt in batch_inputs
+                 run_llama_command(ipt, True) for ipt in batch_inputs
             ]
 
             # results = make_gpt3_requests(
