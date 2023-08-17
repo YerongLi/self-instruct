@@ -12,7 +12,6 @@ from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
 from templates.instance_gen_template import output_first_template_for_clf, input_first_template_for_gen
 
-
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -21,7 +20,6 @@ logging.basicConfig(
     force=True)
 
 logging.info(f'Logger start: {os.uname()[1]}')
-
 random.seed(42)
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
