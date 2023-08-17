@@ -51,6 +51,14 @@ def run_llama_command(input_string, gpt3=True):
 
         try:
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+            stripped_stdout = result_stdout.strip()
+
+            # Remove input_string prefix from stripped_stdout
+            if stripped_stdout.startswith(input_string):
+                final_output = stripped_stdout[len(input_string):].strip()
+            else:
+                final_output = stripped_stdout
+
             return result.stdout
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
