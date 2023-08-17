@@ -11,10 +11,17 @@ import pandas as pd
 from multiprocessing import Pool
 from functools import partial
 from rouge_score import rouge_scorer
-from gpt3_api import make_requests as make_gpt3_requests
+# from gpt3_api import make_requests as make_gpt3_requests
 
 
 random.seed(42)
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
+    level=logging.INFO,
+    filename='./output.log',
+    datefmt='%m-%d %H:%M:%S')
+
+logging.info(f'Logger start: {os.uname()[1]}')
 
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
@@ -224,12 +231,16 @@ if __name__ == "__main__":
                 prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
                 print(prompt)
                 batch_inputs.append(prompt)
-            print(' ==== len(batch_inputs) ==== ')
-            print(len(batch_inputs))
+            # print(' ==== len(batch_inputs) ==== ')
+            # print(len(batch_inputs))
+            
             results = [
                  run_llama_command(ipt, True) for ipt in batch_inputs
             ]
-
+            for prompt, result in zip(batch_inputs, results):
+                logging.info("Prompt: %s", prompt)
+                logging.info("Result: %s", result)
+                logging.info("-" * 30)  # Separator between pairs
             # results = make_gpt3_requests(
             #     engine=args.engine,
             #     prompts=batch_inputs,
