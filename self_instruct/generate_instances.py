@@ -16,8 +16,7 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
     filename='./output.log',
-    datefmt='%m-%d %H:%M:%S',
-    force=True)
+    datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
 random.seed(42)
