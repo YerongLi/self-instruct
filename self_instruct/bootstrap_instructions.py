@@ -60,10 +60,15 @@ def run_llama_command(input_string, gpt3=True):
             sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
             sanitized_result_stdout = ''.join(filter(lambda x: x in string.printable, result.stdout[:len(input_string)]))
 
-            if sanitized_result_stdout == sanitized_input_string:
-                logging.info("Output Yaaa")
-            else:
-                logging.info("Input string not found in result.stdout")
+            logging.info("Sanitized Input String: %s", sanitized_input_string)
+            logging.info("Sanitized Result Stdout: %s", sanitized_result_stdout)
+            logging.info("Input String Length: %d", len(sanitized_input_string))
+            logging.info("Result Stdout Length: %d", len(sanitized_result_stdout))
+
+if sanitized_result_stdout == sanitized_input_string:
+    logging.info("Output Yaaa")
+else:
+    logging.info("Input string not found in result.stdout")
 
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
