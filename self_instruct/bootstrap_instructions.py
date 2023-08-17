@@ -53,19 +53,19 @@ def run_llama_command(input_string, gpt3=True):
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
             # stripped_stdout = result.stdout.strip()
             stripped_stdout = result.stdout
-        if input_string in result_stdout:
-            # Strip whitespace from result.stdout
-            stripped_stdout = result_stdout.strip()
+            if input_string in result_stdout:
+                # Strip whitespace from result.stdout
+                stripped_stdout = result_stdout.strip()
 
-            # Remove input_string prefix from stripped_stdout
-            if stripped_stdout.startswith(input_string):
-                final_output = stripped_stdout[len(input_string):].strip()
+                # Remove input_string prefix from stripped_stdout
+                if stripped_stdout.startswith(input_string):
+                    final_output = stripped_stdout[len(input_string):].strip()
+                else:
+                    final_output = stripped_stdout
+
+                logging.info("Output: %s", final_output)
             else:
-                final_output = stripped_stdout
-
-            logging.info("Output: %s", final_output)
-        else:
-            logging.info("Input string not found in result.stdout")
+                logging.info("Input string not found in result.stdout")
 
             # Remove input_string prefix from stripped_stdout
             if stripped_stdout.startswith(input_string):
