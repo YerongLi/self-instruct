@@ -51,25 +51,17 @@ def run_llama_command(input_string, gpt3=True):
 
         try:
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
-            # stripped_stdout = result.stdout.strip()
             stripped_stdout = result.stdout
+
             logging.info(input_string)
             logging.info(' === === ')
             logging.info(result.stdout)
-            if input_string in result.stdout:
 
+            if stripped_stdout.startswith(input_string):
                 logging.info("Output Yaaa")
             else:
                 logging.info("Input string not found in result.stdout")
 
-            # Remove input_string prefix from stripped_stdout
-            if stripped_stdout.startswith(input_string):
-                final_output = stripped_stdout[len(input_string):].strip()
-            else:
-                logging.info('No stripping')
-                final_output = stripped_stdout
-
-            return final_output
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
     else:
