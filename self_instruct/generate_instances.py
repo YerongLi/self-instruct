@@ -6,11 +6,21 @@ import random
 import re
 import subprocess
 import tqdm
+import logging
 
 from collections import OrderedDict
 from gpt3_api import make_requests as make_gpt3_requests
 from templates.instance_gen_template import output_first_template_for_clf, input_first_template_for_gen
 
+
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
+    level=logging.INFO,
+    filename='./output.log',
+    datefmt='%m-%d %H:%M:%S',
+    force=True)
+
+logging.info(f'Logger start: {os.uname()[1]}')
 
 random.seed(42)
 def run_llama_command(input_string, gpt3=True):
@@ -190,9 +200,14 @@ if __name__ == '__main__':
                     else:
                         prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
                         prompts.append(prompt)
+
                 results = [
                     run_llama_command(prompt) for prompt in prompts
                 ]
+                for prompt, result in zip(prompts, results):
+                    print(f"Prompt: {prompt}")
+                    print(f"Result: {result}")
+                    print("-" * 30)  # Separator between pairs
                 # results = make_gpt3_requests(
                 #     engine=args.engine,
                 #     prompts=prompts,

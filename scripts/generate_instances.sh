@@ -6,4 +6,4 @@ python self_instruct/generate_instances.py \
     --output_file machine_generated_instances.jsonl \
     --max_instances_to_gen 5 \
     --engine "davinci" \
-    --request_batch_size 5
+    --request_batch_size 1
