@@ -8,9 +8,11 @@ import tqdm
 import argparse
 import numpy as np
 import pandas as pd
+import logging
 from multiprocessing import Pool
 from functools import partial
 from rouge_score import rouge_scorer
+
 # from gpt3_api import make_requests as make_gpt3_requests
 
 
@@ -233,7 +235,7 @@ if __name__ == "__main__":
                 batch_inputs.append(prompt)
             # print(' ==== len(batch_inputs) ==== ')
             # print(len(batch_inputs))
-            
+
             results = [
                  run_llama_command(ipt, True) for ipt in batch_inputs
             ]
