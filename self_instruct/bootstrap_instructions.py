@@ -57,6 +57,7 @@ def run_llama_command(input_string, gpt3=True):
             if stripped_stdout.startswith(input_string):
                 final_output = stripped_stdout[len(input_string):].strip()
             else:
+                logging.info('No stripping')
                 final_output = stripped_stdout
 
             return final_output
