@@ -51,7 +51,7 @@ def run_llama_command(input_string, gpt3=True):
 
         try:
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
-            stripped_stdout = result_stdout.strip()
+            stripped_stdout = result.stdout.strip()
 
             # Remove input_string prefix from stripped_stdout
             if stripped_stdout.startswith(input_string):
@@ -59,7 +59,7 @@ def run_llama_command(input_string, gpt3=True):
             else:
                 final_output = stripped_stdout
 
-            return result.stdout
+            return final_output
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
     else:
