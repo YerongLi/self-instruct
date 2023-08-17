@@ -57,11 +57,10 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(' === === ')
             logging.info(result.stdout)
             logging.info(' *** ***')
-            logging.info(repr(input_string))
-            logging.info(repr(result.stdout[:len(input_string)]))
+            sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
+            sanitized_result_stdout = ''.join(filter(lambda x: x in string.printable, result.stdout[:len(input_string)]))
 
-
-            if stripped_stdout.startswith(input_string):
+            if sanitized_result_stdout == sanitized_input_string:
                 logging.info("Output Yaaa")
             else:
                 logging.info("Input string not found in result.stdout")
