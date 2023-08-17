@@ -56,6 +56,10 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(input_string)
             logging.info(' === === ')
             logging.info(result.stdout)
+            logging.info(' *** ***')
+            logging.info(repr(input_string))
+            logging.info(repr(result.stdout[:len(input_string)]))
+
 
             if stripped_stdout.startswith(input_string):
                 logging.info("Output Yaaa")
