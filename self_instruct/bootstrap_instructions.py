@@ -56,6 +56,12 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(input_string)
             logging.info(' === === ')
             logging.info(result.stdout)
+
+            # Log the types of the variables
+            logging.info("Typing")
+            logging.info(type(input_string))
+            logging.info(' === === ')
+            logging.info(type(result.stdout))
             logging.info(' *** ***')
             sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
             sanitized_result_stdout = ''.join(filter(lambda x: x in string.printable, result.stdout[:len(input_string)]))
