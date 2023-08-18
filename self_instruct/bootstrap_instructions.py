@@ -63,7 +63,7 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(' === === ')
             logging.info(type(result.stdout))
             # prefix = len(input_string) - 50  # False
-            prefix = 50  # False
+            prefix = 50  # True
             logging.info("prefix  " + str(prefix))
             logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
             logging.info(' *** ***')
@@ -74,7 +74,11 @@ def run_llama_command(input_string, gpt3=True):
             logging.info("Sanitized Result Stdout: %s", sanitized_result_stdout)
             logging.info("Input String Length: %d", len(sanitized_input_string))
             logging.info("Result Stdout Length: %d", len(sanitized_result_stdout))
+            import difflib
 
+            diff = difflib.ndiff(sanitized_input_string, sanitized_result_stdout)
+            logging.info('DIFFER')
+            logging.info('\n'.join(diff))
             if sanitized_result_stdout == sanitized_input_string:
                 logging.info("Output Yaaa")
             else:
