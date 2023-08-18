@@ -4,6 +4,8 @@ import random
 import re
 import string
 import subprocess
+import difflib
+
 import tqdm
 import argparse
 import numpy as np
@@ -74,7 +76,6 @@ def run_llama_command(input_string, gpt3=True):
             logging.info("Sanitized Result Stdout: %s", sanitized_result_stdout)
             logging.info("Input String Length: %d", len(sanitized_input_string))
             logging.info("Result Stdout Length: %d", len(sanitized_result_stdout))
-            import difflib
 
             diff = difflib.ndiff(sanitized_input_string, sanitized_result_stdout)
             logging.info('DIFFER')
