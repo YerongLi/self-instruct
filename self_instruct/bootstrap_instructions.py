@@ -62,7 +62,9 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(type(input_string))
             logging.info(' === === ')
             logging.info(type(result.stdout))
-            logging.info(input_string[:33] == result.stdout[1:34])
+            prefix = 33
+            logging.info("prefix" + str(prefix))
+            logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
             logging.info(' *** ***')
             sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
             sanitized_result_stdout = ''.join(filter(lambda x: x in string.printable, result.stdout[:len(input_string)]))
