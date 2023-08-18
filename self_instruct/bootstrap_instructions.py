@@ -75,6 +75,7 @@ def run_llama_command(input_string, gpt3=True):
                 logging.info("Output Yaaa")
             else:
                 logging.info("Input string not found in result.stdout")
+            return result.stdout
 
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
