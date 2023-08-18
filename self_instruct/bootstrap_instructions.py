@@ -62,8 +62,8 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(type(input_string))
             logging.info(' === === ')
             logging.info(type(result.stdout))
-            prefix = 100
-            logging.info("prefix" + str(prefix))
+            prefix = len(input_string) -2
+            logging.info("prefix  " + str(prefix))
             logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
             logging.info(' *** ***')
             sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
