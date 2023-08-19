@@ -28,6 +28,16 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 
 def run_llama_command(input_string, gpt3=True):
+
+    def process_output(output):
+        # Extract user input
+        usr_input_match = re.match(r'<LYRST>(.*?)<LYRED>', output)
+        usr_input = usr_input_match.group(1) if usr_input_match else ""
+
+        # Extract completion part
+        completion_part = re.sub(r'<LYRST>.*?<LYRED>', '', output)
+        
+        return usr_input, completion_part.strip()
     if not gpt3:
         # Define the command as a list of individual components
         command = [
@@ -54,38 +64,8 @@ def run_llama_command(input_string, gpt3=True):
 
         try:
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
-            stripped_stdout = result.stdout
 
-            logging.info(input_string)
-            logging.info(' === === ')
-            logging.info(result.stdout)
-
-            # Log the types of the variables
-            # logging.info("Typing")
-            # logging.info(type(input_string))
-            # logging.info(' === === ')
-            # logging.info(type(result.stdout))
-            # # prefix = len(input_string) - 50  # False
-            # prefix = 50  # True
-            # logging.info("prefix  " + str(prefix))
-            # logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
-            # logging.info(' *** ***')
-
-
-            result_stdout = result.stdout[1:]
-            # input_string = "12346"
-            # result_stdout = "12356"
-            # Find the index of the first character that differs between input_string and result_stdout
-            diff_index = next((i for i, (c1, c2) in enumerate(zip(input_string, result_stdout)) if c1 != c2), None)
-
-            if diff_index is None:
-                logging.info("No difference found")
-            else:
-                # Print the prefix till the first different character
-                logging.info(f"Difference found at index {diff_index}")
-                logging.info(f"Prefix of input_string: {input_string[:diff_index+1]}")
-                logging.info(f"Prefix of result_stdout: {result_stdout[:diff_index+1]}")
-            return result.stdout
+            return process_output(result.stdout)[1]
 
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
