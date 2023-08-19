@@ -33,7 +33,8 @@ def run_llama_command(input_string, gpt3=True):
         # Extract user input
         usr_input_match = re.match(r'<LYRST>(.*?)<LYRED>', output)
         usr_input = usr_input_match.group(1) if usr_input_match else ""
-
+        logging.info('usr_input')
+        logging.info(usr_input)
         # Extract completion part
         completion_part = re.sub(r'<LYRST>.*?<LYRED>', '', output)
         
