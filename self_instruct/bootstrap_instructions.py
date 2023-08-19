@@ -60,19 +60,20 @@ def run_llama_command(input_string, gpt3=True):
             logging.info(result.stdout)
 
             # Log the types of the variables
-            logging.info("Typing")
-            logging.info(type(input_string))
-            logging.info(' === === ')
-            logging.info(type(result.stdout))
-            # prefix = len(input_string) - 50  # False
-            prefix = 50  # True
-            logging.info("prefix  " + str(prefix))
-            logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
-            logging.info(' *** ***')
+            # logging.info("Typing")
+            # logging.info(type(input_string))
+            # logging.info(' === === ')
+            # logging.info(type(result.stdout))
+            # # prefix = len(input_string) - 50  # False
+            # prefix = 50  # True
+            # logging.info("prefix  " + str(prefix))
+            # logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
+            # logging.info(' *** ***')
 
 
             result_stdout = result.stdout[1:]
-
+            input_string = "12346"
+            result_stdout = "12356"
             # Find the index of the first character that differs between input_string and result_stdout
             diff_index = next((i for i, (c1, c2) in enumerate(zip(input_string, result_stdout)) if c1 != c2), None)
 
