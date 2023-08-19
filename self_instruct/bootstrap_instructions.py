@@ -45,7 +45,8 @@ def run_llama_command(input_string, gpt3=True):
             "--top-p",
             "0.90",
             "-ngl",
-            "83"
+            "83",
+            "--multiline-input"
         ]
 
         # Join the command list into a single string with spaces
