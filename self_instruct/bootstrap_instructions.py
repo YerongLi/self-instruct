@@ -69,21 +69,20 @@ def run_llama_command(input_string, gpt3=True):
             logging.info("prefix  " + str(prefix))
             logging.info(input_string[:prefix] == result.stdout[1:prefix+1])
             logging.info(' *** ***')
-            sanitized_input_string = ''.join(filter(lambda x: x in string.printable, input_string))
-            sanitized_result_stdout = ''.join(filter(lambda x: x in string.printable, result.stdout[:len(input_string)]))
 
-            logging.info("Sanitized Input String: %s", sanitized_input_string)
-            logging.info("Sanitized Result Stdout: %s", sanitized_result_stdout)
-            logging.info("Input String Length: %d", len(sanitized_input_string))
-            logging.info("Result Stdout Length: %d", len(sanitized_result_stdout))
 
-            diff = difflib.ndiff(sanitized_input_string, sanitized_result_stdout)
-            logging.info('DIFFER')
-            logging.info('\n'.join(diff))
-            if sanitized_result_stdout == sanitized_input_string:
-                logging.info("Output Yaaa")
+            result_stdout = result.stdout[1:]
+
+            # Find the index of the first character that differs between input_string and result_stdout
+            diff_index = next((i for i, (c1, c2) in enumerate(zip(input_string, result_stdout)) if c1 != c2), None)
+
+            if diff_index is None:
+                logging.info("No difference found")
             else:
-                logging.info("Input string not found in result.stdout")
+                # Print the prefix till the first different character
+                logging.info(f"Difference found at index {diff_index}")
+                logging.info(f"Prefix of input_string: {input_string[:diff_index]}")
+                logging.info(f"Prefix of result_stdout: {result_stdout[:diff_index]}")
             return result.stdout
 
         except subprocess.CalledProcessError as e:
