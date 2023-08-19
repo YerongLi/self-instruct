@@ -82,8 +82,8 @@ def run_llama_command(input_string, gpt3=True):
             else:
                 # Print the prefix till the first different character
                 logging.info(f"Difference found at index {diff_index}")
-                logging.info(f"Prefix of input_string: {input_string[:diff_index]}")
-                logging.info(f"Prefix of result_stdout: {result_stdout[:diff_index]}")
+                logging.info(f"Prefix of input_string: {input_string[:diff_index+1]}")
+                logging.info(f"Prefix of result_stdout: {result_stdout[:diff_index+1]}")
             return result.stdout
 
         except subprocess.CalledProcessError as e:
