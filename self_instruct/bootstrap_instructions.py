@@ -72,8 +72,8 @@ def run_llama_command(input_string, gpt3=True):
 
 
             result_stdout = result.stdout[1:]
-            input_string = "12346"
-            result_stdout = "12356"
+            # input_string = "12346"
+            # result_stdout = "12356"
             # Find the index of the first character that differs between input_string and result_stdout
             diff_index = next((i for i, (c1, c2) in enumerate(zip(input_string, result_stdout)) if c1 != c2), None)
 
