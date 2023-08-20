@@ -18,6 +18,66 @@ Is it classification? No
 Task: Detect if the Reddit thread contains hate speech.
 Is it classification? Yes
 
+Is it classification? Yes
+
+Task: Find the four smallest perfect numbers.
+Is it classification? No
+
+Task: Does the information in the document supports the claim? You can answer "Support" or "Unsupport".
+Is it classification? Yes
+
+Task: Create a detailed budget for the given hypothetical trip.
+Is it classification? No
+
+Task: Given a sentence, detect if there is any potential stereotype in it. If so, you should explain the stereotype. Else, output no.
+Is it classification? No
+
+Task: Explain the following idiom to me, and try to give me some examples.
+Is it classification? No
+
+Task: Is there anything I can eat for a breakfast that doesn't include eggs, yet includes protein, and has roughly 700-1000 calories?
+Is it classification? No
+
+Task: Answer the following multiple choice question. Select A, B, C, or D for the final answer.
+Is it classification? Yes
+
+Task: Decide whether the syllogism is logically sound.
+Is it classification? Yes
+
+Task: How can individuals and organizations reduce unconscious bias?
+Is it classification? No
+
+Task: In this task, you need to compare the meaning of the two sentences and tell if they are the same. Output yes or no.
+Is it classification? Yes
+
+Task: To make the pairs have the same analogy, write the fourth word.
+Is it classification? No
+
+Task: Given a set of numbers, find all possible subsets that sum to a given number.
+Is it classification? No
+
+Task:'''
+
+template_original = '''Can the following task be regarded as a classification task with finite output labels?
+
+Task: Given my personality and the job, tell me if I would be suitable.
+Is it classification? Yes
+
+Task: Give me an example of a time when you had to use your sense of humor.
+Is it classification? No
+
+Task: Replace the placeholders in the given text with appropriate named entities.
+Is it classification? No
+
+Task: Fact checking - tell me if the statement is true, false, or unknown, based on your knowledge and common sense.
+Is it classification? Yes
+
+Task: Return the SSN number for the person.
+Is it classification? No
+
+Task: Detect if the Reddit thread contains hate speech.
+Is it classification? Yes
+
 Task: Analyze the sentences below to identify biases.
 Is it classification? No
 
