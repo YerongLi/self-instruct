@@ -41,6 +41,8 @@ def run_llama_command(input_string, gpt3=True):
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
             return result.stdout
         except subprocess.CalledProcessError as e:
+            print('Error')
+            print(e)
             return f"Error executing the command: {e}"
     else:
         # Return GPT-3 format response

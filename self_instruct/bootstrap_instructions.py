@@ -120,8 +120,6 @@ def post_process_gpt3_response(response):
     if response is None or response["choices"][0]["finish_reason"] == "length":
         return []
 
-    logging.info('LYRDEBUG')
-    logging.info(response["choices"])
     raw_instructions = re.split(r"\n\d+\s?\. ", response["choices"][0]["text"])
     instructions = []
     for inst in raw_instructions:
