@@ -14,6 +14,21 @@ Email: Check out our amazing new sale! We've got discounts on all of your favori
 Class label: Not Promotion
 Email: We hope you are doing well. Let us know if you need any help.
 
+Task: Answer the following multiple-choice question. Select A, B, C, or D for the final answer.
+Class label: C
+Question: What is the capital of Germany?
+A. London
+B. Paris
+C. Berlin
+D. Rome
+Class label: D
+Question: What is the largest planet in our solar system?
+A) Earth
+B) Saturn
+C) Mars
+D) Jupiter
+Class label: A
+
 Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
@@ -33,6 +48,22 @@ Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain,
 
 Task: Converting 85 F to Celsius.
 Output: 85°F = 29.44°C
+
+Task: Write a program to compute the sum of integers from k to n.
+Output:
+def sum(k, n):
+    sum = 0
+    for i in range(k, n+1):
+        sum += i
+    return sum
+
+Task: Select the oldest person from the given list.
+Example 1
+List: George Washington, Confucius, Michael Jordan, Michelangelo
+Output: Confucious
+Example 2
+List: Alan Turing, Geoffrey Hinton, Yann LeCun, Yoshua Bengio
+Output: Alan Turing
 
 Task:'''
 
