@@ -202,9 +202,9 @@ if __name__ == '__main__':
                     run_llama_command(prompt) for prompt in prompts
                 ]
                 for prompt, result in zip(prompts, results):
-                    print(f"Prompt: {prompt}")
-                    print(f"Result: {result}")
-                    print("-" * 30)  # Separator between pairs
+                    logging.info(f"Prompt: {prompt}")
+                    logging.info(f"Result: {result}")
+                    logging.info("-" * 30)  # Separator between pairs
                 # results = make_gpt3_requests(
                 #     engine=args.engine,
                 #     prompts=prompts,
