@@ -8,6 +8,135 @@ Sentence: I had a great day today. The weather was beautiful and I spent time wi
 Class label: Negative
 Sentence: I was really disappointed by the latest superhero movie. I would not recommend it to anyone.
 
+Task: Tell me if the following email is a promotion email or not.
+Class label: Promotion
+Email: Check out our amazing new sale! We've got discounts on all of your favorite products.
+Class label: Not Promotion
+Email: We hope you are doing well. Let us know if you need any help.
+
+Task: Detect if the Reddit thread contains hate speech.
+Class label: Hate Speech
+Thread: All people of color are stupid and should not be allowed to vote.
+Class label: Not Hate Speech
+Thread: The best way to cook a steak on the grill.
+
+Task:  Does the information in the document supports the claim? You can answer "Support" or "Unsupport".
+Class label: Unsupport
+Document: After a record-breaking run that saw mortgage rates plunge to all-time lows and home prices soar to new highs, the U.S. housing market finally is slowing. While demand and price gains are cooling, any correction is likely to be a modest one, housing economists and analysts say. No one expects price drops on the scale of the declines experienced during the Great Recession.
+Claim: The US housing market is going to crash soon.
+Class label: Support
+Document: The U.S. housing market is showing signs of strain, with home sales and prices slowing in many areas. Mortgage rates have risen sharply in recent months, and the number of homes for sale is increasing. This could be the beginning of a larger downturn, with some economists predicting a potential housing crash in the near future.
+Claim: The US housing market is going to crash soon.
+
+Task: Answer the following multiple-choice question. Select A, B, C, or D for the final answer.
+Class label: C
+Question: What is the capital of Germany?
+A. London
+B. Paris
+C. Berlin
+D. Rome
+Class label: D
+Question: What is the largest planet in our solar system?
+A) Earth
+B) Saturn
+C) Mars
+D) Jupiter
+Class label: A
+
+Task: Tell me the first number of the given list.
+Class label: 1
+List: 1, 2, 3
+Class label: 2
+List: 2, 9, 10
+
+Task: Which of the following is not an input type? (a) number (b) date (c) phone number (d) email address (e) all of these are valid inputs.
+Class label: (e)
+
+Task:'''
+
+input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+
+Task: Which exercises are best for reducing belly fat at home?
+Output:
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
+
+Task: Extract all the country names in the paragraph, list them separated by commas.
+Example 1
+Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
+Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
+
+Task: Converting 85 F to Celsius.
+Output: 85°F = 29.44°C
+
+Task: Sort the given list ascendingly. 
+Example 1
+List: [10, 92, 2, 5, -4, 92, 5, 101]
+Output: [-4, 2, 5, 5, 10, 92, 92, 101]
+Example 2
+Input 2 - List: [9.99, 10, -5, -1000, 5e6, 999]
+Output: [-1000, -5, 9.99, 10, 999, 5e6]
+
+Task: Write Python code to solve this leetcode problem.
+Example 1
+Problem: You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+Output:
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        carry = 0
+        root = n = ListNode(0)
+        while l1 or l2 or carry:
+            v1 = v2 = 0
+            if l1:
+                v1 = l1.val
+                l1 = l1.next
+            if l2:
+                v2 = l2.val
+                l2 = l2.next
+            carry, val = divmod(v1+v2+carry, 10)
+            n.next = ListNode(val)
+            n = n.next
+        return root.next
+
+Task: Solve the equation and find the value of X. Show your steps.
+Example 1
+Equation: 10X + 5 = 10
+Output: 10X = 5,  X = 0.5
+Example 2
+Equation: X + Y + 120 = 100
+Output: X + Y = -20, X = -20 - Y
+
+Task: Write a program to compute the sum of integers from k to n.
+Output:
+def sum(k, n):
+    sum = 0
+    for i in range(k, n+1):
+        sum += i
+    return sum
+
+Task: Select the oldest person from the given list.
+Example 1
+List: George Washington, Confucius, Michael Jordan, Michelangelo
+Output: Confucious
+Example 2
+List: Alan Turing, Geoffrey Hinton, Yann LeCun, Yoshua Bengio
+Output: Alan Turing
+
+Task:'''
+
+output_first_template_for_clf_original = '''Given the classification task definition and the class labels, generate an input that corresponds to each of the class labels. If the task doesn't require input, just generate possible class labels.
+
+Task: Classify the sentiment of the sentence into positive, negative, or mixed.
+Class label: mixed
+Sentence: I enjoy the flavor of the restaurant but their service is too slow.
+Class label: Positive
+Sentence: I had a great day today. The weather was beautiful and I spent time with friends and family.
+Class label: Negative
+Sentence: I was really disappointed by the latest superhero movie. I would not recommend it to anyone.
+
 Task: Given a dialogue, classify whether the user is satisfied with the service. You should respond with "Satisfied" or "Unsatisfied".
 Class label: Satisfied
 Dialogue:
@@ -140,7 +269,7 @@ Class label: (e)
 
 Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+input_first_template_for_gen_original = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
 Task: Which exercises are best for reducing belly fat at home?
 Output:
