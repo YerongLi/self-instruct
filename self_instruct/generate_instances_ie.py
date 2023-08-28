@@ -244,7 +244,8 @@ if __name__ == '__main__':
                 #     organization=args.organization)
                 for i in range(len(batch)):
                     data = batch[i]
-                    data["instance_metadata"] = results[i]
+                    # data["instance_metadata"] = results[i]
+                    data["instance_metadata"] = 'results[i]'
                     if results[i]["response"] is not None:
                         data["raw_instances"] = results[i]["response"]["choices"][0]["text"]
                     else:
