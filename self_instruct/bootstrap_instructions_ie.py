@@ -50,7 +50,7 @@ def run_llama_command(input_string, gpt3=True):
             "-t",
             "1",
             "-n",
-            "128",
+            "512",
             "--temp",
             "0.1",
             "--top-p",
@@ -254,7 +254,7 @@ if __name__ == "__main__":
                 prompt_instructions += random.sample(seed_instructions, args.num_prompt_instructions - len(prompt_instructions))
                 random.shuffle(prompt_instructions)
                 prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
-                print(prompt)
+                # print('prompt)
                 batch_inputs.append(prompt)
             # print(' ==== len(batch_inputs) ==== ')
             # print(len(batch_inputs))
