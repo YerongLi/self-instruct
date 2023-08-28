@@ -201,6 +201,25 @@ if __name__ == '__main__':
                 results = [
                     run_llama_command(prompt) for prompt in prompts
                 ]
+
+                def extract_text_between_markers(input_string, start_marker, end_marker):
+                        start_index = input_string.find(start_marker)
+                        end_index = input_string.find(end_marker)
+
+                        if start_index != -1 and end_index != -1:
+                            extracted_text = input_string[start_index + len(start_marker):end_index].strip()
+                            return extracted_text
+                        else:
+                            return "Markers not found in the input string."
+
+                # Example usage
+                # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
+                start_marker = "Yann LeCun, Yoshua Bengio"
+                end_marker = "Output: Alan Turing"
+
+                results = [extract_text_between_markers(input_string, start_marker, end_marker)
+                    for input_string in results]
+
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")
                     logging.info(f"Result: {result}")
