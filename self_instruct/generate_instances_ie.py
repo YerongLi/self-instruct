@@ -203,15 +203,17 @@ if __name__ == '__main__':
                 ]
 
                 def extract_text_between_markers(result, start_marker, end_marker):
-                        input_string = result["choices"][0]["text"]
-                        start_index = input_string.find(start_marker)
-                        end_index = input_string.find(end_marker)
+                    print(result)
+                    print('RESULT')
+                    input_string = result["choices"][0]["text"]
+                    start_index = input_string.find(start_marker)
+                    end_index = input_string.find(end_marker)
 
-                        if start_index != -1 and end_index != -1:
-                            extracted_text = input_string[start_index + len(start_marker):end_index].strip()
-                            return extracted_text
-                        else:
-                            return "Markers not found in the input string."
+                    if start_index != -1 and end_index != -1:
+                        extracted_text = input_string[start_index + len(start_marker):end_index].strip()
+                        return extracted_text
+                    else:
+                        return "Markers not found in the input string."
 
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
