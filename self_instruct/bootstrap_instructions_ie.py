@@ -124,7 +124,7 @@ def post_process_gpt3_response(response):
     raw_instructions = re.split(r"\n\d+\s?\. ", response["choices"][0]["text"])
     instructions = []
     # for inst in raw_instructions:
-    for inst in raw_instructions[8:]: # TODO remove the prompt instead of stripping the first line
+    for inst in raw_instructions[9:15]: # TODO remove the prompt instead of stripping the first line
         logging.info(f'original inst\n {inst}')
         
         inst = re.sub(r"\s+", " ", inst).strip()
