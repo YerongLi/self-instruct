@@ -288,11 +288,12 @@ if __name__ == "__main__":
                 new_instructions = post_process_gpt3_response(result["response"])
                 instructions += new_instructions
                 all_metadata += [result] * len(new_instructions)
-            print('This time')
             for inst, metadata in zip(instructions, all_metadata):
                 with Pool(4) as p:
                     rouge_scores = p.map(partial(scorer.score, inst), seed_instructions + machine_instructions)
                 rouge_scores = [score["rougeL"].fmeasure for score in rouge_scores]
+                print('This line')
+                
                 # rouge_scores = [scorer.score(inst, e_inst)["rougeL"].fmeasure for e_inst in human_instructions + machine_instructions]
                 # if max(rouge_scores) > 0.7: # TODO similar instruction 
                     # continue
