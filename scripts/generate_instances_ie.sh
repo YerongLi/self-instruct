@@ -1,6 +1,6 @@
 batch_dir=data/ie/
 
-python self_instruct/generate_instances.py \
+python self_instruct/generate_instances_ie.py \
     --batch_dir ${batch_dir} \
     --input_file machine_generated_instructions.jsonl \
     --output_file machine_generated_instances.jsonl \
