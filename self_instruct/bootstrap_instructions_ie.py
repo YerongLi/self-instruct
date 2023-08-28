@@ -17,7 +17,7 @@ from rouge_score import rouge_scorer
 
 # from gpt3_api import make_requests as make_gpt3_requests
 
-
+cnt = 0
 random.seed(42)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -28,7 +28,8 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 
 def run_llama_command(input_string, gpt3=True):
-
+    global cnt
+    print(cnt)
     def process_output(output):
         # Extract user input
         usr_input_match = re.match(r'<LYRST>(.*?)<LYRED>', output)
