@@ -20,6 +20,26 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 random.seed(42)
+def package(text):
+        return { 'response' : {
+        "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+        "object": "chat.completion",
+        "created": 1677649420,
+        "model": "gpt-3.5-turbo",
+        "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 31,
+            "total_tokens": 87
+        },
+        "choices": [
+            {
+                "text": text,
+                "finish_reason": "stop",
+                "index": 0
+            }
+        ]
+        }
+    }
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
         # Define the command as a list of individual components
@@ -51,25 +71,7 @@ def run_llama_command(input_string, gpt3=True):
             return f"Error executing the command: {e}"
     else:
         # Return GPT-3 format response
-        return { 'response' : {
-            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
-            "object": "chat.completion",
-            "created": 1677649420,
-            "model": "gpt-3.5-turbo",
-            "usage": {
-                "prompt_tokens": 56,
-                "completion_tokens": 31,
-                "total_tokens": 87
-            },
-            "choices": [
-                {
-                    "text": run_llama_command(input_string, False),
-                    "finish_reason": "stop",
-                    "index": 0
-                }
-            ]
-            }
-        }
+        return package(run_llama_command(input_string, False))
 
 
 def parse_args():
@@ -220,7 +222,7 @@ if __name__ == '__main__':
                 start_marker = "Yann LeCun, Yoshua Bengio"
                 end_marker = "Output: Alan Turing"
 
-                results = [extract_text_between_markers(input_string, start_marker, end_marker)
+                results = [package(extract_text_between_markers(input_string, start_marker, end_marker))
                     for input_string in results]
 
                 for prompt, result in zip(prompts, results):
