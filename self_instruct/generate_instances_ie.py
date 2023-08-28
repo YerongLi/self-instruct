@@ -205,8 +205,6 @@ if __name__ == '__main__':
                 ]
 
                 def extract_text_between_markers(result, start_marker, end_marker):
-                    print(result)
-                    print('RESULT')
                     input_string = result['response']["choices"][0]["text"]
                     start_index = input_string.find(start_marker)
                     end_index = input_string.find(end_marker)
