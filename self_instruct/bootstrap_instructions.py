@@ -124,7 +124,6 @@ def post_process_gpt3_response(response):
     instructions = []
     for inst in raw_instructions:
         inst = re.sub(r"\s+", " ", inst).strip()
-        logging.info(f'original inst {inst}')
         inst = inst.strip().capitalize()
         if inst == "":
             continue
@@ -146,7 +145,6 @@ def post_process_gpt3_response(response):
         # filter those starting with non-english character
         if not inst[0].isascii():
             continue
-        logging.info(f'processed inst {inst}')
 
         instructions.append(inst)
     return instructions
