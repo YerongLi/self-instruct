@@ -123,7 +123,8 @@ def post_process_gpt3_response(response):
 
     raw_instructions = re.split(r"\n\d+\s?\. ", response["choices"][0]["text"])
     instructions = []
-    for inst in raw_instructions:
+    # for inst in raw_instructions:
+    for inst in raw_instructions[1:]: # TODO remove the prompt instead of stripping the first line
         inst = re.sub(r"\s+", " ", inst).strip()
         inst = inst.strip().capitalize()
         if inst == "":
