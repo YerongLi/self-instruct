@@ -49,14 +49,6 @@ Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain,
 Task: Converting 85 F to Celsius.
 Output: 85°F = 29.44°C
 
-Task: Write a program to compute the sum of integers from k to n.
-Output:
-def sum(k, n):
-    sum = 0
-    for i in range(k, n+1):
-        sum += i
-    return sum
-
 Task: Select the oldest person from the given list.
 Example 1
 List: George Washington, Confucius, Michael Jordan, Michelangelo
