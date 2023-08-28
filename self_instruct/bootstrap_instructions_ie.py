@@ -163,7 +163,7 @@ def parse_args():
         "--seed_tasks_path",
         type=str,
         required=True,
-        default="data/seed_tasks_ie.jsonl",
+        default="data/seed_task_ie.jsonl",
         help="The path to the human written data.",
     )
     parser.add_argument(
