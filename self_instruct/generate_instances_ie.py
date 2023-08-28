@@ -202,7 +202,8 @@ if __name__ == '__main__':
                     run_llama_command(prompt) for prompt in prompts
                 ]
 
-                def extract_text_between_markers(input_string, start_marker, end_marker):
+                def extract_text_between_markers(result, start_marker, end_marker):
+                        input_string = result["choices"][0]["text"]
                         start_index = input_string.find(start_marker)
                         end_index = input_string.find(end_marker)
 
