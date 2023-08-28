@@ -26,7 +26,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def run_llama_command(input_string, gpt3=True):print(cnt)
+def run_llama_command(input_string, gpt3=True):
     def process_output(output):
         # Extract user input
         usr_input_match = re.match(r'<LYRST>(.*?)<LYRED>', output)
