@@ -125,7 +125,7 @@ def post_process_gpt3_response(response):
     instructions = []
     # for inst in raw_instructions:
     for inst in raw_instructions[8:]: # TODO remove the prompt instead of stripping the first line
-        logging.info('original inst {inst}')
+        logging.info(f'original inst {inst}')
         
         inst = re.sub(r"\s+", " ", inst).strip()
         inst = inst.strip().capitalize()
@@ -150,7 +150,7 @@ def post_process_gpt3_response(response):
         if not inst[0].isascii():
             continue
         instructions.append(inst)
-        logging.info('processed inst {inst}')
+        logging.info(f'processed inst {inst}')
 
     return instructions
 
