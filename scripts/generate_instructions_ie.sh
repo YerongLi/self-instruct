@@ -1,4 +1,4 @@
-batch_dir=data/gpt3_generations/
+batch_dir=data/ie/
 
 python self_instruct/bootstrap_instructions_ie.py \
     --batch_dir ${batch_dir} \
