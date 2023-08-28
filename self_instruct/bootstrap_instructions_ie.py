@@ -148,6 +148,7 @@ def post_process_gpt3_response(response):
         if inst[0] in string.punctuation:
             continue
         # filter those starting with non-english character
+        print('This line')
         if not inst[0].isascii():
             continue
         instructions.append(inst)
