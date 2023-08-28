@@ -151,17 +151,17 @@ if __name__ == '__main__':
                 del data["metadata"]
             tasks.append(data)
 
-    task_clf_types = {}
+    # task_clf_types = {}
     # with open(os.path.join(args.batch_dir, "is_clf_or_not_davinci_template_1.jsonl")) as fin:
     #     for line in fin:
     #         data = json.loads(line)
     #         task_clf_types[data["instruction"]] = data["is_classification"].strip() in ["Yes", "yes", "YES"]
 
-    if args.classification_tasks_only:
-        tasks = [task for task in tasks if task_clf_types[task["instruction"]]]
+    # if args.classification_tasks_only:
+    #     tasks = [task for task in tasks if task_clf_types[task["instruction"]]]
     
-    if args.generation_tasks_only:
-        tasks = [task for task in tasks if not task_clf_types[task["instruction"]]]
+    # if args.generation_tasks_only:
+    #     tasks = [task for task in tasks if not task_clf_types[task["instruction"]]]
 
     output_path = os.path.join(args.batch_dir, args.output_file)
     existing_requests = {}
@@ -191,10 +191,10 @@ if __name__ == '__main__':
             else:
                 prompts = []
                 for task in batch:
-                    if task_clf_types[task["instruction"]]:
-                        prompt = output_first_template_for_clf + " " + task["instruction"].strip() + "\n"
-                        prompts.append(prompt)
-                    else:
+                    # if task_clf_types[task["instruction"]]:
+                    #     prompt = output_first_template_for_clf + " " + task["instruction"].strip() + "\n"
+                    #     prompts.append(prompt)
+                    # else:
                         prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
                         prompts.append(prompt)
 
