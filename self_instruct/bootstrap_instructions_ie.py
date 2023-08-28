@@ -51,14 +51,13 @@ def run_llama_command(input_string, gpt3=True):
             "-t",
             "1",
             "-n",
-            "2048",
+            "512",
             "--temp",
             "0.1",
             "--top-p",
             "0.90",
             "-ngl",
-            "83",
-            "--multiline-input"
+            "83"
         ]
 
         # Join the command list into a single string with spaces
@@ -125,7 +124,7 @@ def post_process_gpt3_response(response):
     raw_instructions = re.split(r"\n\d+\s?\. ", response["choices"][0]["text"])
     instructions = []
     # for inst in raw_instructions:
-    for inst in raw_instructions: # TODO remove the prompt instead of stripping the first line
+    for inst in raw_instructions[9:16]: # TODO remove the prompt instead of stripping the first line
         logging.info(f'original inst\n {inst}')
         
         inst = re.sub(r"\s+", " ", inst).strip()
@@ -148,7 +147,6 @@ def post_process_gpt3_response(response):
         if inst[0] in string.punctuation:
             continue
         # filter those starting with non-english character
-        print('This line')
         if not inst[0].isascii():
             continue
         instructions.append(inst)
@@ -287,8 +285,8 @@ if __name__ == "__main__":
             all_metadata = []
             for result in results:
                 new_instructions = post_process_gpt3_response(result["response"])
-                print('new_instructions')
-                print(new_instructions)
+                # print('new_instructions')
+                # print(new_instructions)
                 instructions += new_instructions
                 all_metadata += [result] * len(new_instructions)
             for inst, metadata in zip(instructions, all_metadata):
