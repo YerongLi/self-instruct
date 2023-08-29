@@ -211,6 +211,9 @@ if __name__ == '__main__':
 
                     if start_index != -1 and end_index != -1:
                         extracted_text = input_string[start_index + len(start_marker):end_index].strip()
+                        print('input_string')
+                        print(input_string)
+                        print(extracted_text)
                         return extracted_text
                     else:
                         return "Markers not found in the input string."
