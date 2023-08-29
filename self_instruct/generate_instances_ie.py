@@ -226,8 +226,8 @@ if __name__ == '__main__':
                 start_marker = "Yann LeCun, Yoshua Bengio"
                 end_marker = "Output: Alan Turing"
 
-                results = [package(extract_text_between_markers(input_string, start_marker, end_marker))
-                    for input_string in results]
+                results = [package(extract_text_between_markers(result["response"]["choices"][0]["text"], start_marker, end_marker))
+                    for result in results]
 
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")
