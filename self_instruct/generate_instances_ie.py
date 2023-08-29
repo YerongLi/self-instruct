@@ -40,6 +40,22 @@ def package(text):
         ]
         }
     }
+
+
+def extract_text_between_markers(input_string, start_marker, end_marker):
+    start_index = input_string.find(start_marker)
+    end_index = input_string.find(end_marker)
+
+    if start_index != -1 and end_index != -1:
+        extracted_text = input_string[start_index + len(start_marker):end_index].strip()
+        logging.info('input_string')
+        logging.info(input_string)
+        logging.info(extracted_text)
+        return extracted_text
+    else:
+        return "Markers not found in the input string."
+
+
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
         # Define the command as a list of individual components
@@ -204,19 +220,6 @@ if __name__ == '__main__':
                     run_llama_command(prompt) for prompt in prompts
                 ]
 
-                def extract_text_between_markers(result, start_marker, end_marker):
-                    input_string = result['response']["choices"][0]["text"]
-                    start_index = input_string.find(start_marker)
-                    end_index = input_string.find(end_marker)
-
-                    if start_index != -1 and end_index != -1:
-                        extracted_text = input_string[start_index + len(start_marker):end_index].strip()
-                        logging.info('input_string')
-                        logging.info(input_string)
-                        logging.info(extracted_text)
-                        return extracted_text
-                    else:
-                        return "Markers not found in the input string."
 
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
