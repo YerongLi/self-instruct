@@ -21,7 +21,7 @@ selected_tasks_global = random.sample(tasks_with_schema, k=6)
 selected_tasks = selected_tasks_EEA_EET + selected_tasks_global
 for idx, task in enumerate(selected_tasks):
     instruction = task['instruction']
-    schema = task['schema'].replace('Text: {0}\nAnswer:', '').replace('"', '\\"').strip()
+    schema = task['schema'].replace('Text: {0}\nAnswer:', '').replace('"', '\'').strip()
     input_text = task['input']
     output_text = task['output']
     
