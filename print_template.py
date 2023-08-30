@@ -21,16 +21,9 @@ for idx, task in enumerate(selected_tasks):
     input_text = task['input']
     output_text = task['output']
     
-    # Parse the output text to extract relation and word pairs
-    relation_word_pairs = [item.strip() for item in output_text.split(';')]
-    
     print(f"Task {idx + 1}: {task_name}")
-    print("Input:", input_text)
+    print("Input text:", input_text)
     print("Output:")
     
-    for relation_word_pair in relation_word_pairs:
-        relation, words = relation_word_pair.split(': ')
-        word_list = [word.strip() for word in words.split(', ')]
-        for word in word_list:
-            print(f"- {word} (Relation: {relation})")
+    print(output_text)
     print()
