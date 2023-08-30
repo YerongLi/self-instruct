@@ -52,7 +52,7 @@ def extract_text_between_markers(input_string, start_marker, end_marker):
         logging.info(f'length of the input_string : {len(input_string)}')
         logging.info(input_string[start_index + len(start_marker):end_index])
         extracted_text = input_string[end_index:].strip()
-e        return extracted_text
+        return extracted_text
     else:
         return "Markers not found in the input string."
 
