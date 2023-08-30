@@ -50,7 +50,7 @@ def remove_prefix_markers(input_string, end_marker):
         return "Markers not found in the input string."
 
 def run_llama_command(input_string, gpt3=True):
-    input_string = input_string.replace('"', '')
+    input_string = input_string.replace('"', '\\"')
     if not gpt3:
         # Define the command as a list of individual components
         command = [
@@ -78,6 +78,7 @@ def run_llama_command(input_string, gpt3=True):
             result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
             return result.stdout
         except subprocess.CalledProcessError as e:
+            print('Error')
             return f"Error executing the command: {e}"
     else:
         # Return GPT-3 format response
