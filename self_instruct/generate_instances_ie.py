@@ -49,6 +49,8 @@ def extract_text_between_markers(input_string, start_marker, end_marker):
     logging.info('end_index')
     logging.info(end_index)
     if start_index != -1 and end_index != -1:
+        logging.info('substring')
+        logging.info(input_string[start_index + len(start_marker):end_index])
         extracted_text = input_string[start_index + len(start_marker):end_index].strip()
         logging.info('input_string')
         logging.info(input_string)
