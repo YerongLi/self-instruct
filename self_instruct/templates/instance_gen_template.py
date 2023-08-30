@@ -40,26 +40,35 @@ Option: Organization based in, Located in, Live in, Work for, Kill
 Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
 Output:
 Work for: Ann Silvernail, International Paper
+'''
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: adverse effect
-Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
-Output:
-adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
+# input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output:
-location: LONDON
+# Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+# Option: Organization based in, Located in, Live in, Work for, Kill
+# Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
+# Output:
+# Work for: Ann Silvernail, International Paper
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: place of death, place of birth, education degree, education institution
-Input: Francis William Drake (baptized August 22, 1724 -- December 18, 1788) born in Buckland Monachorum , Devon the third son of Anne Heathcote and Sir Francis Henry Drake. Francis William is often confused with his younger brother, also a naval officer whose death occurred around the same time. All four sons of Sir Francis Henry Drake have Francis as their first name, which further adds to the confusion of Francis William. The son's names were, Francis Henry, Francis Duncombe, Francis William and Francis Samuel.
-Output:
-place of birth: Francis William Drake, Buckland Monachorum
+# Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+# Option: adverse effect
+# Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
+# Output:
+# adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
 
-Task:'''
+# Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
+# Option: location, else, organization, person
+# Input: LONDON 1996-12-06
+# Output:
+# location: LONDON
+
+# Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+# Option: place of death, place of birth, education degree, education institution
+# Input: Francis William Drake (baptized August 22, 1724 -- December 18, 1788) born in Buckland Monachorum , Devon the third son of Anne Heathcote and Sir Francis Henry Drake. Francis William is often confused with his younger brother, also a naval officer whose death occurred around the same time. All four sons of Sir Francis Henry Drake have Francis as their first name, which further adds to the confusion of Francis William. The son's names were, Francis Henry, Francis Duncombe, Francis William and Francis Samuel.
+# Output:
+# place of birth: Francis William Drake, Buckland Monachorum
+
+# Task:'''
 
 output_first_template_for_clf_original = '''Given the classification task definition and the class labels, generate an input that corresponds to each of the class labels. If the task doesn't require input, just generate possible class labels.
 
