@@ -27,11 +27,11 @@ for idx, task in enumerate(selected_tasks):
     input_text = task['input']
     output_text = task['output']
     
-    print(f"Task {idx + 1}: {instruction}{schema}")
+    print(f"Task: {instruction}{schema}")
     print("Input:", input_text)
     print("Output:")
     
     print(output_text)
     print()
-print('Task 11:')
+print('Task:')
 
