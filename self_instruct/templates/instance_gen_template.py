@@ -35,35 +35,29 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
-Option: cell line, protein, RNA, DNA, cell type
-Input: Megakaryocytic and erythrocytic lineages share specific transcription factors .
-Output:
-protein: transcription factors
-
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
 Option: Organization based in, Located in, Live in, Work for, Kill
-Input: In the case of the United States , it is unclear whether the U.S. Congress will ratify the agreement within the deadline .
+Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
 Output:
-Organization based in: U.S. Congress, United States
+Work for: Ann Silvernail, International Paper
 
-Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
-Option: Rating, Location, Amenity, Cuisine, Hours, Price, Dish, Restaurant Name
-Input: can you find a bar that serves tapas and takes reservations for happy hour
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: adverse effect
+Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
 Output:
-Cuisine: bar; Dish: tapas; Amenity: reservations for happy hour
+adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
-Option: cities of residence, top members employees, members, alternate names, origin, state or provinces of residence, title of person, spouse, city of headquarters, NA, founded by, state or province of headquarters, employee of, countries of residence, country of birth, founded, subsidiaries, country of headquarters
-Input: On December 18 2001 DEVCO sold all surface assets including the international shipping piers railway track railway rights-of-way locomotives and rolling stock and a coal storage facility and locomotive shops at Victoria Junction to 510845 New Brunswick Incorporated a wholly owned subsidiary of  Emera  the holding company which owns  Nova Scotia  Power and operator of the Lingan Generating Station .
+Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
 Output:
-subsidiaries: Emera, Nova Scotia Power
+location: LONDON
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
-Option: Organization based in, Located in, Live in, Work for, Kill
-Input: The dead woman was identified as Debra Sweiger of Issaquah , said King County O Investigator Vaughn Van Zant.
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: place of death, place of birth, education degree, education institution
+Input: Francis William Drake (baptized August 22, 1724 -- December 18, 1788) born in Buckland Monachorum , Devon the third son of Anne Heathcote and Sir Francis Henry Drake. Francis William is often confused with his younger brother, also a naval officer whose death occurred around the same time. All four sons of Sir Francis Henry Drake have Francis as their first name, which further adds to the confusion of Francis William. The son's names were, Francis Henry, Francis Duncombe, Francis William and Francis Samuel.
 Output:
-Live in: Debra Sweiger, Issaquah; Live in: Vaughn Van Zant., King County
+place of birth: Francis William Drake, Buckland Monachorum
 
 Task:'''
 
