@@ -35,18 +35,35 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category.Output format is \\"type1: word1; type2: word2\\".
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: cell line, protein, RNA, DNA, cell type
+Input: Megakaryocytic and erythrocytic lineages share specific transcription factors .
 Output:
-- Lying Leg Raises
-- Leg In And Out
-- Plank
-- Side Plank
-- Sit-ups
+protein: transcription factors
 
-Task: Extract all the country names in the paragraph, list them separated by commas.
-Example 1
-Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
-Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Option: Organization based in, Located in, Live in, Work for, Kill
+Input: In the case of the United States , it is unclear whether the U.S. Congress will ratify the agreement within the deadline .
+Output:
+Organization based in: U.S. Congress, United States
+
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: Rating, Location, Amenity, Cuisine, Hours, Price, Dish, Restaurant Name
+Input: can you find a bar that serves tapas and takes reservations for happy hour
+Output:
+Cuisine: bar; Dish: tapas; Amenity: reservations for happy hour
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Option: cities of residence, top members employees, members, alternate names, origin, state or provinces of residence, title of person, spouse, city of headquarters, NA, founded by, state or province of headquarters, employee of, countries of residence, country of birth, founded, subsidiaries, country of headquarters
+Input: On December 18 2001 DEVCO sold all surface assets including the international shipping piers railway track railway rights-of-way locomotives and rolling stock and a coal storage facility and locomotive shops at Victoria Junction to 510845 New Brunswick Incorporated a wholly owned subsidiary of  Emera  the holding company which owns  Nova Scotia  Power and operator of the Lingan Generating Station .
+Output:
+subsidiaries: Emera, Nova Scotia Power
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Option: Organization based in, Located in, Live in, Work for, Kill
+Input: The dead woman was identified as Debra Sweiger of Issaquah , said King County O Investigator Vaughn Van Zant.
+Output:
+Live in: Debra Sweiger, Issaquah; Live in: Vaughn Van Zant., King County
 
 Task:'''
 
