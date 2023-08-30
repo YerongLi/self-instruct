@@ -25,7 +25,7 @@ for idx, task in enumerate(selected_tasks):
     relation_word_pairs = [item.strip() for item in output_text.split(';')]
     
     print(f"Task {idx + 1}: {task_name}")
-    print("Input text:", input_text)
+    print("Input:", input_text)
     print("Output:")
     
     for relation_word_pair in relation_word_pairs:
