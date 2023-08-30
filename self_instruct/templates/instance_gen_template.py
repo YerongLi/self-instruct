@@ -34,13 +34,7 @@ Task:'''
 
 
 
-input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
-
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: Organization based in, Located in, Live in, Work for, Kill
-Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
-Output:
-Work for: Ann Silvernail, International Paper
+input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible.
 
 Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
 Option: adverse effect
@@ -54,10 +48,15 @@ Input: LONDON 1996-12-06
 Output:
 location: LONDON
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: place of death, place of birth, education degree, education institution
-Input: Francis William Drake (baptized August 22, 1724 -- December 18, 1788) born in in
-'''
+Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2".                     
+Event type: adverse event                                                                                                                                     
+  Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug                                                  
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent.               
+Output:                                                                                                                                                       
+movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
+
+Task:'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
