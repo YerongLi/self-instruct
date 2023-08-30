@@ -5,29 +5,33 @@ import random
 with open('data/seed_task_ie.jsonl', 'r') as file:
     lines = file.readlines()
 
+# Extract tasks with schema and names 'EEA' or 'EET'
+tasks_with_schema_EEA_EET = [data for line in lines if (data := json.loads(line)) and 'schema' in data and data['name'] in ['EEA', 'EET']]
+
+# Sample 4 tasks from 'EEA' and 'EET'
+selected_tasks_EEA_EET = random.sample(tasks_with_schema_EEA_EET, k=4)
+
 # Extract tasks with schema
-tasks_with_schema = []
-for line in lines:
-    data = json.loads(line)
-    if 'schema' in data:
-        tasks_with_schema.append(data)
+tasks_with_schema = [data for line in lines if (data := json.loads(line)) and 'schema' in data]
 
-# Filter tasks with name EEA or EET
-tasks_EEA_EET = [task for task in tasks_with_schema if task['name'] in ['EEA', 'EET']]
+# Remove 'EEA' and 'EET' tasks from global dataset
 
-# Randomly select 10 tasks
-selected_tasks = random.sample(tasks_EEA_EET, k=10)
+# Sample 6 tasks randomly from the remaining tasks
+selected_tasks_global = random.sample(tasks_with_schema, k=6)
 
-# Generate and print examples
-for task in selected_tasks:
+# Generate and print examples for selected tasks
+selected_tasks = selected_tasks_EEA_EET + selected_tasks_global
+for idx, task in enumerate(selected_tasks):
     instruction = task['instruction']
     schema = task['schema'].replace('Text: {0}\nAnswer:', '').strip()
     input_text = task['input']
     output_text = task['output']
     
-    print(f"Task: {instruction} {schema}")
+    print(f"Task {idx + 1}: {instruction}\n\n{schema}")
     print("Input:", input_text)
     print("Output:")
     
     print(output_text)
     print()
+print('Task 11:')
+
