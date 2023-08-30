@@ -39,7 +39,7 @@ for idx, task in enumerate(selected_tasks):
         output = schema[output_start_idx:output_end_idx]
         
         print(f"Task {idx + 1}: {task_name}")
-        print("Input:", input_text)
+        print("Input text:", input_text)
         print("Output:")
         
         for option in options:
