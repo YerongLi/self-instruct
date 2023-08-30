@@ -19,13 +19,14 @@ tasks_EEA_EET = [task for task in tasks_with_schema if task['name'] in ['EEA', '
 selected_tasks = random.sample(tasks_EEA_EET, k=10)
 
 # Generate and print examples
-for idx, task in enumerate(selected_tasks):
-    task_name = task['name']
+for task in selected_tasks:
+    instruction = task['instruction']
+    schema = task['schema']
     input_text = task['input']
     output_text = task['output']
     
-    print(f"Task: {task_name}")
-    print("Input:", input_text)
+    print(f"Task: {instruction}\n\n{schema}")
+    print("\nInput:", input_text)
     print("Output:")
     
     print(output_text)
