@@ -42,7 +42,6 @@ def package(text):
     }
 
 def extract_text_between_markers(input_string, start_marker, end_marker):
-    start_index = input_string.find(start_marker)
     end_index = input_string.find(end_marker)
     logging.info('start_index')
     logging.info(start_index)
@@ -52,11 +51,8 @@ def extract_text_between_markers(input_string, start_marker, end_marker):
         logging.info('substring')
         logging.info(f'length of the input_string : {len(input_string)}')
         logging.info(input_string[start_index + len(start_marker):end_index])
-        extracted_text = input_string[start_index:end_index + len(end_marker)].strip()
-        logging.info('input_string')
-        logging.info(input_string)
-        logging.info(extracted_text)
-        return extracted_text
+        extracted_text = input_string[end_index:].strip()
+e        return extracted_text
     else:
         return "Markers not found in the input string."
 
