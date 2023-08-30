@@ -66,31 +66,35 @@ Task:'''
 
 # Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
-
-Task: Which exercises are best for reducing belly fat at home?
+input_first_template_for_gen = '''Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
+Option: geographical social political, organization, person, location, facility, vehicle, weapon
+Input: _ A U . S . tourist was detained and accused of spying after photographing a riot in the province of Irian Jaya .
 Output:
-- Lying Leg Raises
-- Leg In And Out
-- Plank
-- Side Plank
-- Sit-ups
+geographical social political: U. S; geographical social political: the province of Irian Jaya; geographical social political: Irian Jaya; person: A U. S. tourist
 
-Task: Extract all the country names in the paragraph, list them separated by commas.
-Example 1
-Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
-Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
+Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
+Option: location, person, organization
+Input: @ colgo hey , congrats to you and the team ! Always worth a read :)
+Output:
+person: colgo
 
-Task: Converting 85 F to Celsius.
-Output: 85°F = 29.44°C
+Task: Given event type and trigger, please tell me the arguments of all the listed option.Output format is "name1: role1; name2: role2". 
+Event type: adverse event 
+  Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Disorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug
+Input: The possibility of severe rhabdomyolysis should be considered in a patient with water intoxication due to massive ingestion of caffeine-containing beverages.
+Output:
+a patient with water intoxication: Subject; severe rhabdomyolysis: Effect; massive ingestion of caffeine-containing beverages: Treatment; caffeine: Treatment.Drug; ingestion: Treatment.Route
 
-Task: Sort the given list ascendingly. 
-Example 1
-List: [10, 92, 2, 5, -4, 92, 5, 101]
-Output: [-4, 2, 5, 5, 10, 92, 92, 101]
-Example 2
-Input 2 - List: [9.99, 10, -5, -1000, 5e6, 999]
-Output: [-1000, -5, 9.99, 10, 999, 5e6]
+Task: Please tell me event type and its trigger word from given type options.Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability
+Input: Award - winning cooking tools company OXO revealed that it has suffered data breaches over the last two years that may have compromised customer and credit card information .
+Output:
+data breach: data breaches
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: cities of residence, top members employees, members, alternate names, origin, state or provinces of residence, title of person, spouse, city of headquarters, NA, founded by, state or province of headquarters, employee of, countries of residence, country of birth, founded, subsidiaries, country of headquarters
+Input: Polydor  's beliefs in  Sheridan  's coming stardom were so strong that they buried the two solo Beatle tracks until much later .
+Output:
+employee of: Polydor, Sheridan
 
 Task:'''
 
