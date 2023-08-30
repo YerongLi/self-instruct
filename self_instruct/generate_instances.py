@@ -32,7 +32,7 @@ def run_llama_command(input_string, gpt3=True):
             "-t",
             "1",
             "-n",
-            "2048",
+            "300",
             "--temp",
             "0.1",
             "--top-p",
