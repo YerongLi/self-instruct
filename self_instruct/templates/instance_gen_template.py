@@ -35,7 +35,7 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2".
+Task: Please list all entity words in the text that fit the category.Output format is 'type1: word1; type2: word2'.
 Output:
 - Lying Leg Raises
 - Leg In And Out
