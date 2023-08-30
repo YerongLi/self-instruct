@@ -217,7 +217,7 @@ if __name__ == '__main__':
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
 
-                end_marker = input_first_template_for_gen[-40:] ## TODO remove the prefix
+                end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
 
                 # print(type(input_first_template_for_gen))
                 # logging.info('end_marker')
@@ -227,10 +227,10 @@ if __name__ == '__main__':
                 results = [package(remove_prefix_markers(result["response"]["choices"][0]["text"], end_marker))
                     for result in results]
 
-                for prompt, result in zip(prompts, results):
-                    logging.info(f"Prompt: {prompt}")
-                    logging.info(f"Result: {result}")
-                    logging.info("-" * 30)  # Separator between pairs
+                # for prompt, result in zip(prompts, results):
+                #     logging.info(f"Prompt: {prompt}")
+                #     logging.info(f"Result: {result}")
+                #     logging.info("-" * 30)  # Separator between pairs
                 # results = make_gpt3_requests(
                 #     engine=args.engine,
                 #     prompts=prompts,
