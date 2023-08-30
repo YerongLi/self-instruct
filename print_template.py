@@ -19,18 +19,20 @@ selected_tasks = random.sample(tasks_with_schema, k=10)
 for idx, task in enumerate(selected_tasks):
     task_name = task['name']
     schema = task['schema']
-    output_format_start = "Output format should be \""
-    output_format_end = "\"."
     
-    output_format_start_idx = schema.find(output_format_start)
-    output_format_end_idx = schema.find(output_format_end, output_format_start_idx)
+    # Find the schema part in the instruction
+    schema_start_idx = schema.find('Output format should be "') + len('Output format should be "')
+    schema_end_idx = schema.find('"', schema_start_idx)
     
-    if output_format_start_idx != -1 and output_format_end_idx != -1:
-        output_format = schema[output_format_start_idx + len(output_format_start):output_format_end_idx]
-        output_parts = [part.strip() for part in output_format.split(';')[0].split(':')]
+    if schema_start_idx != -1 and schema_end_idx != -1:
+        schema_part = schema[schema_start_idx:schema_end_idx]
+        relations_and_words = [item.strip() for item in schema_part.split(';')]
         
         print(f"Task {idx + 1}: {task_name}")
         print("Output:")
-        for word in output_parts[1:]:
-            print(f"- {word}")
+        for relation_and_words in relations_and_words:
+            relation, words = [item.strip() for item in relation_and_words.split(':')]
+            word_list = [word.strip() for word in words.split(',')]
+            for word in word_list:
+                print(f"- {word} (Relation: {relation})")
         print()
