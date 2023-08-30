@@ -31,29 +31,7 @@ Class label: A
 
 Task:'''
 
-input_first_template_for_gen = '''Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                                                                 
-                                                                                                                                                                                                           
-Output format is "name1: role1; name2: role2".                                                                                                                
-Event type: ransom                                                                                                                                            
-  Option: victim, attacker, payment method, attack pattern, damage amount, tool, time, price, place                                                           
-                                                                                                                                                              
-Input: Most of the time , a note will be posted on a landing page containing instructions for paying ransom in cryptocurrency and victims will be given a wallet address , rather than a means to directly 
-call the malware 's operator .                                                                                                                                
-Output:                                                                                                                                                       
-in cryptocurrency: payment method; victims: victim; a note will be posted on a landing page: attack pattern                                                   
-                                                                                                                                                              
-Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
-                                                                                                                                                              
-Output format is "name1: role1; name2: role2".                                                                                                                
-Event type: patch vulnerability                                                                                                                               
-  Option: issues addressed, patch, vulnerability, time, vulnerable system version, releaser, patch number, common vulnerabilities and exposures, supported platform, vulnerable system
-                                                                                                                                                              
-Input: Only days before , Adobe issued an emergency Flash patch for a zero - day vulnerability that was being exploited , while in November Flash received a separate patch for one whose exploitation was 
-believed to be imminent .                                                                                                                                                         
-Output:                                                                                                                                                       
-Adobe: releaser; an emergency Flash patch: patch; a zero - day vulnerability: vulnerability; days before: time                                                
-                                                                                                                                                              
-Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+input_first_template_for_gen = '''Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
                                                                                                                                                               
 Output format is "name1: role1; name2: role2".                                                                                                                
 Event type: start organization                                                                                                                                
