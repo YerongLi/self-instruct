@@ -66,7 +66,7 @@ Task:'''
 
 # Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
 Task: Which exercises are best for reducing belly fat at home?
 Output:

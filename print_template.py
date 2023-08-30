@@ -25,8 +25,8 @@ for task in selected_tasks:
     input_text = task['input']
     output_text = task['output']
     
-    print(f"Task: {instruction}\n\n{schema}")
-    print("\nInput:", input_text)
+    print(f"Task: {instruction} {schema}")
+    print("Input:", input_text)
     print("Output:")
     
     print(output_text)
