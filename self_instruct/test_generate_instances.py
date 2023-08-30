@@ -14,7 +14,7 @@ class TestExtractTextBetweenMarkers(unittest.TestCase):
         self.assertEqual(extracted_text, expected_text)
 
     def test_missing_markers(self):
-        input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\n"
+        input_string = "Ydann LeCun, Yoshua Bengio\nOutput: Alan Tuuring\n\n"
         start_marker = "Yann LeCun, Yoshua Bengio"
         end_marker = "Output: Alan Turing"
 
