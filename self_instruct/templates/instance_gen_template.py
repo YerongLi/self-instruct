@@ -31,31 +31,59 @@ Class label: A
 
 Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+input_first_template_for_gen = '''Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                                                                 
+                                                                                                                                                                                                           
+Output format is "name1: role1; name2: role2".                                                                                                                
+Event type: ransom                                                                                                                                            
+  Option: victim, attacker, payment method, attack pattern, damage amount, tool, time, price, place                                                           
+                                                                                                                                                              
+Input: Most of the time , a note will be posted on a landing page containing instructions for paying ransom in cryptocurrency and victims will be given a wallet address , rather than a means to directly 
+call the malware 's operator .                                                                                                                                
+Output:                                                                                                                                                       
+in cryptocurrency: payment method; victims: victim; a note will be posted on a landing page: attack pattern                                                   
+                                                                                                                                                              
+Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+                                                                                                                                                              
+Output format is "name1: role1; name2: role2".                                                                                                                
+Event type: patch vulnerability                                                                                                                               
+  Option: issues addressed, patch, vulnerability, time, vulnerable system version, releaser, patch number, common vulnerabilities and exposures, supported platform, vulnerable system
+                                                                                                                                                              
+Input: Only days before , Adobe issued an emergency Flash patch for a zero - day vulnerability that was being exploited , while in November Flash received a separate patch for one whose exploitation was 
+believed to be imminent .                                                                                                                                                         
+Output:                                                                                                                                                       
+Adobe: releaser; an emergency Flash patch: patch; a zero - day vulnerability: vulnerability; days before: time                                                
+                                                                                                                                                              
+Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+                                                                                                                                                              
+Output format is "name1: role1; name2: role2".                                                                                                                
+Event type: start organization                                                                                                                                
+  Option: agent, organization, place                                                                                                                          
+                                                                                                                                                              
+Input: The current government was formed in October 2000 .                                                                                                    
+Output:                                                                                                                                                       
+government: organization                                                                                                                                      
+                                                                                                                                                              
+Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+                                                                                                                                                              
+Output format is "name1: role1; name2: role2".                                                                                                                
+Event type: start position                                                                                                                                    
+  Option: person, entity, place                                                                                                                               
+                                                                                                                                                              
+Input: He started his entertainment career at ABC , where he is credited with creating the `` movie of the week '' concept .                                  
+Output:                                                                                                                                                       
+He: person; ABC: entity                                                                                                                                       
+                                                                                                                                                              
+Task: Please tell me event type and its trigger word from given type options.                                                                                 
+                                                                                                                                                              
+Output format is "type: trigger".  Option: adverse event, potential therapeutic event                                                                                                                      
+                                                                                                                                                                                  
+Input: MATERIALS AND METHODS: We present two cases of significant morbidity related to primary and secondary perforation of the bladder following two instillations of epirubicin.                         
+Output:                                                                                                                                                                           
+adverse event: following                    
 
-Task: Which exercises are best for reducing belly fat at home?
-Output:
-- Lying Leg Raises
-- Leg In And Out
-- Plank
-- Side Plank
-- Sit-ups
+Task: Please tell me event type and its trigger word from given type options.                        
 
-Task: Extract all the country names in the paragraph, list them separated by commas.
-Example 1
-Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
-Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
-
-Task: Converting 85 F to Celsius.
-Output: 85°F = 29.44°C
-
-Task: Select the oldest person from the given list.
-Example 1
-List: George Washington, Confucius, Michael Jordan, Michelangelo
-Output: Confucious
-Example 2
-List: Alan Turing, Geoffrey Hinton, Yann LeCun, Yoshua Bengio
-Output: Alan Turing
+Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability 
 
 Task:'''
 
