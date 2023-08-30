@@ -41,7 +41,18 @@ Option: Organization based in, Located in, Live in, Work for, Kill
 Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
 Output:
 Work for: Ann Silvernail, International Paper
-'''
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: adverse effect
+Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
+Output:
+adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
+
+Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output:
+location: LONDON'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
