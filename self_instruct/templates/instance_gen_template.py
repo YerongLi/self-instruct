@@ -35,11 +35,7 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: Organization based in, Located in, Live in, Work for, Kill
-Input: International Paper spokeswoman Ann Silvernail said that under French law the company was barred from releasing details pending government approval .
-Output:
-Work for: Ann Silvernail, International Paper
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \\"relation1: word1, word2; relation2: word3, word4\\". 
 '''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
