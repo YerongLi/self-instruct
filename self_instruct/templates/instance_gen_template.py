@@ -56,18 +56,6 @@ Input: Although the movement disorder could not with certainty be attributed to 
 Output: 
 movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
 
-Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
-Option: group, creative work, person, event, product, location, corporation
-Input: {{URL}} presents {{USERNAME}} at the venue for Prog in the Park 2.0 {{URL}} via {@YouTube@} Do n't just take my word about how braw {@Fife Council@} The Glen Pavilion is {{USERNAME}}
-Output:
-event: Prog in the Park 2.0; product: YouTube; corporation: Fife Council; location: The Glen Pavilion
-
-Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2". 
-Event type: transfer ownership 
-  Option: artifact, seller, place, beneficiary, buyer
-Input: Mirjana Markovic , the power behind the scenes during Milosevic ' s 13 - year reign , is accused of illegally providing their grandson ' s nanny with a state - owned luxury apartment in Belgrade in 2000 .
-Output:
-apartment: artifact; Mirjana Markovic: seller; nanny: buyer; Belgrade: place
 Task:'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
