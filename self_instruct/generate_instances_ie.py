@@ -218,6 +218,7 @@ if __name__ == '__main__':
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
 
                 end_marker = input_first_template_for_gen[:-10] ## TODO
+                print(type(input_first_template_for_gen))
                 logging.info('end_marker')
                 logging.info(end_marker)
 
