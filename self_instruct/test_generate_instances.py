@@ -1,27 +1,25 @@
 import unittest
-from generate_instances_ie import extract_text_between_markers
-class TestExtractTextBetweenMarkers(unittest.TestCase):
+from generate_instances_ie import remove_prefix_markers
 
-    def test_extraction(self):
-        input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
-        start_marker = "Yann LeCun, Yoshua Bengio"
+class TestRemovePrefixMarkers(unittest.TestCase):
+
+    def test_remove_prefix(self):
+        input_string = "Output: Alan Turing\n\nTask: Extract information from text."
         end_marker = "Output: Alan Turing"
 
-        extracted_text = extract_text_between_markers(input_string, start_marker, end_marker)
+        extracted_text = remove_prefix_markers(input_string, end_marker)
         expected_text = "Task: Extract information from text."
 
         self.assertEqual(extracted_text, expected_text)
 
+    def test_missing_marker(self):
+        input_string = "Output: Alan Turing\n\nTask: Extract information from text."
+        end_marker = "Markers not found"
 
-    # def test_missing_markers(self):
-    #     input_string = "Ydann LeCun, Yoshua Bengio\nOutput: Alan Tuuring\n\n"
-    #     start_marker = "Yann LeCun, Yoshua Bengio"
-    #     end_marker = "Output: Alan Turing"
+        extracted_text = remove_prefix_markers(input_string, end_marker)
+        expected_text = "Markers not found in the input string."
 
-    #     extracted_text = extract_text_between_markers(input_string, start_marker, end_marker)
-    #     expected_text = "Markers not found in the input string."
-
-    #     self.assertEqual(extracted_text, expected_text)
+        self.assertEqual(extracted_text, expected_text)
 
 if __name__ == '__main__':
     unittest.main()

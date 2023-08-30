@@ -41,17 +41,11 @@ def package(text):
         }
     }
 
-def extract_text_between_markers(input_string, start_marker, end_marker):
+def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
-    logging.info('start_index')
-    logging.info(start_index)
     logging.info('end_index')
-    logging.info(end_index)
-    if start_index != -1 and end_index != -1:
-        logging.info('substring')
-        logging.info(f'length of the input_string : {len(input_string)}')
-        logging.info(input_string[start_index + len(start_marker):end_index])
-        extracted_text = input_string[end_index:].strip()
+    if end_index != -1:
+        extracted_text = input_string[end_index + len(end_marker):].strip()
         return extracted_text
     else:
         return "Markers not found in the input string."
@@ -226,7 +220,7 @@ if __name__ == '__main__':
                 start_marker = "Yann LeCun, Yoshua Bengio"
                 end_marker = "Output: Alan Turing"
 
-                results = [package(extract_text_between_markers(result["response"]["choices"][0]["text"], start_marker, end_marker))
+                results = [package(remove_prefix_markers(result["response"]["choices"][0]["text"], end_marker))
                     for result in results]
 
                 for prompt, result in zip(prompts, results):
