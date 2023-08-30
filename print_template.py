@@ -12,8 +12,11 @@ for line in lines:
     if 'schema' in data:
         tasks_with_schema.append(data)
 
+# Filter tasks with name EEA or EET
+tasks_EEA_EET = [task for task in tasks_with_schema if task['name'] in ['EEA', 'EET']]
+
 # Randomly select 10 tasks
-selected_tasks = random.sample(tasks_with_schema, k=10)
+selected_tasks = random.sample(tasks_EEA_EET, k=10)
 
 # Generate and print examples
 for idx, task in enumerate(selected_tasks):
