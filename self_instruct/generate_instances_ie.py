@@ -220,7 +220,8 @@ if __name__ == '__main__':
                 end_marker = input_first_template_for_gen[:-10] ## TODO
                 print(type(input_first_template_for_gen))
                 logging.info('end_marker')
-                logging.info(end_marker)
+
+                print.info(end_marker)
 
                 results = [package(remove_prefix_markers(result["response"]["choices"][0]["text"], end_marker))
                     for result in results]
