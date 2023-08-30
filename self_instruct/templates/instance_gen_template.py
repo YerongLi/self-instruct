@@ -48,12 +48,12 @@ Input: LONDON 1996-12-06
 Output:
 location: LONDON
 
-Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2".                     
-Event type: adverse event                                                                                                                                     
+Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2". 
+Event type: adverse event
   Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
-sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug                                                  
-Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent.               
-Output:                                                                                                                                                       
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: 
 movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
 
 Task:'''
