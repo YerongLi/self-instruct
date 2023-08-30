@@ -35,11 +35,13 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
-Option: Anatomy
-Input: The total lymph node cell numbers ( A ) and IL - 4 ( B ) , IFN - gamma ( C ) and IL - 10 ( D ) secreted from the PLN cells after ex vivo stimulation with Con A were determined .
+Task: Which exercises are best for reducing belly fat at home?
 Output:
-Anatomy: lymph node cell; Anatomy: PLN cells
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
 
 Task: Extract all the country names in the paragraph, list them separated by commas.
 Example 1
