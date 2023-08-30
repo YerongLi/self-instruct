@@ -14,8 +14,6 @@ selected_tasks_EEA_EET = random.sample(tasks_with_schema_EEA_EET, k=4)
 # Extract tasks with schema
 tasks_with_schema = [data for line in lines if (data := json.loads(line)) and 'schema' in data]
 
-# Remove 'EEA' and 'EET' tasks from global dataset
-
 # Sample 6 tasks randomly from the remaining tasks
 selected_tasks_global = random.sample(tasks_with_schema, k=6)
 
@@ -23,15 +21,14 @@ selected_tasks_global = random.sample(tasks_with_schema, k=6)
 selected_tasks = selected_tasks_EEA_EET + selected_tasks_global
 for idx, task in enumerate(selected_tasks):
     instruction = task['instruction']
-    schema = task['schema'].replace('Text: {0}\nAnswer:', '').strip()
+    schema = task['schema'].replace('Text: {0}\nAnswer:', '').replace('"', '\\"').strip()
     input_text = task['input']
     output_text = task['output']
     
-    print(f"Task: {instruction}{schema}")
+    print(f"Task: {instruction} {schema}")
     print("Input:", input_text)
     print("Output:")
     
     print(output_text)
     print()
 print('Task:')
-
