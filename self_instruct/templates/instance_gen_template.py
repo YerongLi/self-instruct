@@ -31,16 +31,42 @@ Class label: A
 
 Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following information extraction tasks
-Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+# input_first_template_for_gen = '''Come up with examples for the following information extraction tasks
+# Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
                                                                                                                                                               
-Output format is "name1: role1; name2: role2".                                                                                                                
-Event type: start organization                                                                                                                                
-  Option: agent, organization, place                                                                                                                          
+# Output format is "name1: role1; name2: role2".                                                                                                                
+# Event type: start organization                                                                                                                                
+#   Option: agent, organization, place                                                                                                                          
                                                                                                                                                               
-Input: The current government was formed in October 2000 .                                                                                                    
-Output:                                                                                                                                                       
-government: organization                                                                                                                                      
+# Input: The current government was formed in October 2000 .                                                                                                    
+# Output:                                                                                                                                                       
+# government: organization                                                                                                                                      
+                                                                                                                                                              
+# Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+                                                                                                                                                              
+# Output format is "name1: role1; name2: role2".                                                                                                                
+# Event type: start position                                                                                                                                    
+#   Option: person, entity, place                                                                                                                               
+                                                                                                                                                              
+# Input: He started his entertainment career at ABC , where he is credited with creating the `` movie of the week '' concept .                                  
+# Output:                                                                                                                                                       
+# He: person; ABC: entity                                                                                                                                       
+                                                                                                                                                              
+# Task: Please tell me event type and its trigger word from given type options.                                                                                 
+                                                                                                                                                              
+# Output format is "type: trigger".  Option: adverse event, potential therapeutic event                                                                                                                      
+                                                                                                                                                                                  
+# Input: MATERIALS AND METHODS: We present two cases of significant morbidity related to primary and secondary perforation of the bladder following two instillations of epirubicin.                         
+# Output:                                                                                                                                                                           
+# adverse event: following                    
+
+# Task: Please tell me event type and its trigger word from given type options.                        
+
+# Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability 
+
+# Task:'''
+
+input_first_template_for_gen = '''Come up with examples for the following information extraction tasks                                                                                                                            
                                                                                                                                                               
 Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
                                                                                                                                                               
