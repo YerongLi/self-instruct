@@ -72,30 +72,6 @@ Input: _ A U . S . tourist was detained and accused of spying after photographin
 Output:
 geographical social political: U. S; geographical social political: the province of Irian Jaya; geographical social political: Irian Jaya; person: A U. S. tourist
 
-Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
-Option: location, person, organization
-Input: @ colgo hey , congrats to you and the team ! Always worth a read :)
-Output:
-person: colgo
-
-Task: Given event type and trigger, please tell me the arguments of all the listed option.Output format is "name1: role1; name2: role2". 
-Event type: adverse event 
-  Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Disorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug
-Input: The possibility of severe rhabdomyolysis should be considered in a patient with water intoxication due to massive ingestion of caffeine-containing beverages.
-Output:
-a patient with water intoxication: Subject; severe rhabdomyolysis: Effect; massive ingestion of caffeine-containing beverages: Treatment; caffeine: Treatment.Drug; ingestion: Treatment.Route
-
-Task: Please tell me event type and its trigger word from given type options.Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability
-Input: Award - winning cooking tools company OXO revealed that it has suffered data breaches over the last two years that may have compromised customer and credit card information .
-Output:
-data breach: data breaches
-
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: cities of residence, top members employees, members, alternate names, origin, state or provinces of residence, title of person, spouse, city of headquarters, NA, founded by, state or province of headquarters, employee of, countries of residence, country of birth, founded, subsidiaries, country of headquarters
-Input: Polydor  's beliefs in  Sheridan  's coming stardom were so strong that they buried the two solo Beatle tracks until much later .
-Output:
-employee of: Polydor, Sheridan
-
 Task:'''
 
 output_first_template_for_clf_original = '''Given the classification task definition and the class labels, generate an input that corresponds to each of the class labels. If the task doesn't require input, just generate possible class labels.
