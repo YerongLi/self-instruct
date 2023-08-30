@@ -31,44 +31,22 @@ Class label: A
 
 Task:'''
 
+
+
 input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category. Output format is 'type1: word1; type2: word2'. 
-Option: Anatomy
-Input: Furthermore , when ACT is overexpressed in transgenic mice , an increased plaque load in the brains of these mice and impaired spatial learning is observed [ 134 , 135 ] .
+Task: Please list all entity words in the text that fit the category.Output format is \\"type1: word1; type2: word2\\".
 Output:
-Anatomy: brains
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
 
-Task: Please list all entity words in the text that fit the category. Output format is 'type1: word1; type2: word2'. 
-Option: cell line, protein, RNA, DNA, cell type
-Input: Four specific protein-DNA complexes were detected after incubation of nuclear extracts ( NE ) from T3-responsive pituitary (GH3) cells with a TREp -containing DNA fragment .
-Output:
-cell line: T3-responsive pituitary (GH3) cells; DNA: TREp -containing DNA fragment; protein: protein-DNA complexes; DNA: TREp
-
-Task: Please list all entity words in the text that fit the category. Output format is 'type1: word1; type2: word2'. 
-Option: location, person, organization
-Input: Cracker doco series starting tonight : " The War That Changed Us " . ( Yes , it 's the 100 - years-ago war ) . On at 8 . 30pm ABC
-Output:
-organization: ABC
-
-Task: Please list all entity words in the text that fit the category. Output format is 'type1: word1; type2: word2'. 
-Option: Disease
-Input: Genetic and environmental variance components were assessed with the program Mx , using data from this and previous studies of twins with AS .
-Output:
-Disease: AS
-
-Task: Please list all entity words in the text that fit the category. Output format is 'type1: word1; type2: word2'. 
-Option: Chemical
-Input: Our studies demonstrate that genetic polymorphisms in the proximal promoter region of OCT3 alter the transcription rate of the gene and may be associated with altered expression levels of OCT3 in human liver .
-Output:
-None
-
-Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is 'name1: role1; name2: role2'. 
-Event type: meet 
-  Option: entity, place
-Input: The officials , who spoke on condition of anonymity , stressed that a variety of options are on the table and they all depend on the outcome of a U . N . Security Council debate on the U . S .- backed war resolution .
-Output:
-U. N. Security Council: entity
+Task: Extract all the country names in the paragraph, list them separated by commas.
+Example 1
+Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
+Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
 
 Task:'''
 
