@@ -31,7 +31,8 @@ Class label: A
 
 Task:'''
 
-input_first_template_for_gen = '''Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
+input_first_template_for_gen = '''Come up with examples for the following information extraction tasks
+Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
                                                                                                                                                               
 Output format is "name1: role1; name2: role2".                                                                                                                
 Event type: start organization                                                                                                                                
