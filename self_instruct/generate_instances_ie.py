@@ -53,42 +53,42 @@ def run_llama_command(input_string, gpt3=True):
     input_string = re.sub(r'(?<!\\)"', r'\\"', input_string)
     if not gpt3:
         Define the command as a list of individual components
-        command = [
-            "$SCRATCH/llama.cpp/main",
-            "-m",
-            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
-            "-p",
-            f'"{input_string}"',  # Wrap input_string with double quotes
-            "-t",
-            "1",
-            "-n",
-            "4096",
-            "--temp",
-            "0.1",
-            "--top-p",
-            "0.90",
-            "-ngl",
-            "83"
-        ]
         # command = [
         #     "$SCRATCH/llama.cpp/main",
         #     "-m",
-        #     "$SCRATCH/.cache/pyllama/Llama-2-70b/ggml-model-q4_0.bin",
+        #     "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
         #     "-p",
         #     f'"{input_string}"',  # Wrap input_string with double quotes
         #     "-t",
         #     "1",
         #     "-n",
-        #     "2048",  # Reduced from 2048
+        #     "4096",
         #     "--temp",
         #     "0.1",
         #     "--top-p",
         #     "0.90",
         #     "-ngl",
-        #     "83",  # Changed from 83
-        #     "--gqa",
-        #     "8"  # Added option
+        #     "83"
         # ]
+        command = [
+            "$SCRATCH/llama.cpp/main",
+            "-m",
+            "$SCRATCH/.cache/pyllama/Llama-2-70b/ggml-model-q4_0.bin",
+            "-p",
+            f'"{input_string}"',  # Wrap input_string with double quotes
+            "-t",
+            "1",
+            "-n",
+            "4096",  # Reduced from 2048
+            "--temp",
+            "0.1",
+            "--top-p",
+            "0.90",
+            "-ngl",
+            "83",  # Changed from 83
+            "--gqa",
+            "8"  # Added option
+        ]
 
         # Join the command list into a single string with spaces
         command_str = " ".join(command)
