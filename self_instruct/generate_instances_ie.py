@@ -41,7 +41,6 @@ def package(text):
         }
     }
 
-
 def extract_text_between_markers(input_string, start_marker, end_marker):
     start_index = input_string.find(start_marker)
     end_index = input_string.find(end_marker)
