@@ -43,7 +43,6 @@ def package(text):
 
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
-    logging.info('end_index')
     if end_index != -1:
         extracted_text = input_string[end_index + len(end_marker):].strip()
         return extracted_text
