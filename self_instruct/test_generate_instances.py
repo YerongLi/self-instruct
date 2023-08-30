@@ -1,6 +1,5 @@
 import unittest
 from generate_instances_ie import extract_text_between_markers
-
 class TestExtractTextBetweenMarkers(unittest.TestCase):
 
     def test_extraction(self):
@@ -12,6 +11,7 @@ class TestExtractTextBetweenMarkers(unittest.TestCase):
         expected_text = "Task: Extract information from text."
 
         self.assertEqual(extracted_text, expected_text)
+
 
     def test_missing_markers(self):
         input_string = "Ydann LeCun, Yoshua Bengio\nOutput: Alan Tuuring\n\n"
