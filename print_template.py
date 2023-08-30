@@ -44,9 +44,10 @@ for idx, task in enumerate(selected_tasks):
         
         for option in options:
             option_parts = option.split(': ')
-            option_type = option_parts[0]
-            option_words = [word.strip() for word in option_parts[1].split(', ')]
-            for word in option_words:
-                print(f"- {word} ({option_type})")
+            if len(option_parts) > 1:
+                option_type = option_parts[0]
+                option_words = [word.strip() for word in option_parts[1].split(', ')]
+                for word in option_words:
+                    print(f"- {word} ({option_type})")
         print("Answer:", output)
         print()
