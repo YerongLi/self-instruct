@@ -31,46 +31,22 @@ Class label: A
 
 Task:'''
 
-# input_first_template_for_gen = '''Come up with examples for the following information extraction tasks
-# Task: Given event type and trigger, please tell me the arguments of all the listed option.                        
-                                                      
-# Output format is "name1: role1; name2: role2".                                      
-# Event type: start organization                                            
-# Option: agent, organization, place                                          
-                                                      
-# Input: The current government was formed in October 2000 .                                  
-# Output:                                                   
-# government: organization                                              
-                                                      
-# Task: Given event type and trigger, please tell me the arguments of all the listed option.                        
-                                                      
-# Output format is "name1: role1; name2: role2".                                      
-# Event type: start position                                            
-# Option: person, entity, place                                           
-                                                      
-# Input: He started his entertainment career at ABC , where he is credited with creating the `` movie of the week '' concept .            
-# Output:                                                   
-# He: person; ABC: entity                                             
-                                                      
-# Task: Please tell me event type and its trigger word from given type options.                           
-                                                      
-# Output format is "type: trigger".  Option: adverse event, potential therapeutic event                                        
-                                                            
-# Input: MATERIALS AND METHODS: We present two cases of significant morbidity related to primary and secondary perforation of the bladder following two instillations of epirubicin.         
-# Output:                                                         
-# adverse event: following        
 
-# Task: Please tell me event type and its trigger word from given type options.        
 
-# Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability 
+input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-# Task:'''
-
-input_first_template_for_gen = '''Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
-Option: geographical social political, organization, person, location, facility, vehicle, weapon
-Input: _ A U . S . tourist was detained and accused of spying after photographing a riot in the province of Irian Jaya .
+Task: Which exercises are best for reducing belly fat at home?
 Output:
-geographical social political: U. S; geographical social political: the province of Irian Jaya; geographical social political: Irian Jaya; person: A U. S. tourist
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
+
+Task: Extract all the country names in the paragraph, list them separated by commas.
+Example 1
+Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
+Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
 
 Task:'''
 
@@ -150,15 +126,15 @@ Task: You need to read a code and detect if there is a syntax error or not. Outp
 Class label: true
 Code:
 def quick_sort(arr):
-  if len(arr) < 2
-    return arr
+    if len(arr) < 2
+        return arr
 Class label: False
 Code:
 def calculate_average(numbers):
-  total = 0
-  for number in numbers:
-    total += number
-  return total / len(numbers)
+    total = 0
+    for number in numbers:
+        total += number
+    return total / len(numbers)
 
 Task: You are provided with a news article, and you need to identify all the categories that this article belongs to. Possible categories include Sports and Politics. Output its categories one by one, separated by a comma.
 Class label: Sports
@@ -263,21 +239,21 @@ Example 1
 Problem: You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list. You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 Output:
 class Solution(object):
-  def addTwoNumbers(self, l1, l2):
-    carry = 0
-    root = n = ListNode(0)
-    while l1 or l2 or carry:
-    v1 = v2 = 0
-    if l1:
-      v1 = l1.val
-      l1 = l1.next
-    if l2:
-      v2 = l2.val
-      l2 = l2.next
-    carry, val = divmod(v1+v2+carry, 10)
-    n.next = ListNode(val)
-    n = n.next
-    return root.next
+    def addTwoNumbers(self, l1, l2):
+        carry = 0
+        root = n = ListNode(0)
+        while l1 or l2 or carry:
+            v1 = v2 = 0
+            if l1:
+                v1 = l1.val
+                l1 = l1.next
+            if l2:
+                v2 = l2.val
+                l2 = l2.next
+            carry, val = divmod(v1+v2+carry, 10)
+            n.next = ListNode(val)
+            n = n.next
+        return root.next
 
 Task: Solve the equation and find the value of X. Show your steps.
 Example 1
@@ -290,10 +266,10 @@ Output: X + Y = -20, X = -20 - Y
 Task: Write a program to compute the sum of integers from k to n.
 Output:
 def sum(k, n):
-  sum = 0
-  for i in range(k, n+1):
-    sum += i
-  return sum
+    sum = 0
+    for i in range(k, n+1):
+        sum += i
+    return sum
 
 Task: Select the oldest person from the given list.
 Example 1
