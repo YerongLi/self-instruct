@@ -33,20 +33,44 @@ Task:'''
 
 
 
-input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category.Output format is 'type1: word1; type2: word2'.
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: group, creative work, person, event, product, location, corporation
+Input: # GGGDerevyanchenko for the send week in a row we were treated to great fight and sadly people choose to focus on the negatives it _s really sad I ca n
+ t believe people were booing {@Gennadiy Golovkin@} at the end a man who gave everything over 12 rounds and legitimately won the fight !
 Output:
-- Lying Leg Raises
-- Leg In And Out
-- Plank
-- Side Plank
-- Sit-ups
+person: Gennadiy Golovkin
 
-Task: Extract all the country names in the paragraph, list them separated by commas.
-Example 1
-Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
-Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Option: cities of residence, top members employees, members, alternate names, origin, state or provinces of residence, title of person, spouse, city of headquarters, NA, founded by, state or province of headquarters, employee of, countries of residence, country of birth, founded, subsidiaries, country of headquarters
+Input: Duncan of Jordanstone College of Art and Design  ( DJCAD ) is an integral part of the  University of Dundee  in Dundee Scotland .
+Output:
+subsidiaries: Duncan of Jordanstone College of Art and Design, University of Dundee
+
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: geographical social political, organization, person, location, facility, vehicle, weapon
+Input: This year ' s team is 9 - 2 , with its only losses 38 - 31 at Arkansas and 42 - 25 at Washington State .
+Output:
+organization: This year's team; organization: its; organization: Arkansas; organization: Washington State
+
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: cell line, protein, RNA, DNA, cell type
+Input: A 2-4-fold increase in IFN-beta promoter transcription was observed in Sendai virus induced extracts , and deletion of PRDI and PRDII elements decreased this induced level of transcription .
+Output:
+protein: IFN-beta
+
+Task: Please list all entity words in the text that fit the category. Output format is \"type1: word1; type2: word2\". 
+Option: geographical social political, organization, person, location, facility, vehicle, weapon
+Input: They continue to lobby the FCC , hoping to see the conditions broadened before the agency issues its final decision .
+Output:
+organization: the FCC; organization: the agency; organization: its; person: They
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". 
+Option: place of death, place of birth, education degree, education institution
+Input: Jefferson Lowndes died at Liverpool at the age of 35.
+Output:
+place of death: Jefferson Lowndes, Liverpool
 
 Task:'''
 
