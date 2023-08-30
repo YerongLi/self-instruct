@@ -217,7 +217,7 @@ if __name__ == '__main__':
 
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
-                end_marker = input_first_template_for_gen[:10] ## TODO
+                end_marker = input_first_template_for_gen[:-10] ## TODO
 
                 results = [package(remove_prefix_markers(result["response"]["choices"][0]["text"], end_marker))
                     for result in results]
