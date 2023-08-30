@@ -21,7 +21,7 @@ selected_tasks = random.sample(tasks_EEA_EET, k=10)
 # Generate and print examples
 for task in selected_tasks:
     instruction = task['instruction']
-    schema = task['schema']
+    schema = task['schema'].replace('Text: {0}\nAnswer:', '').strip()
     input_text = task['input']
     output_text = task['output']
     
