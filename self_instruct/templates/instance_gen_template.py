@@ -33,12 +33,15 @@ Task:'''
 
 
 
-input_first_template_for_gen = '''Come up with examples for the following tasks.
+input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
-Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2". 
-Option: Disease, Chemical
-Input: CONCLUSION : The magnitude of the association with PPH , the increase of association with increasing duration of use , and the specificity for fenfluramines are consistent with previous studies indicating that fenfluramines are causally related to PPH .
-Output: Disease: PPH; Chemical: fenfluramines; Chemical: fenfluramines; Disease: PPH
+Task: Please list all entity words in the text that fit the category.Output format is "type1: word1; type2: word2".
+Output:
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
 
 Task: Extract all the country names in the paragraph, list them separated by commas.
 Example 1
