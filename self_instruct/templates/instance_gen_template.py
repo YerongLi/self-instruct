@@ -78,18 +78,6 @@ Input: He started his entertainment career at ABC , where he is credited with cr
 Output:                                                                                                                                                       
 He: person; ABC: entity                                                                                                                                       
                                                                                                                                                               
-Task: Please tell me event type and its trigger word from given type options.                                                                                 
-                                                                                                                                                              
-Output format is "type: trigger".  Option: adverse event, potential therapeutic event                                                                                                                      
-                                                                                                                                                                                  
-Input: MATERIALS AND METHODS: We present two cases of significant morbidity related to primary and secondary perforation of the bladder following two instillations of epirubicin.                         
-Output:                                                                                                                                                                           
-adverse event: following                    
-
-Task: Please tell me event type and its trigger word from given type options.                        
-
-Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability 
-
 Task:'''
 
 output_first_template_for_clf_original = '''Given the classification task definition and the class labels, generate an input that corresponds to each of the class labels. If the task doesn't require input, just generate possible class labels.
