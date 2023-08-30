@@ -66,18 +66,32 @@ Task:'''
 
 # Task:'''
 
-input_first_template_for_gen = '''Come up with examples for the following information extraction tasks                                                                                                                            
-                                                                                                                                                              
-Task: Given event type and trigger, please tell me the arguments of all the listed option.                                                                    
-                                                                                                                                                              
-Output format is "name1: role1; name2: role2".                                                                                                                
-Event type: start position                                                                                                                                    
-  Option: person, entity, place                                                                                                                               
-                                                                                                                                                              
-Input: He started his entertainment career at ABC , where he is credited with creating the `` movie of the week '' concept .                                  
-Output:                                                                                                                                                       
-He: person; ABC: entity                                                                                                                                       
-                                                                                                                                                              
+input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+
+Task: Which exercises are best for reducing belly fat at home?
+Output:
+- Lying Leg Raises
+- Leg In And Out
+- Plank
+- Side Plank
+- Sit-ups
+
+Task: Extract all the country names in the paragraph, list them separated by commas.
+Example 1
+Paragraph: Dr. No is the sixth novel by the English author Ian Fleming to feature his British Secret Service agent James Bond. Written at Fleming's Goldeneye estate in Jamaica, it was first published in the United Kingdom by Jonathan Cape in 1958. In the novel Bond looks into the disappearance in Jamaica of two fellow MI6 operatives who had been investigating Doctor No. Bond travels to No's Caribbean island and meets Honeychile Rider, who is there to collect shells. They are captured and taken to a luxurious facility carved into a mountain. The character of Doctor No, the son of a German missionary and a Chinese woman, was influenced by Sax Rohmer's Fu Manchu stories. Dr. No was the first of Fleming's novels to face widespread negative reviews in Britain, but it was received more favourably in the United States.
+Output: English, British, Jamaica, the United Kingdom, German, Chinese, Britain, the United States.
+
+Task: Converting 85 F to Celsius.
+Output: 85°F = 29.44°C
+
+Task: Sort the given list ascendingly. 
+Example 1
+List: [10, 92, 2, 5, -4, 92, 5, 101]
+Output: [-4, 2, 5, 5, 10, 92, 92, 101]
+Example 2
+Input 2 - List: [9.99, 10, -5, -1000, 5e6, 999]
+Output: [-1000, -5, 9.99, 10, 999, 5e6]
+
 Task:'''
 
 output_first_template_for_clf_original = '''Given the classification task definition and the class labels, generate an input that corresponds to each of the class labels. If the task doesn't require input, just generate possible class labels.
