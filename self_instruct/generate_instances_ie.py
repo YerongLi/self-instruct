@@ -57,7 +57,6 @@ def extract_text_between_markers(input_string, start_marker, end_marker):
     else:
         return "Markers not found in the input string."
 
-
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
         # Define the command as a list of individual components
