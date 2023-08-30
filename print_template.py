@@ -22,7 +22,7 @@ for idx, task in enumerate(selected_tasks):
     output_text = task['output']
     
     print(f"Task {idx + 1}: {task_name}")
-    print("Input text:", input_text)
+    print("Input:", input_text)
     print("Output:")
     
     print(output_text)
