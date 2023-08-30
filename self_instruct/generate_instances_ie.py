@@ -50,6 +50,7 @@ def remove_prefix_markers(input_string, end_marker):
         return "Markers not found in the input string."
 
 def run_llama_command(input_string, gpt3=True):
+    input_string = input_string.replace('"', '\\"')
     if not gpt3:
         # Define the command as a list of individual components
         command = [
