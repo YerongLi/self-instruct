@@ -30,16 +30,16 @@ for idx, task in enumerate(selected_tasks):
         options_end_idx = schema_part.find('\n', options_start_idx)
         options = schema_part[options_start_idx:options_end_idx].split(', ')
         
-        text_start_idx = schema_part.find('Text: {0}') + len('Text: {0}\n')
-        text_end_idx = schema_part.find('\n', text_start_idx)
-        text = schema_part[text_start_idx:text_end_idx]
+        input_start_idx = schema_part.find('Input: {0}') + len('Input: {0}\n')
+        input_end_idx = schema_part.find('\n', input_start_idx)
+        input_text = schema_part[input_start_idx:input_end_idx]
         
         output_start_idx = schema.find('output": "') + len('output": "')
         output_end_idx = schema.find('", "is_classification":', output_start_idx)
         output = schema[output_start_idx:output_end_idx]
         
         print(f"Task {idx + 1}: {task_name}")
-        print("Text:", text)
+        print("Input:", input_text)
         print("Output:")
         
         for option in options:
