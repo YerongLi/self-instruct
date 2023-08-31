@@ -53,9 +53,10 @@ sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage,
 Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
 Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
 
-Task: Please tell me event type and its trigger word from given type options. Output format is "type: trigger".  Option: adverse event, potential therapeutic event
-Input: Niacin causes a reversible toxic cystoid maculopathy that occurs in approximately 0.67% of patients taking high doses of the drug.
-Output: adverse event: causes 
+Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON
 
 Task:'''
 
