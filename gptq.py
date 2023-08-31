@@ -1,25 +1,21 @@
 from transformers import AutoTokenizer, pipeline, logging
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-import torch
-model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+
+model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 model_basename = "model"
 
 use_triton = False
 
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-
-model = AutoGPTQForCausalLM.from_quantized(
-    model_name_or_path,
-    model_basename=model_basename,
-    inject_fused_attention=False,
-    use_safetensors=True,
-    trust_remote_code=False,
-    device=device,  # Use detected device (cuda or cpu)
-    use_triton=use_triton,
-    quantize_config=None
-)
+model = AutoGPTQForCausalLM.from_quantized(model_name_or_path,
+        model_basename=model_basename,
+        inject_fused_attention=False, # Required for Llama 2 70B model at this time.
+        use_safetensors=True,
+        trust_remote_code=False,
+        device="cuda:0,1",
+        use_triton=use_triton,
+        quantize_config=None)
 
 """
 To download from a specific branch, use the revision parameter, as in this example:
