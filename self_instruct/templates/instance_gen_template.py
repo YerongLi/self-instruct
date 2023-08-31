@@ -39,28 +39,24 @@ input_first_template_for_gen = '''Come up with examples for the following inform
 Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
 Option: adverse effect
 Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
-Output:
-adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
+Output: adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
 
 Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
 Option: location, else, organization, person
 Input: LONDON 1996-12-06
-Output:
-location: LONDON
+Output: location: LONDON
 
 Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2". 
 Event type: adverse event
   Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
 sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
 Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
-Output: 
-movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
 
-Task: Please tell me event type and its trigger word from given type options. Output format is "type: trigger".  Option: phishing, data breach, ransom, discov
-er vulnerability, patch vulnerability                                                                                                                         
-Input: CIsco has issued a critical patch of a patch for a Cisco Prime License Manager SQL fix .                                                               
-Output:                                                                                                                                                       
-patch vulnerability: has issued                                                                                                                               
+Task: Please tell me event type and its trigger word from given type options. Output format is "type: trigger".  Option: phishing, data breach, ransom, discover vulnerability, patch vulnerability
+Input: Several other phishing and hacking incidents have been added to the HHS " wall of shame " tally in recent weeks .
+Output: phishing: phishing
+
 Task:'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.

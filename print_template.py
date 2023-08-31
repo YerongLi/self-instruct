@@ -27,8 +27,6 @@ for idx, task in enumerate(selected_tasks):
     
     print(f"Task: {instruction} {schema}")
     print("Input:", input_text)
-    print("Output:")
-    
-    print(output_text)
+    print("Output:", output_text)
     print()
 print('Task:')
