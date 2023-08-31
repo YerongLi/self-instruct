@@ -58,13 +58,13 @@ def run_llama_command(input_string, gpt3=True):
         command = [
             "$SCRATCH/llama.cpp/main",
             "-m",
-           "$SCRATCH/.cache/pyllama/Llama-2-70b/ggml-model-q4_0.bin",
+            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
             "-p",
             f'"{input_string}"',  # Wrap input_string with double quotes
             "-t",
             "1",
             "-n",
-            "2048",
+            "4096",
             "--temp",
             "0.1",
             "--top-p",
@@ -72,7 +72,7 @@ def run_llama_command(input_string, gpt3=True):
             "-ngl",
             "83"
         ]
-
+        
         # command = [
         #     "$SCRATCH/llama.cpp/main",
         #     "-m",
