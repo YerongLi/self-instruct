@@ -8,14 +8,18 @@ use_triton = False
 
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
-model = AutoGPTQForCausalLM.from_quantized(model_name_or_path,
-        model_basename=model_basename,
-        inject_fused_attention=False, # Required for Llama 2 70B model at this time.
-        use_safetensors=True,
-        trust_remote_code=False,
-        device="cuda:0",
-        use_triton=use_triton,
-        quantize_config=None)
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+model = AutoGPTQForCausalLM.from_quantized(
+    model_name_or_path,
+    model_basename=model_basename,
+    inject_fused_attention=False,
+    use_safetensors=True,
+    trust_remote_code=False,
+    device=device,  # Use detected device (cuda or cpu)
+    use_triton=use_triton,
+    quantize_config=None
+)
 
 """
 To download from a specific branch, use the revision parameter, as in this example:
