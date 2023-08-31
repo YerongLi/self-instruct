@@ -64,7 +64,7 @@ def run_llama_command(input_string, gpt3=True):
             "-t",
             "1",
             "-n",
-            "4096",
+            "2048",
             "--temp",
             "0.1",
             "--top-p",
@@ -72,7 +72,7 @@ def run_llama_command(input_string, gpt3=True):
             "-ngl",
             "83"
         ]
-        
+
         # command = [
         #     "$SCRATCH/llama.cpp/main",
         #     "-m",
