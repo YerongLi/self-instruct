@@ -1,7 +1,7 @@
 import json
 
 # Read the JSONL file
-with open('data/ie/70machine_generated_instances.jsonl', 'r') as file:
+with open('data/ie/machine_generated_instances.jsonl', 'r') as file:
     lines = file.readlines()
 
 # Create a file to write the output
