@@ -1,6 +1,6 @@
 from transformers import AutoTokenizer, pipeline, logging
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
-
+import torch
 model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
 model_basename = "model"
 
