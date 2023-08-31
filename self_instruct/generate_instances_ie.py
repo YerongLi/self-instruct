@@ -56,7 +56,7 @@ def run_llama_command(input_string, gpt3=True):
 
 
         # command = [
-        #     "$SCRATCH/llama.cpp2/main",
+        #     "$SCRATCH/llama.cpp/main",
         #     "-m",
         #     "$SCRATCH/.cache/pyllama/Llama-2-7b/ggml-model-q4_0.gguf",
         #     "-p",
@@ -89,8 +89,6 @@ def run_llama_command(input_string, gpt3=True):
             "0.90",
             "-ngl",
             "100",  # Changed from 83
-            "--gqa",
-            "8"  # Added option
         ]
 
         # Join the command list into a single string with spaces
