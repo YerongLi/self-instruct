@@ -56,6 +56,13 @@ Input: Although the movement disorder could not with certainty be attributed to 
 Output: 
 movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
 
+Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
+Option: Disease
+Input: We conclude that paternal transmission of congenital DM is rare and preferentially occurs with onset of DM past 30 years in the father . .
+Output:
+Disease: congenital DM; Disease: DM
+
+
 Task:'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
