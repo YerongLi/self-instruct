@@ -36,13 +36,6 @@ Task:'''
 
 input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible.
 
-Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2". 
-Event type: attack 
-  Option: victim, attacker, place, target, instrument
-Input: U . S . President George W . Bush said the reports indicated that only a war will make Iraq disarm .
-Output:
-Iraq: place
-
 Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
 Option: adverse effect
 Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
