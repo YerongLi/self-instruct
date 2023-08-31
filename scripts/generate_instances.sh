@@ -1,5 +1,5 @@
 batch_dir=data/gpt3_generations/
-
+git pull; rm data/gpt3_generations/machine_generated_instances.jsonl ;
 python self_instruct/generate_instances.py \
     --batch_dir ${batch_dir} \
     --input_file machine_generated_instructions.jsonl \

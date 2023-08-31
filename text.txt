@@ -1,0 +1,821 @@
+Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+
+Task: Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+================================================================================
+Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+
+Task: Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: location: LONDON; organization: ELSE; person: ORGANIZATION
+Task: Please list all entity words in the text that fit the category.
+Option
+================================================================================
+Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+
+Task: Given an event type and trigger, please tell me the arguments of all the listed option.
+Event type: adverse event
+Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+================================================================================
+Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
+Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: acted as an eliciting agent: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
+Output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
+sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
+Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
+Output: acted as an eliciting agent: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+================================================================================
