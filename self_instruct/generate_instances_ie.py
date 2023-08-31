@@ -58,7 +58,7 @@ def run_llama_command(input_string, gpt3=True):
         command = [
             "$SCRATCH/llama.cpp/main",
             "-m",
-            "$SCRATCH/.cache/pyllama/7B/ggml-model-q4_0.bin",
+            "$SCRATCH/.cache/pyllama/Llama-2-7b/ggml-model-q4_0.bin",
             "-p",
             f'"{input_string}"',  # Wrap input_string with double quotes
             "-t",
