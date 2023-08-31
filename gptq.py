@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, pipeline, logging
 from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
 
-model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 model_basename = "model"
 
 use_triton = False
