@@ -13,7 +13,7 @@ model = AutoGPTQForCausalLM.from_quantized(model_name_or_path,
         inject_fused_attention=False, # Required for Llama 2 70B model at this time.
         use_safetensors=True,
         trust_remote_code=False,
-        device="cuda:0,1",
+        device="cuda",
         use_triton=use_triton,
         quantize_config=None)
 
