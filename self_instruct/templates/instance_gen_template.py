@@ -56,6 +56,11 @@ Input: Although the movement disorder could not with certainty be attributed to 
 Output: 
 movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug 
 
+Task: Please tell me event type and its trigger word from given type options. Output format is "type: trigger".  Option: phishing, data breach, ransom, discov
+er vulnerability, patch vulnerability                                                                                                                         
+Input: CIsco has issued a critical patch of a patch for a Cisco Prime License Manager SQL fix .                                                               
+Output:                                                                                                                                                       
+patch vulnerability: has issued                                                                                                                               
 Task:'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
