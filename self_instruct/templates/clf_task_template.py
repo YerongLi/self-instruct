@@ -1,4 +1,4 @@
-template_1 = '''Can the following task be regarded as a classification task with finite output labels?
+ template_1 = '''Can the following task be regarded as a classification task with finite output labels?
 
 Task: Given my personality and the job, tell me if I would be suitable.
 Is it classification? Yes

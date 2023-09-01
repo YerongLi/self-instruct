@@ -20,6 +20,21 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 random.seed(42)
+
+from transformers import AutoTokenizer, pipeline, logging
+from auto_gptq import AutoGPTQForCausalLM
+
+def generate_text_with_model(model, tokenizer, input_text, max_tokens=512, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
+    prompt_template = f"{input_text}\n"
+    input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
+    output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
+
+# Load tokenizer and model (you can replace these lines with your loading code)
+
+
+
 def run_llama_command(input_string, gpt3=True):
     if not gpt3:
         # Define the command as a list of individual components
@@ -133,12 +148,31 @@ def parse_args():
         type=str,
         help="The organization to use. If not specified, the default organization id will be used."
     )
+
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        default=False,
+        help="A boolean flag for testing."
+    )
     return parser.parse_args()
 
 
 if __name__ == '__main__':
     args = parse_args()
+    # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+    if args.test:
+        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+    else:
+        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 
+    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+    model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
+
+    # Example usage
+    input_text = "Who is Elon Musk?"
+    generated_output = generate_text_with_model(model, tokenizer, input_text)
+    print(generated_output)
     with open(os.path.join(args.batch_dir, args.input_file)) as fin:
         lines = fin.readlines()
         if args.num_instructions is not None:
