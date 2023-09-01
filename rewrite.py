@@ -36,7 +36,7 @@ OUTPUT {output_text}
 (1) 
 """
     print(prompt)
-    return [remove_prefix_markers(rs), prompt[:20]) for rs in gptq_generate_batch(model, tokenizer, [prompt])]
+    return [remove_prefix_markers(rs, prompt[:20]) for rs in gptq_generate_batch(model, tokenizer, [prompt])]
 
 def parse_args():
     parser = argparse.ArgumentParser()
