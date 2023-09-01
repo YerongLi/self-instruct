@@ -253,6 +253,8 @@ if __name__ == '__main__':
                         prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
                         prompts.append(prompt)
 
+                end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
+
                 results = [
                     package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt), end_marker)) for prompt in prompts
                 ]
@@ -260,7 +262,6 @@ if __name__ == '__main__':
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
 
-                end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
 
                 # print(type(input_first_template_for_gen))
                 # logging.info('end_marker')
