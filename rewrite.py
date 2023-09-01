@@ -12,12 +12,18 @@ def remove_prefix_markers(input_string, end_marker):
     else:
         return "Markers not found in the input string."
 
-def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
-    prompt_template = f"{input_text}\n"
-    input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
-    output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
-    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
-    return generated_text
+def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
+    # Encode the input_texts in batch
+    encoding = tokenizer(input_texts, padding=True, return_tensors='pt').to(model.device)
+    
+    # Generate text in batch using the model
+    with torch.no_grad():
+        generated_ids = model.generate(**encoding, max_length=max_tokens, temperature=temperature, top_p=top_p, repetition_penalty=repetition_penalty)
+    
+    # Decode the generated IDs into text
+    generated_texts = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
+    
+    return generated_texts
 
 def rewrite(schema, input_text, output_text):
     prompt = f"""
@@ -27,9 +33,9 @@ INPUT {input_text}
 OUTPUT {output_text}
 
 (1) 
-    """
+"""
     print(prompt)
-    return remove_prefix_markers(gptq_generate(model, tokenizer, prompt), prompt[:20])
+    return remove_prefix_markers(gptq_generate(model, tokenizer, [prompt]), prompt[:20])
 
 def parse_args():
     parser = argparse.ArgumentParser()
