@@ -24,7 +24,28 @@ random.seed(42)
 from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
 
-def generate_text_with_model(model, tokenizer, input_text, max_tokens=512, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
+def package(text):
+        return { 'response' : {
+        "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+        "object": "chat.completion",
+        "created": 1677649420,
+        "model": "gpt-3.5-turbo",
+        "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 31,
+            "total_tokens": 87
+        },
+        "choices": [
+            {
+                "text": text,
+                "finish_reason": "stop",
+                "index": 0
+            }
+        ]
+        }
+    }
+
+def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
     prompt_template = f"{input_text}\n"
     input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
     output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
@@ -66,26 +87,7 @@ def run_llama_command(input_string, gpt3=True):
             return f"Error executing the command: {e}"
     else:
         # Return GPT-3 format response
-        return { 'response' : {
-            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
-            "object": "chat.completion",
-            "created": 1677649420,
-            "model": "gpt-3.5-turbo",
-            "usage": {
-                "prompt_tokens": 56,
-                "completion_tokens": 31,
-                "total_tokens": 87
-            },
-            "choices": [
-                {
-                    "text": run_llama_command(input_string, False),
-                    "finish_reason": "stop",
-                    "index": 0
-                }
-            ]
-            }
-        }
-
+        return package(run_llama_command(input_string, False))
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -170,9 +172,9 @@ if __name__ == '__main__':
     model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
 
     # Example usage
-    input_text = "Who is Elon Musk?"
-    generated_output = generate_text_with_model(model, tokenizer, input_text)
-    print(generated_output)
+    # input_text = "Who is Elon Musk?"
+    # generated_output = gptq_generate(model, tokenizer, input_text)
+    # print(generated_output)
     with open(os.path.join(args.batch_dir, args.input_file)) as fin:
         lines = fin.readlines()
         if args.num_instructions is not None:
@@ -233,7 +235,7 @@ if __name__ == '__main__':
                         prompts.append(prompt)
 
                 results = [
-                    run_llama_command(prompt) for prompt in prompts
+                    package(gptq_generate(prompt)) for prompt in prompts
                 ]
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")
