@@ -7,7 +7,8 @@ import re
 import subprocess
 import tqdm
 import logging
-
+from transformers import AutoTokenizer, pipeline
+from auto_gptq import AutoGPTQForCausalLM
 from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
 from templates.instance_gen_template_ie import output_first_template_for_clf, input_first_template_for_gen
@@ -48,6 +49,13 @@ def remove_prefix_markers(input_string, end_marker):
         return extracted_text
     else:
         return "Markers not found in the input string."
+
+def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
+    prompt_template = f"{input_text}\n"
+    input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
+    output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
 
 def run_llama_command(input_string, gpt3=True):
     input_string = re.sub(r'(?<!\\)"', r'\\"', input_string)
@@ -246,9 +254,8 @@ if __name__ == '__main__':
                         prompts.append(prompt)
 
                 results = [
-                    run_llama_command(prompt) for prompt in prompts
+                    package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt), end_marker)) for prompt in prompts
                 ]
-
 
                 # Example usage
                 # input_string = "Yann LeCun, Yoshua Bengio\nOutput: Alan Turing\n\nTask: Extract information from text."
@@ -260,8 +267,6 @@ if __name__ == '__main__':
 
                 # print(end_marker)
 
-                results = [package(remove_prefix_markers(result["response"]["choices"][0]["text"], end_marker))
-                    for result in results]
 
                 # for prompt, result in zip(prompts, results):
                 #     logging.info(f"Prompt: {prompt}")
