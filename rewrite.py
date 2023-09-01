@@ -1,6 +1,7 @@
 import argparse
 import json
-
+from transformers import AutoTokenizer, pipeline
+from auto_gptq import AutoGPTQForCausalLM
 # Define the rewrite function
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
