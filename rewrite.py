@@ -1,5 +1,6 @@
 import argparse
 import json
+import torch
 from auto_gptq import AutoGPTQForCausalLM
 from tqdm import tqdm
 from transformers import AutoTokenizer, pipeline
