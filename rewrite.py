@@ -26,7 +26,11 @@ def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperat
     
     return generated_texts
 
-def rewrite(schema, input_text, output_text):
+def rewrite(data_entry):
+    schema = data_entry['schema'].replace('Text: {0}\nAnswer:', '')
+    input_text = data_entry['input']
+    output_text = data_entry['output']
+    
     prompt = f"""
 There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
 INST {schema}
@@ -74,14 +78,7 @@ with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
         for line in lines:
             data = json.loads(line)
             
-            if 'schema' in data:
-                instruction = data['instruction']
-                schema = data['schema'].replace('Text: {0}\nAnswer:', '')
-                input_text = data['input']
-                output_text = data['output']
-                
-                # Use the rewrite function to add the "rewrite" prefix to schema
-                rewritten_schema = rewrite(schema, input_text, output_text)
+                rewritten_schema = rewrite(data)
                 
                 # Create a dictionary for the rewritten task
                 rewritten_task = {
