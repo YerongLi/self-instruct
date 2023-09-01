@@ -21,7 +21,7 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 random.seed(42)
 
-from transformers import AutoTokenizer, pipeline, logging
+from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
 
 def generate_text_with_model(model, tokenizer, input_text, max_tokens=512, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
