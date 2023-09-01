@@ -7,7 +7,8 @@ import re
 import subprocess
 import tqdm
 import logging
-
+from transformers import AutoTokenizer, pipeline
+from auto_gptq import AutoGPTQForCausalLM
 from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
 from templates.instance_gen_template import output_first_template_for_clf, input_first_template_for_gen
@@ -21,8 +22,7 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 random.seed(42)
 
-from transformers import AutoTokenizer, pipeline
-from auto_gptq import AutoGPTQForCausalLM
+
 model = None
 tokenizer = None
 
@@ -243,9 +243,10 @@ if __name__ == '__main__':
                     else:
                         prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
                         prompts.append(prompt)
+                end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
 
                 results = [
-                    package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt))) for prompt in prompts
+                    package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt), end_marker)) for prompt in prompts
                 ]
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")

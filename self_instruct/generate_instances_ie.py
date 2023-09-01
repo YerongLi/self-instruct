@@ -11,7 +11,7 @@ import logging
 from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
 from templates.instance_gen_template_ie import output_first_template_for_clf, input_first_template_for_gen
-
+model, tokenizer = None, None
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -166,11 +166,25 @@ def parse_args():
         type=str,
         help="The organization to use. If not specified, the default organization id will be used."
     )
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        default=False,
+        help="A boolean flag for testing."
+    )
     return parser.parse_args()
+
 
 
 if __name__ == '__main__':
     args = parse_args()
+    if args.test:
+        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+    else:
+        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+
+    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+    model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
 
     with open(os.path.join(args.batch_dir, args.input_file)) as fin:
         lines = fin.readlines()
