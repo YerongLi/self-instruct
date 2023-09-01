@@ -77,7 +77,7 @@ with open('data/seed_task_ie.jsonl', 'r') as file:
     lines = file.readlines()
 
 # Organize data into batches
-batch_size = 4  # Set your desired batch size
+batch_size = 1  # Set your desired batch size
 data_batches = [json.loads(line) for line in lines]
 data_batches = [data_batches[i:i + batch_size] for i in range(0, len(data_batches), batch_size)]
 
