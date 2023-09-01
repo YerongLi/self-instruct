@@ -25,6 +25,7 @@ from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
 model = None
 tokenizer = None
+
 def package(text):
         return { 'response' : {
         "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
@@ -45,6 +46,14 @@ def package(text):
         ]
         }
     }
+
+def remove_prefix_markers(input_string, end_marker):
+    end_index = input_string.find(end_marker)
+    if end_index != -1:
+        extracted_text = input_string[end_index + len(end_marker):].strip()
+        return extracted_text
+    else:
+        return "Markers not found in the input string."
 
 def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
     prompt_template = f"{input_text}\n"
@@ -236,7 +245,7 @@ if __name__ == '__main__':
                         prompts.append(prompt)
 
                 results = [
-                    package(gptq_generate(model, tokenizer, prompt)) for prompt in prompts
+                    package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt))) for prompt in prompts
                 ]
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")
