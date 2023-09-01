@@ -1,5 +1,6 @@
 import torch
-from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
+from auto_gptq import AutoGPTQForCausalLM
+from transformers import AutoTokenizer
 
 # Load the AutoGPTQForCausalLM model and tokenizer
 model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
