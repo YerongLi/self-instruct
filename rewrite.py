@@ -24,7 +24,7 @@ def rewrite(schema, input_text, output_text):
 There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
 INST {schema}
 INPUT {input_text}
-OUTPUT <output_text>
+OUTPUT {output_text}
 
 (1) 
     """
