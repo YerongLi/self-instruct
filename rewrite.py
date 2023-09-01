@@ -59,7 +59,7 @@ for line in lines:
         output_text = data['output']
         
         # Use the rewrite function to add the "rewrite" prefix to schema
-        rewritten_schema = rewrite(schema)
+        rewritten_schema = rewrite(schema, input_text, output_text)
         
         # Create a dictionary for the rewritten task
         rewritten_task = {
