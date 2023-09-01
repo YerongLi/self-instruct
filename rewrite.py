@@ -1,7 +1,8 @@
 import argparse
 import json
-from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
+from tqdm import tqdm
+from transformers import AutoTokenizer, pipeline
 # Define the rewrite function
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
@@ -19,8 +20,17 @@ def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7
     return generated_text
 
 def rewrite(schema, input_text, output_text):
-    full_text = f"{schema}\n{input_text}\n{output_text}"
-    return remove_prefix_markers(gptq_generate(model, tokenizer, full_text), "Markers not found in the input string.")
+    prompt = f"""
+There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
+INST {schema}
+INPUT {input_text}
+OUTPUT <output_text>
+
+(1) 
+    """
+    print(prompt)
+    return remove_prefix_markers(gptq_generate(model, tokenizer, prompt), prompt[:20])
+
 def parse_args():
     parser = argparse.ArgumentParser()
 
