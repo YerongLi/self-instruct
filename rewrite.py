@@ -40,7 +40,11 @@ OUTPUT {output_text}
 (1) 
 """
     print(prompt)
-    return [remove_prefix_markers(rs, prompt[:20]) for rs in gptq_generate_batch(model, tokenizer, [prompt])]
+    return [{
+    'instruction':remove_prefix_markers(rs, prompt[:20]),
+    'input': data_entry['input'],
+    'input': data_entry['output']
+    } for rs in gptq_generate_batch(model, tokenizer, [prompt])]
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -78,17 +82,12 @@ with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
         for line in lines:
             data = json.loads(line)
             
-            rewritten_schema = rewrite(data)
+            new_rewritten_tasks = rewrite(data)
             
             # Create a dictionary for the rewritten task
-            rewritten_task = {
-                'instruction': rewritten_schema,
-                'input': data['input'],
-                'output': data['output']
-            }
             
             # Append the rewritten task to the list
-            rewritten_tasks.append(rewritten_task)
+            rewritten_tasks.extend(new_rewritten_tasks)
             
             # Update the progress bar
             pbar.update(1)
