@@ -1,10 +1,10 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
+from auto_gptq import AutoGPTQForCausalLM, BaseQuantizeConfig
 
-# Load the GPT-J model and tokenizer
-model_name = "EleutherAI/gpt-j-6B"
-tokenizer = GPT2Tokenizer.from_pretrained(model_name)
-model = GPT2LMHeadModel.from_pretrained(model_name)
+# Load the AutoGPTQForCausalLM model and tokenizer
+model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
 # Set the device (CPU or GPU)
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -15,9 +15,9 @@ prompts = [
     "Prompt 1: This is the first prompt.",
     "Prompt 2: This is the second prompt.",
     "Prompt 3: Another prompt to generate text.",
-    "Prompt 4: Yet another prompt for GPT-J.",
+    "Prompt 4: Yet another prompt for AutoGPT.",
     "Prompt 5: A fifth prompt to see what it generates.",
-    "Prompt 6: GPT-J can generate text creatively.",
+    "Prompt 6: AutoGPT can generate text creatively.",
     "Prompt 7: Let's test another prompt.",
     "Prompt 8: The final prompt for this batch.",
 ]
