@@ -3,7 +3,8 @@ import json
 import torch
 from auto_gptq import AutoGPTQForCausalLM
 from tqdm import tqdm
-from transformers import AutoTokenizer, pipeline
+from transformers import AutoTokenizer
+
 # Define the rewrite function
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
@@ -26,12 +27,14 @@ def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperat
     
     return generated_texts
 
-def rewrite(data_entry):
-    schema = data_entry['schema'].replace('Text: {0}\nAnswer:', '')
-    input_text = data_entry['input']
-    output_text = data_entry['output']
-    
-    prompt = f"""
+def rewrite(data_batch):
+    rewritten_batch = []
+    for data_entry in data_batch:
+        schema = data_entry['schema'].replace('Text: {0}\nAnswer:', '')
+        input_text = data_entry['input']
+        output_text = data_entry['output']
+        
+        prompt = f"""
 There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
 INST {schema}
 INPUT {input_text}
@@ -39,12 +42,15 @@ OUTPUT {output_text}
 
 (1) 
 """
-    print(prompt)
-    return [{
-    'instruction':remove_prefix_markers(rs, prompt[:20]),
-    'input': data_entry['input'],
-    'input': data_entry['output']
-    } for rs in gptq_generate_batch(model, tokenizer, [prompt])]
+        print(prompt)
+        rewritten_entry = {
+            'instruction': remove_prefix_markers(rs, prompt[:20]),
+            'input': input_text,
+            'output': data_entry['output']
+        }
+        rewritten_batch.append(rewritten_entry)
+    
+    return rewritten_batch
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -56,7 +62,9 @@ def parse_args():
         help="A boolean flag for testing."
     )
     return parser.parse_args()
+
 args = parse_args()
+
 # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 if args.test:
     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
@@ -72,21 +80,22 @@ model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="m
 with open('data/seed_task_ie.jsonl', 'r') as file:
     lines = file.readlines()
 
+# Organize data into batches
+batch_size = 4  # Set your desired batch size
+data_batches = [json.loads(line) for line in lines]
+data_batches = [data_batches[i:i + batch_size] for i in range(0, len(data_batches), batch_size)]
+
 # Create a list to store rewritten tasks
 rewritten_tasks = []
 
-# Create a progress bar for processing lines in the JSONL file
-with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
+# Create a progress bar for processing batches of data
+with tqdm(total=len(data_batches), desc="Rewriting Tasks") as pbar:
     try:
-        # Process each line in the JSONL file
-        for line in lines:
-            data = json.loads(line)
+        # Process each batch of data
+        for data_batch in data_batches:
+            new_rewritten_tasks = rewrite(data_batch)
             
-            new_rewritten_tasks = rewrite(data)
-            
-            # Create a dictionary for the rewritten task
-            
-            # Append the rewritten task to the list
+            # Append the rewritten tasks to the list
             rewritten_tasks.extend(new_rewritten_tasks)
             
             # Update the progress bar
