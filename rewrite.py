@@ -78,21 +78,20 @@ with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
         for line in lines:
             data = json.loads(line)
             
-            rewritten_schema = rewrite(data)
-            
-            # Create a dictionary for the rewritten task
-            rewritten_task = {
-                'instruction': instruction,
-                'schema': rewritten_schema,
-                'input': input_text,
-                'output': output_text
-            }
-            
-            # Append the rewritten task to the list
-            rewritten_tasks.append(rewritten_task)
-            
-            # Update the progress bar
-            pbar.update(1)
+                rewritten_schema = rewrite(data)
+                
+                # Create a dictionary for the rewritten task
+                rewritten_task = {
+                    'instruction': rewritten_schema,
+                    'input': data['input'],
+                    'output': data['ouput']
+                }
+                
+                # Append the rewritten task to the list
+                rewritten_tasks.append(rewritten_task)
+                
+                # Update the progress bar
+                pbar.update(1)
     
     except KeyboardInterrupt:
         # Handle keyboard interrupt (Ctrl+C)
