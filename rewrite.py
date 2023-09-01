@@ -3,8 +3,7 @@ import json
 import torch
 from auto_gptq import AutoGPTQForCausalLM
 from tqdm import tqdm
-from transformers import AutoTokenizer
-
+from transformers import AutoTokenizer, pipeline
 # Define the rewrite function
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
@@ -28,24 +27,24 @@ def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperat
     return generated_texts
 
 def rewrite(data_batch):
-    rewritten_batch = []
-    for data_entry in data_batch:
-        schema = data_entry['schema'].replace('Text: {0}\nAnswer:', '')
-        input_text = data_entry['input']
-        output_text = data_entry['output']
-        
-        prompt = f"""
+    prompts = [
+        f"""
 There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
-INST {schema}
-INPUT {input_text}
-OUTPUT {output_text}
+INST {data_entry['schema'].replace('Text: {0}\nAnswer:', '')}
+INPUT {data_entry['input']}
+OUTPUT {data_entry['output']}
 
 (1) 
-"""
-        print(prompt)
+""" for data_entry in data_batch
+    ]
+
+    generated_results = gptq_generate_batch(model, tokenizer, prompts)
+
+    rewritten_batch = []
+    for i, data_entry in enumerate(data_batch):
         rewritten_entry = {
-            'instruction': remove_prefix_markers(rs, prompt[:20]),
-            'input': input_text,
+            'instruction': remove_prefix_markers(generated_results[i], prompts[i][:20]),
+            'input': data_entry['input'],
             'output': data_entry['output']
         }
         rewritten_batch.append(rewritten_entry)
@@ -62,9 +61,7 @@ def parse_args():
         help="A boolean flag for testing."
     )
     return parser.parse_args()
-
 args = parse_args()
-
 # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 if args.test:
     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
@@ -79,11 +76,6 @@ model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="m
 # Read the JSONL file
 with open('data/seed_task_ie.jsonl', 'r') as file:
     lines = file.readlines()
-
-# Organize data into batches
-batch_size = 4  # Set your desired batch size
-data_batches = [json.loads(line) for line in lines]
-data_batches = [data_batches[i:i + batch_size] for i in range(0, len(data_batches), batch_size)]
 
 # Create a list to store rewritten tasks
 rewritten_tasks = []
