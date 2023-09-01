@@ -27,7 +27,7 @@ prompts = [
 ]
 
 # Encode the prompts and generate text in batch
-input_ids = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True, max_length=100).to(device)
+input_ids = tokenizer(prompts[0], return_tensors="pt", padding=True, truncation=True, max_length=100).to(device)
 with torch.no_grad():
     output = model.generate(input_ids)
 
