@@ -23,7 +23,8 @@ random.seed(42)
 
 from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
-
+model = None
+tokenizer = None
 def package(text):
         return { 'response' : {
         "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
@@ -235,7 +236,7 @@ if __name__ == '__main__':
                         prompts.append(prompt)
 
                 results = [
-                    package(gptq_generate(prompt)) for prompt in prompts
+                    package(gptq_generate(model, tokenizer, prompt)) for prompt in prompts
                 ]
                 for prompt, result in zip(prompts, results):
                     logging.info(f"Prompt: {prompt}")
