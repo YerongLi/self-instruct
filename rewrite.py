@@ -1,11 +1,52 @@
 import argparse
 import json
-import signal
-from tqdm import tqdm
-from transformers import AutoTokenizer
+from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
+# Define the rewrite function
+def remove_prefix_markers(input_string, end_marker):
+    end_index = input_string.find(end_marker)
+    if end_index != -1:
+        extracted_text = input_string[end_index + len(end_marker):].strip()
+        return extracted_text
+    else:
+        return "Markers not found in the input string."
 
-# ... (other code remains the same as in your provided code)
+def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
+    prompt_template = f"{input_text}\n"
+    input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
+    output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
+    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
+    return generated_text
+
+def rewrite(schema, input_text, output_text):
+    full_text = f"{schema}\n{input_text}\n{output_text}"
+    return remove_prefix_markers(gptq_generate(model, tokenizer, full_text), "Markers not found in the input string.")
+def parse_args():
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--test",
+        action="store_true",
+        default=False,
+        help="A boolean flag for testing."
+    )
+    return parser.parse_args()
+args = parse_args()
+# model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+if args.test:
+    model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+else:
+    model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+
+tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
+
+# Read the JSONL file
+with open('data/seed_task_ie.jsonl', 'r') as file:
+    lines = file.readlines()
+
+# Create a list to store rewritten tasks
+rewritten_tasks = []
 
 # Create a progress bar for processing lines in the JSONL file
 with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
