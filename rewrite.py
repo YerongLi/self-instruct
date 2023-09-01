@@ -28,14 +28,14 @@ def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperat
 
 def rewrite(data_batch):
     prompts = [
-        f"""
-There are four other different ways to write the instruction in the following information extraction question (with a possibly different required output format):
-INST {data_entry['schema'].replace('Text: {0}\nAnswer:', '')}
-INPUT {data_entry['input']}
-OUTPUT {data_entry['output']}
-
-(1) 
-""" for data_entry in data_batch
+        (
+            f"There are four other different ways to write the instruction in the following information extraction question "
+            f"(with a possibly different required output format):\n"
+            f"INST {data_entry['schema'].replace('Text: {0}\nAnswer:', '')}\n"
+            f"INPUT {data_entry['input']}\n"
+            f"OUTPUT {data_entry['output']}\n\n"
+            f"(1) "
+        ) for data_entry in data_batch
     ]
 
     generated_results = gptq_generate_batch(model, tokenizer, prompts)
