@@ -84,7 +84,7 @@ with tqdm(total=len(lines), desc="Rewriting Tasks") as pbar:
             rewritten_task = {
                 'instruction': rewritten_schema,
                 'input': data['input'],
-                'output': data['ouput']
+                'output': data['output']
             }
             
             # Append the rewritten task to the list
