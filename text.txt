@@ -1,96 +1,286 @@
 Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
+Event type: adverse event
 Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
 sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: The patient was admitted to the hospital with a diagnosis of acute renal failure and sepsis. 
-Output: acute renal failure: Effect; sepsis: Effect
+Input: The patient was treated with a combination of lamotrigine and valproate for bipolar disorder. 
+Output: 
+bipolar disorder: Effect; lamotrigine: Treatment; valproate: Treatment; lamotrigine: Treatment.Drug; valproate: Treatment.Drug 
 
 Task: Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
+Event type: adverse event
 Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
 sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: The patient was admitted to the hospital with a diagnosis of acute renal failure and sepsis. 
-Output: acute renal failure: Effect; sepsis: Effect
+Input: The patient was treated with a combination of lamotrigine and valproate for bipolar disorder. 
+Output: 
+bipolar disorder: Effect; lamotrigine: Treatment; valproate: Treatment; lamotrigine: Treatment.Drug; valproate: Treatment.Drug 
 
 
 ================================================================================
 Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
+Event type: adverse event
 Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
 sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
-Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+Input: The patient was taking the drug for a period of 10 days and had no previous history of seizures. 
+Output: 
+drug: Treatment; drug: Treatment.Drug; drug: Treatment.Duration; drug: Treatment.Time_elapsed; drug: Treatment.Freq; drug: Treatment.Route; drug: Tr
+eatment.Disorder; seizures: Effect; 10 days: Treatment.Dosage; 10 days: Treatment.Duration; 10 days: Treatment.Time_elapsed; 10 days: Treatment.Freq; 
+10 days: Treatment.Route; 10 days: Treatment.Disorder; no previous history of seizures: Effect; 
+"""
 
-Task: Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
-Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
-sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
-Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+import sys, os, re, string, time, datetime, json, math, random, pickle, shutil, glob, copy, csv, codecs, gzip, urllib2, urllib, base64, itertools, collections, operator, numpy, scipy, pandas, nltk
+import matplotlib.pyplot as plt
+from sklearn import svm, metrics, grid_search, cross_validation, feature_selection, decomposition, ensemble, pipeline, preprocessing, model_selection, neighbors, naive_bayes, tree, linear_model, impute, cluster, manifold, random_forest, lda
+from sklearn.feature_extraction import DictVectorizer
+from sklearn.externals import joblib
+import nltk.classify.util as classifier_util
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk.tokenize import word_tokenize, sent_tokenize
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics import confusion_matrix
+from sklearn.cross_validation import StratifiedKFold
+from sklearn.grid_search import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.feature_selection import SelectPercentile, f_classif
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+from sklearn.svm import SVC
+from sklearn.grid_search import GridSearchCV
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.feature_selection import SelectPercentile, f_classif
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.feature_selection import SelectPercentile, f_classif
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.feature_selection import SelectPercentile, f_classif
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.feature_selection import SelectPercentile, f_classif
+from sklearn.pipeline import Pipeline
+from sklearn.svm import LinearSVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.naive_bayes import GaussianNB
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import AdaBoostClassifier, RandomTreesEmbedding
+from sklearn.feature_selection import chi2, SelectKBest
+from sklearn.metrics import roc_curve, auc
+from sklearn.cross_validation import cross_val_score
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
+# Load the data
+data = pd.read_csv('../input/breast-cancer-wisconsin/data.txt', header=None, sep='\t')
 
+# Convert to a dataframe
+df = pd.DataFrame(data)
+
+# Rename columns
+df.columns = ['id', 'diagnosis'] + [str(i+1) for i in range(30)]
+
+# Drop the id column
+df = df.drop('id', axis=1)
+
+# Convert diagnosis to a boolean
+df['diagnosis'] = df['diagnosis'].apply(lambda x: True if x == 'M' else False)
+
+# Split into features and labels
+X = df.iloc[:, 2:]
+y = df.iloc[:, 1]
+
+# Select the best features using chi-squared test
+features = SelectKBest(chi2, k=5).fit_transform(X, y)
+
+# Create a classifier
+classifier = AdaBoostClassifier()
+
+# Fit the model
+classifier.fit(features, y)
+
+# Predict the labels
+y_pred = classifier.predict(features)
+
+# Calculate the ROC curve and AUC score
+fpr, tpr, thresholds = roc_curve(y, y_pred)
+roc_auc = auc(fpr, tpr)
+print('AUC:', roc_auc)
+
+# Plot the ROC curve
+plt.plot(fpr, tpr, 'b', label='ROC curve (area = %0.2f)' % roc_auc)
+plt.legend(loc
 ================================================================================
-Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output: location: LONDON; organization: 1996-12-06
+Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
+Option: adverse effect
+Input: We report a case of a patient with rheumatoid arthritis who developed an acute interstitial nephritis after treatment with diclofenac sodium. 
+Output: 
+patient: Subject; rheumatoid arthritis: Treatment.Disorder; patient: Subject.Di
+sorder; patient: Subject.Population; acute interstitial nephritis: Effect; diclofenac sodium: Treatment; diclofenac sodium: Treatment.Drug 
 
-Task: Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output: location: LONDON; organization: 1996-12-06
-
-
-================================================================================
-Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output: location: LONDON; organization: 1996-12-06
-
-Task: Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: The patient was a 34 year old man who had been taking trazodone for 5 months.
-Output: person: patient; person: man; person: patient; person: man
-
-
-================================================================================
-Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output: location: LONDON; organization: 1996-12-06
-
-Task: Please list all entity words in the text that fit the category.
-Option: location, else, organization, person
-Input: The patient was a 37-year-old man who had been taking trazodone for depression for 5 months.
-Output: person: The patient; person: a 37-year-old man; person: trazodone; person: depression
-
-
-================================================================================
-Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
-Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
-sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: The patient was taking trazodone for depression and developed a movement disorder. 
-Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
-
-Task: Given an event type and trigger, please tell me the arguments of all the listed option.
-Event type: adverse effect
-Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
-sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: The patient was taking trazodone for depression and developed a movement disorder. 
-Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
+Option: adverse effect
+Input: The patient was treated with intravenous immunoglobulin (IVIG) for presumed drug-induced thrombocytopenia. 
+Output: 
+patient: Subject; drug-induced thrombocytopenia: Effect; IVIG: Treatment; IVIG: Treatment.Drug 
 
 
 ================================================================================
 Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
 Option: adverse effect
-Input: We report a case of a patient with rheumatoid arthritis treated with leflunomide who developed severe pneumonitis. 
-Output: pneumonitis: Effect; leflunomide: Treatment; leflunomide: Treatment.Drug
+Input: We report a case of a patient with rheumatoid arthritis who developed severe thrombocytopenia after starting treatment with leflunomide. 
+Output: 
+severe thrombocytopenia: Effect; leflunomide: Treatment; leflunomide: Treatment.Drug 
 
 Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them.
 Option: adverse effect
-Input: We report a case of a patient with rheumatoid arthritis treated with leflunomide who developed severe pneumonitis. 
-Output: pneumonitis: Effect; leflunomide: Treatment; leflunomide: Treatment.Drug
+Input: We report a case of a patient with rheumatoid arthritis who developed severe thrombocytopenia after starting treatment with leflunomide. 
+Output: 
+severe thrombocytopenia: Effect; leflunomide: Treatment; leflunomide: Treatment.Drug 
 
 
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: LONDON
+
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: The patient was a 45 year old man with a history of depression and alcohol abuse.
+Output: 
+
+
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: LONDON
+
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: LONDON
+
+
+================================================================================
+Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: LONDON 1996-12-06
+Output: LONDON
+
+Task: Please list all entity words in the text that fit the category.
+Option: location, else, organization, person
+Input: The patient was a 35-year-old woman with a history of depression and anxiety disorder who had been treated with trazodone for 10 days. 
+Output: 
+patient: person; 35-year-old: age; woman: gender; depression: disorder; anxiety disorder: disorder; trazodone: drug; 10: duration; day: time_elapsed; 
+treated with: route; treated with: dosage; treated with: combination.drug; treated with: treatment; treated with: subject.population; treated with: subjec
+t; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated wit
+h: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treat
+ed with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated wit
+h: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: d
+uration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated wit
+h: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combinatio
+n.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; t
+reated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.populat
+ion; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treat
+ed with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; t
+reated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; trea
+ted with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated wi
+th: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; trea
+ted with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated wit
+h: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treat
+ed with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; trea
+ted with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treat
+ed with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.po
+pulation; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: dura
+tion; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treat
+ed with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated wi
+th: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disord
+er; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: ro
+ute; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: t
+ime_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.populati
+on; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duratio
+n; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treat
+ed with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treate
+d with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated wit
+h: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combinatio
+n.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; trea
+ted with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated wit
+h: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; trea
+ted with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated wit
+h: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapse
+d; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.populatio
+n; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated wit
+h: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated wi
+th: subject; treated with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; trea
+ted with: dosage; treated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treat
+ed with: effect; treated with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dose; t
+reated with: combination.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; trea
+ted with: disorder; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combinat
+ion.drug; treated with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorde
+r; treated with: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treat
+ed with: route; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated wit
+h: drug; treated with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: rout
+e; treated with: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with: drug; trea
+ted with: time_elapsed; treated with: duration; treated with: dosage; treated with: combination.drug; treated with: route; treated wit
+h: subject.population; treated with: subject; treated with: effect; treated with: disorder; treated with
 ================================================================================
