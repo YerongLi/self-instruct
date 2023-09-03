@@ -78,13 +78,15 @@ def run_llama_command(input_string, gpt3=True):
             "-t",
             "1",
             "-n",
-            "300",
+            "4096",
             "--temp",
             "0.1",
             "--top-p",
             "0.90",
             "-ngl",
-            "83"
+            "83",
+            "-c",
+            "4096"
         ]
 
         # Join the command list into a single string with spaces
