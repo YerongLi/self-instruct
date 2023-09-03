@@ -15,7 +15,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
 
 # Define a list of prompts (text) for batch generation
-prompts = [
+sentences = [
     "Prompt 1: This is the first prompt.",
     "Prompt 2: This is the second prompt.",
     "Prompt 3: Another prompt to generate text.",
@@ -26,12 +26,16 @@ prompts = [
     "Prompt 8: The final prompt for this batch.",
 ]
 
-# Encode the prompts and generate text in batch
-input_ids = tokenizer(prompts[0], return_tensors="pt", padding=True, truncation=True, max_length=100).to(device)
-with torch.no_grad():
-    output = model.generate(**input_ids)
+input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
 
-# Decode and print the generated text for each prompt in the batch
-generated_text = [tokenizer.decode(ids, skip_special_tokens=True) for ids in output]
-for i, text in enumerate(generated_text):
-    print(f"Generated Text {i+1}:\n{text}\n")
+with torch.no_grad():
+    outputs = model.generate(
+        input_ids=input_ids,
+        max_new_tokens=256,
+        do_sample=True,
+        top_p=0.9,
+        temperature=float(0.01),
+        top_k=40
+    )
+
+print(tokenizer.batch_decode(outputs[:, input_ids.shape[1]:], max_new_tokens=256, skip_special_tokens=True))
