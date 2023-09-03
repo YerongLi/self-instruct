@@ -4,7 +4,7 @@ from transformers import AutoTokenizer
 
 # Load the AutoGPTQForCausalLM model and tokenizer
 model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
-model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
+model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device="cuda", use_triton=False, quantize_config=None)
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 
 # Set the padding token to be equal to the end of sequence token (eos_token)
