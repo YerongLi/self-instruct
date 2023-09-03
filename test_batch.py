@@ -31,7 +31,7 @@ input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="
 with torch.no_grad():
     outputs = model.generate(
         input_ids=input_ids,
-        max_new_tokens=4096,
+        max_new_tokens=256,
         do_sample=True,
         top_p=0.9,
         temperature=float(0.01),
