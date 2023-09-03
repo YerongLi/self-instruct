@@ -15,18 +15,21 @@ tokenizer.pad_token = tokenizer.eos_token
 # model.to(device)
 
 # Define a list of prompts (text) for batch generation
-sentences = [
-    "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
-    "Prompt 2: Bill Gates dropped out of Harvard",
-    "Prompt 3: Another prompt to generate text.",
-    "Prompt 4: Yet another prompt for AutoGPT.",
-    # "Prompt 5: A fifth prompt to see what it generates.",
-    # "Prompt 6: AutoGPT can generate text creatively.",
-    # "Prompt 7: Let's test another prompt.",
-    # "Prompt 8: The final prompt for this batch.",
-]
+sentence = "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
 
-input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
+# sentences = [
+#     "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
+#     # "Prompt 2: Bill Gates dropped out of Harvard",
+#     # "Prompt 3: Another prompt to generate text.",
+#     # "Prompt 4: Yet another prompt for AutoGPT.",
+#     # "Prompt 5: A fifth prompt to see what it generates.",
+#     # "Prompt 6: AutoGPT can generate text creatively.",
+#     # "Prompt 7: Let's test another prompt.",
+#     # "Prompt 8: The final prompt for this batch.",
+# ]
+
+input_ids = tokenizer(sentence, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
+# input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
 
 with torch.no_grad():
     outputs = model.generate(
