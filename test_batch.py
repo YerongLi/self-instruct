@@ -16,14 +16,14 @@ tokenizer.pad_token = tokenizer.eos_token
 
 # Define a list of prompts (text) for batch generation
 sentences = [
-    "Prompt 1: This is the first prompt.",
-    "Prompt 2: This is the second prompt.",
+    "Prompt 1: Elon Musk is born in",
+    "Prompt 2: Bill Gates dropped out of Harvard",
     "Prompt 3: Another prompt to generate text.",
     "Prompt 4: Yet another prompt for AutoGPT.",
-    "Prompt 5: A fifth prompt to see what it generates.",
-    "Prompt 6: AutoGPT can generate text creatively.",
-    "Prompt 7: Let's test another prompt.",
-    "Prompt 8: The final prompt for this batch.",
+    # "Prompt 5: A fifth prompt to see what it generates.",
+    # "Prompt 6: AutoGPT can generate text creatively.",
+    # "Prompt 7: Let's test another prompt.",
+    # "Prompt 8: The final prompt for this batch.",
 ]
 
 input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
