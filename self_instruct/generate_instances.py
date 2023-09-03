@@ -172,6 +172,7 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
+    print(run_llama_command(input_first_template_for_gen))
     # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
     if args.test:
         model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
