@@ -19,11 +19,11 @@ sentences = [
     "Prompt 1: This is the first prompt.",
     "Prompt 2: This is the second prompt.",
     "Prompt 3: Another prompt to generate text.",
-    # "Prompt 4: Yet another prompt for AutoGPT.",
-    # "Prompt 5: A fifth prompt to see what it generates.",
-    # "Prompt 6: AutoGPT can generate text creatively.",
-    # "Prompt 7: Let's test another prompt.",
-    # "Prompt 8: The final prompt for this batch.",
+    "Prompt 4: Yet another prompt for AutoGPT.",
+    "Prompt 5: A fifth prompt to see what it generates.",
+    "Prompt 6: AutoGPT can generate text creatively.",
+    "Prompt 7: Let's test another prompt.",
+    "Prompt 8: The final prompt for this batch.",
 ]
 
 input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
@@ -31,7 +31,7 @@ input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="
 with torch.no_grad():
     outputs = model.generate(
         input_ids=input_ids,
-        max_new_tokens=256,
+        max_new_tokens=4096,
         do_sample=True,
         top_p=0.9,
         temperature=float(0.01),
@@ -39,3 +39,4 @@ with torch.no_grad():
     )
 
 print(tokenizer.batch_decode(outputs[:, input_ids.shape[1]:], max_new_tokens=256, skip_special_tokens=True))
+print(tokenizer.batch_decode(outputs, max_new_tokens=256, skip_special_tokens=True))
