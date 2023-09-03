@@ -11,8 +11,8 @@ tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 tokenizer.pad_token = tokenizer.eos_token
 
 # Set the device (CPU or GPU)
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model.to(device)
+# device = "cuda" if torch.cuda.is_available() else "cpu"
+# model.to(device)
 
 # Define a list of prompts (text) for batch generation
 sentences = [
