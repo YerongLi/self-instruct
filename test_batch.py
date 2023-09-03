@@ -3,7 +3,9 @@ from auto_gptq import AutoGPTQForCausalLM
 from transformers import AutoTokenizer
 
 # Load the AutoGPTQForCausalLM model and tokenizer
-model_name_or_path = "TheBloke/Llama-2-7B-GPTQ"
+# model_name_or_path = "TheBloke/Llama-2-7B-GPTQ"
+model_name_or_path = "TheBloke/LLaMA-7b-GPTQ"
+
 model_basename = "model"
 
 use_triton = False
