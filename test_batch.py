@@ -16,7 +16,7 @@ tokenizer.pad_token = tokenizer.eos_token
 
 # Define a list of prompts (text) for batch generation
 sentences = [
-    "Prompt 1: Elon Musk is born in",
+    "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
     "Prompt 2: Bill Gates dropped out of Harvard",
     "Prompt 3: Another prompt to generate text.",
     "Prompt 4: Yet another prompt for AutoGPT.",
