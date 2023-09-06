@@ -42,7 +42,7 @@ def rewrite(data_batch):
     rewritten_batch = []
     for i, data_entry in enumerate(data_batch):
         rewritten_entry = {
-            'instruction': data_entry['instruction'] + data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
+            'instruction': data_entry['instruction'] + ' ' + data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
             'input': data_entry['input'],
             'output': data_entry['output']
         }
