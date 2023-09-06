@@ -60,7 +60,7 @@ def parse_args():
     #     help="A boolean flag for testing."
     # )
     return parser.parse_args()
-args = parse_args()
+# args = parse_args()
 # # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 # if args.test:
 #     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
@@ -70,7 +70,7 @@ args = parse_args()
 # tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
 # tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
-model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
+# model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
 
 # Read the JSONL file
 with open('data/seed_task_ie.jsonl', 'r') as file:
