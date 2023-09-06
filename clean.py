@@ -37,12 +37,12 @@ def rewrite(data_batch):
         ) for data_entry in data_batch
     ]
 
-    generated_results = gptq_generate_batch(model, tokenizer, prompts)
+    # generated_results = gptq_generate_batch(model, tokenizer, prompts)
 
     rewritten_batch = []
     for i, data_entry in enumerate(data_batch):
         rewritten_entry = {
-            'instruction': remove_prefix_markers(generated_results[i], prompts[i][:20]),
+            'instruction': data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
             'input': data_entry['input'],
             'output': data_entry['output']
         }
@@ -61,14 +61,14 @@ def parse_args():
     )
     return parser.parse_args()
 args = parse_args()
-# model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
-if args.test:
-    model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
-else:
-    model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+# # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+# if args.test:
+#     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
+# else:
+#     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
 
-tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+# tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
+# tokenizer.add_special_tokens({'pad_token': '[PAD]'})
 
 model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
 
