@@ -53,12 +53,12 @@ def rewrite(data_batch):
 def parse_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument(
-        "--test",
-        action="store_gtrue",
-        default=False,
-        help="A boolean flag for testing."
-    )
+    # parser.add_argument(
+    #     "--test",
+    #     action="store_gtrue",
+    #     default=False,
+    #     help="A boolean flag for testing."
+    # )
     return parser.parse_args()
 args = parse_args()
 # # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
