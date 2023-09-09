@@ -42,6 +42,7 @@ def rewrite(data_batch):
     rewritten_batch = []
     for i, data_entry in enumerate(data_batch):
         rewritten_entry = {
+            'name': data_entry['name'],
             'instruction': remove_prefix_markers(generated_results[i], prompts[i][:20]),
             'input': data_entry['input'],
             'output': data_entry['output']
