@@ -49,13 +49,13 @@ with tqdm(total=len(data_batches), desc="Rewriting Tasks") as pbar:
             for task in new_rewritten_tasks:
                 # Check if your filtering condition is met by using the correct key
                 # Replace 'your_key' with the actual key representing the values "EEA," "EET," "NER," and "RE" in your data
-                if task.get('your_key') in filter_values:
+                if task.get('name') in filter_values:
                     # Check if we have not yet sampled 100 instances for this key
-                    if value_counts[task['your_key']] < 100:
+                    if value_counts[task['name']] < 100:
                         # Perform random sampling
                         if random.random() < 0.5:  # Adjust the probability as needed
                             rewritten_tasks.append(task)
-                            value_counts[task['your_key']] += 1
+                            value_counts[task['name']] += 1
             
             # Update the progress bar
             pbar.update(1)
