@@ -1,7 +1,7 @@
 import argparse
 import json
 import random
-from tqdm import tqdm  # Import the tqdm library
+from tqdm import tqdm
 
 # Define your filtering values
 filter_values = ["EEA", "EET", "NER", "RE"]
@@ -10,6 +10,17 @@ filter_values = ["EEA", "EET", "NER", "RE"]
 value_counts = {value: 0 for value in filter_values}
 
 # ... (The rest of your code remains the same up to the data processing part)
+
+# Define and initialize data_batches here
+data_batches = []
+
+# Read the JSONL file and organize data into batches
+with open('data/seed_task_ie.jsonl', 'r') as file:
+    lines = file.readlines()
+
+batch_size = 1  # Set your desired batch size
+data_batches = [json.loads(line) for line in lines]
+data_batches = [data_batches[i:i + batch_size] for i in range(0, len(data_batches), batch_size)]
 
 # Create a list to store rewritten tasks
 rewritten_tasks = []
