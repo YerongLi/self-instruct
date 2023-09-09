@@ -1,85 +1,14 @@
 import argparse
 import json
-import torch
-from auto_gptq import AutoGPTQForCausalLM
-from tqdm import tqdm
-from transformers import AutoTokenizer, pipeline
-# Define the rewrite function
-def remove_prefix_markers(input_string, end_marker):
-    end_index = input_string.find(end_marker)
-    if end_index != -1:
-        extracted_text = input_string[end_index + len(end_marker):].strip()
-        return extracted_text
-    else:
-        return "Markers not found in the input string."
+import random  # Import the random module
 
-def gptq_generate_batch(model, tokenizer, input_texts, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
-    # Encode the input_texts in batch
-    encoding = tokenizer(input_texts, padding=True, return_tensors='pt').to(model.device)
-    
-    # Generate text in batch using the model
-    with torch.no_grad():
-        generated_ids = model.generate(**encoding, max_length=max_tokens, temperature=temperature, top_p=top_p, repetition_penalty=repetition_penalty)
-    
-    # Decode the generated IDs into text
-    generated_texts = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)
-    
-    return generated_texts
+# Define your filtering values
+filter_values = ["EEA", "EET", "NER", "RE"]
 
-def rewrite(data_batch):
-    prompts = [
-        "There are four other different ways to write the instruction in the following information extraction question "
-        "(with a possibly different required output format):\n"
-        "INST {}\nINPUT {}\nOUTPUT {}\n\n(1) ".format(
-            data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
-            data_entry['input'],
-            data_entry['output']
-        ) for data_entry in data_batch
-    ]
+# Define a dictionary to keep track of the counts
+value_counts = {value: 0 for value in filter_values}
 
-    # generated_results = gptq_generate_batch(model, tokenizer, prompts)
-
-    rewritten_batch = []
-    for i, data_entry in enumerate(data_batch):
-        rewritten_entry = {
-            'instruction': data_entry['instruction'] + ' ' + data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
-            'input': data_entry['input'],
-            'output': data_entry['output']
-        }
-        rewritten_batch.append(rewritten_entry)
-    
-    return rewritten_batch
-
-def parse_args():
-    parser = argparse.ArgumentParser()
-
-    # parser.add_argument(
-    #     "--test",
-    #     action="store_gtrue",
-    #     default=False,
-    #     help="A boolean flag for testing."
-    # )
-    return parser.parse_args()
-# args = parse_args()
-# # model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
-# if args.test:
-#     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
-# else:
-#     model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
-
-# tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-# tokenizer.add_special_tokens({'pad_token': '[PAD]'})
-
-# model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
-
-# Read the JSONL file
-with open('data/seed_task_ie.jsonl', 'r') as file:
-    lines = file.readlines()
-
-# Organize data into batches
-batch_size = 1  # Set your desired batch size
-data_batches = [json.loads(line) for line in lines]
-data_batches = [data_batches[i:i + batch_size] for i in range(0, len(data_batches), batch_size)]
+# ... (The rest of your code remains the same up to the data processing part)
 
 # Create a list to store rewritten tasks
 rewritten_tasks = []
@@ -91,11 +20,20 @@ with tqdm(total=len(data_batches), desc="Rewriting Tasks") as pbar:
         for data_batch in data_batches:
             new_rewritten_tasks = rewrite(data_batch)
             
-            # Append the rewritten tasks to the list
-            rewritten_tasks.extend(new_rewritten_tasks)
+            for task in new_rewritten_tasks:
+                # Check if the 'name' value is in the filter_values
+                if task['name'] in filter_values:
+                    # Check if we have not yet sampled 100 instances for this 'name' value
+                    if value_counts[task['name']] < 100:
+                        rewritten_tasks.append(task)
+                        value_counts[task['name']] += 1
             
             # Update the progress bar
             pbar.update(1)
+
+            # Check if we have sampled 100 instances for all filter values
+            if all(count >= 100 for count in value_counts.values()):
+                break  # Exit the loop if we have sampled 100 instances for all values
 
     except KeyboardInterrupt:
         # Handle keyboard interrupt (Ctrl+C)
