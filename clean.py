@@ -1,6 +1,7 @@
 import argparse
 import json
-import random  # Import the random module
+import random
+from tqdm import tqdm  # Import the tqdm library
 
 # Define your filtering values
 filter_values = ["EEA", "EET", "NER", "RE"]
