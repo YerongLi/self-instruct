@@ -10,7 +10,21 @@ filter_values = ["EEA", "EET", "NER", "RE"]
 value_counts = {value: 0 for value in filter_values}
 
 def rewrite(data_batch):
-    # Your rewrite logic here...
+
+
+    # generated_results = gptq_generate_batch(model, tokenizer, prompts)
+
+    rewritten_batch = []
+    for i, data_entry in enumerate(data_batch):
+        rewritten_entry = {
+            'name': data_entry['name'],
+            'instruction': data_entry['instruction'] + ' ' + data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
+            'input': data_entry['input'],
+            'output': data_entry['output']
+        }
+        rewritten_batch.append(rewritten_entry)
+    
+    return rewritten_batch
 
 # Define and initialize data_batches here
 data_batches = []
@@ -60,11 +74,6 @@ with tqdm(total=len(data_batches), desc="Rewriting Tasks") as pbar:
                 rewrite_file.write(json.dumps(task) + '\n')
         
         print('Progress saved. Exiting.')
-    
-    except Exception as e:
-        # Handle other exceptions
-        print(f"An error occurred: {str(e)}")
-        break  # Exit the loop in case of other exceptions
 
 # Write all rewritten tasks to a new file
 with open('data/rewrite_seed_task_ie.jsonl', 'w') as rewrite_file:
