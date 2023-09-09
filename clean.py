@@ -32,6 +32,8 @@ def rewrite(data_batch):
         rewritten_batch.append(rewritten_entry)
     
     return rewritten_batch
+
+# Define and initialize data_batches here
 data_batches = []
 
 # Read the JSONL file and organize data into batches
