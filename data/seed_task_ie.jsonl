@@ -4,8 +4,12 @@
   "input": "CONCLUSION: Gemcitabine-induced recall pneumonitis is an infrequently reported occurrence and should be considered, even after a prolonged period following prior radiotherapy.",
   "output": "Causative Relation: Gemcitabine, recall pneumonitis; Associative Relation: Gemcitabine, radiotherapy"
 }
-
-{"name": "RE", "instruction": "Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". \nOption: adverse effect", "input": "CONCLUSION : The present findings suggest that fluvoxamine can cause increased libido in some patients .", "output": "adverse effect: increased libido, fluvoxamine"}
+{
+  "name": "RE",
+  "instruction": "Given a sentence containing information about the effects of a medication on patients, extract the medication and the corresponding side effect. Format the output as follows: \"Medication: [medication], Side Effect: [side effect]\".",
+  "input": "CONCLUSION : The present findings suggest that fluvoxamine can cause increased libido in some patients.",
+  "output": "Medication: fluvoxamine, Side Effect: increased libido"
+}
 {"name": "RE", "instruction": "Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". \nOption: adverse effect", "input": "Malignant mixed mullerian tumor of the uterus in a patient taking raloxifene .", "output": "adverse effect: Malignant mixed mullerian tumor of the uterus, raloxifene"}
 {"name": "RE", "instruction": "Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". \nOption: adverse effect", "input": "Pneumocystis carinii pneumonia as a complication of methotrexate treatment of asthma .", "output": "adverse effect: Pneumocystis carinii pneumonia, methotrexate"}
 {"name": "RE", "instruction": "Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be \"relation1: word1, word2; relation2: word3, word4\". \nOption: adverse effect", "input": "BACKGROUND : How to best treat psychotic patients who have had past clozapine - induced agranulocytosis or granulocytopenia remains a problem .", "output": "adverse effect: agranulocytosis, clozapine; adverse effect: granulocytopenia, clozapine"}
