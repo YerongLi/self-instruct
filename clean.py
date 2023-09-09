@@ -10,21 +10,14 @@ filter_values = ["EEA", "EET", "NER", "RE"]
 value_counts = {value: 0 for value in filter_values}
 
 def rewrite(data_batch):
-    prompts = [
-        "There are four other different ways to write the instruction in the following information extraction question "
-        "(with a possibly different required output format):\n"
-        "INST {}\nINPUT {}\nOUTPUT {}\n\n(1) ".format(
-            data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
-            data_entry['input'],
-            data_entry['output']
-        ) for data_entry in data_batch
-    ]
+
 
     # generated_results = gptq_generate_batch(model, tokenizer, prompts)
 
     rewritten_batch = []
     for i, data_entry in enumerate(data_batch):
         rewritten_entry = {
+            'name': data_entry['name'],
             'instruction': data_entry['instruction'] + ' ' + data_entry['schema'].replace('Text: {0}\nAnswer:', ''),
             'input': data_entry['input'],
             'output': data_entry['output']
