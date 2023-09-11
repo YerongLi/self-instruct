@@ -152,12 +152,10 @@ if args.lora:
 # Define your prompt
 prompt = "who is elon musk"
 
-# Tokenize the prompt
-input_ids = tokenize(prompt)
-
-# Generate text using the model
 generator = ExLlamaGenerator(model, tokenizer, cache)
-output_text = generator.generate(input_ids)
-
+generator.settings.top_k = 1
+generator.lora = lora
+output_text = generator.generate_simple(prompt)
+# print(f" ** Generation: {repr(text)}")
 # Print the generated text
 print(output_text)
