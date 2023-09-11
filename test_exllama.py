@@ -153,7 +153,7 @@ if args.lora:
 prompt = "who is elon musk"
 
 # Tokenize the prompt
-input_ids = tokenizer.encode(prompt, return_tensors="pt").to(model.device)
+input_ids = tokenizer(prompt).to(model.device)
 
 # Generate text using the model
 generator = ExLlamaGenerator(model, tokenizer, cache)
