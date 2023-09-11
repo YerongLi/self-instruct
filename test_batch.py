@@ -3,22 +3,9 @@ from auto_gptq import AutoGPTQForCausalLM
 from transformers import AutoTokenizer
 
 # Load the AutoGPTQForCausalLM model and tokenizer
-# model_name_or_path = "TheBloke/Llama-2-7B-GPTQ"
-model_name_or_path = "TheBloke/LLaMA-7b-GPTQ"
-
-model_basename = "model"
-
-use_triton = False
-
+model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
+model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device="cuda:0", use_triton=False, quantize_config=None)
 tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-
-model = AutoGPTQForCausalLM.from_quantized(model_name_or_path,
-        model_basename=model_basename,
-        use_safetensors=True,
-        trust_remote_code=True,
-        device_map="auto",
-        use_triton=use_triton,
-        quantize_config=None)
 
 # Set the padding token to be equal to the end of sequence token (eos_token)
 tokenizer.pad_token = tokenizer.eos_token
@@ -28,21 +15,21 @@ tokenizer.pad_token = tokenizer.eos_token
 # model.to(device)
 
 # Define a list of prompts (text) for batch generation
-# sentence = "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
+sentence = "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
 
-sentences = [
-    "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
-    "Prompt 2: Bill Gates dropped out of Harvard",
-    "Prompt 3: Another prompt to generate text.",
-    "Prompt 4: Yet another prompt for AutoGPT.",
-    "Prompt 5: A fifth prompt to see what it generates.",
-    "Prompt 6: AutoGPT can generate text creatively.",
-    # "Prompt 7: Let's test another prompt.",
-    # "Prompt 8: The final prompt for this batch.",
-]
+# sentences = [
+#     "Elon Musk is a South African-born Canadian-American business magnate, investor and inventor. He is the founder, CEO, and chief engineer/designer of SpaceX; co-founder, CEO, and product architect",
+#     # "Prompt 2: Bill Gates dropped out of Harvard",
+#     # "Prompt 3: Another prompt to generate text.",
+#     # "Prompt 4: Yet another prompt for AutoGPT.",
+#     # "Prompt 5: A fifth prompt to see what it generates.",
+#     # "Prompt 6: AutoGPT can generate text creatively.",
+#     # "Prompt 7: Let's test another prompt.",
+#     # "Prompt 8: The final prompt for this batch.",
+# ]
 
-# input_ids = tokenizer(sentence, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
-input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
+input_ids = tokenizer(sentence, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
+# input_ids = tokenizer(sentences, return_tensors='pt', truncation=True, padding="max_length", max_length=512).input_ids.cuda()
 
 with torch.no_grad():
     outputs = model.generate(
