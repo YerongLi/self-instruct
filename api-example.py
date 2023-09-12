@@ -48,7 +48,8 @@ def run(prompt):
         'skip_special_tokens': True,
         'stopping_strings': []
     }
-
+    print(response)
+    print(response.status_code)
     response = requests.post(URI, json=request)
 
     if response.status_code == 200:
