@@ -51,11 +51,9 @@ def run(prompt):
 
     try:
         response = requests.post(URI, json=request)
-        print(response)
-        print(response.status_code)
         if response.status_code == 200:
             result = response.json()['results'][0]['text']
-            print(prompt + result)
+            print(result)
     except Exception as e:
         print(f"An error occurred: {e}")
 
