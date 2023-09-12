@@ -49,13 +49,15 @@ def run(prompt):
         'stopping_strings': []
     }
 
-    response = requests.post(URI, json=request)
-    print(response)
-    print(response.status_code)
-    if response.status_code == 200:
-        result = response.json()['results'][0]['text']
-        print(prompt + result)
-
+    try:
+        response = requests.post(URI, json=request)
+        print(response)
+        print(response.status_code)
+        if response.status_code == 200:
+            result = response.json()['results'][0]['text']
+            print(prompt + result)
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 if __name__ == '__main__':
     prompt = "In order to make homemade bread, follow these steps:\n1)"
