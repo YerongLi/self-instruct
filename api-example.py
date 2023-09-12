@@ -58,7 +58,7 @@ def run(prompt):
         print(f"An error occurred: {e}")
 
 if __name__ == '__main__':
-prompt = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
+    prompt = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
 Task: Which exercises are best for reducing belly fat at home?
 Output:
