@@ -58,5 +58,5 @@ def run(prompt):
         print(f"An error occurred: {e}")
 
 if __name__ == '__main__':
-    prompt = "In order to make homemade bread, follow these steps:\n1)"
+    prompt = "Elon Musk is born in Africa and "
     run(prompt)
