@@ -152,5 +152,5 @@ I would love to stay in touch with you and have already started following you on
 Thanks again,
 [Your Name]
 
-Task:'''
+Task: Extraction the relationship between two words'''
     run(prompt)
