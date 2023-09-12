@@ -48,10 +48,10 @@ def run(prompt):
         'skip_special_tokens': True,
         'stopping_strings': []
     }
+
+    response = requests.post(URI, json=request)
     print(response)
     print(response.status_code)
-    response = requests.post(URI, json=request)
-
     if response.status_code == 200:
         result = response.json()['results'][0]['text']
         print(prompt + result)
