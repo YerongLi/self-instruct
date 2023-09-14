@@ -52,6 +52,8 @@ def package(text):
 
 
 def run_text_gui(prompt):
+    logging.info('Prompt :')
+    logging.info(prompt)
     request = {
         'prompt': prompt,
         'max_new_tokens': 250,
@@ -172,7 +174,6 @@ def post_process_gpt3_response(response):
     instructions = []
     # for inst in raw_instructions:
     for inst in raw_instructions[9:16]: # TODO remove the prompt instead of stripping the first line
-        logging.info(f'original inst\n {inst}')
         
         inst = re.sub(r"\s+", " ", inst).strip()
         inst = inst.strip().capitalize()
