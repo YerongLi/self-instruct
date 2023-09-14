@@ -354,7 +354,7 @@ if __name__ == "__main__":
                         all_instructions[i] : rouge_scores[i] for i in np.argsort(rouge_scores)[-10:][::-1]
                     }
                 print('inst')
-                print(inst)_
+                print(inst)
                 machine_instructions.append(inst)
                 fout.write(json.dumps({
                     "instruction": inst,
