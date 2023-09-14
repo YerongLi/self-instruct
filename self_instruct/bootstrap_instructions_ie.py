@@ -293,7 +293,6 @@ if __name__ == "__main__":
 
     with open(os.path.join(args.batch_dir, "machine_generated_instructions.jsonl"), "a") as fout:
         while len(machine_instructions) < args.num_instructions_to_generate:
-            print(len(machine_instructions))
             batch_inputs = []
             for _ in range(args.request_batch_size):
                 # sample machine instructions from the pool
@@ -353,8 +352,6 @@ if __name__ == "__main__":
                 most_similar_instructions = {
                         all_instructions[i] : rouge_scores[i] for i in np.argsort(rouge_scores)[-10:][::-1]
                     }
-                print('inst')
-                print(inst)
                 machine_instructions.append(inst)
                 fout.write(json.dumps({
                     "instruction": inst,
