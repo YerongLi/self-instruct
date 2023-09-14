@@ -56,7 +56,7 @@ def run_text_gui(prompt):
     logging.info(prompt)
     request = {
         'prompt': prompt,
-        'max_new_tokens': 300,
+        'max_new_tokens': 1000,
         'auto_max_new_tokens': False,
         'max_tokens_second': 0,
 
