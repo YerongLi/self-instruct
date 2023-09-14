@@ -56,7 +56,7 @@ def run_text_gui(prompt):
     logging.info(prompt)
     request = {
         'prompt': prompt,
-        'max_new_tokens': 250,
+        'max_new_tokens': 4096,
         'auto_max_new_tokens': False,
         'max_tokens_second': 0,
 
@@ -88,7 +88,7 @@ def run_text_gui(prompt):
 
         'seed': -1,
         'add_bos_token': True,
-        'truncation_length': 2048,
+        'truncation_length': 4096,
         'ban_eos_token': False,
         'skip_special_tokens': True,
         'stopping_strings': []
