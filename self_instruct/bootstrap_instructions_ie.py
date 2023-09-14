@@ -312,10 +312,10 @@ if __name__ == "__main__":
             results = [
                  package(query(ipt)) for ipt in batch_inputs
             ]
-            for prompt, result in zip(batch_inputs, results):
-                logging.info("Prompt: %s", prompt)
-                logging.info("Result: %s", result)
-                logging.info("-" * 30)  # Separator between pairs
+            # for prompt, result in zip(batch_inputs, results):
+            #     logging.info("Prompt: %s", prompt)
+            #     logging.info("Result: %s", result)
+            #     logging.info("-" * 30)  # Separator between pairs
             # results = make_gpt3_requests(
             #     engine=args.engine,
             #     prompts=batch_inputs,
