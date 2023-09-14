@@ -313,6 +313,7 @@ if __name__ == "__main__":
             results = [
                  package(query(ipt)) for ipt in batch_inputs
             ]
+            print('length of results ', len(results))
             # for prompt, result in zip(batch_inputs, results):
             #     logging.info("Prompt: %s", prompt)
             #     logging.info("Result: %s", result)
@@ -352,6 +353,8 @@ if __name__ == "__main__":
                 most_similar_instructions = {
                         all_instructions[i] : rouge_scores[i] for i in np.argsort(rouge_scores)[-10:][::-1]
                     }
+                print('inst')
+                print(inst)_
                 machine_instructions.append(inst)
                 fout.write(json.dumps({
                     "instruction": inst,
