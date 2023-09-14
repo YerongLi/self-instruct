@@ -56,7 +56,7 @@ def run_text_gui(prompt):
     logging.info(prompt)
     request = {
         'prompt': prompt,
-        'max_new_tokens': 4096,
+        'max_new_tokens': 1000,
         'auto_max_new_tokens': False,
         'max_tokens_second': 0,
 
@@ -346,8 +346,8 @@ if __name__ == "__main__":
                 rouge_scores = [score["rougeL"].fmeasure for score in rouge_scores]
                 
                 # rouge_scores = [scorer.score(inst, e_inst)["rougeL"].fmeasure for e_inst in human_instructions + machine_instructions]
-                # if max(rouge_scores) > 0.7: # TODO similar instruction 
-                    # continue
+                if max(rouge_scores) > 0.7: # TODO similar instruction 
+                    continue
                 all_instructions = seed_instructions + machine_instructions
                 most_similar_instructions = {
                         all_instructions[i] : rouge_scores[i] for i in np.argsort(rouge_scores)[-10:][::-1]
