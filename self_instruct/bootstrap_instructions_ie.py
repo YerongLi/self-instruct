@@ -26,18 +26,79 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def run_llama_command(input_string, gpt3=True):
+def package(text):
+        return { 'response' : {
+        "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
+        "object": "chat.completion",
+        "created": 1677649420,
+        "model": "gpt-3.5-turbo",
+        "usage": {
+            "prompt_tokens": 56,
+            "completion_tokens": 31,
+            "total_tokens": 87
+        },
+        "choices": [
+            {
+                "text": text,
+                "finish_reason": "stop",
+                "index": 0
+            }
+        ]
+        }
+    }
+
+
+def run_text_gui(prompt):
+    request = {
+        'prompt': prompt,
+        'max_new_tokens': 250,
+        'auto_max_new_tokens': False,
+        'max_tokens_second': 0,
+
+        # Generation params. If 'preset' is set to different than 'None', the values
+        # in presets/preset-name.yaml are used instead of the individual numbers.
+        'preset': 'None',
+        'do_sample': True,
+        'temperature': 0.7,
+        'top_p': 0.1,
+        'typical_p': 1,
+        'epsilon_cutoff': 0,  # In units of 1e-4
+        'eta_cutoff': 0,  # In units of 1e-4
+        'tfs': 1,
+        'top_a': 0,
+        'repetition_penalty': 1.18,
+        'repetition_penalty_range': 0,
+        'top_k': 40,
+        'min_length': 0,
+        'no_repeat_ngram_size': 0,
+        'num_beams': 1,
+        'penalty_alpha': 0,
+        'length_penalty': 1,
+        'early_stopping': False,
+        'mirostat_mode': 0,
+        'mirostat_tau': 5,
+        'mirostat_eta': 0.1,
+        'guidance_scale': 1,
+        'negative_prompt': '',
+
+        'seed': -1,
+        'add_bos_token': True,
+        'truncation_length': 2048,
+        'ban_eos_token': False,
+        'skip_special_tokens': True,
+        'stopping_strings': []
+    }
+
+    try:
+        response = requests.post(URI, json=request)
+        if response.status_code == 200:
+            result = response.json()['results'][0]['text']
+            return result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def run_llama_command(input_string):
     def process_output(output):
-        # Extract user input
-        usr_input_match = re.match(r'<LYRST>(.*?)<LYRED>', output)
-        usr_input = usr_input_match.group(1) if usr_input_match else ""
-        logging.info('usr_input')
-        logging.info(usr_input)
-        # Extract completion part
-        completion_part = re.sub(r'<LYRST>.*?<LYRED>', '', output)
-        
-        return usr_input, completion_part.strip()
-    if not gpt3:
         # Define the command as a list of individual components
         command = [
             "$SCRATCH/llama.cpp/main",
@@ -67,28 +128,14 @@ def run_llama_command(input_string, gpt3=True):
 
         except subprocess.CalledProcessError as e:
             return f"Error executing the command: {e}"
-    else:
-        # Return GPT-3 format response
-        return { 'response' : {
-            "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
-            "object": "chat.completion",
-            "created": 1677649420,
-            "model": "gpt-3.5-turbo",
-            "usage": {
-                "prompt_tokens": 56,
-                "completion_tokens": 31,
-                "total_tokens": 87
-            },
-            "choices": [
-                {
-                    "text": run_llama_command(input_string, False),
-                    "finish_reason": "stop",
-                    "index": 0
-                }
-            ]
-            }
-        }
 
+def query(prompt, option='text'):
+    if option == 'text':
+        return run_text_gui(prompt)
+    elif option == 'cpp':
+        return run_llama_command(prompt)
+    else:
+        raise ValueError("Invalid option. Supported options are 'text' and 'cpp'")
 
 
 def encode_prompt(prompt_instructions, classification=False):
@@ -257,7 +304,7 @@ if __name__ == "__main__":
             # print(len(batch_inputs))
 
             results = [
-                 run_llama_command(ipt, True) for ipt in batch_inputs
+                 package(query(ipt) for ipt in batch_inputs
             ]
             for prompt, result in zip(batch_inputs, results):
                 logging.info("Prompt: %s", prompt)
