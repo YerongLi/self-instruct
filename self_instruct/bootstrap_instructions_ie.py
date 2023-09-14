@@ -17,7 +17,9 @@ from functools import partial
 from rouge_score import rouge_scorer
 
 # from gpt3_api import make_requests as make_gpt3_requests
-
+# For local streaming, the websockets are hosted without ssl - http://
+HOST = 'localhost:5000'
+URI = f'http://{HOST}/api/v1/generate'
 random.seed(42)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
