@@ -312,7 +312,6 @@ if __name__ == "__main__":
             results = [
                  package(query(ipt)) for ipt in batch_inputs
             ]
-            print('length of results ', len(results))
             # for prompt, result in zip(batch_inputs, results):
             #     logging.info("Prompt: %s", prompt)
             #     logging.info("Result: %s", result)
