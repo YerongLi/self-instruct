@@ -293,6 +293,7 @@ if __name__ == "__main__":
 
     with open(os.path.join(args.batch_dir, "machine_generated_instructions.jsonl"), "a") as fout:
         while len(machine_instructions) < args.num_instructions_to_generate:
+            print(len(machine_instructions))
             batch_inputs = []
             for _ in range(args.request_batch_size):
                 # sample machine instructions from the pool
