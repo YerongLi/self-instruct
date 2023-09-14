@@ -98,6 +98,8 @@ def run_text_gui(prompt):
         response = requests.post(URI, json=request)
         if response.status_code == 200:
             result = response.json()['results'][0]['text']
+            logging.info('Result :')
+            logging.info(result)
             return result
     except Exception as e:
         print(f"An error occurred: {e}")
