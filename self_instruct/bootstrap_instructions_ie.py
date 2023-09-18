@@ -29,6 +29,27 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
+# Load the instruction prompts from the file once
+with open("configs/instruction_config.json", 'r') as f:
+    instruction_config = json.load(f)
+
+def generate_instruction_prompts(num_prompts=8):
+    # Initialize a list to store all prompts
+    all_prompts = []
+
+    # Loop through each section in the instruction config
+    for section, instructions in instruction_config.items():
+        # Create template prompts for the section
+        prompts = [instruction['instruction'] for instruction in instructions]
+        
+        # Extend the list of all prompts with prompts from this section
+        all_prompts.extend(prompts)
+
+    # Randomly sample 'num_prompts' instructions from all sections
+    sampled_instructions = random.sample(all_prompts, num_prompts)
+
+    return sampled_instructions
+
 def package(text):
         return { 'response' : {
         "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
@@ -296,16 +317,18 @@ if __name__ == "__main__":
             batch_inputs = []
             for _ in range(args.request_batch_size):
                 # sample machine instructions from the pool
-                prompt_instructions = sample_machine_instructions(
-                    machine_instructions, 
-                    similarities=None,
-                    n=2)
-                # sample human instructions from the pool
-                prompt_instructions += random.sample(seed_instructions, args.num_prompt_instructions - len(prompt_instructions))
-                random.shuffle(prompt_instructions)
-                prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
+                # prompt_instructions = sample_machine_instructions(
+                #     machine_instructions, 
+                #     similarities=None,
+                #     n=2)
+                # # sample human instructions from the pool
+                # prompt_instructions += random.sample(seed_instructions, args.num_prompt_instructions - len(prompt_instructions))
+                # random.shuffle(prompt_instructions)
+                # prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
                 # print('prompt)
-                batch_inputs.append(prompt)
+                # batch_inputs.append(prompt)
+                
+                batch_inputs.append(generate_instruction_prompts(num_prompts=8))
             # print(' ==== len(batch_inputs) ==== ')
             # print(len(batch_inputs))
 
