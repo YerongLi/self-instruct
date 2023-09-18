@@ -33,27 +33,41 @@ Task:'''
 
 
 
+input_first_template_for_gen = '''Come up with various instructions for information extraction tasks and specify output format with schemas
+1. Choose the correct pairing of event type and trigger word from the options provided.  
+Schema: Use the format "type: trigger". 
+2. Given the text, identify phrases that describe connections between entities.  
+Schema: Format the output as "relation1: word1, word2; relation2: word3, word4". 
 
-input_first_template_for_gen = '''Come up with examples for the following information extraction tasks. Try to generate multiple examples when possible.
+3. Given the event type and trigger, extract and present the argument roles associated with it. 
+ 
+Schema: Use the format "name1: role1; name2: role2".
+4. Inspect the specified event type and trigger to extract information about the argument roles. 
+ 
+Schema: Output should be formatted as "name1: role1; name2: role2".
+5. Examine the text and extract information about relationships between entities.  
+Schema: Provide the results in the format of "relation1: word1, word2; relation2: word3, word4". 
 
-Task: Given a phrase that describes the relationship between two words, extract the words and the lexical relationship between them. Output format should be "relation1: word1, word2; relation2: word3, word4". 
-Option: adverse effect
-Input: We report a case of a patient with rheumatoid arthritis treated with low - dose methotrexate ( 15 mg / week ) who developed infection with both M. tuberculosis and M. chelonae after the revision of a prosthetic hip .
-Output: adverse effect: infection with both M. tuberculosis and M. chelonae, methotrexate
+6. Please tell me event type and its trigger word from given type options.  
+Schema: Output format is "type: trigger". 
+7. Given a sentence, please extract the subject and object containing a certain relation in the sentence according to the following relation types, in the format of  
+Schema: "relation1: word1, word2; relation2: word3, word4". 
 
-Task: Please list all entity words in the text that fit the category. Output format is "type1: word1; type2: word2". 
-Option: location, else, organization, person
-Input: LONDON 1996-12-06
-Output: location: LONDON
+8. Inspect the text and identify phrases indicating relationships between entities.  
+Schema: Report the results in the format of "relation1: word1, word2; relation2: word3, word4". 
 
-Task: Given event type and trigger, please tell me the arguments of all the listed option. Output format is "name1: role1; name2: role2". 
-Event type: adverse event
-  Option: Treatment.Freq, Subject.Population, Combination.Drug, Subject.Gender, Treatment.Duration, Subject, Effect, Treatment, Treatment.Disorder, Subject.Di
-sorder, Treatment.Route, Subject.Race, Treatment.Time_elapsed, Treatment.Dosage, Subject.Age, Treatment.Drug 
-Input: Although the movement disorder could not with certainty be attributed to trazodone alone, the drug at least acted as an eliciting agent. 
-Output: movement disorder: Effect; trazodone: Treatment; trazodone: Treatment.Drug
+9. Retrieve and display all entity words belonging to a specified category within the text.  
+Schema: Output format is "type1: word1; type2: word2". 
 
-Task:'''
+10. List all entities of a particular category found in the text.  
+Schema: Output format is "type1: word1; type2: word2". 
+
+11. Analyze the provided sentences and extract words that indicate relations between entities.  
+Schema: Output should be in the format of "relation1: word1, word2; relation2: word3, word4". 
+
+12. From the options provided, select the event type and its corresponding trigger word.  
+Schema: Output should be structured as "type: trigger". 
+13.'''
 
 # input_first_template_for_gen = '''Come up with examples for the following tasks. Try to generate multiple examples when possible. If the task doesn't require additional input, you can generate the output directly.
 
