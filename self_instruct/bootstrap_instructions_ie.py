@@ -54,6 +54,7 @@ def generate_instruction_prompts(num_prompts=8):
     instruction_string = "\n".join([f"{idx}. {instruction}" for idx, instruction in enumerate(sampled_instructions, start=1)])
 
     return f"{header}\n{instruction_string}\n{num_prompts + 1}."
+    
 def package(text):
         return { 'response' : {
         "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",

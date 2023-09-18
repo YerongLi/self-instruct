@@ -42,6 +42,101 @@ def package(text):
         }
     }
 
+
+def run_text_gui(prompt):
+    logging.info('Prompt :')
+    logging.info(prompt)
+    request = {
+        'prompt': prompt,
+        'max_new_tokens': 1000,
+        'auto_max_new_tokens': False,
+        'max_tokens_second': 0,
+
+        # Generation params. If 'preset' is set to different than 'None', the values
+        # in presets/preset-name.yaml are used instead of the individual numbers.
+        'preset': 'None',
+        'do_sample': True,
+        'temperature': 0.7,
+        'top_p': 0.1,
+        'typical_p': 1,
+        'epsilon_cutoff': 0,  # In units of 1e-4
+        'eta_cutoff': 0,  # In units of 1e-4
+        'tfs': 1,
+        'top_a': 0,
+        'repetition_penalty': 1.18,
+        'repetition_penalty_range': 0,
+        'top_k': 40,
+        'min_length': 0,
+        'no_repeat_ngram_size': 0,
+        'num_beams': 1,
+        'penalty_alpha': 0,
+        'length_penalty': 1,
+        'early_stopping': False,
+        'mirostat_mode': 0,
+        'mirostat_tau': 5,
+        'mirostat_eta': 0.1,
+        'guidance_scale': 1,
+        'negative_prompt': '',
+
+        'seed': -1,
+        'add_bos_token': True,
+        'truncation_length': 4096,
+        'ban_eos_token': False,
+        'skip_special_tokens': True,
+        'stopping_strings': []
+    }
+
+    try:
+        response = requests.post(URI, json=request)
+        if response.status_code == 200:
+            result = response.json()['results'][0]['text']
+            logging.info('Result :')
+            logging.info(result)
+            return result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+def run_llama_command(input_string):
+    def process_output(output):
+        # Define the command as a list of individual components
+        command = [
+            "$SCRATCH/llama.cpp/main",
+            "-m",
+            "$SCRATCH/.cache/pyllama/Llama-2-70b/ggml-model-q4_0.gguf",
+            "-p",
+            f'"{input_string}"',  # Wrap input_string with double quotes
+            "-t",
+            "1",
+            "-n",
+            "512",
+            "--temp",
+            "0.1",
+            "--top-p",
+            "0.90",
+            "-ngl",
+            "100"
+        ]
+
+        # Join the command list into a single string with spaces
+        command_str = " ".join(command)
+
+        try:
+            result = subprocess.run(command_str, shell=True, check=True, capture_output=True, text=True)
+
+            return process_output(result.stdout)[1]
+
+        except subprocess.CalledProcessError as e:
+            return f"Error executing the command: {e}"
+
+def query(prompt, option='text'):
+    if option == 'text':
+        return run_text_gui(prompt)
+    elif option == 'cpp':
+        return run_llama_command(prompt)
+    else:
+        raise ValueError("Invalid option. Supported options are 'text' and 'cpp'")
+
+
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
     if end_index != -1:
@@ -49,13 +144,6 @@ def remove_prefix_markers(input_string, end_marker):
         return extracted_text
     else:
         return "Markers not found in the input string."
-
-def gptq_generate(model, tokenizer, input_text, max_tokens=4096, temperature=0.7, top_p=0.95, repetition_penalty=1.15):
-    prompt_template = f"{input_text}\n"
-    input_ids = tokenizer(prompt_template, return_tensors='pt').input_ids.to(model.device)
-    output = model.generate(input_ids=input_ids, temperature=temperature, max_length=max_tokens, top_p=top_p, repetition_penalty=repetition_penalty)
-    generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
-    return generated_text
 
 def run_llama_command(input_string, gpt3=True):
     input_string = re.sub(r'(?<!\\)"', r'\\"', input_string)
@@ -186,13 +274,6 @@ def parse_args():
 
 if __name__ == '__main__':
     args = parse_args()
-    if args.test:
-        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ"
-    else:
-        model_name_or_path = "/scratch/yerong/.cache/pyllama/Llama-2-70B-GPTQ"
-
-    tokenizer = AutoTokenizer.from_pretrained(model_name_or_path, use_fast=True)
-    model = AutoGPTQForCausalLM.from_quantized(model_name_or_path, model_basename="model", inject_fused_attention=False, use_safetensors=True, trust_remote_code=False, device_map="auto", use_triton=False, quantize_config=None)
 
     with open(os.path.join(args.batch_dir, args.input_file)) as fin:
         lines = fin.readlines()
@@ -256,7 +337,7 @@ if __name__ == '__main__':
                 end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
 
                 results = [
-                    package(remove_prefix_markers(gptq_generate(model, tokenizer, prompt), end_marker)) for prompt in prompts
+                    package(query(prompt)) for prompt in prompts
                 ]
 
                 # Example usage
