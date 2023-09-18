@@ -25,7 +25,7 @@ logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
     filename='./output.log',
-    datefmt='%m-%d %H:%M:%S')
+    datefmt='%m-%d git branch --set-upstream-to=origin/%H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
@@ -48,8 +48,11 @@ def generate_instruction_prompts(num_prompts=8):
     # Randomly sample 'num_prompts' instructions from all sections
     sampled_instructions = random.sample(all_prompts, num_prompts)
 
-    return sampled_instructions
+    # Create the final header and combine prompts into a single string
+    header = "Come up with various instructions for information extraction tasks, i.e. Coreference Resolution, Relation Extraction, Aspect Extraction, Argument Mining etc."
+    instruction_string = "\n".join([f"{idx}. {instruction}" for idx, instruction in enumerate(sampled_instructions, start=1)])
 
+    return f"{header}\n{instruction_string}\n{num_prompts + 1}."
 def package(text):
         return { 'response' : {
         "id": "chatcmpl-6p9XYPYSTTRi0xEviKjjilqrWU2Ve",
