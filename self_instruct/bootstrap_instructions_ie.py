@@ -327,8 +327,8 @@ if __name__ == "__main__":
                 # prompt = encode_prompt(prompt_instructions, classification=args.use_clf_seed_tasks_only)
                 # print('prompt)
                 # batch_inputs.append(prompt)
-                
-                batch_inputs.append(generate_instruction_prompts(num_prompts=8))
+
+                batch_inputs.append(generate_instruction_prompts(num_prompts=12))
             # print(' ==== len(batch_inputs) ==== ')
             # print(len(batch_inputs))
 
