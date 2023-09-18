@@ -12,7 +12,7 @@ def print_instructions_from_jsonl(file_path):
                 instruction = data.get("instruction")
                 schema = data.get("raw_instances")
                 if instruction:
-                    print(instruction)
+                    print(instruction.rstrip())
                     print(schema)
                     print()
     except FileNotFoundError:
