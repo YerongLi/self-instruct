@@ -39,6 +39,7 @@ def generate_instruction_prompts(num_prompts=8):
 
     # Loop through each section in the instruction config
     for section, instructions in instruction_config.items():
+        if section in {'RC'} : continue
         # Create template prompts for the section
         prompts = [instruction['instruction'] for instruction in instructions]
         
