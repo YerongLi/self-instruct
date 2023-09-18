@@ -9,7 +9,7 @@ def print_instructions_from_jsonl(file_path):
         with open(file_path, 'r', encoding='utf-8') as file:
             for line in file:
                 data = json.loads(line)
-                instruction = data.get("instance")
+                instruction = data.get("raw_instances")
                 if instruction:
                     print(instruction)
     except FileNotFoundError:
