@@ -334,7 +334,7 @@ if __name__ == '__main__':
                     #     prompt = output_first_template_for_clf + " " + task["instruction"].strip() + "\n"
                     #     prompts.append(prompt)
                     # else:
-                        prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\n"
+                        prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\nSchema:"
                         prompts.append(prompt)
 
                 end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
