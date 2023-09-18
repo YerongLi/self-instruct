@@ -14,7 +14,7 @@ def print_instructions_from_jsonl(file_path):
                 if instruction:
                     print(instruction.rstrip())
                     print(schema)
-                    print()
+                    print("===")
     except FileNotFoundError:
         print(f"File '{file_path}' not found.")
     except Exception as e:
