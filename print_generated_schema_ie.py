@@ -1,7 +1,7 @@
 import json
 
 # Define the path to the JSONL file
-file_path = 'data/ie/machine_generated_instructions.jsonl'
+file_path = 'data/ie/machine_generated_instances.jsonl'
 
 # Function to read and print "instruction" fields from the JSONL file
 def print_instructions_from_jsonl(file_path):
