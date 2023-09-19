@@ -12,8 +12,8 @@ def print_instructions_from_jsonl(file_path):
                 instruction = data.get("instruction")
                 schema = data.get("raw_instances")
                 if instruction:
-                    print(instruction.rstrip())
-                    print(f"Format :{schema}")
+                    print(f"Instruction\n {instruction.rstrip()}")
+                    print(f"Format\n {schema}")
                     print("===")
     except FileNotFoundError:
         print(f"File '{file_path}' not found.")
