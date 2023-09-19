@@ -1,9 +1,6 @@
 batch_dir=data/ie/
 
-test_flag=""
-if [[ $1 == "test" ]]; then
-    test_flag="--test"
-fi
+rm ${batch_dir}/machine_generated_instances.jsonl
 python self_instruct/generate_instances_ie.py \
     --batch_dir ${batch_dir} \
     --input_file machine_generated_instructions.jsonl \
