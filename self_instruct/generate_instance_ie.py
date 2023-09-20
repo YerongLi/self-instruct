@@ -132,6 +132,7 @@ def run_llama_command(input_string):
             return f"Error executing the command: {e}"
 
 def query(prompt, option='text'):
+    print(prompt)
     if option == 'text':
         return run_text_gui(prompt)
     elif option == 'cpp':
@@ -347,7 +348,7 @@ if __name__ == '__main__':
                     #     prompts.append(prompt)
                     # else:
                         prompt = gen_instance_template + "\nInstruction:\n" + task["instruction"].strip() 
-                        + "\nFormat:\n" + task["format"].strip()
+                        + "\nFormat:\n" + task["format"].strip() +"\n"
                         prompts.append(prompt)
 
                 end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
@@ -393,7 +394,7 @@ if __name__ == '__main__':
                             results[i]["response"]["choices"][0]["text"]
                             
                     else:
-                        data["format"] = ""
+                        data["instance"] = ""
                     data = OrderedDict(
                         (k, data[k]) for k in \
                             ["instruction", "format", "instance_metadata", "instruction_metadata", 
