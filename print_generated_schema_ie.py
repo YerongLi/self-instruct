@@ -12,7 +12,7 @@ def extract_prefix_until_index(input_string):
         output.append(line)
 
     result = '\n'.join(output)
-    return result
+    return result.strip()
 
 # Define the path to the JSONL file
 file_path = 'data/ie/machine_generated_format.jsonl'
