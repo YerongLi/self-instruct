@@ -390,8 +390,7 @@ if __name__ == '__main__':
                     data = batch[i]
                     data["instance_metadata"] = results[i]
                     if results[i]["response"] is not None:
-                        data["instance"] = 
-                            results[i]["response"]["choices"][0]["text"]
+                        data["instance"] = results[i]["response"]["choices"][0]["text"]
                             
                     else:
                         data["instance"] = ""
