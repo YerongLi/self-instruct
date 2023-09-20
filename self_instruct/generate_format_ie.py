@@ -139,7 +139,19 @@ def query(prompt, option='text'):
     else:
         raise ValueError("Invalid option. Supported options are 'text' and 'cpp'")
 
+def extract_prefix_until_index(input_string):
+    lines = input_string.split('\n')  # Split the string into lines
 
+    output = []
+
+    for line in lines:
+        # Use regular expression to check if the line starts with an index
+        if re.match(r'^\d+\.\s', line):
+            break
+        output.append(line)
+
+    result = '\n'.join(output)
+    return result.strip()
 def remove_prefix_markers(input_string, end_marker):
     end_index = input_string.find(end_marker)
     if end_index != -1:
@@ -323,7 +335,7 @@ if __name__ == '__main__':
                     data = existing_requests[d["instruction"]]
                     data = OrderedDict(
                         (k, data[k]) for k in \
-                            ["instruction", "raw_instances", "instance_metadata", "instruction_metadata", 
+                            ["instruction", "format", "instance_metadata", "instruction_metadata", 
                             "most_similar", "avg_similarity_score"]
                         )
                     fout.write(json.dumps(data, ensure_ascii=False) + "\n")
@@ -376,12 +388,14 @@ if __name__ == '__main__':
                     data = batch[i]
                     data["instance_metadata"] = results[i]
                     if results[i]["response"] is not None:
-                        data["raw_instances"] = results[i]["response"]["choices"][0]["text"]
+                        data["format"] = extract_prefix_until_index(
+                            results[i]["response"]["choices"][0]["text"]
+                            )
                     else:
-                        data["raw_instances"] = ""
+                        data["format"] = ""
                     data = OrderedDict(
                         (k, data[k]) for k in \
-                            ["instruction", "raw_instances", "instance_metadata", "instruction_metadata", 
+                            ["instruction", "format", "instance_metadata", "instruction_metadata", 
                             "most_similar", "avg_similarity_score"]
                         )
                     del data['instance_metadata'] # TODO remove
