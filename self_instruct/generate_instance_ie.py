@@ -12,7 +12,7 @@ from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
 from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
-from templates.instance_gen_template_ie import gen_instance
+from templates.instance_gen_template_ie import gen_instance_template
 # model, tokenizer = None, None
 HOST = 'localhost:5000'
 URI = f'http://{HOST}/api/v1/generate'
@@ -346,7 +346,8 @@ if __name__ == '__main__':
                     #     prompt = output_first_template_for_clf + " " + task["instruction"].strip() + "\n"
                     #     prompts.append(prompt)
                     # else:
-                        prompt = input_first_template_for_gen + " " + task["instruction"].strip() + "\nFormat:"
+                        prompt = gen_instance_template + "\nInstruction:\n" + task["instruction"].strip() 
+                        + "\nFormat:\n" + task["format"].strip()
                         prompts.append(prompt)
 
                 end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
@@ -388,9 +389,9 @@ if __name__ == '__main__':
                     data = batch[i]
                     data["instance_metadata"] = results[i]
                     if results[i]["response"] is not None:
-                        data["instance"] = extract_prefix_until_index(
+                        data["instance"] = 
                             results[i]["response"]["choices"][0]["text"]
-                            )
+                            
                     else:
                         data["format"] = ""
                     data = OrderedDict(
