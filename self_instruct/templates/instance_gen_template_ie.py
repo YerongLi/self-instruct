@@ -336,7 +336,7 @@ Thanks again,
 Task:'''
 
 gen_instance_template='''
-Generate as many inforomation extraction problem with specified format, in the predefined schema not every field have to have a ground truth value:
+Generate as many information extraction problems with specified ouptut formats, in a predefined schema not every field must have a ground truth value:
 1.
 Instruction:
 Given the input sentences, identify and extract words that demonstrate a relationship between two entities. 
@@ -350,25 +350,24 @@ Output:
 
 2.
 Instruction:
-Given a sentence, please extract the subject and object containing a certain relation in the sentence according to the following relation types, 
+From the options provided, select the event type and its corresponding trigger word.
 Format:
-Please output in the format of "relation1: word1, word2; relation2: word3, word4". 
-Option: conjunction, feature of, hyponym of, used for, part of, compare, evaluate for
+Output should be structured as "type: trigger".  Option: adverse event, potential therapeutic event
 Input:
-Evaluation on the ACE 2003 corpus shows that the convolution kernel over parse trees can achieve comparable performance with the previous best-reported feature-based methods on the 24 ACE relation subtypes .
+Type II heparin-induced thrombocytopenia (HIT) is an immunological disorder characterized by antibodies to heparin-platelet factor 4 complexes and a high risk of thrombotic complications.
 Output:
- evaluate for: ACE 2003 corpus, convolution kernel over parse trees; compare: feature-based methods, convolution kernel over parse trees
+ adverse event: induced 
 
 3.
 Instruction:
-Given a trigger word and an event type, extract and list the argument roles associated with it. 
-Format: Use the format "name1: role1; name2: role2". 
-Event type: meet 
-  Option: entity, place
+Retrieve and display entity words belonging to a specified category within the text.
+Format:
+Output format is "type1: word1; type2: word2". 
+Option: location, person, organization
 Input:
-After talks in Saint Petersburg ' s grand Konstantinovsky Palace , they also warned North Korea to abandon its nuclear aspirations and signed documents implementing the Moscow Treaty , which mandates sharp cuts in Cold War nuclear weapons stocks .
+Commodore had built up CD32 inventory in their Philippine manufacturing facility for the United States launch , but , being unable to sell the consoles , they remained in the Philippines until the debts owed to the owners of the facility were settled .
 Output:
- Konstantinovsky Palace: place; they: entity
+ organization: Commodore; location: Philippine
 
 4.
 Instruction:
@@ -384,14 +383,14 @@ Output:
 
 5.
 Instruction:
-Retrieve and display entity words belonging to a specified category within the text.
-Format:
-Output format is "type1: word1; type2: word2". 
-Option: location, person, organization
+Given a trigger word and an event type, extract and list the argument roles associated with it. 
+Format: Use the format "name1: role1; name2: role2". 
+Event type: meet 
+  Option: entity, place
 Input:
-Commodore had built up CD32 inventory in their Philippine manufacturing facility for the United States launch , but , being unable to sell the consoles , they remained in the Philippines until the debts owed to the owners of the facility were settled .
+After talks in Saint Petersburg ' s grand Konstantinovsky Palace , they also warned North Korea to abandon its nuclear aspirations and signed documents implementing the Moscow Treaty , which mandates sharp cuts in Cold War nuclear weapons stocks .
 Output:
- organization: Commodore; location: Philippine
+ Konstantinovsky Palace: place; they: entity
 
 6.
 Instruction:
@@ -416,13 +415,15 @@ Output:
 
 8.
 Instruction:
-From the options provided, select the event type and its corresponding trigger word.
+Given a sentence, please extract the subject and object containing a certain relation in the sentence according to the following relation types, 
 Format:
-Output should be structured as "type: trigger".  Option: adverse event, potential therapeutic event
+Please output in the format of "relation1: word1, word2; relation2: word3, word4". 
+Option: conjunction, feature of, hyponym of, used for, part of, compare, evaluate for
 Input:
-Type II heparin-induced thrombocytopenia (HIT) is an immunological disorder characterized by antibodies to heparin-platelet factor 4 complexes and a high risk of thrombotic complications.
+Evaluation on the ACE 2003 corpus shows that the convolution kernel over parse trees can achieve comparable performance with the previous best-reported feature-based methods on the 24 ACE relation subtypes .
 Output:
- adverse event: induced 
+ evaluate for: ACE 2003 corpus, convolution kernel over parse trees; compare: feature-based methods, convolution kernel over parse trees
+
 
 9.
 '''
