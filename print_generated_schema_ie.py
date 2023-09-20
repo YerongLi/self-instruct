@@ -24,7 +24,7 @@ def print_instructions_from_jsonl(file_path):
             for line in file:
                 data = json.loads(line)
                 instruction = data.get("instruction")
-                raw_format = data.get("raw_instances")
+                raw_format = data.get("format")
                 clean_format = extract_prefix_until_index(raw_format)
                 if instruction:
                     print(f"Instruction\n {instruction.rstrip()}")
