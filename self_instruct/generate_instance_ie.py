@@ -350,7 +350,7 @@ if __name__ == '__main__':
                         prompt = gen_instance_template + "\nInstruction:\n" + task["instruction"].strip() + "\nFormat:\n" + task["format"].strip() +"\n"
                         prompts.append(prompt)
 
-                end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
+                # end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
 
                 results = [
                     package(query(prompt)) for prompt in prompts
