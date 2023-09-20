@@ -347,7 +347,7 @@ if __name__ == '__main__':
                     #     prompt = output_first_template_for_clf + " " + task["instruction"].strip() + "\n"
                     #     prompts.append(prompt)
                     # else:
-                        prompt = gen_instance_template + "Instruction:\n" + task["instruction"].strip() + "\nFormat:\n" + task["format"].strip() +"\n"
+                        prompt = gen_instance_template + "Instruction:\n" + task["instruction"].strip() + "\nFormat:\n" + task["format"].strip().strip('\n') +"\n"
                         prompts.append(prompt)
 
                 # end_marker = input_first_template_for_gen[-160:] ## TODO remove the prefix
