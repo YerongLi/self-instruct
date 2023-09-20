@@ -12,7 +12,7 @@ from transformers import AutoTokenizer, pipeline
 from auto_gptq import AutoGPTQForCausalLM
 from collections import OrderedDict
 # from gpt3_api import make_requests as make_gpt3_requests
-from templates.instance_gen_template_ie import output_first_template_for_clf, input_first_template_for_gen
+from templates.instance_gen_template_ie import gen_instance
 # model, tokenizer = None, None
 HOST = 'localhost:5000'
 URI = f'http://{HOST}/api/v1/generate'
