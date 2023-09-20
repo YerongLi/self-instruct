@@ -336,7 +336,7 @@ if __name__ == '__main__':
                     data = OrderedDict(
                         (k, data[k]) for k in \
                             ["instruction", "format", "instance_metadata", "instruction_metadata", 
-                            "most_similar", "avg_similarity_score"]
+                            "most_similar", "avg_similarity_score",'instance']
                         )
                     fout.write(json.dumps(data, ensure_ascii=False) + "\n")
             else:
@@ -388,7 +388,7 @@ if __name__ == '__main__':
                     data = batch[i]
                     data["instance_metadata"] = results[i]
                     if results[i]["response"] is not None:
-                        data["format"] = extract_prefix_until_index(
+                        data["instance"] = extract_prefix_until_index(
                             results[i]["response"]["choices"][0]["text"]
                             )
                     else:
@@ -396,7 +396,7 @@ if __name__ == '__main__':
                     data = OrderedDict(
                         (k, data[k]) for k in \
                             ["instruction", "format", "instance_metadata", "instruction_metadata", 
-                            "most_similar", "avg_similarity_score"]
+                            "most_similar", "avg_similarity_score",'instance']
                         )
                     del data['instance_metadata'] # TODO remove
                     fout.write(json.dumps(data, ensure_ascii=False) + "\n")
