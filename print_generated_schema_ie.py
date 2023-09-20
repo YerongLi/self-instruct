@@ -1,4 +1,5 @@
 import json
+import re
 def extract_prefix_until_index(input_string):
     lines = input_string.split('\n')  # Split the string into lines
 
