@@ -1,0 +1,64 @@
+Iteration 1
+ Name: victory
+   Overlay Parent name: success
+Iteration 11
+ Name: laundering
+   Overlay Parent name: washing
+Iteration 15
+ Name: suspension
+   Overlay Parent name: dispersion
+Iteration 16
+ Name: threshold_effect
+   Overlay Parent name: phenomenon
+Iteration 17
+ Name: planning
+   Overlay Parent name: process
+Iteration 18
+ Name: information_transfer
+   Overlay Parent name: transfer
+Iteration 19
+ Name: bisexuality
+   Overlay Parent name: allosexuality
+Iteration 20
+ Name: intifada
+   Overlay Parent name: rebellion
+Iteration 22
+ Name: vowel_shift
+   Overlay Parent name: sound_change
+Iteration 24
+ Name: rejection
+   Overlay Parent name: editorial_decision
+Iteration 25
+ Name: biochemistry_method
+   Overlay Parent name: laboratory_technique
+Iteration 25
+ Name: biochemistry_method
+   Overlay Parent name: method
+Iteration 27
+ Name: contribution
+   Overlay Parent name: payment
+Iteration 29
+ Name: competition
+   Overlay Parent name: interaction
+Iteration 32
+ Name: abstraction
+   Overlay Parent name: process
+Iteration 33
+ Name: mind_game
+   Overlay Parent name: intellectual_competition
+Iteration 34
+ Name: phone_conversation
+   Overlay Parent name: telephone_call
+Iteration 36
+ Name: faith
+   Overlay Parent name: belief
+Iteration 38
+ Name: shearing
+   Overlay Parent name: finishing
+Iteration 39
+ Name: learning
+   Overlay Parent name: cognition
+Iteration 40
+ Name: fitting-out
+   Overlay Parent name: change
+
