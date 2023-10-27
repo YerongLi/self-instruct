@@ -8,9 +8,10 @@ with open('xpo_v1.1.json', 'r') as json_file:
 
 # Assuming 'data' is a dictionary containing the data
 keys = sorted(data.keys(), key=lambda x: x[::-1])
-
+start = 40
 # Iterate over the keys and print the iteration number and corresponding values
 for i, key in enumerate(keys):
+    if i <= 40 : continue
     value = data[key]
     print(f"Iteration {i+1}\n Name: {value['name']}")
 
