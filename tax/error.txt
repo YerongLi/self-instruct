@@ -79,3 +79,45 @@ Iteration 50
 Iteration 59
  Name: cover
    Overlay Parent name: defense
+Iteration 64
+ Name: divergence
+   Overlay Parent name: process
+Iteration 64
+ Name: divergence
+   Overlay Parent name: change
+Iteration 64
+ Name: divergence
+   Overlay Parent name: increase
+Iteration 65
+ Name: obscenity
+   Overlay Parent name: rudeness
+Iteration 67
+ Name: waterproofing
+   Overlay Parent name: engineering_process
+Iteration 68
+ Name: skydiving
+   Overlay Parent name: aviation
+Iteration 70
+ Name: spraying
+   Overlay Parent name: intentional_human_activity
+Iteration 72
+ Name: treatment
+   Overlay Parent name: process
+Iteration 73
+ Name: gerrymandering
+   Overlay Parent name: redistribution
+Iteration 73
+ Name: gerrymandering
+   Overlay Parent name: political_corruption
+Iteration 74
+ Name: computing
+   Overlay Parent name: activity
+Iteration 77
+ Name: session
+   Overlay Parent name: context
+Iteration 78
+ Name: group_behaviour
+   Overlay Parent name: social_behavior
+Iteration 80
+ Name: reorganization
+   Overlay Parent name: change
