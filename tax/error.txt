@@ -121,3 +121,27 @@ Iteration 78
 Iteration 80
  Name: reorganization
    Overlay Parent name: change
+Iteration 82
+ Name: savoring
+   Overlay Parent name: gratitude
+Iteration 83
+ Name: field_research
+   Overlay Parent name: methodology
+Iteration 85
+ Name: common_assault
+   Overlay Parent name: assault
+Iteration 87
+ Name: slip
+   Overlay Parent name: sliding
+Iteration 88
+ Name: blessing
+   Overlay Parent name: prayer
+Iteration 89
+ Name: restoration
+   Overlay Parent name: occurrence
+Iteration 92
+ Name: exhumation
+   Overlay Parent name: process
+Iteration 94
+ Name: eye_symptom
+   Overlay Parent name: eye_disease
