@@ -22,3 +22,10 @@ Iteration 57
 Iteration 81
  Name: looping
    Overlay Parent name: aerobatic_maneuver
+Iteration 95
+ Name: strategy_game
+   Overlay Parent name: game
+Iteration 99
+ Name: mass_communication
+   Overlay Parent name: communication
+
