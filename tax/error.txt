@@ -157,3 +157,44 @@ Iteration 98
 Iteration 100
  Name: bone_maceration
    Overlay Parent name: technique
+Iteration 101
+ Name: thromboembolism
+   Overlay Parent name: thrombosis
+Iteration 102
+ Name: self-management
+   Overlay Parent name: management
+Iteration 103
+ Name: dating
+   Overlay Parent name: human_behavior
+Iteration 105
+ Name: questionnaire
+   Overlay Parent name: data_collection
+Iteration 106
+ Name: leisure
+   Overlay Parent name: human_behavior
+Iteration 108
+ Name: arms_trafficking
+   Overlay Parent name: black_market
+Iteration 109
+ Name: political_agitation
+   Overlay Parent name: propaganda
+   Overlay Parent name: crime
+Iteration 110
+ Name: sensory_cue
+   Overlay Parent name: stimulus
+Iteration 111
+ Name: protest
+   Overlay Parent name: occurrence
+Iteration 112
+ Name: parole
+   Overlay Parent name: punishment
+Iteration 113
+ Name: amphibious_warfare
+   Overlay Parent name: occurrence
+Iteration 114
+ Name: determination
+   Overlay Parent name: process
+Iteration 115
+ Name: military_act
+   Overlay Parent name: ceremony
+
