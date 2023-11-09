@@ -80,7 +80,7 @@ def process_video(input_video_path, output_path):
         image_copy = np.copy(image.numpy_view())
         annotated_image = visualize(image_copy, detection_result)
         # print(f"Processing frame {frame_count}")
-
+        print(annotated_image)
         # # Convert frame to RGB
         # frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
