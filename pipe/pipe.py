@@ -13,7 +13,10 @@ ROW_SIZE = 10  # pixels
 FONT_SIZE = 1
 FONT_THICKNESS = 1
 TEXT_COLOR = (255, 0, 0)  # red
-
+base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')
+options = vision.ObjectDetectorOptions(base_options=base_options,
+                                       score_threshold=0.5)
+detector = vision.ObjectDetector.create_from_options(options)
 
 def visualize(
     image,
@@ -69,6 +72,12 @@ def process_video(input_video_path, output_path):
         frame_count += 1
         print(frame_count)
         if frame_count > 500: break
+
+        detection_result = detector.detect(image)
+
+        # STEP 5: Process the detection result. In this case, visualize it.
+        image_copy = np.copy(image.numpy_view())
+        annotated_image = visualize(image_copy, detection_result)
         # print(f"Processing frame {frame_count}")
 
         # # Convert frame to RGB
