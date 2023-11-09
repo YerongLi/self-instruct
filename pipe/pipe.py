@@ -7,10 +7,9 @@ FaceDetectorOptions = mp.tasks.vision.FaceDetectorOptions
 VisionRunningMode = mp.tasks.vision.RunningMode
 def process_video(input_video_path):
     # Create a face detector instance with the video mode
-    options = FaceDetectorOptions(
-        base_options=BaseOptions(model_asset_path='/path/to/model.task'),
-        running_mode=VisionRunningMode.VIDEO
-    )
+	options = FaceDetectorOptions(
+	    base_options=BaseOptions(model_asset_path='/path/to/model.task'),
+	    running_mode=VisionRunningMode.VIDEO)
     with FaceDetector(options) as detector:
         cap = cv2.VideoCapture(input_video_path)
 
