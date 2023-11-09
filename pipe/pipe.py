@@ -59,8 +59,8 @@ def process_video(input_video_path, output_path):
     cap = cv2.VideoCapture(input_video_path)
     frame_count = 0
 
-    start = 100
-    end = 200
+    start = 250
+    end = 350
     while cap.isOpened():
         if frame_count <= start or frame_count > end: 
             frame_count+= 1
