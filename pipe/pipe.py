@@ -69,7 +69,7 @@ def process_video(input_video_path, output_path):
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
         # Create MediaPipe Image
-        image = mp.python.image(
+        image = mp.Image(
             image_format=mp.ImageFormat.FORMAT_RGB,
             data=frame_rgb
         )
@@ -85,7 +85,6 @@ def process_video(input_video_path, output_path):
     cap.release()
 
 
-    cap.release()
 
 # Process the video and save annotated frames
 input_video_path = 'Phase II Lesson 1 Elaboration Identifying Additional Element.mp4'
