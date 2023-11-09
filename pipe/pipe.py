@@ -3,7 +3,10 @@
 # !wget -q -O efficientdet.tflite -q https://storage.googleapis.com/mediapipe-models/object_detector/efficientdet_lite0/int8/1/efficientdet_lite0.tflite
 #@markdown We implemented some functions to visualize the object detection results. <br/> Run the following cell to activate the functions.
 import cv2
+import mediapipe as mp
 import numpy as np
+from mediapipe.tasks import python
+from mediapipe.tasks.python import vision
 
 MARGIN = 10  # pixels
 ROW_SIZE = 10  # pixels
@@ -50,3 +53,22 @@ import cv2
 
 img = cv2.imread(IMAGE_FILE)
 # cv2_imshow(img)
+
+
+
+
+# STEP 2: Create an ObjectDetector object.
+base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')
+options = vision.ObjectDetectorOptions(base_options=base_options,
+                                       score_threshold=0.5)
+detector = vision.ObjectDetector.create_from_options(options)
+
+# STEP 3: Load the input image.
+image = mp.Image.create_from_file(IMAGE_FILE)
+
+# STEP 4: Detect objects in the input image.
+detection_result = detector.detect(image)
+
+# STEP 5: Process the detection result. In this case, visualize it.
+image_copy = np.copy(image.numpy_view())
+annotated_image = visualize(image_copy, detection_result)
