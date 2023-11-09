@@ -47,10 +47,13 @@ def visualize(
 # !wget -q -O image.jpg https://storage.googleapis.com/mediapipe-tasks/object_detector/cat_and_dog.jpg
 
 def process_video(input_video_path, output_path):
-    # ... (Existing code remains the same)
+    # STEP 2: Create an ObjectDetector object.
+    base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')
+    options = vision.ObjectDetectorOptions(base_options=base_options, score_threshold=0.5)
+    detector = vision.ObjectDetector.create_from_options(options)
 
     # Read video file
-    cap = cv2.VideoCapture(input_video_path)
+   	cap = cv2.VideoCapture(input_video_path)
     frame_count = 0
 
     while cap.isOpened():
@@ -78,6 +81,9 @@ def process_video(input_video_path, output_path):
         annotated_frame = visualize(frame, detection_result)
         output_file_path = f"{output_path}/frame_{frame_count:04d}.png"
         cv2.imwrite(output_file_path, annotated_frame)
+
+    cap.release()
+
 
     cap.release()
 
