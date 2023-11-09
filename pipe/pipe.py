@@ -39,8 +39,8 @@ def process_video(input_video_path):
 
             # Perform operations with the face detector results (e.g., drawing bounding boxes)
             # For example:
-            for detection in face_detector_result.detections:
-                # Retrieve and process the face detection data
+            # for detection in face_detector_result.detections:
+            # Retrieve and process the face detection data
 
             # Show or save annotated frames
             # ...
