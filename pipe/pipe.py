@@ -68,6 +68,7 @@ def process_video(input_video_path, output_path):
 
         frame_count += 1
         print(frame_count)
+        if frame_count > 500: break
         # print(f"Processing frame {frame_count}")
 
         # # Convert frame to RGB
