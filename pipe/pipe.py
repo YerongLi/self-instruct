@@ -4,8 +4,7 @@ import cv2
 BaseOptions = mp.tasks.BaseOptions
 FaceDetector = mp.tasks.vision.FaceDetector
 FaceDetectorOptions = mp.tasks.vision.FaceDetectorOptions
-VisionRunningMode = mp.solutions.face_detection.FaceDetectionRunningMode
-
+VisionRunningMode = mp.tasks.vision.RunningMode
 def process_video(input_video_path):
     # Create a face detector instance with the video mode
     options = FaceDetectorOptions(
