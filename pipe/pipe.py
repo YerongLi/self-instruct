@@ -10,7 +10,7 @@ def process_video(input_video_path):
 	options = FaceDetectorOptions(
 	    base_options=BaseOptions(model_asset_path='/path/to/model.task'),
 	    running_mode=VisionRunningMode.VIDEO)
-    with FaceDetector(options) as detector:
+	with FaceDetector(options) as detector:
         cap = cv2.VideoCapture(input_video_path)
 
         frame_count = 0
