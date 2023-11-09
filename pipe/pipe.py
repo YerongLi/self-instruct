@@ -53,7 +53,7 @@ def process_video(input_video_path, output_path):
     detector = vision.ObjectDetector.create_from_options(options)
 
     # Read video file
-   	cap = cv2.VideoCapture(input_video_path)
+    cap = cv2.VideoCapture(input_video_path)
     frame_count = 0
 
     while cap.isOpened():
