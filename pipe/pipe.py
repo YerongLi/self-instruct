@@ -60,7 +60,7 @@ def process_video(input_video_path, output_path):
     frame_count = 0
 
     while cap.isOpened():
-        if frame_count <= 10 or frame_count > 500: 
+        if frame_count <= 10 or frame_count > 100: 
             frame_count+= 1
             continue
 
@@ -72,7 +72,7 @@ def process_video(input_video_path, output_path):
 
         frame_count += 1
         print(frame_count)
-        if frame_count > 500: break
+        if frame_count > 100: break
 
         detection_result = detector.detect(image)
 
