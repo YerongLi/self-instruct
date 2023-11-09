@@ -65,8 +65,8 @@ def process_video(input_video_path, output_path):
             continue
 
         # ret, frame = cap.read()
-        ret, image = cap.read()
-
+        ret, frame = cap.read()
+        image = mp.Image(frame)
         # if not ret:
         #     break
 
