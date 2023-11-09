@@ -95,7 +95,7 @@ def process_video(input_video_path, output_path):
         # detection_result = detector.detect(image)
 
         # Process the detection result and save the annotated frame.
-        output_file_path = f"{output_path}/frame_{frame_count:04d}.png"
+        output_file_path = f"{output_path}/frame_{frame_count:06d}.png"
         cv2.imwrite(output_file_path, annotated_image)
 
     cap.release()
