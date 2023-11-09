@@ -62,12 +62,13 @@ def process_video(input_video_path, output_path):
     start = 250
     end = 350
     while cap.isOpened():
+        ret, frame = cap.read()
+
         if frame_count <= start or frame_count > end: 
             frame_count+= 1
             continue
 
         # ret, frame = cap.read()
-        ret, frame = cap.read()
         image = mp.Image(data=frame, image_format=mp.ImageFormat.SRGB)
         # if not ret:
         #     break
