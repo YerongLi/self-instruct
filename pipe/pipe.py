@@ -2,8 +2,8 @@ import mediapipe as mp
 import cv2
 
 BaseOptions = mp.tasks.BaseOptions
-FaceDetector = mp.solutions.face_detection.FaceDetection
-FaceDetectorOptions = mp.solutions.face_detection.FaceDetectionOptions
+FaceDetector = mp.tasks.vision.FaceDetector
+FaceDetectorOptions = mp.tasks.vision.FaceDetectorOptions
 VisionRunningMode = mp.solutions.face_detection.FaceDetectionRunningMode
 
 def process_video(input_video_path):
