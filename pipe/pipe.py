@@ -57,6 +57,7 @@ def process_video(input_video_path, output_path):
     frame_count = 0
 
     while cap.isOpened():
+        if frame_count <= 10 or frame_count > 500: continue
         # ret, frame = cap.read()
 
         # if not ret:
