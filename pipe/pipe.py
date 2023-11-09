@@ -72,3 +72,4 @@ detection_result = detector.detect(image)
 # STEP 5: Process the detection result. In this case, visualize it.
 image_copy = np.copy(image.numpy_view())
 annotated_image = visualize(image_copy, detection_result)
+cv2.imwrite('annotated_image.png', annotated_image)
