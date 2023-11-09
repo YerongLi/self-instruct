@@ -70,7 +70,6 @@ def process_video(input_video_path, output_path):
 
         # Create MediaPipe Image
         image = mp.Image(
-            image_format=mp.ImageFormat.FORMAT_RGB,
             data=frame_rgb
         )
 
