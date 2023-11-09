@@ -46,30 +46,43 @@ def visualize(
   return image
 # !wget -q -O image.jpg https://storage.googleapis.com/mediapipe-tasks/object_detector/cat_and_dog.jpg
 
-IMAGE_FILE = 'image.jpg'
+def process_video(input_video_path, output_path):
+    # STEP 2: Create an ObjectDetector object.
+    base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')
+    options = vision.ObjectDetectorOptions(base_options=base_options, score_threshold=0.5)
+    detector = vision.ObjectDetector.create_from_options(options)
 
-import cv2
-# from google.colab.patches import cv2_imshow
+    # Read video file
+    cap = cv2.VideoCapture(input_video_path)
+    frame_count = 0
 
-img = cv2.imread(IMAGE_FILE)
-# cv2_imshow(img)
+    while cap.isOpened():
+        ret, frame = cap.read()
 
+        if not ret:
+            break
 
+        frame_count += 1
+        print(f"Processing frame {frame_count}")
 
+        # STEP 3: Convert the frame to MediaPipe Image
+        image = mp.Image(
+            width=frame.shape[1],
+            height=frame.shape[0],
+            rgb=True)
+        image.pixels = frame.flatten()
 
-# STEP 2: Create an ObjectDetector object.
-base_options = python.BaseOptions(model_asset_path='efficientdet.tflite')
-options = vision.ObjectDetectorOptions(base_options=base_options,
-                                       score_threshold=0.5)
-detector = vision.ObjectDetector.create_from_options(options)
+        # STEP 4: Detect objects in the frame.
+        detection_result = detector.detect(image)
 
-# STEP 3: Load the input image.
-image = mp.Image.create_from_file(IMAGE_FILE)
+        # STEP 5: Process the detection result and save the annotated frame.
+        annotated_frame = visualize(frame, detection_result)
+        output_file_path = f"{output_path}/frame_{frame_count:04d}.png"
+        cv2.imwrite(output_file_path, annotated_frame)
 
-# STEP 4: Detect objects in the input image.
-detection_result = detector.detect(image)
+    cap.release()
 
-# STEP 5: Process the detection result. In this case, visualize it.
-image_copy = np.copy(image.numpy_view())
-annotated_image = visualize(image_copy, detection_result)
-cv2.imwrite('annotated_image.png', annotated_image)
+# Process the video and save annotated frames
+input_video_path = 'Phase II Lesson 1 Elaboration Identifying Additional Element.mp4'
+output_directory = 'annotated_frames'
+process_video(input_video_path, output_directory)
