@@ -6,8 +6,8 @@ COMMAND="python demo/topdown_demo_with_mmdet.py"
 find "Demonstration Videos" -name "*.mp4" | while read -r file; do
     ./run.sh "$file" &
 
-    while [ $(jobs | grep "$COMMAND" | wc -l) -ge $MAX_PROCESSES ]; do
-        sleep 1
+    while [ $(pgrep "$COMMAND" | wc -l) -ge $MAX_PROCESSES ]; do
+        sleep 0.1
     done
 done
 
