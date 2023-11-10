@@ -175,7 +175,9 @@ def main():
         assert args.output_root != ''
         args.pred_save_path = f'{args.output_root}/results_' \
             f'{os.path.splitext(os.path.basename(args.input))[0]}.json'
-
+        if os.path.exists(args.pred_save_path):
+            print(f"The file {args.pred_save_path} already exists. Exiting the program.")
+            exit()
     # build detector
     detector = init_detector(
         args.det_config, args.det_checkpoint, device=args.device)
