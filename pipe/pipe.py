@@ -59,14 +59,14 @@ def process_video(input_video_path, output_path):
     cap = cv2.VideoCapture(input_video_path)
     frame_count = 0
 
-    start = 250
-    end = 350
+    # start = 250
+    # end = 350
     while cap.isOpened():
         ret, frame = cap.read()
 
-        if frame_count <= start
-            frame_count+= 1
-            continue
+        # if frame_count <= start
+        #     frame_count+= 1
+        #     continue
 
         if frame_count > end: 
             break
@@ -77,8 +77,9 @@ def process_video(input_video_path, output_path):
         #     break
 
         frame_count += 1
-        print(frame_count)
-        if frame_count > end: break
+        continue
+        # print(frame_count)
+        # if frame_count > end: break
 
         detection_result = detector.detect(image)
 
@@ -104,7 +105,7 @@ def process_video(input_video_path, output_path):
 
     cap.release()
 
-
+    print(frame_count)
 
 # Process the video and save annotated frames
 input_video_path = 'Phase II Lesson 1 Elaboration Identifying Additional Element.mp4'
