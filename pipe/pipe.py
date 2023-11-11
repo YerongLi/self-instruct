@@ -68,11 +68,9 @@ def process_video(input_video_path, output_path):
         #     frame_count+= 1
         #     continue
 
-        if frame_count > end: 
-            break
 
         # ret, frame = cap.read()
-        image = mp.Image(data=frame, image_format=mp.ImageFormat.SRGB)
+        # image = mp.Image(data=frame, image_format=mp.ImageFormat.SRGB)
         # if not ret:
         #     break
 
@@ -108,6 +106,6 @@ def process_video(input_video_path, output_path):
     print(frame_count)
 
 # Process the video and save annotated frames
-input_video_path = 'Phase II Lesson 1 Elaboration Identifying Additional Element.mp4'
+input_video_path = 'mmpose-main/Demonstration Videos/Phase II Lesson 1 Elaboration Identifying Additional Element.mp4'
 output_directory = 'annotated_frames'
 process_video(input_video_path, output_directory)
