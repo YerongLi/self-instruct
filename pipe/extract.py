@@ -8,10 +8,10 @@ def save_frame_at_timestamp(input_video_path, timestamp, output_folder):
     success, frame = cap.read()
     if success:
         # Find the smallest number that does not exist in the output folder
-        i = 1
-        while os.path.exists(os.path.join(output_folder, f"{i:03d}.jpg")):
-            i += 1
-        output_file_path = os.path.join(output_folder, f"{i:03d}.jpg")
+        # i = 1
+        # while os.path.exists(os.path.join(output_folder, f"{i:03d}.jpg")):
+        #     i += 1
+        output_file_path = os.path.join(output_folder, f"{input_video_path.split('/')[-1]}_{frame}.jpg")
         cv2.imwrite(output_file_path, frame)
         print(f"Frame saved successfully as {output_file_path}.")
     else:
