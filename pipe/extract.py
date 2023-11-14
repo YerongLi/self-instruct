@@ -22,7 +22,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Save a frame from a video at a specific timestamp.")
     parser.add_argument("input_video_path", help="Path to the input video file")
     parser.add_argument("timestamp", type=float, help="Timestamp in seconds")
-    parser.add_argument("output_folder", help="Path to the output folder to save the images", default='img')
+    parser.add_argument("--output_folder", default="img", help="Path to the output folder to save the images")
+
     args = parser.parse_args()
 
     save_frame_at_timestamp(args.input_video_path, args.timestamp, args.output_folder)
