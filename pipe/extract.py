@@ -12,7 +12,7 @@ def save_frame_at_timestamp(input_video_path, timestamp, output_folder):
         # while os.path.exists(os.path.join(output_folder, f"{i:03d}.jpg")):
         #     i += 1
         print(input_video_path.split('/')[-1])
-        output_file_path = os.path.join(output_folder, f"{frame}.jpg")
+        output_file_path = os.path.join(output_folder, f"{input_video_path.split('/')[-1].split('.')[0]}{timestamp}.jpg")
         cv2.imwrite(output_file_path, frame)
         print(f"Frame saved successfully as {output_file_path}.")
     else:
