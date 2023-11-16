@@ -26,15 +26,16 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     img = utils.ImageReader(img_path)
     img_width, img_height = img.getSize()
 
-    # Calculate the scaling factor to fit the image into 1/4 of the page
-    scale_factor = 0.25 / max(img_width / 72, img_height / 72)
+    # Set a fixed width for the image
+    fixed_width = 400
+    scale_factor = fixed_width / img_width
 
     # Rescale the image
     img_width *= scale_factor
     img_height *= scale_factor
 
     # Create a flowable for the image
-    img_flowable = Image(img_path, width=img_width, height=img_height)
+    img_flowable = Image(img_path, width=fixed_width, height=img_height)
 
     # Auto-wrap text below the image
     text_path = os.path.join(folder_path, text_file)
