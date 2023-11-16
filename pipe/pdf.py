@@ -7,7 +7,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     # Get the paths for the specific text and image files
     text_file = f"{base_filename}.txt"
     image_file = f"{base_filename}.jpg"
-    print(image_file)
+
     # Check if the files exist
     if not os.path.exists(os.path.join(folder_path, text_file)) or not os.path.exists(os.path.join(folder_path, image_file)):
         print(f"Files {text_file} or {image_file} not found.")
@@ -28,14 +28,20 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     img_width *= scale_factor
     img_height *= scale_factor
 
-    # Draw text
+    # Draw rescaled image
+    c.drawInlineImage(img_path, 100, 500, width=img_width, height=img_height)
+
+    # Auto-wrap text below the image
     text_path = os.path.join(folder_path, text_file)
     with open(text_path, 'r') as f:
         text_content = f.read()
-    c.drawString(100, 700, text_content)
 
-    # Draw rescaled image
-    c.drawInlineImage(img_path, 100, 500, width=img_width, height=img_height)
+    # Calculate the width of the available space for text
+    text_width = 400
+
+    # Draw auto-wrapped text below the image
+    c.setFont("Helvetica", 12)
+    c.drawString(100, 470, text_content, maxchars=-1, maxlen=text_width)
 
     # Save the PDF
     c.save()
