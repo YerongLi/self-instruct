@@ -42,6 +42,6 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
 
 if __name__ == "__main__":
     folder_path = "img"
-    output_pdf = "output_rescaled_pair.pdf"
+    output_pdf = "output.pdf"
     base_filename = "002"
     create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename)
