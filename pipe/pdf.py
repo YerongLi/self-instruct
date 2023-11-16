@@ -1,6 +1,10 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import utils
+from reportlab.lib import colors
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+from io import BytesIO
 import os
 
 def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
@@ -14,7 +18,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
         return
 
     # Create a PDF
-    c = canvas.Canvas(output_pdf, pagesize=letter)
+    buffer = BytesIO()
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
 
     # Calculate the width and height of the image (optional)
     img_path = os.path.join(folder_path, image_file)
@@ -28,23 +33,33 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     img_width *= scale_factor
     img_height *= scale_factor
 
-    # Draw rescaled image
-    c.drawInlineImage(img_path, 100, 500, width=img_width, height=img_height)
+    # Create a flowable for the image
+    img_flowable = utils.Image(img_path, width=img_width, height=img_height)
 
     # Auto-wrap text below the image
     text_path = os.path.join(folder_path, text_file)
     with open(text_path, 'r') as f:
         text_content = f.read()
 
-    # Calculate the width of the available space for text
-    text_width = 400
+    # Create a style for the text
+    styles = getSampleStyleSheet()
+    text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
-    # Draw auto-wrapped text below the image
-    c.setFont("Helvetica", 12)
-    c.drawString(100, 470, text_content, maxchars=-1, maxlen=text_width)
+    # Create a flowable for the auto-wrapped text
+    text_flowable = Paragraph(text_content, text_style)
 
-    # Save the PDF
-    c.save()
+    # Build the story with image and text
+    story = [img_flowable, text_flowable]
+
+    # Build the PDF
+    pdf.build(story)
+
+    # Move the buffer cursor to the beginning
+    buffer.seek(0)
+
+    # Write the buffer content to the output PDF file
+    with open(output_pdf, 'wb') as output_file:
+        output_file.write(buffer.read())
 
 if __name__ == "__main__":
     folder_path = "img"
