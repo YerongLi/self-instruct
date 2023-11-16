@@ -3,7 +3,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.lib import utils
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.platypus import SimpleDocTemplate, Paragraph
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
@@ -34,7 +34,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     img_height *= scale_factor
 
     # Create a flowable for the image
-    img_flowable = utils.Image(img_path, width=img_width, height=img_height)
+    img_flowable = Image(img_path, width=img_width, height=img_height)
 
     # Auto-wrap text below the image
     text_path = os.path.join(folder_path, text_file)
