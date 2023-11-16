@@ -27,7 +27,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     img_width, img_height = img.getSize()
 
     # Set a fixed width for the image
-    fixed_width = 400
+    fixed_width = 200
     scale_factor = fixed_width / img_width
 
     # Rescale the image
