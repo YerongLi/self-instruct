@@ -88,6 +88,10 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
         output_file.write(buffer.read())
 
 if __name__ == "__main__":
-    folder_path = "img"
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--folder", help="Path to the folder containing the images", default="img")
+    args = parser.parse_args()
+
+    folder_path = args.folder
     output_pdf = "output.pdf"
     create_pdf_with_rescaled_pair(folder_path, output_pdf)
