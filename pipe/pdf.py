@@ -99,6 +99,7 @@ if __name__ == "__main__":
             print(image_file)
             base_filename, _ = os.path.splitext(image_file)
             create_pdf_with_rescaled_pair(c, folder_path, base_filename)
+            break
 
     # Save the PDF
     pdf.build([])  # Pass an empty story list as we're not adding new elements to the PDF
