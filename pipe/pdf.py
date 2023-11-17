@@ -1,19 +1,24 @@
-from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import utils
+from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
-def create_pdf_with_rescaled_pair(folder_path, image_file, output_pdf):
-    # Extract the base filename from the image file
-    base_filename, _ = os.path.splitext(image_file)
+def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
+    # Get the paths for the specific text and image files
+    image_file = f"{base_filename}.jpg"
 
-    # Create a buffer for each iteration
+    # Check if the image file exists
+    if not os.path.exists(os.path.join(folder_path, image_file)):
+        print(f"Image file {image_file} not found.")
+        return
+
+    # Create a PDF
     buffer = BytesIO()
-    local_pdf = SimpleDocTemplate(buffer, pagesize=letter)
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
 
     # Initialize a list to store flowables
     story = []
@@ -67,22 +72,18 @@ def create_pdf_with_rescaled_pair(folder_path, image_file, output_pdf):
         text_flowable = Paragraph(text_content_with_suffix, text_style)
         story.append(text_flowable)
 
-    # Build the story and add it to the PDF
-    local_pdf.build(story)
+    # Build the PDF
+    pdf.build(story)
 
     # Move the buffer cursor to the beginning
     buffer.seek(0)
 
-    # Append the buffer content to the main PDF
-    merger = PdfWriter()
-    merger.append(PdfReader(BytesIO(buffer.read())).getPage(0))
-    merger.write(output_pdf)
+    # Write the buffer content to the output PDF file
+    with open(output_pdf, 'wb') as output_file:
+        output_file.write(buffer.read())
 
 if __name__ == "__main__":
     folder_path = "img"
     output_pdf = "output.pdf"
-
-    # Iterate through all image files in the folder
-    for image_file in os.listdir(folder_path):
-        if image_file.lower().endswith('.jpg'):
-            create_pdf_with_rescaled_pair(folder_path, image_file, output_pdf)
+    base_filename = "002"
+    create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename)
