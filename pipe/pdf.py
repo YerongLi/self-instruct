@@ -1,7 +1,6 @@
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import utils
-from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
@@ -10,6 +9,10 @@ import os
 def create_pdf_with_rescaled_pair(pdf, folder_path, image_file):
     # Extract the base filename from the image file
     base_filename, _ = os.path.splitext(image_file)
+
+    # Create a buffer for each iteration
+    buffer = BytesIO()
+    local_pdf = SimpleDocTemplate(buffer, pagesize=letter)
 
     # Initialize a list to store flowables
     story = []
@@ -64,25 +67,30 @@ def create_pdf_with_rescaled_pair(pdf, folder_path, image_file):
         story.append(text_flowable)
 
     # Build the story and add it to the PDF
-    pdf.build(story)
+    local_pdf.build(story)
+
+    # Move the buffer cursor to the beginning
+    buffer.seek(0)
+
+    # Append the buffer content to the main PDF
+    pdf.append(BytesIO(buffer.read()).getvalue())
 
 if __name__ == "__main__":
     folder_path = "img"
     output_pdf = "output.pdf"
 
     # Create a PDF
-    buffer = BytesIO()
-    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+    main_buffer = BytesIO()
+    main_pdf = SimpleDocTemplate(main_buffer, pagesize=letter)
     
     # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
-            print(image_file)
-            create_pdf_with_rescaled_pair(pdf, folder_path, image_file)
+            create_pdf_with_rescaled_pair(main_pdf, folder_path, image_file)
 
     # Move the buffer cursor to the beginning
-    buffer.seek(0)
+    main_buffer.seek(0)
 
     # Write the buffer content to the output PDF file
     with open(output_pdf, 'wb') as output_file:
-        output_file.write(buffer.read())
+        output_file.write(main_buffer.read())
