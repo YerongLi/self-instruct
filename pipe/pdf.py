@@ -7,7 +7,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
-def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
+def create_pdf_with_rescaled_pair(c, folder_path, base_filename):
     # Get the paths for the specific text and image files
     image_file = f"{base_filename}.jpg"
 
