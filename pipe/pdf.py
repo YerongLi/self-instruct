@@ -29,6 +29,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     filename_flowable = Paragraph(filename_content, filename_style)
     story.append(filename_flowable)
     for image_file in os.listdir(folder_path):
+        print(len(story))
+        
         if not image_file.lower().endswith('.jpg'): continue
         # Calculate the width and height of the image (optional)
         print(image_file)
@@ -75,6 +77,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
             story.append(text_flowable)
 
         # Build the PDF
+        print(len(story))
         pdf.build(story)
 
     # Move the buffer cursor to the beginning
