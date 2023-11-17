@@ -9,17 +9,25 @@ import os
 
 def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     # Get the paths for the specific text and image files
-    text_file = f"{base_filename}.txt"
     image_file = f"{base_filename}.jpg"
 
-    # Check if the files exist
-    if not os.path.exists(os.path.join(folder_path, text_file)) or not os.path.exists(os.path.join(folder_path, image_file)):
-        print(f"Files {text_file} or {image_file} not found.")
+    # Check if the image file exists
+    if not os.path.exists(os.path.join(folder_path, image_file)):
+        print(f"Image file {image_file} not found.")
         return
 
     # Create a PDF
     buffer = BytesIO()
     pdf = SimpleDocTemplate(buffer, pagesize=letter)
+
+    # Initialize a list to store flowables
+    story = []
+
+    # Add the filename to the story
+    filename_style = ParagraphStyle('Normal', spaceAfter=12)
+    filename_content = f"Filename: {base_filename}"
+    filename_flowable = Paragraph(filename_content, filename_style)
+    story.append(filename_flowable)
 
     # Calculate the width and height of the image (optional)
     img_path = os.path.join(folder_path, image_file)
@@ -36,21 +44,24 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
 
     # Create a flowable for the image
     img_flowable = Image(img_path, width=fixed_width, height=img_height)
+    story.append(img_flowable)
 
-    # Auto-wrap text below the image
-    text_path = os.path.join(folder_path, text_file)
-    with open(text_path, 'r') as f:
-        text_content = f.read()
+    # Find all text files with the same prefix
+    text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
 
-    # Create a style for the text
-    styles = getSampleStyleSheet()
-    text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
+    # Iterate through text files and add them to the story
+    for text_file in text_files:
+        text_path = os.path.join(folder_path, text_file)
+        with open(text_path, 'r') as f:
+            text_content = f.read()
 
-    # Create a flowable for the auto-wrapped text
-    text_flowable = Paragraph(text_content, text_style)
+        # Create a style for the text
+        styles = getSampleStyleSheet()
+        text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
-    # Build the story with image and text
-    story = [img_flowable, text_flowable]
+        # Create a flowable for the auto-wrapped text
+        text_flowable = Paragraph(text_content, text_style)
+        story.append(text_flowable)
 
     # Build the PDF
     pdf.build(story)
