@@ -45,12 +45,11 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
         img_flowable = Image(img_path, width=fixed_width, height=img_height)
         story.append(img_flowable)
         print(folder_path)
-        text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
-        
+
         # Find all text files with the same prefix
         text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
         text_files.sort()
-
+        print(text_files)
         # Iterate through text files and add them to the story
         for text_file in text_files:
             # Extract the suffix of the text filename
