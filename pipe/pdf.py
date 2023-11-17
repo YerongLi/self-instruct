@@ -95,6 +95,7 @@ if __name__ == "__main__":
 
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
+            print(image_file)
             base_filename, _ = os.path.splitext(image_file)
             create_pdf_with_rescaled_pair(c, folder_path, base_filename)
 
