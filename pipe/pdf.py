@@ -49,6 +49,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
 
         # Find all text files with the same prefix
         text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
+        text_files.sort()
 
         # Iterate through text files and add them to the story
         for text_file in text_files:
@@ -90,4 +91,4 @@ if __name__ == "__main__":
 
     folder_path = args.folder
     output_pdf = "output.pdf"
-    create_pdf_with_rescaled_pair(folder_path, output_pdf)
+    create_pdf_with_rescaled_pair(folder_path, f"{folder_path}/{output_pdf}")
