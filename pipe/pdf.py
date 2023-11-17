@@ -44,7 +44,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
         # Create a flowable for the image
         img_flowable = Image(img_path, width=fixed_width, height=img_height)
         story.append(img_flowable)
-
+        unable_count = 0
+        total_count = 0
         # Find all text files with the same prefix
         text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
         text_files.sort()
@@ -56,6 +57,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
             text_path = os.path.join(folder_path, text_file)
             with open(text_path, 'r') as f:
                 text_content = f.read()
+            if 'unable' in text_content: unable_count+= 1
+            total_count+= 1
 
             # Replace newline characters with HTML line break tags
             text_content = text_content.replace('\n', '<br/>')
@@ -78,6 +81,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     buffer.seek(0)
 
     # Write the buffer content to the output PDF file
+    print(f'Failed to answer: {unable_count}/{total_count} ({unable_count/total_count:.2%})')
+
     with open(output_pdf, 'wb') as output_file:
         output_file.write(buffer.read())
 
