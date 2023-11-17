@@ -29,7 +29,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
 
         if not image_file.lower().endswith('.jpg'): continue
         # Calculate the width and height of the image (optional)
-        print(image_file)
+        # print(image_file)
+        base_filename = image_file[:-3]
         img_path = os.path.join(folder_path, image_file)
         img = utils.ImageReader(img_path)
         img_width, img_height = img.getSize()
