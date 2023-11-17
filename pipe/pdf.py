@@ -25,8 +25,6 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     filename_flowable = Paragraph(folder_path, filename_style)
     story.append(filename_flowable)
     for image_file in os.listdir(folder_path):
-        print(len(story))
-
         if not image_file.lower().endswith('.jpg'): continue
         # Calculate the width and height of the image (optional)
         # print(image_file)
@@ -46,7 +44,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
         # Create a flowable for the image
         img_flowable = Image(img_path, width=fixed_width, height=img_height)
         story.append(img_flowable)
-
+        print(folder_path)
         # Find all text files with the same prefix
         text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
         text_files.sort()
