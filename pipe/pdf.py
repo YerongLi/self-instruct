@@ -84,6 +84,15 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
 
 if __name__ == "__main__":
     folder_path = "img"
-    output_pdf = "output.pdf"
-    base_filename = "002"
-    create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename)
+    output_pdf_folder = "output_pdfs"
+
+    # Ensure the output folder exists
+    os.makedirs(output_pdf_folder, exist_ok=True)
+
+    # Iterate through all image files in the folder
+    for image_file in os.listdir(folder_path):
+        if image_file.lower().endswith('.jpg'):
+            base_filename, _ = os.path.splitext(image_file)
+            output_pdf = os.path.join(output_pdf_folder, f"{base_filename}_output.pdf")
+
+            create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename)
