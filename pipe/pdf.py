@@ -7,19 +7,14 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
-def create_pdf_with_rescaled_pair(c, folder_path, base_filename):
+def create_pdf_with_rescaled_pair(pdf, folder_path, base_filename):
     # Get the paths for the specific text and image files
     image_file = f"{base_filename}.jpg"
 
     # Check if the image file exists
-    print(folder_path)
     if not os.path.exists(os.path.join(folder_path, image_file)):
         print(f"Image file {image_file} not found.")
         return
-
-    # Create a PDF
-    buffer = BytesIO()
-    pdf = SimpleDocTemplate(buffer, pagesize=letter)
 
     # Initialize a list to store flowables
     story = []
@@ -73,15 +68,8 @@ def create_pdf_with_rescaled_pair(c, folder_path, base_filename):
         text_flowable = Paragraph(text_content_with_suffix, text_style)
         story.append(text_flowable)
 
-    # Build the PDF
+    # Build the story and add it to the PDF
     pdf.build(story)
-
-    # Move the buffer cursor to the beginning
-    buffer.seek(0)
-
-    # Write the buffer content to the output PDF file
-    with open(output_pdf, 'wb') as output_file:
-        output_file.write(buffer.read())
 
 if __name__ == "__main__":
     folder_path = "img"
@@ -91,18 +79,13 @@ if __name__ == "__main__":
     buffer = BytesIO()
     pdf = SimpleDocTemplate(buffer, pagesize=letter)
     
-    # Initialize canvas for drawing (optional)
-    c = canvas.Canvas(buffer)
-
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
             print(image_file)
             base_filename, _ = os.path.splitext(image_file)
-            create_pdf_with_rescaled_pair(c, folder_path, base_filename)
-            break
+            create_pdf_with_rescaled_pair(pdf, folder_path, base_filename)
 
-    # Save the PDF
-    pdf.build([])  # Pass an empty story list as we're not adding new elements to the PDF
+    # Move the buffer cursor to the beginning
     buffer.seek(0)
 
     # Write the buffer content to the output PDF file
