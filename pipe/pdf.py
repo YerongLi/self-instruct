@@ -10,10 +10,7 @@ import argparse
 def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     # Get the paths for the specific text and image files
 
-    # Check if the image file exists
-    if not os.path.exists(os.path.join(folder_path, image_file)):
-        print(f"Image file {image_file} not found.")
-        return
+
 
     # Create a PDF
     buffer = BytesIO()
