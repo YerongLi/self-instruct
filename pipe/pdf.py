@@ -89,6 +89,8 @@ if __name__ == "__main__":
     # Create a PDF
     buffer = BytesIO()
     pdf = SimpleDocTemplate(buffer, pagesize=letter)
+    
+    # Initialize canvas for drawing (optional)
     c = canvas.Canvas(buffer)
 
     # Iterate through all image files in the folder
@@ -98,7 +100,7 @@ if __name__ == "__main__":
             create_pdf_with_rescaled_pair(c, folder_path, base_filename)
 
     # Save the PDF
-    c.save()
+    pdf.build([])  # Pass an empty story list as we're not adding new elements to the PDF
     buffer.seek(0)
 
     # Write the buffer content to the output PDF file
