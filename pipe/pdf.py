@@ -72,6 +72,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
             if 'unable' in text_content:
                 print(text_suffix)
                 unable_count+= 1
+                print(errordict)
                 if text_suffix not in errordict:
                     errordict[text_suffix] = 0
                 errordict[text_suffix]+= 1
