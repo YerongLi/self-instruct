@@ -84,15 +84,23 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
 
 if __name__ == "__main__":
     folder_path = "img"
-    output_pdf_folder = "output_pdfs"
+    output_pdf = "output.pdf"
 
-    # Ensure the output folder exists
-    os.makedirs(output_pdf_folder, exist_ok=True)
+    # Create a PDF
+    buffer = BytesIO()
+    pdf = SimpleDocTemplate(buffer, pagesize=letter)
+    c = canvas.Canvas(buffer)
 
     # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
             base_filename, _ = os.path.splitext(image_file)
-            output_pdf = os.path.join(output_pdf_folder, f"{base_filename}_output.pdf")
+            create_pdf_with_rescaled_pair(c, folder_path, base_filename)
 
-            create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename)
+    # Save the PDF
+    c.save()
+    buffer.seek(0)
+
+    # Write the buffer content to the output PDF file
+    with open(output_pdf, 'wb') as output_file:
+        output_file.write(buffer.read())
