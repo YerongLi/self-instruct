@@ -66,7 +66,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
         text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
         # Add the suffix to the content
-        text_content_with_suffix = f"                                        ({text_suffix})<br/>: {text_content}"
+        text_content_with_suffix = f"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<({text_suffix})<br/>: {text_content}"
 
         # Create a flowable for the auto-wrapped text
         text_flowable = Paragraph(text_content_with_suffix, text_style)
