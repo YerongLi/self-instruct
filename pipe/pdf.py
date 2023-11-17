@@ -61,6 +61,9 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
         # Replace newline characters with HTML line break tags
         text_content = text_content.replace('\n', '<br/>')
 
+        styles = getSampleStyleSheet()
+        text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12, alignment=1)  # Alignment 1 corresponds to center alignment
+
         # Add the suffix to the content
         text_content_with_suffix = f"Text ({text_suffix}): {text_content}"
 
