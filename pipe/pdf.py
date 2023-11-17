@@ -74,7 +74,6 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
             story.append(text_flowable)
 
         # Build the PDF
-        print(len(story))
     pdf.build(story)
 
     # Move the buffer cursor to the beginning
