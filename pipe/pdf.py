@@ -89,7 +89,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     # Write the buffer content to the output PDF file
     print(f'Failed to answer: {unable_count}/{total_count} ({unable_count/total_count:.2%})')
     for key in sorted(error_dict.keys()):
-        print(f"{key}: {error_dict[key]}")
+        print(f"{key}: {errordict[key]}")
     with open(output_pdf, 'wb') as output_file:
         output_file.write(buffer.read())
 
