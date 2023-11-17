@@ -12,6 +12,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     image_file = f"{base_filename}.jpg"
 
     # Check if the image file exists
+    print(folder_path)
     if not os.path.exists(os.path.join(folder_path, image_file)):
         print(f"Image file {image_file} not found.")
         return
