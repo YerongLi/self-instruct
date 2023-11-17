@@ -22,7 +22,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     # Add the filename to the story
     filename_style = ParagraphStyle('Normal', spaceAfter=12)
     # filename_content = f"Filename: {base_filename}"
-    # filename_flowable = Paragraph(filename_content, filename_style)
+    filename_flowable = Paragraph(folder_path, folder_path)
     story.append(filename_flowable)
     for image_file in os.listdir(folder_path):
         print(len(story))
