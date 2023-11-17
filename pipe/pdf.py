@@ -93,7 +93,6 @@ if __name__ == "__main__":
     # Initialize canvas for drawing (optional)
     c = canvas.Canvas(buffer)
 
-    # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
             base_filename, _ = os.path.splitext(image_file)
