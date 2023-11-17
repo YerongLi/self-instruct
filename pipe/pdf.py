@@ -77,6 +77,7 @@ if __name__ == "__main__":
     # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
+            print(image_file)
             create_pdf_with_rescaled_pair(pdf, folder_path, image_file)
 
     # Move the buffer cursor to the beginning
