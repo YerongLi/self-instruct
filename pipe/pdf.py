@@ -69,7 +69,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
 
             # Add the suffix to the content
             text_content_with_suffix = f"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<({text_suffix}): {text_content}<br/>"
-            if 'unable' in text_content: 
+            if 'unable' in text_content:
+                print(text_suffix)
                 unable_count+= 1
                 if text_suffix not in errordict:
                     errordict[text_suffix] = 0
