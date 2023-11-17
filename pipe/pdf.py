@@ -1,3 +1,4 @@
+from PyPDF2 import PdfReader, PdfWriter
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.lib import utils
@@ -6,7 +7,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
-def create_pdf_with_rescaled_pair(pdf, folder_path, image_file):
+def create_pdf_with_rescaled_pair(folder_path, image_file, output_pdf):
     # Extract the base filename from the image file
     base_filename, _ = os.path.splitext(image_file)
 
@@ -73,24 +74,15 @@ def create_pdf_with_rescaled_pair(pdf, folder_path, image_file):
     buffer.seek(0)
 
     # Append the buffer content to the main PDF
-    pdf.append(BytesIO(buffer.read()).getvalue())
+    merger = PdfWriter()
+    merger.append(PdfReader(BytesIO(buffer.read())).getPage(0))
+    merger.write(output_pdf)
 
 if __name__ == "__main__":
     folder_path = "img"
     output_pdf = "output.pdf"
 
-    # Create a PDF
-    main_buffer = BytesIO()
-    main_pdf = SimpleDocTemplate(main_buffer, pagesize=letter)
-    
     # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
-            create_pdf_with_rescaled_pair(main_pdf, folder_path, image_file)
-
-    # Move the buffer cursor to the beginning
-    main_buffer.seek(0)
-
-    # Write the buffer content to the output PDF file
-    with open(output_pdf, 'wb') as output_file:
-        output_file.write(main_buffer.read())
+            create_pdf_with_rescaled_pair(folder_path, image_file, output_pdf)
