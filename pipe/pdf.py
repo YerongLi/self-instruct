@@ -7,14 +7,9 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
 import os
 
-def create_pdf_with_rescaled_pair(pdf, folder_path, base_filename):
-    # Get the paths for the specific text and image files
-    image_file = f"{base_filename}.jpg"
-
-    # Check if the image file exists
-    if not os.path.exists(os.path.join(folder_path, image_file)):
-        print(f"Image file {image_file} not found.")
-        return
+def create_pdf_with_rescaled_pair(pdf, folder_path, image_file):
+    # Extract the base filename from the image file
+    base_filename, _ = os.path.splitext(image_file)
 
     # Initialize a list to store flowables
     story = []
@@ -79,11 +74,10 @@ if __name__ == "__main__":
     buffer = BytesIO()
     pdf = SimpleDocTemplate(buffer, pagesize=letter)
     
+    # Iterate through all image files in the folder
     for image_file in os.listdir(folder_path):
         if image_file.lower().endswith('.jpg'):
-            print(image_file)
-            base_filename, _ = os.path.splitext(image_file)
-            create_pdf_with_rescaled_pair(pdf, folder_path, base_filename)
+            create_pdf_with_rescaled_pair(pdf, folder_path, image_file)
 
     # Move the buffer cursor to the beginning
     buffer.seek(0)
