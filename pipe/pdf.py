@@ -51,16 +51,25 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
 
     # Iterate through text files and add them to the story
     for text_file in text_files:
+        # Extract the suffix of the text filename
+        text_suffix = os.path.splitext(text_file)[0].split('_')[-1]
+
         text_path = os.path.join(folder_path, text_file)
         with open(text_path, 'r') as f:
             text_content = f.read()
+
+        # Replace newline characters with HTML line break tags
+        text_content = text_content.replace('\n', '<br/>')
 
         # Create a style for the text
         styles = getSampleStyleSheet()
         text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
+        # Add the suffix to the content
+        text_content_with_suffix = f"Text ({text_suffix}): {text_content}"
+
         # Create a flowable for the auto-wrapped text
-        text_flowable = Paragraph(text_content, text_style)
+        text_flowable = Paragraph(text_content_with_suffix, text_style)
         story.append(text_flowable)
 
     # Build the PDF
