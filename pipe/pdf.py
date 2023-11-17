@@ -5,8 +5,6 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
-from reportlab.platypus import Spacer
-
 import os
 
 def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
@@ -63,18 +61,16 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
         # Replace newline characters with HTML line break tags
         text_content = text_content.replace('\n', '<br/>')
 
+        # Create a style for the text
         styles = getSampleStyleSheet()
-        text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12, alignment=1)  # Alignment 1 corresponds to center alignment
+        text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
         # Add the suffix to the content
-        text_content_with_suffix = f"Text ({text_suffix}): {text_content}"
+        text_content_with_suffix = f"Text ({text_suffix})<br/>: {text_content}"
 
         # Create a flowable for the auto-wrapped text
         text_flowable = Paragraph(text_content_with_suffix, text_style)
         story.append(text_flowable)
-
-        # Add a line break after the centered text
-        story.append(Spacer(1, 12))  # Adjust the vertical space as needed
 
     # Build the PDF
     pdf.build(story)
