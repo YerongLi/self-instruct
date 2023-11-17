@@ -31,6 +31,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
     for image_file in os.listdir(folder_path):
         if not image_file.lower().endswith('.jpg'): continue
         # Calculate the width and height of the image (optional)
+        print(image_file)
         img_path = os.path.join(folder_path, image_file)
         img = utils.ImageReader(img_path)
         img_width, img_height = img.getSize()
@@ -67,7 +68,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
             text_style = ParagraphStyle('Normal', parent=styles['Normal'], spaceAfter=12)
 
             # Add the suffix to the content
-            text_content_with_suffix = f"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<({text_suffix})<br/>: {text_content}"
+            text_content_with_suffix = f"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<({text_suffix}): {text_content}<br/>"
 
             # Create a flowable for the auto-wrapped text
             text_flowable = Paragraph(text_content_with_suffix, text_style)
