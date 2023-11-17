@@ -5,6 +5,8 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Image
 from io import BytesIO
+from reportlab.platypus import Spacer
+
 import os
 
 def create_pdf_with_rescaled_pair(folder_path, output_pdf, base_filename):
