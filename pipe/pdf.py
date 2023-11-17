@@ -26,6 +26,8 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
     story.append(filename_flowable)
     unable_count = 0
     total_count = 0
+    errordict = {}
+    
     for image_file in os.listdir(folder_path):
         if not image_file.lower().endswith('.jpg'): continue
         # Calculate the width and height of the image (optional)
@@ -46,7 +48,6 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
         # Create a flowable for the image
         img_flowable = Image(img_path, width=fixed_width, height=img_height)
         story.append(img_flowable)
-        errordict = {}
         # Find all text files with the same prefix
         text_files = [file for file in os.listdir(folder_path) if file.startswith(base_filename + '_') and file.lower().endswith('.txt')]
         text_files.sort()
@@ -70,9 +71,7 @@ def create_pdf_with_rescaled_pair(folder_path, output_pdf):
             # Add the suffix to the content
             text_content_with_suffix = f"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<({text_suffix}): {text_content}<br/>"
             if 'unable' in text_content:
-                print(text_suffix)
                 unable_count+= 1
-                print(errordict)
                 if text_suffix not in errordict:
                     errordict[text_suffix] = 0
                 errordict[text_suffix]+= 1
