@@ -1,6 +1,7 @@
 import json
 import requests
 import sys
+from tqdm import tqdm
 # Load the JSON file
 with open('xpo_v1.1.json', 'r') as json_file:
     data = json.load(json_file)
@@ -42,7 +43,7 @@ def get_wikidata_description(wikidata_id):
         return None
 
 ans = {}
-for i, key in enumerate(keys):
+for i, key in tqdm(enumerate(keys)):
     if i <= start_index : continue
     value = data[key]
     # print(f"Iteration {i+1}\n Name: {value['name']}")
@@ -55,7 +56,7 @@ for i, key in enumerate(keys):
                 ans[overlay_parent['wd_node']] = get_wikidata_description(overlay_parent['wd_node'])
                 # print(f"   Overlay Parent name: {overlay_parent['name']}")
 
-    print()  # Print a newline after each entry
+    # print()  # Print a newline after each entry
 random_entries = random.sample(list(ans.keys()), 5)
 
 for key in random_entries:
