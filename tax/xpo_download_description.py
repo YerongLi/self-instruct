@@ -5,6 +5,7 @@ import requests
 import sys
 import time
 
+INVALID = "0x3f3f3f3f"
 from tqdm import tqdm
 # Load the JSON file
 with open('xpo_v1.1.json', 'r') as json_file:
@@ -16,7 +17,7 @@ with open('xpo_v1.1.json', 'r') as json_file:
 # Function to process a key and update the shared dictionary
 def process_key(key):
     value = data[key]
-    result = {value['wd_node']: value['wd_description']} if 'wd_description' in data[key] else {}
+    result = {value['wd_node']: value['wd_description']} if 'wd_description' in data[key] else {value['wd_node']:INVALID}
     
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
@@ -57,7 +58,7 @@ def get_wikidata_description(wikidata_id):
     except Exception as e:
         print(wikidata_id)
         print(f"Error making the request: {e}")
-        return None
+        return INVALID
 
 pool = multiprocessing.Pool()
 
