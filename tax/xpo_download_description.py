@@ -29,7 +29,7 @@ keys = sorted(data.keys(), key=lambda x: x[::-1])
 # Iterate over the keys and print the iteration number and corresponding values
 def get_wikidata_description(wikidata_id):
     # Wikidata API endpoint
-    time.sleep(0.2)
+    time.sleep(0.4)
     api_endpoint = "https://www.wikidata.org/w/api.php"
 
     # Parameters for the API request
