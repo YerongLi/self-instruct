@@ -50,7 +50,7 @@ for i, key in tqdm(enumerate(keys), total=len(keys)):
     if i <= start_index : continue
     value = data[key]
     # print(f"Iteration {i+1}\n Name: {value['name']}")
-    ans[data[key]['wd_node']] = ans[data[key]['wd_description']]
+    ans[data[key]['wd_node']] = data[key]['wd_description']
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
         for overlay_parent in overlay_parents:
