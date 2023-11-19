@@ -44,6 +44,7 @@ def get_wikidata_description(wikidata_id):
         return None
 
 ans = {}
+keys = keys[:10]
 for i, key in tqdm(enumerate(keys), total=len(keys)):
     if i <= start_index : continue
     value = data[key]
