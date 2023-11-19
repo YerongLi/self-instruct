@@ -45,7 +45,7 @@ ans = {}
 for i, key in enumerate(keys):
     if i <= start_index : continue
     value = data[key]
-    print(f"Iteration {i+1}\n Name: {value['name']}")
+    # print(f"Iteration {i+1}\n Name: {value['name']}")
 
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
