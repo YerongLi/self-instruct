@@ -38,7 +38,8 @@ def get_wikidata_description(wikidata_id):
 
         return description
 
-    except requests.exceptions.RequestException as e:
+    except Exception as e:
+        print(wikidata_id)
         print(f"Error making the request: {e}")
         return None
 
