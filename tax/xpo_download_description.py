@@ -3,6 +3,8 @@ import multiprocessing
 import random
 import requests
 import sys
+import time
+
 from tqdm import tqdm
 # Load the JSON file
 with open('xpo_v1.1.json', 'r') as json_file:
@@ -27,6 +29,7 @@ keys = sorted(data.keys(), key=lambda x: x[::-1])
 # Iterate over the keys and print the iteration number and corresponding values
 def get_wikidata_description(wikidata_id):
     # Wikidata API endpoint
+    time.sleep(0.2)
     api_endpoint = "https://www.wikidata.org/w/api.php"
 
     # Parameters for the API request
