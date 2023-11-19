@@ -1,4 +1,5 @@
 import json
+import multiprocessing
 import random
 import requests
 import sys
@@ -10,8 +11,19 @@ with open('xpo_v1.1.json', 'r') as json_file:
 # Iterate through the data and print the "name" values under "overlay_parents"
 
 # Assuming 'data' is a dictionary containing the data
+# Function to process a key and update the shared dictionary
+def process_key(key):
+    value = data[key]
+    result = {value['wd_node']: value['wd_description']} if 'wd_description' is data[key] else {}
+    
+    if 'overlay_parents' in value:
+        overlay_parents = value['overlay_parents']
+        for overlay_parent in overlay_parents:
+            if 'wd_node' in overlay_parent and overlay_parent['wd_node'] not in result:
+                result[overlay_parent['wd_node']] = get_wikidata_description(overlay_parent['wd_node'])
+
+    return result
 keys = sorted(data.keys(), key=lambda x: x[::-1])
-start_index = -1
 # Iterate over the keys and print the iteration number and corresponding values
 def get_wikidata_description(wikidata_id):
     # Wikidata API endpoint
@@ -45,24 +57,20 @@ def get_wikidata_description(wikidata_id):
         return None
 
 ans = {}
-for i, key in tqdm(enumerate(keys), total=len(keys)):
-    if i <= start_index : continue
-    value = data[key]
-    # print(f"Iteration {i+1}\n Name: {value['name']}")
-    ans[data[key]['wd_node']] = data[key]['wd_description'] if 'wd_description' is data[key] else None
-    if 'overlay_parents' in value:
-        overlay_parents = value['overlay_parents']
-        for overlay_parent in overlay_parents:
-            # print(overlay_parents)
-            if 'wd_node' in overlay_parent and overlay_parent['wd_node'] not in ans:
-                ans[overlay_parent['wd_node']] = get_wikidata_description(overlay_parent['wd_node'])
-                # print(f"   Overlay Parent name: {overlay_parent['name']}")
+for result in results:
+    ans.update(result)
 
-    # print()  # Print a newline after each entry
+# Randomly print 5 entries from the dictionary
 random_entries = random.sample(list(ans.keys()), 5)
-
 for key in random_entries:
     print(key, ans[key])
 
+# Dump the dictionary to a JSON file
 with open("dictionary.json", "w") as json_file:
     json.dump(ans, json_file, indent=2)
+
+# Count None values and total items
+none_count = sum(1 for value in ans.values() if value is None)
+print(f"Number of 'None' values: {none_count}")
+print(f"Total items: {len(ans)}")
+print(f"Percentage of 'None' values: {(none_count / len(ans)) * 100:.2f}%")
