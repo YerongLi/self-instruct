@@ -45,12 +45,11 @@ def get_wikidata_description(wikidata_id):
         return None
 
 ans = {}
-keys = keys[:10]
 for i, key in tqdm(enumerate(keys), total=len(keys)):
     if i <= start_index : continue
     value = data[key]
     # print(f"Iteration {i+1}\n Name: {value['name']}")
-    ans[data[key]['wd_node']] = data[key]['wd_description']
+    ans[data[key]['wd_node']] = data[key]['wd_description'] is 'wd_description' is data[key] else None
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
         for overlay_parent in overlay_parents:
