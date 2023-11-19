@@ -82,7 +82,7 @@ with open("dictionary.json", "w") as json_file:
     json.dump(ans, json_file, indent=2)
 
 # Count None values and total items
-none_count = sum(1 for value in ans.values() if value is None)
+none_count = sum(1 for value in ans.values() if value is "None")
 print(f"Number of 'None' values: {none_count}")
 print(f"Total items: {len(ans)}")
 print(f"Percentage of 'None' values: {(none_count / len(ans)) * 100:.2f}%")
