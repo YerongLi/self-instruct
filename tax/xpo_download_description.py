@@ -16,7 +16,7 @@ with open('xpo_v1.1.json', 'r') as json_file:
 # Function to process a key and update the shared dictionary
 def process_key(key):
     value = data[key]
-    result = {value['wd_node']: value['wd_description']} if 'wd_description' is data[key] else {}
+    result = {value['wd_node']: value['wd_description']} if 'wd_description' in data[key] else {}
     
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
