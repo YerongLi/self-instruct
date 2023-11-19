@@ -87,3 +87,8 @@ for process in processes:
 # Dump the shared dictionary to a JSON file
 with open("dictionary.json", "w") as json_file:
     json.dump(dict(shared_dict), json_file, indent=2)
+none_count = 0
+for key in shared_dict:
+    if shared_dict[key] == None:
+        none_count+= 1
+print(f"{none_count} / {len(shared_dict)}")
