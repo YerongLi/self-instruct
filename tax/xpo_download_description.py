@@ -1,5 +1,4 @@
 import json
-import multiprocessing
 import random
 import requests
 import sys
@@ -45,50 +44,25 @@ def get_wikidata_description(wikidata_id):
         print(f"Error making the request: {e}")
         return None
 
-def process_keys(start_index, keys, shared_dict):
-    for i, key in tqdm(enumerate(keys), total=len(keys)):
-        if i <= start_index:
-            continue
-        value = data[key]
-        shared_dict[data[key]['wd_node']] = data[key]['wd_description'] if 'wd_description' in data[key] else None
-        if 'overlay_parents' in value:
-            overlay_parents = value['overlay_parents']
-            for overlay_parent in overlay_parents:
-                if 'wd_node' in overlay_parent and overlay_parent['wd_node'] not in shared_dict:
-                    shared_dict[overlay_parent['wd_node']] = get_wikidata_description(overlay_parent['wd_node'])
+ans = {}
+for i, key in tqdm(enumerate(keys), total=len(keys)):
+    if i <= start_index : continue
+    value = data[key]
+    # print(f"Iteration {i+1}\n Name: {value['name']}")
+    ans[data[key]['wd_node']] = data[key]['wd_description'] if 'wd_description' is data[key] else None
+    if 'overlay_parents' in value:
+        overlay_parents = value['overlay_parents']
+        for overlay_parent in overlay_parents:
+            # print(overlay_parents)
+            if 'wd_node' in overlay_parent and overlay_parent['wd_node'] not in ans:
+                ans[overlay_parent['wd_node']] = get_wikidata_description(overlay_parent['wd_node'])
+                # print(f"   Overlay Parent name: {overlay_parent['name']}")
 
-# Assuming 'data', 'keys', and 'start_index' are defined before this point
+    # print()  # Print a newline after each entry
+random_entries = random.sample(list(ans.keys()), 5)
 
-# Create a Manager to manage the shared dictionary
-manager = multiprocessing.Manager()
-shared_dict = manager.dict()
+for key in random_entries:
+    print(key, ans[key])
 
-# Set the number of processes (adjust as needed)
-num_processes = multiprocessing.cpu_count()
-
-# Divide the keys among processes
-chunk_size = len(keys) // num_processes
-processes = []
-
-for i in range(num_processes):
-    start = i * chunk_size
-    end = (i + 1) * chunk_size if i < num_processes - 1 else len(keys)
-    process = multiprocessing.Process(target=process_keys, args=(start, keys[start:end], shared_dict))
-    processes.append(process)
-
-# Start the processes
-for process in processes:
-    process.start()
-
-# Wait for all processes to finish
-for process in processes:
-    process.join()
-
-# Dump the shared dictionary to a JSON file
 with open("dictionary.json", "w") as json_file:
-    json.dump(dict(shared_dict), json_file, indent=2)
-none_count = 0
-for key in shared_dict:
-    if shared_dict[key] == None:
-        none_count+= 1
-print(f"{none_count} / {len(shared_dict)}")
+    json.dump(ans, json_file, indent=2)
