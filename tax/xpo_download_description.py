@@ -50,7 +50,7 @@ for i, key in tqdm(enumerate(keys), total=len(keys)):
     if i <= start_index : continue
     value = data[key]
     # print(f"Iteration {i+1}\n Name: {value['name']}")
-
+    print(key)
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
         for overlay_parent in overlay_parents:
@@ -64,3 +64,6 @@ random_entries = random.sample(list(ans.keys()), 5)
 
 for key in random_entries:
     print(key, ans[key])
+
+with open("dictionary.json", "w") as json_file:
+    json.dump(ans, json_file, indent=2)
