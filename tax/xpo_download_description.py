@@ -18,7 +18,7 @@ for i, key in enumerate(keys):
     if 'overlay_parents' in value:
         overlay_parents = value['overlay_parents']
         for overlay_parent in overlay_parents:
-            print(overlay_parents.keys())
+            print(overlay_parents)
             # if 'name' in overlay_parent:
                 # print(f"   Overlay Parent name: {overlay_parent['name']}")
 
