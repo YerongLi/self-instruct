@@ -56,6 +56,15 @@ def get_wikidata_description(wikidata_id):
         print(f"Error making the request: {e}")
         return None
 
+pool = multiprocessing.Pool()
+
+# Use the pool to process keys in parallel
+results = list(tqdm(pool.imap(process_key, keys[start_index+1:]), total=len(keys[start_index+1:])))
+
+# Close the pool to release resources
+pool.close()
+pool.join()
+
 ans = {}
 for result in results:
     ans.update(result)
