@@ -59,7 +59,7 @@ def get_wikidata_description(wikidata_id):
 pool = multiprocessing.Pool()
 
 # Use the pool to process keys in parallel
-results = list(tqdm(pool.imap(process_key, keys[start_index+1:]), total=len(keys[start_index+1:])))
+results = list(tqdm(pool.imap(process_key, keys), total=len(keys)))
 
 # Close the pool to release resources
 pool.close()
