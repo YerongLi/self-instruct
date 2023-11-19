@@ -43,7 +43,7 @@ def get_wikidata_description(wikidata_id):
         return None
 
 ans = {}
-for i, key in tqdm(enumerate(keys)):
+for i, key in tqdm(enumerate(keys), total=len(keys)):
     if i <= start_index : continue
     value = data[key]
     # print(f"Iteration {i+1}\n Name: {value['name']}")
