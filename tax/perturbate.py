@@ -46,6 +46,7 @@ def sample_strategy_2(ans, all_paths):
     for _ in range(10):
         path_length = 4
         path = random.choice(all_paths[path_length])
+        print(path)
         second = path[1]
         fourth = path[3]
         if not (second, fourth) in ans:
