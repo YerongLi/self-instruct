@@ -23,7 +23,8 @@ logging.info(len(all_path))
 all_paths = [[]]*20
 for path in all_path:
     all_paths[len(path)].append(path)
-
+logging.info(len(all_paths[3]))
+logging.info(len(all_paths[4]))
 for i in range(len(all_path)):
     logging.info('====== path ===========')
     for term in all_path[i]:
