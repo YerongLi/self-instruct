@@ -21,7 +21,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 with open('../../TaxoComplete/edges.pkl', 'rb') as f:
     edges = pickle.load(f)
-logging.info(list(edges)[:5])
+edges_dict = {pair: 0 for pair in list(edges)}
 # logging.info(len(all_path))
 all_paths = [[] for _ in range(20)]
 for path in all_path:
@@ -41,7 +41,8 @@ def sample_strategy_1(ans, all_paths):
         path = random.choice(all_paths[path_length])
         first = path[0]
         third = path[2]
-        if not (first, third) in ans:
+        pair = (first, third)
+        if (not pair in ans) and (not pair in edges_dict):
             ans[(first, third)] = 1
             return True
     return False
@@ -52,7 +53,8 @@ def sample_strategy_2(ans, all_paths):
         path = random.choice(all_paths[path_length])
         second = path[1]
         fourth = path[3]
-        if not (second, fourth) in ans:
+        pair = (second, fourth)
+        if (not pair in ans) and (not pair in edges_dict):
             ans[(second, fourth)] = 2
             return True
     return False
@@ -70,8 +72,8 @@ def sample_strategy_3(ans, all_paths):
             if third not in pp:
                 first = pp[0]
                 valid_path = True
-
-        if not (first, third) in ans:
+        pair = (first, third)
+        if (not pair in ans) and (not pair in edges_dict):
             ans[(first, third)] = 3
             return True
     return False
