@@ -36,6 +36,7 @@ for i in range(len(all_path)):
 
 ans = {}
 def sample_strategy_1(ans, all_paths):
+    # skip a level in paths of length 3
     for _ in range(1000):
         path_length = 3
         path = random.choice(all_paths[path_length])
@@ -48,6 +49,7 @@ def sample_strategy_1(ans, all_paths):
     return False
 
 def sample_strategy_2(ans, all_paths):
+    # skip a level in paths of length 4
     for _ in range(1000):
         path_length = 4
         path = random.choice(all_paths[path_length])
@@ -60,6 +62,7 @@ def sample_strategy_2(ans, all_paths):
     return False
 
 def sample_strategy_3(ans, all_paths):
+    # re-root to a wrong parent
     for _ in range(1000):
         path_length = 3
         path = random.choice(all_paths[path_length])
