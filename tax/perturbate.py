@@ -2,6 +2,7 @@ import logging
 import os
 import pickle
 import random
+import tqdm
 
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -86,5 +87,5 @@ def expand_ans(ans, all_paths):
     if strategy(ans, all_paths):
         return True
     return False
-for _ in range(300):
+for _ in tqdm.tqdm(range(300)):
     expand_ans(ans, all_paths)
