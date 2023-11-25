@@ -3,7 +3,7 @@ import os
 import pickle
 import random
 import tqdm
-
+TOTAL = 300
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -88,6 +88,16 @@ def expand_ans(ans, all_paths):
     if strategy(ans, all_paths):
         return True
     return False
-for _ in tqdm.tqdm(range(300)):
-    expand_ans(ans, all_paths)
-logging.info(len(ans))
+
+# Expand the ans dictionary until it reaches a size of TOTAL
+progress_bar = tqdm.tqdm(range(TOTAL))
+while True:
+    if expand_ans(ans, all_paths):
+        progress_bar.update()
+        if len(ans) == TOTAL:
+            progress_bar.close()
+            break
+    else:
+        progress_bar.refresh()
+
+print("Size of ans dictionary:", len(ans))
