@@ -50,7 +50,7 @@ def sample_strategy_2(ans, all_paths):
         second = path[1]
         fourth = path[3]
         if not (second, fourth) in ans:
-            ans[(second, fourth)] = 1
+            ans[(second, fourth)] = 2
             return True
     return False
 
@@ -69,7 +69,7 @@ def sample_strategy_3(ans, all_paths):
                 valid_path = True
 
         if not (first, third) in ans:
-            ans[(first, third)] = 1
+            ans[(first, third)] = 3
             return True
     return False
 
@@ -104,6 +104,6 @@ while True:
 print("Size of ans dictionary:", len(ans))
 
 for pair in ans:
-    logging.info("=========")
+    logging.info(f"========= {ans[pair]} ==========")
     logging.info(definitions[pair[0]])
     logging.info(definitions[pair[1]])
