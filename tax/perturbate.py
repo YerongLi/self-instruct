@@ -19,12 +19,12 @@ with open('../../TaxoComplete/all_path.pkl', 'rb') as f:
 # Load the definitions variable from the file
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
-logging.info(len(all_path))
+# logging.info(len(all_path))
 all_paths = [[] for _ in range(20)]
 for path in all_path:
     all_paths[len(path)].append(path)
-logging.info(len(all_paths[3]))
-logging.info(len(all_paths[4]))
+# logging.info(len(all_paths[3]))
+# logging.info(len(all_paths[4]))
 for i in range(len(all_path)):
     # logging.info('====== path ===========')
     for term in all_path[i]:
@@ -104,5 +104,6 @@ while True:
 print("Size of ans dictionary:", len(ans))
 
 for pair in ans:
+    logging.info("=========")
     logging.info(definitions[pair[0]])
     logging.info(definitions[pair[1]])
