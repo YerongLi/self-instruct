@@ -10,11 +10,11 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 
 # Load the all_path variable from the file
-with open('all_path.pkl', 'rb') as f:
+with open('../../TaxoComplete/all_path.pkl', 'rb') as f:
     all_path = pickle.load(f)
 
 # Load the definitions variable from the file
-with open('definitions.pkl', 'rb') as f:
+with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 logging.info(len(all_path))
 
