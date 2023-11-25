@@ -19,5 +19,6 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 logging.info(len(all_path))
 
 for i in range(10):
+    logging.info('====== path ===========')
     for term in all_path[i]:
         logging.info(definitions[term])
