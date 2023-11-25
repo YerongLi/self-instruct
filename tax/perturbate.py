@@ -100,4 +100,9 @@ while True:
     else:
         progress_bar.refresh()
 
+
 print("Size of ans dictionary:", len(ans))
+
+for pair in ans:
+    logging.info(definitions[pair[0]])
+    logging.info(definitions[pair[1]])
