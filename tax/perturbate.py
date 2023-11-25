@@ -26,13 +26,14 @@ for path in all_path:
 logging.info(len(all_paths[3]))
 logging.info(len(all_paths[4]))
 for i in range(len(all_path)):
-    logging.info('====== path ===========')
+    # logging.info('====== path ===========')
     for term in all_path[i]:
-        logging.info(definitions[term])
+        # logging.info(definitions[term])
+        pass
 
 ans = {}
 def sample_strategy_1(ans, all_paths):
-    for _ in range(10):
+    for _ in range(100):
         path_length = 3
         path = random.choice(all_paths[path_length])
         first = path[0]
@@ -43,7 +44,7 @@ def sample_strategy_1(ans, all_paths):
     return False
 
 def sample_strategy_2(ans, all_paths):
-    for _ in range(10):
+    for _ in range(100):
         path_length = 4
         path = random.choice(all_paths[path_length])
         second = path[1]
@@ -54,7 +55,7 @@ def sample_strategy_2(ans, all_paths):
     return False
 
 def sample_strategy_3(ans, all_paths):
-    for _ in range(10):
+    for _ in range(100):
         path_length = 3
         path = random.choice(all_paths[path_length])
         third = path[2]
