@@ -20,7 +20,7 @@ with open('../../TaxoComplete/all_path.pkl', 'rb') as f:
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 logging.info(len(all_path))
-all_paths = [[]]*20
+all_paths = [[] for _ in range(20)]
 for path in all_path:
     all_paths[len(path)].append(path)
 logging.info(len(all_paths[3]))
