@@ -19,6 +19,9 @@ with open('../../TaxoComplete/all_path.pkl', 'rb') as f:
 # Load the definitions variable from the file
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
+with open('../../TaxoComplete/edges.pkl', 'rb') as f:
+    edges = pickle.load(f)
+logging.info(list(edges)[:5])
 # logging.info(len(all_path))
 all_paths = [[] for _ in range(20)]
 for path in all_path:
