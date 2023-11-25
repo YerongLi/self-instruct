@@ -46,7 +46,6 @@ def sample_strategy_2(ans, all_paths):
     for _ in range(10):
         path_length = 4
         path = random.choice(all_paths[path_length])
-        print(path)
         second = path[1]
         fourth = path[3]
         if not (second, fourth) in ans:
@@ -90,3 +89,4 @@ def expand_ans(ans, all_paths):
     return False
 for _ in tqdm.tqdm(range(300)):
     expand_ans(ans, all_paths)
+logging.info(len(ans))
