@@ -33,7 +33,7 @@ for i in range(len(all_path)):
 
 ans = {}
 def sample_strategy_1(ans, all_paths):
-    for _ in range(100):
+    for _ in range(1000):
         path_length = 3
         path = random.choice(all_paths[path_length])
         first = path[0]
@@ -44,7 +44,7 @@ def sample_strategy_1(ans, all_paths):
     return False
 
 def sample_strategy_2(ans, all_paths):
-    for _ in range(100):
+    for _ in range(1000):
         path_length = 4
         path = random.choice(all_paths[path_length])
         second = path[1]
@@ -55,7 +55,7 @@ def sample_strategy_2(ans, all_paths):
     return False
 
 def sample_strategy_3(ans, all_paths):
-    for _ in range(100):
+    for _ in range(1000):
         path_length = 3
         path = random.choice(all_paths[path_length])
         third = path[2]
