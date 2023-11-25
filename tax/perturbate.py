@@ -18,7 +18,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 logging.info(len(all_path))
 
-for i in range(100):
+for i in range(len(all_path)):
     logging.info('====== path ===========')
     for term in all_path[i]:
         logging.info(definitions[term])
