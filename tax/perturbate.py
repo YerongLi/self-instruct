@@ -22,8 +22,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 logging.info(len(all_path))
 all_paths = [[]]*20
 for path in all_path:
-    length = len(path)
-    all_paths[length].append(path)
+    all_paths[len(path)].append(path)
 
 for i in range(len(all_path)):
     logging.info('====== path ===========')
