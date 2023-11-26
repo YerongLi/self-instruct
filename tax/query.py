@@ -39,8 +39,37 @@ for node in core_graph.nodes():
 
 # print(definitions[max_node])
 # print(core_graph.neighbors(max_node))
-logging.info(f"Max number of the neighbourhoods are {ans}")
+logging.info(f"Max number of the neighbours are {ans}")
 logging.info(f"Number of nodes with only one neighbor: {single_neighbor_count}")
+
+
+ans = -0x7f7f7f7f
+single_neighbor_count = 0
+
+# print(definitions)
+max_node = None
+for node in core_graph.nodes():
+    if definitions[node]['label'] == ' ': continue
+    if not core_graph.has_node(node): continue
+
+    length = len([ _ for _ in core_graph.predecessors(node)])
+
+    if length == 1:
+        single_neighbor_count += 1
+        
+    if length > ans:
+        ans = length
+        max_node = node
+
+# print(definitions[max_node])
+# print(core_graph.neighbors(max_node))
+logging.info(f"Max number of the predecessors are {ans}")
+logging.info(f"Number of nodes with only one predecessor: {single_neighbor_count}")
+
+for edge in core_graph.edges():
+    parent, kid = edge
+    weight = core_graph[parent][kid]
+
 
 for edge in core_graph.edges():
     parent, kid = edge
