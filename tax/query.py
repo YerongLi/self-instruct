@@ -19,7 +19,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 
 logging.info(core_graph)
-ans = 0x7f7f7f7f
+ans = -0x7f7f7f7f
 # print(definitions)
 max_node = None
 for node in core_graph.nodes():
