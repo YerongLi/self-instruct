@@ -88,4 +88,5 @@ for edge in core_graph.edges():
         if weight == -1:
             print(parent, kid)
     except:
+        logging.info(parent)
         logging.info(core_graph[parent][kid])
