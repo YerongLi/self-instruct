@@ -21,7 +21,12 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 logging.info(core_graph)
 ans = 0x7f7f7f7f
 # print(definitions)
+max_node = None
 for node in core_graph.nodes():
     if definitions[node]['label'] == ' ': continue
-    ans = max(ans, len([ _ for _ in core_graph.neighbors(node)]))
+    length = len([ _ for _ in core_graph.neighbors(node)])
+    if length > ans:
+        ans = length
+        max_node = node
+print(core_graph.neighbors(max_node))
 logging.info(f"Max number of the neighbourhoods are {ans}")
