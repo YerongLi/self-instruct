@@ -22,6 +22,6 @@ logging.info(core_graph)
 ans = 0x7f7f7f7f
 print(definitions)
 for node in core_graph.nodes():
-    if node == len(core_graph.nodes()): continue
+    if definitions[node]['label'] == ' ': continue
     ans = max(ans, len([ _ for _ in core_graph.neighbors(node)]))
 logging.info(f"Max number of the neighbourhoods are {ans}")
