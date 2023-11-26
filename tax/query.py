@@ -83,6 +83,9 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 
 for edge in core_graph.edges():
     parent, kid = edge
-    weight = core_graph[parent][kid]['weight']
-    if weight == -1:
-        print(parent, kid)
+    try:
+        weight = core_graph[parent][kid]['weight']
+        if weight == -1:
+            print(parent, kid)
+        except:
+            logging.info(core_graph[parent][kid])
