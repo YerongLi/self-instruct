@@ -118,8 +118,8 @@ for pair in ans:
 
 with open('../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo', 'r') as fin, open('wordnet_noun-pert.taxo', 'w') as fout:
     for line in fin:
-        fout.write(line.strip() + ' 1\n')
+        fout.write(line.strip() + '\t1\n')
 
 with open('wordnet_noun-pert.taxo', 'a') as fout:
     for pair in ans:
-        fout.write(f"{definitions[pair[0]]['label']} {definitions[pair[1]]['label']} -1\n")
+        fout.write(f"{definitions[pair[0]]['label']} {definitions[pair[1]]['label']}\t-1\n")
