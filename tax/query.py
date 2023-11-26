@@ -21,5 +21,5 @@ with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
 logging.info(core_graph)
 ans = 0x7f7f7f7f
 for node in core_graph.nodes():
-    ans = max(ans, len([ i in core_graph.neighbors(node)]))
-logging.info(ans)
+    ans = max(ans, len([ _ for _ in core_graph.neighbors(node)]))
+logging.info(f"Max number of the neighbourhoods are {ans}")
