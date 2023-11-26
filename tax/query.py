@@ -24,6 +24,7 @@ ans = 0x7f7f7f7f
 max_node = None
 for node in core_graph.nodes():
     if definitions[node]['label'] == ' ': continue
+    if not core_graph.has_node(node): continue
     length = len([ _ for _ in core_graph.neighbors(node)])
     if length > ans:
         ans = length
