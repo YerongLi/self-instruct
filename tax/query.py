@@ -29,6 +29,6 @@ for node in core_graph.nodes():
     if length > ans:
         ans = length
         max_node = node
-print(definitions(max_node))
+print(definitions[max_node])
 # print(core_graph.neighbors(max_node))
 logging.info(f"Max number of the neighbourhoods are {ans}")
