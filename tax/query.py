@@ -15,8 +15,8 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # Load the definitions variable from the file
 with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
     core_graph = pickle.load(f)
-with open('../../TaxoComplete/data_prep.pkl', 'rb') as f:
-    data_prep = pickle.load(f)
+# with open('../../TaxoComplete/data_prep.pkl', 'rb') as f:
+#     data_prep = pickle.load(f)
 
 logging.info(core_graph)
 logging.info(data_prep)
