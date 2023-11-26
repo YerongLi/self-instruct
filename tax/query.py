@@ -19,4 +19,6 @@ with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
 #     data_prep = pickle.load(f)
 
 logging.info(core_graph)
+for node in core_graph.nodes():
+    print(core_graph.neighbors(node))
 # logging.info(data_prep)
