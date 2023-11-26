@@ -21,6 +21,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
 zero_neighbor_count = 0
+multiple_neighbor_count = 0
 
 # print(definitions)
 max_node = None
@@ -34,6 +35,8 @@ for node in core_graph.nodes():
         zero_neighbor_count += 1
     elif length == 1:
         single_neighbor_count += 1
+    else:
+        multiple_neighbor_count += 1
 
     if length > ans:
         ans = length
@@ -43,10 +46,13 @@ for node in core_graph.nodes():
 # print(core_graph.neighbors(max_node))
 logging.info(f"Max number of the neighbors are {ans}")
 logging.info(f"Number of nodes with zero neighbors: {zero_neighbor_count}")
-logging.info(f"Number of nodes with only one neighbor: {single_neighbor_count}")
+logging.info(f"Number of nodes with one neighbor: {single_neighbor_count}")
+logging.info(f"Number of nodes with two or more neighbors: {multiple_neighbor_count}")
+logging.info("====")
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
 zero_neighbor_count = 0
+multiple_neighbor_count = 0
 
 # print(definitions)
 max_node = None
@@ -60,6 +66,8 @@ for node in core_graph.nodes():
         zero_neighbor_count += 1
     elif length == 1:
         single_neighbor_count += 1
+    else:
+        multiple_neighbor_count += 1
 
     if length > ans:
         ans = length
@@ -69,7 +77,8 @@ for node in core_graph.nodes():
 # print(core_graph.neighbors(max_node))
 logging.info(f"Max number of the predecessors are {ans}")
 logging.info(f"Number of nodes with zero predecessors: {zero_neighbor_count}")
-logging.info(f"Number of nodes with only one predecessor: {single_neighbor_count}")
+logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
+logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
 
 for edge in core_graph.edges():
