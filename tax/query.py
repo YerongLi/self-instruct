@@ -15,11 +15,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # Load the definitions variable from the file
 with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
     core_graph = pickle.load(f)
-# with open('../../TaxoComplete/data_prep.pkl', 'rb') as f:
-#     data_prep = pickle.load(f)
+with open('../../TaxoComplete/defintions.pkl', 'rb') as f:
+    definitions = pickle.load(f)
 
 logging.info(core_graph)
 ans = 0x7f7f7f7f
 for node in core_graph.nodes():
+
     ans = max(ans, len([ _ for _ in core_graph.neighbors(node)]))
 logging.info(f"Max number of the neighbourhoods are {ans}")
