@@ -130,6 +130,7 @@ def get_first_label_with_n(label_str):
             return label
 
     # If no label contains ".n.", return the first label
+    print(label[0])
     return labels[0]
 
 # Extract and write the first labels with ".n." to the output file
