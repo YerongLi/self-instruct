@@ -120,8 +120,21 @@ with open('../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo', 'r') as fin,
     for line in fin:
         fout.write(line.strip() + '\t1\n')
 
+def get_first_label_with_n(label_str):
+    # Split the label string by "||"
+    labels = label_str.split('||')
+
+    # Find the first label that contains ".n."
+    for label in labels:
+        if ".n." in label:
+            return label
+
+    # If no label contains ".n.", return the first label
+    return labels[0]
+
+# Extract and write the first labels with ".n." to the output file
 with open('wordnet_noun-pert.taxo', 'a') as fout:
     for pair in ans:
-        # fout.write(f"{definitions[pair[0]]['label'].split('||')[0]}\t{definitions[pair[1]]['label'].split('||')[0]}\t-1\n")
-
-        fout.write(f"{definitions[pair[0]]['label']}\t{definitions[pair[1]]['label']}\t-1\n")
+        first_label_0 = get_first_label_with_n(definitions[pair[0]]['label'])
+        first_label_1 = get_first_label_with_n(definitions[pair[1]]['label'])
+        fout.write(f"{first_label_0}\t{first_label_1}\t-1\n")
