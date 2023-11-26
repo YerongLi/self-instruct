@@ -20,7 +20,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 
 logging.info(core_graph)
 ans = 0x7f7f7f7f
-print(definitions)
+# print(definitions)
 for node in core_graph.nodes():
     if definitions[node]['label'] == ' ': continue
     ans = max(ans, len([ _ for _ in core_graph.neighbors(node)]))
