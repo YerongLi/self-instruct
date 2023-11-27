@@ -63,30 +63,19 @@ def collate_fn(batch):
 
 
 class PromptDataset(Dataset):
-    def __init__(self, prompts):
+    def __init__(self, prompts, tokenizer, max_length=None):
         self.prompts = prompts
+        self.tokenizer = tokenizer
+        self.max_length = max_length
 
     def __len__(self):
         return len(self.prompts)
 
     def __getitem__(self, idx):
         prompt = self.prompts[idx]
-        return preprocess_prompt(prompt)
-# Preprocess the prompts with padding
-def preprocess_prompt(prompt, max_len=800):
-    encoded_prompt = tokenizer(prompt, return_tensors="pt")
-    input_ids = encoded_prompt["input_ids"]
-    attn_mask = encoded_prompt["attention_mask"]
+        encoding = self.tokenizer(prompt, return_tensors="pt", truncation=True, padding=True, max_length=self.max_length)
+        return encoding
 
-    # Pad input_ids and attention_mask
-    if input_ids.shape[1] < max_len:
-        padding = torch.zeros((1, max_len - input_ids.shape[1])).to(input_ids.dtype)
-        input_ids = torch.cat([input_ids, padding], dim=1)
-
-        padding = torch.zeros((1, max_len - attn_mask.shape[1])).to(attn_mask.dtype)
-        attn_mask = torch.cat([attn_mask, padding], dim=1)
-
-    return input_ids, attn_mask
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -348,44 +337,23 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     # Check if we need to sample additional negative pairs
 
 
-# Create a dataloader with batch_size=4
-batch_size=4
-dataloader = DataLoader(PromptDataset(prompts), batch_size=4, collate_fn=default_collate)
+max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 
-# Make predictions in batches
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model.to(device)
+# Create a dataset and dataloader
+batch_size = 4
+prompt_dataset = PromptDataset(prompts, tokenizer, max_length=max_length)
+prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=2)  # Adjust num_workers based on your system capabilities
 
-for batch in dataloader:
-    print(batch)
-    print(batch.shape)
-    # encoded_prompts = batch[0].to(device)
+# Iterate over batches
+for batch in prompt_dataloader:
+    inputs = {k: v.to(device) for k, v in batch.items()}
+    
+    with torch.no_grad():
+        outputs = model(**inputs)
 
-    # with torch.no_grad():
-    #     outputs = model(encoded_prompts)
-    #     logits = outputs.logits[:, -1, :]
-
-    # # Extract probabilities for "Yes" and "No"
-    # next_tokens_scores = logits_processor(encoded_prompts, logits)
-    # next_tokens = torch.argmax(next_tokens_scores, dim=-1)
-
-    # # Calculate the probability for "Yes"
-    # yes_prob = next_tokens_scores[0][3869].item()
-
-    # # Calculate the probability for "No"
-    # no_prob = next_tokens_scores[0][1939].item()
-
-    # # Calculate the difference in probabilities
-    # prob_diff = yes_prob - no_prob
-
-    # # Determine the prediction based on probability difference
-    # if prob_diff > 0:
-    #     prediction = 1
-    # else:
-    #     prediction = -1
-
-    # # Print the predictions
-    # print(prediction)
+    logits = outputs.logits
+    # Process logits or do whatever you need with them
+    print(logits.shape)
 
 logging.info(f"Count number of -1 {count_neg_label}")
 if min_pair is not None:
