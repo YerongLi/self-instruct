@@ -148,6 +148,7 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+    if parent_ == rootkey : continue
     parent_, kid_ = edge
 
     edge_list = edges_within_k_edges(core_graph, parent_, kid_)

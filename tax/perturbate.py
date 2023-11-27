@@ -4,6 +4,7 @@ import pickle
 import random
 import tqdm
 TOTAL = 300
+taxofilename = f'wordnet_noun-pert{TOTAL}.taxo'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -116,7 +117,7 @@ for pair in ans:
     logging.info(definitions[pair[0]])
     logging.info(definitions[pair[1]])
 
-with open('../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo', 'r') as fin, open('wordnet_noun-pert.taxo', 'w') as fout:
+with open('../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo', 'r') as fin, open(taxofilename, 'w') as fout:
     for line in fin:
         fout.write(line.strip() + '\t1\n')
 
@@ -133,7 +134,7 @@ def get_first_label_with_n(label_str):
     return labels[0]
 
 # Extract and write the first labels with ".n." to the output file
-with open('wordnet_noun-pert.taxo', 'a') as fout:
+with open(taxofilename, 'a') as fout:
     for pair in ans:
         first_label_0 = get_first_label_with_n(definitions[pair[0]]['label'])
         first_label_1 = get_first_label_with_n(definitions[pair[1]]['label'])
