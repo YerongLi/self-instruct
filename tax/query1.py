@@ -13,7 +13,9 @@ logging.basicConfig(
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
-
+def process_edge_wrapper(edge):
+    parent, kid = edge
+    return len(edges_within_k_edges(core_graph, parent, kid))
 def edges_within_k_edges(graph, parent, child, k=2):
     # Create a set to store the visited nodes
     visited = set()
@@ -120,10 +122,11 @@ logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
 
+# Create a pool of worker processes
 pool = multiprocessing.Pool(processes=4)  # Adjust the number of processes as needed
 
-# Map the `edges_within_k_edges` function directly to each edge and collect the results
-results = pool.map(lambda edge: len(edges_within_k_edges(core_graph, *edge)), core_graph.edges())
+# Map the `process_edge_wrapper` function to each edge and collect the results
+results = pool.map(process_edge_wrapper, core_graph.edges())
 
 # Calculate the min and max lengths based on the results
 min_len = min(results)
@@ -131,10 +134,6 @@ max_len = max(results)
 
 print("Min length:", min_len)
 print("Max length:", max_len)
-
-# Print the minimum and maximum length of the edge lists
-print(f"The minimum length of the edge lists is {min_len}.")
-print(f"The maximum length of the edge lists is {max_len}.")
 #     try:
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
