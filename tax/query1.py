@@ -14,6 +14,36 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
+model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
+
+model = 
+LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+).eval()
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
+def predict_next_token(prompt):
+    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
+
+    # Generate the next token using the model
+    with torch.no_grad():
+        outputs = model(input_ids)
+        prob = outputs.logits[:, -1, :]
+
+    # Calculate the maximum probability index
+    max_prob_index = torch.argmax(prob).item()
+
+    # Decode the token using the tokenizer
+    predicted_token = tokenizer.decode([max_prob_index])
+
+    return predicted_token
+
+prompt = "The quick brown fox jumps over the lazy dog. "
+next_token = predict_next_token(prompt)
+print("Predicted Token:", next_token)
+
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
     labels = label_str.split('||')
@@ -213,6 +243,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
     prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     logging.info(prompt)
+    predict_next_token(prompt)
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
