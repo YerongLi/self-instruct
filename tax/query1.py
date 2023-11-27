@@ -219,12 +219,12 @@ for edge in tqdm.tqdm(core_graph.edges()):
         prompt += f"Definitions: {label} : {description}\n"
 
     prompt += "\n"
-    pairs = [(get_first_label_without_n(definitions[parent_]['label']), get_first_label_without_n(definitions[kid]['label']), 'Yes') for kid in neighbors]
+    pairs = [(get_first_label_without_n(definitions[parent_]['label']), get_first_label_without_n(definitions[kid]['label']), 'Yes') for kid in neighbors if kid is not kid_]
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
-        parent_label = get_first_label_without_n(definitions[parent]['label'])
-        kid_label = get_first_label_without_n(definitions[kid]['label'])
+        # parent_label = get_first_label_without_n(definitions[parent]['label'])
+        # kid_label = get_first_label_without_n(definitions[kid]['label'])
         pairs.append((parent_label, kid_label, 'Yes'))
 
     # Combine negative pairs and additional pairs
