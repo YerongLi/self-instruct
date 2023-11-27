@@ -113,7 +113,30 @@ def predict_next_token(prompt):
     # logging.info(next_tokens)
     return prediction
     # return  tokenizer.decode(next_tokens)
+def predict_next_token_batch(prompts):
+    # Tokenize prompts and convert to PyTorch tensors
+    input_ids = tokenizer(prompts, return_tensors="pt", padding=True).to(device)
 
+    # Generate logits for the next token using the model
+    with torch.no_grad():
+        outputs = model(input_ids)
+        logits = outputs.logits[:, -1, :]
+
+    # Process logits or do whatever you need with them
+    next_tokens_scores = logits  # Assuming logits_processor is not used in this function
+    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+
+    # Example: Extract probabilities for specific tokens (adjust token IDs as needed)
+    yes_prob = next_tokens_scores[:, 3869]
+    no_prob = next_tokens_scores[:, 1939]
+
+    # Calculate the difference in probabilities
+    prob_diff = yes_prob - no_prob
+
+    # Determine the predictions based on probability differences
+    predictions = torch.where(prob_diff > 0, 1, -1).tolist()
+
+    return predictions
 
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
@@ -344,7 +367,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:8]), total=
     # Check if we need to sample additional negative pairs
 
 
-max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 
 # # Create a dataset and dataloader
 # batch_size = 4
@@ -362,14 +384,7 @@ max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 #     # Process logits or do whatever you need with them
 #     print(logits.shape)
 
-inputs = tokenizer(prompts, return_tensors="pt", padding=True).to(model.device)
-print(inputs['input_ids'].shape)
-
-with torch.no_grad():
-    outputs = model(**inputs)
-
-# Get logits
-logits = outputs.logits
+print (predict_next_token_batch(prompts))
 logging.info(logits.shape)
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 
