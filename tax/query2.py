@@ -6,7 +6,7 @@ import tqdm
 # import networkx as nx
 import torch
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
-TOTAL = 300
+TOTAL = 700
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -72,7 +72,7 @@ def edges_within_k_edges(graph, parent, child, k=3):
 
 
 # Load the definitions variable from the file
-with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
+with open(f'../../TaxoComplete/core_graph_{TOTAL}.pkl', 'rb') as f:
     core_graph = pickle.load(f)
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
