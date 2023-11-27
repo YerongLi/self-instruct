@@ -14,7 +14,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def edges_within_k_edges(graph, parent, child, k):
+def edges_within_k_edges(graph, parent, child, k=2):
     # Create a set to store the visited nodes
     visited = set()
 
