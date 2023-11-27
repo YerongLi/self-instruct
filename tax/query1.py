@@ -135,7 +135,7 @@ def predict_next_token_batch(prompts):
 
     # Determine the predictions based on probability differences
     predictions = torch.where(prob_diff > 0, 1, -1).tolist()
-
+    print(next_tokens)
     return predictions
 
 def get_first_label_without_n(label_str):
@@ -385,7 +385,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:8]), total=
 #     print(logits.shape)
 
 print (predict_next_token_batch(prompts))
-logging.info(logits.shape)
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 
 # print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
