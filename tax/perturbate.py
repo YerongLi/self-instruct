@@ -5,6 +5,12 @@ import random
 import tqdm
 TOTAL = 300
 taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
+import shutil
+
+source_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert.terms'
+destination_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.terms'
+
+shutil.copyfile(source_file, destination_file)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
