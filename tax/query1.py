@@ -14,43 +14,37 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def edges_within_k_edges(graph, parent, child, k=2):
+def edges_within_k_edges(graph, parent, child, k):
     # Create a set to store the visited nodes
     visited = set()
 
     # Create a list to store the edges within k edge distances
     ans = []
 
-    # Perform DFS on the parent node
-    for node in [x for x in graph.neighbors(parent)] + [x for x in graph.predecessors(parent)]:
+    # Recursive function to perform DFS
+    def dfs(node, depth):
         # Mark the node as visited
         visited.add(node)
 
-        # Check if the node is within k edge distances of the child node
+        # Check if the depth is greater than or equal to k
+        if depth >= k:
+            return
+
+        # Check if the child node is reachable from the current node
         if nx.has_path(graph, node, child) and nx.shortest_path_length(graph, node, child) <= k:
-            # Iterate over the neighbors of the node
-            for neighbor in graph.neighbors(node):
-                # Check if the neighbor is not visited and is not the parent node
-                if neighbor not in visited and neighbor != parent:
-                    # Add the edge to the list of edges within k edge distances
-                    ans.append((node, neighbor))
+            # Add the edge to the list of edges within k edge distances
+            ans.append((node, child))
 
-    # Perform DFS on the child node
-    for node in [x for x in graph.neighbors(child)] + [x for x in graph.predecessors(child)]:
-        # Mark the node as visited
-        visited.add(node)
+        # Iterate over the neighbors of the node
+        for neighbor in graph.neighbors(node):
+            if neighbor not in visited:
+                dfs(neighbor, depth + 1)
 
-        # Check if the node is within k edge distances of the parent node
-        if nx.has_path(graph, node, parent) and nx.shortest_path_length(graph, node, parent) <= k:
-            # Iterate over the neighbors of the node
-            for neighbor in graph.neighbors(node):
-                # Check if the neighbor is not visited and is not the child node
-                if neighbor not in visited and neighbor != child:
-                    # Add the edge to the list of edges within k edge distances
-                    ans.append((node, neighbor))
+    # Perform DFS starting from the parent node
+    dfs(parent, 0)
 
+    # Return the list of edges within k edge distances
     return ans
-
 
 # Load the definitions variable from the file
 with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
