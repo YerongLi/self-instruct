@@ -220,6 +220,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     prompt += "\n"
     pairs = [(parent_, node, 'Yes')for node in neighbors]
+    logging.info(pairs)
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
