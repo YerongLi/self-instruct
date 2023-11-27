@@ -142,8 +142,8 @@ def predict_next_token_batch(prompts, batch_size=10):
         # Determine the predictions based on probability differences
         batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
     
-    # Append batch predictions to the overall predictions list
-    predictions.extend(batch_predictions)
+        # Append batch predictions to the overall predictions list
+        predictions.extend(batch_predictions)
 
     return predictions
 
