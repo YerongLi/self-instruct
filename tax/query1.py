@@ -171,34 +171,34 @@ for edge in tqdm.tqdm(core_graph.edges()):
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
         prompt += f"Pair: {parent_label} -> {kid_label}\n"
-        # Sample all negative pairs within nodes
-        negative_pairs = []
-        for node1 in nodes:
-            for node2 in nodes:
-                if node1 != node2 and (node1, node2) not in edge_list and (node2, node1) not in edge_list:
-                    negative_pairs.append((node1, node2))
-        random.shuffle(negative_pairs)
-        # Sample additional negative pairs from core_graph.nodes()
-        num_additional_pairs = 6 - (len(nodes) * (len(nodes) - 1) - len(sampled_edges))
+    # Sample all negative pairs within nodes
+    negative_pairs = []
+    for node1 in nodes:
+        for node2 in nodes:
+            if node1 != node2 and (node1, node2) not in edge_list and (node2, node1) not in edge_list:
+                negative_pairs.append((node1, node2))
+    random.shuffle(negative_pairs)
+    # Sample additional negative pairs from core_graph.nodes()
+    num_additional_pairs = 6 - (len(nodes) * (len(nodes) - 1) - len(sampled_edges))
 
-        additional_pairs = []
-        while len(additional_pairs) < num_additional_pairs:
-            node1 = random.choice(list(core_graph.nodes()))
-            node2 = random.choice(list(nodes))
-            if (node1, node2) not in edge_list and (node2, node1) not in sampled_edges:
-                additional_pairs.append((node1, node2))
+    additional_pairs = []
+    while len(additional_pairs) < num_additional_pairs:
+        node1 = random.choice(list(core_graph.nodes()))
+        node2 = random.choice(list(nodes))
+        if (node1, node2) not in edge_list and (node2, node1) not in sampled_edges:
+            additional_pairs.append((node1, node2))
 
-        # Combine negative pairs and additional pairs
-        negative_pairs += additional_pairs
+    # Combine negative pairs and additional pairs
+    negative_pairs += additional_pairs
 
-        # Create the negative samples prompt
-        prompt += "\nNegative Samples:\n\n"
-        for pair in (negative_pairs )[:6]:
-            parent = pair[0]
-            kid = pair[1]
-            parent_label = get_first_label_without_n(definitions[parent]['label'])
-            kid_label = get_first_label_without_n(definitions[kid]['label'])
-            prompt += f"Pair: {parent_label} -> {kid_label}\n"
+    # Create the negative samples prompt
+    prompt += "\nNegative Samples:\n\n"
+    for pair in (negative_pairs )[:6]:
+        parent = pair[0]
+        kid = pair[1]
+        parent_label = get_first_label_without_n(definitions[parent]['label'])
+        kid_label = get_first_label_without_n(definitions[kid]['label'])
+        prompt += f"Pair: {parent_label} -> {kid_label}\n"
 
     logging.info(prompt)
     edge_list_len = len(edge_list)
