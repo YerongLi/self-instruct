@@ -114,7 +114,7 @@ def predict_next_token(prompt):
     return prediction
     # return  tokenizer.decode(next_tokens)
 
-def predict_next_token_batched(prompts, batch_size=10):
+def predict_next_token_batch(prompts, batch_size=10):
     predictions = []
 
     # Split prompts into batches
