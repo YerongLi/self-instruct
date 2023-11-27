@@ -119,16 +119,16 @@ logging.info(f"Max number of the neighbors are {ans}")
 logging.info(f"Number of nodes with zero neighbors: {zero_neighbor_count}")
 logging.info(f"Number of nodes with one neighbor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more neighbors: {multiple_neighbor_count}")
-for node in multiple_neighbor_nodes_6:
-    logging.info(definitions[node])
-    logging.info(len([_ for _ in core_graph.neighbors(node)]))
-logging.info("Nodes with 2-6 neighbors:")
-for node in multiple_neighbor_nodes:
-    neighbors = list(core_graph.neighbors(node))
-    logging.info(definitions[node])
-    for nei in neighbors:
-        logging.info(f"  ***     {definitions[nei]}")
-logging.info("====   ====")
+# for node in multiple_neighbor_nodes_6:
+#     logging.info(definitions[node])
+#     logging.info(len([_ for _ in core_graph.neighbors(node)]))
+# logging.info("Nodes with 2-6 neighbors:")
+# for node in multiple_neighbor_nodes:
+#     neighbors = list(core_graph.neighbors(node))
+#     logging.info(definitions[node])
+#     for nei in neighbors:
+#         logging.info(f"  ***     {definitions[nei]}")
+# logging.info("====   ====")
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
 zero_neighbor_count = 0
