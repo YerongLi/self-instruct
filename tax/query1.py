@@ -14,7 +14,12 @@ parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
 args = parser.parse_args()
 TOTAL = args.TOTAL
-
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -365,7 +370,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     
     prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']})
     # predicted_label = predict_next_token(prompt)
-    if iteration <= 0:
+    if iteration <= 10:
         logging.info(prompt)
         # logging.info(predicted_label)
     if core_graph[parent_][kid_]['weight'] == -1: count_neg_label+= 1
