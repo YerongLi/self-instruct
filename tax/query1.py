@@ -78,8 +78,8 @@ class PromptDataset(Dataset):
         prompt = self.prompts[idx]
         encoding = self.tokenizer(prompt, return_tensors="pt", padding=True, max_length=self.max_length)
         logging.info(encoding)
-        logging.info(len(encoding[0]))
-        logging.info(len(encoding[1]))
+        logging.info(len(encoding['input_ids'].shape))
+        logging.info(len(encoding['attention_mask'].shape))
         return encoding
 
 def predict_next_token(prompt):
