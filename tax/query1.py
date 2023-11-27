@@ -36,6 +36,7 @@ def edges_within_k_edges(graph, parent, child, k=3):
     # Recursive function to perform DFS
     def dfs(node, depth):
         # Mark the node as visited
+        if node == rootkey: return
         visited.add(node)
 
         # Check if the depth is greater than or equal to k
@@ -142,8 +143,7 @@ max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
 
-    if parent == rootkey or kid == rootkey:
-        continue
+
     logging.info(type(parent))
     logging.info(parent)
     edge_list = edges_within_k_edges(core_graph, parent, kid)
