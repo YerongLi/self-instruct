@@ -4,7 +4,7 @@ import pickle
 import random
 import tqdm
 TOTAL = 300
-taxofilename = f'wordnet_noun-pert_{TOTAL}.taxo'
+taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
