@@ -128,6 +128,32 @@ for edge in tqdm.tqdm(core_graph.edges()):
         continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
+    # Sample 6 edges from edge_list
+    sampled_edges = random.sample(edge_list, 6)
+
+    # Get all nodes from sampled edges
+    nodes = set()
+    for edge in sampled_edges:
+        nodes.add(edge[0])
+        nodes.add(edge[1])
+
+    # Create the prompt
+    prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
+    for node in nodes:
+        label = get_first_label_with_n(definitions[node]['label'])
+        description = definitions[node]['description']
+        prompt += f"Definitions: {label} : {description}\n"
+
+    prompt += "\n"
+
+    for edge in sampled_edges:
+        parent = edge[0]
+        kid = edge[1]
+        parent_label = get_first_label_with_n(definitions[parent]['label'])
+        kid_label = get_first_label_with_n(definitions[kid]['label'])
+        prompt += f"Pair: {parent_label} -> {kid_label}\n"
+
+    print(prompt)
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
