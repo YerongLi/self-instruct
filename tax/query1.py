@@ -17,39 +17,40 @@ logging.info(f'Logger start: {os.uname()[1]}')
 def edges_within_k_edges(graph, parent, child, k=2):
     # Create a set to store the visited nodes
     visited = set()
-    
+
     # Create a list to store the edges within k edge distances
     ans = []
-    
+
     # Perform DFS on the parent node
-    for node in nx.dfs_tree(graph, parent):
+    for node in nx.dfs_neighbors(graph, parent):
         # Mark the node as visited
         visited.add(node)
-        
+
         # Check if the node is within k edge distances of the child node
         if nx.has_path(graph, node, child) and nx.shortest_path_length(graph, node, child) <= k:
-            # Iterate over the neighbors of the node
-            for neighbor in graph.neighbors(node):
+            # Iterate over the neighbors and predecessors of the node
+            for neighbor in graph.neighbors(node) + graph.predecessors(node):
                 # Check if the neighbor is not visited and is not the parent node
                 if neighbor not in visited and neighbor != parent:
                     # Add the edge to the list of edges within k edge distances
                     ans.append((node, neighbor))
-    
+
     # Perform DFS on the child node
-    for node in nx.dfs_tree(graph, child):
+    for node in nx.dfs_neighbors(graph, child):
         # Mark the node as visited
         visited.add(node)
-        
+
         # Check if the node is within k edge distances of the parent node
         if nx.has_path(graph, node, parent) and nx.shortest_path_length(graph, node, parent) <= k:
-            # Iterate over the neighbors of the node
-            for neighbor in graph.neighbors(node):
+            # Iterate over the neighbors and predecessors of the node
+            for neighbor in graph.neighbors(node) + graph.predecessors(node):
                 # Check if the neighbor is not visited and is not the child node
                 if neighbor not in visited and neighbor != child:
                     # Add the edge to the list of edges within k edge distances
                     ans.append((node, neighbor))
-    
+
     return ans
+
 
 # Load the definitions variable from the file
 with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
