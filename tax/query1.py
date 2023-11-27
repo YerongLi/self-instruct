@@ -345,7 +345,7 @@ max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 # Create a dataset and dataloader
 batch_size = 4
 prompt_dataset = PromptDataset(prompts, tokenizer, max_length=max_length)
-prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=2)  # Adjust num_workers based on your system capabilities
+prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=1)  # Adjust num_workers based on your system capabilities
 
 # Iterate over batches
 for batch in prompt_dataloader:
