@@ -55,7 +55,7 @@ def predict_next_token(prompt):
     # else:
     #     prediction = -1
     logging.info('next_token')
-    return  next_tokens
+    return  tokenize.decode(next_tokens)
 
 
 prompt = "The quick brown fox jumps over the lazy dog. "
