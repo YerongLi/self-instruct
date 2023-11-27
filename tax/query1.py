@@ -185,6 +185,8 @@ for edge in tqdm.tqdm(core_graph.edges()):
         nodes.add(edge[0])
         nodes.add(edge[1])
     node_definitions = nodes.copy()
+    for n in neighbors: node_definitions.add(n)
+
     # Sample all negative pairs within nodes
     negative_pairs = []
     for node1 in nodes:
@@ -218,7 +220,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         prompt += f"Definitions: {label} : {description}\n"
 
     prompt += "\n"
-    pairs = []
+    pairs = [(parent_, node)for node in neighbors]
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
