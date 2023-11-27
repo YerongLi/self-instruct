@@ -87,7 +87,7 @@ ans = -0x7f7f7f7f
 single_neighbor_count = 0
 zero_neighbor_count = 0
 multiple_neighbor_count = 0
-
+multiple_neighbor_nodes, multiple_neighbor_nodes_6 = [], []
 # print(definitions)
 max_node = None
 for node in core_graph.nodes():
