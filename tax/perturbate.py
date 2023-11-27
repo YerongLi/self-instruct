@@ -7,7 +7,7 @@ TOTAL = 700
 taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
 import shutil
 
-source_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert.terms'
+source_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun.terms'
 destination_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.terms'
 
 shutil.copyfile(source_file, destination_file)
