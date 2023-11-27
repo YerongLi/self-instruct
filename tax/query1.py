@@ -171,19 +171,6 @@ for edge in tqdm.tqdm(core_graph.edges()):
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
         prompt += f"Pair: {parent_label} -> {kid_label}\n"
-
-    logging.info(prompt)
-    edge_list_len = len(edge_list)
-
-    if min_pair is None or edge_list_len < min_len:
-        min_pair = (parent, kid)
-        min_len = edge_list_len
-
-    if max_pair is None or edge_list_len > max_len:
-        max_pair = (parent, kid)
-        max_len = edge_list_len
-    # Check if we need to sample additional negative pairs
-    print(len(edge_list) , len(nodes) * (len(nodes) - 1) - 6)
     if len(edge_list) < len(nodes) * (len(nodes) - 1) - 6:
         # Sample all negative pairs within nodes
         negative_pairs = []
@@ -214,6 +201,17 @@ for edge in tqdm.tqdm(core_graph.edges()):
             prompt += f"Pair: {parent_label} -> {kid_label}\n"
     else:
         raise NotImplementedError("This method has not been implemented yet.")
+    logging.info(prompt)
+    edge_list_len = len(edge_list)
+
+    if min_pair is None or edge_list_len < min_len:
+        min_pair = (parent, kid)
+        min_len = edge_list_len
+
+    if max_pair is None or edge_list_len > max_len:
+        max_pair = (parent, kid)
+        max_len = edge_list_len
+    # Check if we need to sample additional negative pairs
 if min_pair is not None:
     parent, kid = min_pair
     logging.info("Minimum pair:")
