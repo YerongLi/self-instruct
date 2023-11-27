@@ -203,7 +203,9 @@ for edge in tqdm.tqdm(core_graph.edges()):
         kid = pair[1]
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
-        pairs.append((parent_label, kid_label, 'Yes'))
+        pairs.append((parent_label, kid_label, 'No'))
+    random.shuffle(pairs)
+
     for pair in pairs:
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}\n Answer: {pair[2]}' 
     logging.info(prompt)
