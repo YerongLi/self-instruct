@@ -23,7 +23,7 @@ with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
 with open('../../TaxoComplete/edges.pkl', 'rb') as f:
     edges = pickle.load(f)
 edges_dict = {pair: 0 for pair in list(edges)}
-logging.info(len(all_path))
+logging.info(len(edges_dict))
 all_paths = [[] for _ in range(20)]
 for path in all_path:
     all_paths[len(path)].append(path)
