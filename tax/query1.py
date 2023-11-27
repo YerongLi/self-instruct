@@ -6,6 +6,8 @@ import tqdm
 # import networkx as nx
 import torch
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+from torch.utils.data import DataLoader, Dataset
+
 TOTAL = 700
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -29,6 +31,19 @@ logits_processor = LogitsProcessorList()
 # logging.info(f'No id is : {tokenizer(["No"])}')
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
 # 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
+class PromptDataset(Dataset):
+    def __init__(self, prompts):
+        self.prompts = prompts
+
+    def __len__(self):
+        return len(self.prompts)
+
+    def __getitem__(self, idx):
+        prompt = self.prompts[idx]
+        return preprocess_prompt(prompt)
+def preprocess_prompt(prompt):
+    encoded_prompt = tokenizer(prompt, return_tensors="pt")
+    return encoded_prompt
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -192,6 +207,7 @@ result = []
 count_edges = 0
 count_neg_label = 0
 # for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total=30):
+prompts = []
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
@@ -270,7 +286,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
     prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    predicted_label = predict_next_token(prompt)
+    prompts.append(prompt)
+    # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
         logging.info(prompt)
         logging.info(predicted_label)
@@ -287,6 +304,43 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
+
+# Create a dataloader with batch_size=4
+batch_size=4
+dataloader = DataLoader(PromptDataset(prompts), batch_size=batch_size)
+
+# Make predictions in batches
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model.to(device)
+
+for batch in dataloader:
+    encoded_prompts = batch[0].to(device)
+
+    with torch.no_grad():
+        outputs = model(encoded_prompts)
+        logits = outputs.logits[:, -1, :]
+
+    # Extract probabilities for "Yes" and "No"
+    next_tokens_scores = logits_processor(encoded_prompts, logits)
+    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+
+    # Calculate the probability for "Yes"
+    yes_prob = next_tokens_scores[0][3869].item()
+
+    # Calculate the probability for "No"
+    no_prob = next_tokens_scores[0][1939].item()
+
+    # Calculate the difference in probabilities
+    prob_diff = yes_prob - no_prob
+
+    # Determine the prediction based on probability difference
+    if prob_diff > 0:
+        prediction = 1
+    else:
+        prediction = -1
+
+    # Print the predictions
+    print(prediction)
 
 logging.info(f"Count number of -1 {count_neg_label}")
 if min_pair is not None:
