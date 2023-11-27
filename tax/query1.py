@@ -151,7 +151,7 @@ if max_pair is not None:
     logging.info("Kid:", definitions[kid])
     logging.info(f"The first 100 neighbors of {kid} are:")
     for neighbor in list(core_graph.neighbors(kid))[:100]:
-        logging.info(neighbor)
+        logging.info(definitions[neighbor])
 
 logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
