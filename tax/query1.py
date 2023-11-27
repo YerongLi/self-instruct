@@ -189,8 +189,8 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 result = []
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:50]), total=50):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total=30):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     neighbors = list(core_graph.neighbors(parent_))
     neighbors = random.sample(neighbors, min(6, len(neighbors)))
@@ -275,11 +275,11 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
-        min_pair = (parent, kid)
+        min_pair = (parent_, kid_)
         min_len = edge_list_len
 
     if max_pair is None or edge_list_len > max_len:
-        max_pair = (parent, kid)
+        max_pair = (parent_, kid_)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
@@ -363,3 +363,8 @@ else:
     # Handle single value output
     auc = auc_score_value
     logging.info("AUC score: %f", auc)
+
+# Print confusion matrix
+conf_matrix = confusion_matrix(ground_truth, predicted_labels, labels=[1, -1])
+logging.info("Confusion matrix:")
+print(conf_matrix)
