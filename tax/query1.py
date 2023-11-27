@@ -136,16 +136,16 @@ def predict_next_token_batched(prompts, batch_size=10):
     yes_prob = next_tokens_scores[:, 3869]
     no_prob = next_tokens_scores[:, 1939]
 
-       # Calculate the difference in probabilities
-        prob_diff = yes_prob - no_prob
+    # Calculate the difference in probabilities
+    prob_diff = yes_prob - no_prob
 
-        # Determine the predictions based on probability differences
-        batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
-        
-        # Append batch predictions to the overall predictions list
-        predictions.extend(batch_predictions)
+    # Determine the predictions based on probability differences
+    batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
+    
+    # Append batch predictions to the overall predictions list
+    predictions.extend(batch_predictions)
 
-    return predictions
+return predictions
 
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
