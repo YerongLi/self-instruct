@@ -375,7 +375,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
-batch_size = 6
+batch_size = 5
 
 
 # # Create a dataset and dataloader
@@ -451,10 +451,12 @@ if isinstance(f1_score_value, tuple):
     # Handle tuple output
     f1 = f1_score_value[0]
     logging.info("F1 score: %f", f1)
+    print("F1 score: %f", f1)
 else:
     # Handle single value output
     f1 = f1_score_value
     logging.info("F1 score: %f", f1)
+    print("F1 score: %f", f1)
 
 # Calculate accuracy score
 accuracy_score_value = accuracy_score(ground_truth, predicted_labels)
@@ -463,10 +465,13 @@ if isinstance(accuracy_score_value, tuple):
     # Handle tuple output
     accuracy = accuracy_score_value[0]
     logging.info("Accuracy score: %f", accuracy)
+    print("Accuracy score: %f", accuracy)
 else:
     # Handle single value output
     accuracy = accuracy_score_value
     logging.info("Accuracy score: %f", accuracy)
+    print("Accuracy score: %f", accuracy)
+
 
 # Calculate recall score
 recall_score_value = recall_score(ground_truth, predicted_labels, average='macro')
@@ -475,10 +480,12 @@ if isinstance(recall_score_value, tuple):
     # Handle tuple output
     recall = recall_score_value[0]
     logging.info("Recall score: %f", recall)
+    print("Recall score: %f", recall)
 else:
     # Handle single value output
     recall = recall_score_value
     logging.info("Recall score: %f", recall)
+    print("Recall score: %f", recall)
 
 # Calculate AUC score
 auc_score_value = roc_auc_score(ground_truth, predicted_labels)
@@ -487,10 +494,13 @@ if isinstance(auc_score_value, tuple):
     # Handle tuple output
     auc = auc_score_value[0]
     logging.info("AUC score: %f", auc)
+    print()"AUC score: %f", auc)
+
 else:
     # Handle single value output
     auc = auc_score_value
     logging.info("AUC score: %f", auc)
+    print()"AUC score: %f", auc)
 
 # Print confusion matrix
 conf_matrix = confusion_matrix(ground_truth, predicted_labels, labels=[1, -1])
