@@ -17,18 +17,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-).eval()
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
-logits_processor = LogitsProcessorList()
-# logging.info(f'Yes id is : {tokenizer(["Yes"])}')
-# logging.info(f'No id is : {tokenizer(["No"])}')
-# 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
-# 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
+
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
