@@ -268,9 +268,9 @@ for edge in tqdm.tqdm(list(core_graph.edges())[:50]):
     
     logging.info(prompt)
     predicted_label = predict_next_token(prompt)
-    logging.info(label)
+    logging.info(predicted_label)
 
-    result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : label}))
+    result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : predicted_label}))
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
