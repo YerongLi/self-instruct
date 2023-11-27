@@ -22,7 +22,7 @@ def edges_within_k_edges(graph, parent, child, k=2):
     ans = []
 
     # Perform DFS on the parent node
-    for node in graph.neighbors(parent) + graph.predecessors(parent):
+    for node in list(graph.neighbors(parent)) + list(graph.predecessors(parent)):
         # Mark the node as visited
         visited.add(node)
 
@@ -36,7 +36,7 @@ def edges_within_k_edges(graph, parent, child, k=2):
                     ans.append((node, neighbor))
 
     # Perform DFS on the child node
-    for node in graph.neighbors(child) + graph.predecessors(child):
+    for node in list(graph.neighbors(child)) + list(graph.predecessors(child)):
         # Mark the node as visited
         visited.add(node)
 
