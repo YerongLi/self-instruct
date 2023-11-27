@@ -30,15 +30,23 @@ def predict_next_token(prompt):
     # Generate the next token using the model
     with torch.no_grad():
         outputs = model(input_ids)
-        prob = outputs.logits[:, -1, :]
+        logits = outputs.logits[:, -1, :]
 
-    # Calculate the maximum probability index
-    max_prob_index = torch.argmax(prob).item()
+    # Extract probabilities for "Yes" and "No"
+    yes_prob = logits[tokenizer.convert_tokens_to_ids(["Yes"])][0].item()
+    no_prob = logits[tokenizer.convert_tokens_to_ids(["No"])][0].item()
 
-    # Decode the token using the tokenizer
-    predicted_token = tokenizer.decode([max_prob_index])
+    # Calculate the difference in probabilities
+    prob_diff = yes_prob - no_prob
 
-    return predicted_token
+    # Determine the prediction based on probability difference
+    if prob_diff > 0:
+        prediction = 1
+    else:
+        prediction = -1
+
+    return  prediction
+
 
 prompt = "The quick brown fox jumps over the lazy dog. "
 next_token = predict_next_token(prompt)
