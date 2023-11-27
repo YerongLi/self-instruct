@@ -3,7 +3,7 @@ import os
 import pickle
 import random
 import tqdm
-TOTAL = 300
+TOTAL = 700
 taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
 import shutil
 
