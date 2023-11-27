@@ -24,6 +24,8 @@ model = LlamaForCausalLM.from_pretrained(
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
+logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()
+
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -35,21 +37,23 @@ def predict_next_token(prompt):
     # Extract probabilities for "Yes" and "No"
     # Extract the probability for "Yes"
     # print(logits[tokenizer.convert_tokens_to_ids(["Yes"])])
-    yes_prob = logits[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
+    # yes_prob = logits[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
+    next_tokens_scores = logits_processor(input_ids, next_token_logits)
+    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
 
     # Calculate the probability for "No"
-    no_prob = logits[0][tokenizer.convert_tokens_to_ids(["No"])].item()
-    logging.info(f'{yes_prob}    {no_prob}')
+    # no_prob = logits[0][tokenizer.convert_tokens_to_ids(["No"])].item()
+    # logging.info(f'{yes_prob}    {no_prob}')
     # Calculate the difference in probabilities
-    prob_diff = yes_prob - no_prob
+    # prob_diff = yes_prob - no_prob
 
-    # Determine the prediction based on probability difference
-    if prob_diff > 0:
-        prediction = 1
-    else:
-        prediction = -1
-
-    return  prediction
+    # # Determine the prediction based on probability difference
+    # if prob_diff > 0:
+    #     prediction = 1
+    # else:
+    #     prediction = -1
+    logging.info('next_token')
+    return  next_tokens
 
 
 prompt = "The quick brown fox jumps over the lazy dog. "
