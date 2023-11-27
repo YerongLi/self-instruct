@@ -119,7 +119,7 @@ def predict_next_token_batch(prompts):
 
     # Generate logits for the next token using the model
     with torch.no_grad():
-        outputs = model(input_ids)
+        outputs = model(**input_ids)
         logits = outputs.logits[:, -1, :]
 
     # Process logits or do whatever you need with them
