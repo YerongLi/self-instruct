@@ -494,13 +494,13 @@ if isinstance(auc_score_value, tuple):
     # Handle tuple output
     auc = auc_score_value[0]
     logging.info("AUC score: %f", auc)
-    print()"AUC score: %f", auc)
+    print("AUC score: %f", auc)
 
 else:
     # Handle single value output
     auc = auc_score_value
     logging.info("AUC score: %f", auc)
-    print()"AUC score: %f", auc)
+    print("AUC score: %f", auc)
 
 # Print confusion matrix
 conf_matrix = confusion_matrix(ground_truth, predicted_labels, labels=[1, -1])
