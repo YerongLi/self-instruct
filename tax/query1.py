@@ -136,7 +136,7 @@ max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
 
-    if definitions[parent]['label'] == ' ' or definitions[kid]['label'] == ' ':
+    if strip(definitions[parent]['label']) == '' or strip(definitions[kid]['label']) == '':
         continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
@@ -163,7 +163,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         parent = edge[0]
         kid = edge[1]
         parent_label = get_first_label_without_n(definitions[parent]['label'])
-        kid_label = get_first_label_without_n(definitions[kid]['label'])
+        kid_label = get_first_label_without_n3(definitions[kid]['label'])
         prompt += f"Pair: {parent_label} -> {kid_label}\n"
 
     print(prompt)
