@@ -150,27 +150,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     # Get all nodes from sampled edges
     nodes = set()
-    for edge in sampled_edges:
-        nodes.add(edge[0])
-        nodes.add(edge[1])
-
-    # Create the prompt
-    prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
-    for node in nodes:
-        label = get_first_label_without_n(definitions[node]['label'])
-        # logging.info(node)
-        # logging.info(definitions[node])
-        description = definitions[node]['summary']
-        prompt += f"Definitions: {label} : {description}\n"
-
-    prompt += "\n"
-
-    for edge in sampled_edges:
-        parent = edge[0]
-        kid = edge[1]
-        parent_label = get_first_label_without_n(definitions[parent]['label'])
-        kid_label = get_first_label_without_n(definitions[kid]['label'])
-        prompt += f"Pair: {parent_label} -> {kid_label}\n"
+    node_definitions = nodes.copy()
     # Sample all negative pairs within nodes
     negative_pairs = []
     for node1 in nodes:
@@ -185,21 +165,46 @@ for edge in tqdm.tqdm(core_graph.edges()):
     while len(additional_pairs) < num_additional_pairs:
         node1 = random.choice(list(core_graph.nodes()))
         node2 = random.choice(list(nodes))
-        if (node1, node2) not in edge_list and (node2, node1) not in sampled_edges:
+        node_definitions.add(node2)
+        if (node1, node2) not in edge_list and (node1, node2) not in sampled_edges:
             additional_pairs.append((node1, node2))
+
+    for edge in sampled_edges:
+        nodes.add(edge[0])
+        nodes.add(edge[1])
+
+    # Create the prompt
+    prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
+    for node in node_definitions:
+        label = get_first_label_without_n(definitions[node]['label'])
+        # logging.info(node)
+        # logging.info(definitions[node])
+        description = definitions[node]['summary']
+        prompt += f"Definitions: {label} : {description}\n"
+
+    prompt += "\n"
+    pairs = []
+    for edge in sampled_edges:
+        parent = edge[0]
+        kid = edge[1]
+        parent_label = get_first_label_without_n(definitions[parent]['label'])
+        kid_label = get_first_label_without_n(definitions[kid]['label'])
+        pairs.append((parent_label, kid_label, 'Yes'))
+        # prompt += f"Pair: {parent_label} -> {kid_label}\n"
 
     # Combine negative pairs and additional pairs
     negative_pairs += additional_pairs
 
     # Create the negative samples prompt
-    prompt += "\nNegative Samples:\n\n"
+    # prompt += "\nNegative Samples:\n\n"
     for pair in (negative_pairs )[:6]:
         parent = pair[0]
         kid = pair[1]
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
-        prompt += f"Pair: {parent_label} -> {kid_label}\n"
-
+        pairs.append((parent_label, kid_label, 'Yes'))
+    for pair in pairs:
+        prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}\n Answer: {pair[2]}' 
     logging.info(prompt)
     edge_list_len = len(edge_list)
 
