@@ -127,7 +127,7 @@ for node in multiple_neighbor_nodes:
     neighbors = list(core_graph.neighbors(node))
     logging.info(definitions[node])
     for nei in neighbors:
-    logging.info(f"  ***     {definitions[nei]}")
+        logging.info(f"  ***     {definitions[nei]}")
 logging.info("====   ====")
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
