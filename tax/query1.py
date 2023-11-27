@@ -318,8 +318,6 @@ from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_scor
 ground_truth = [label_dict['label'] for _, _, label_dict in result]
 predicted_labels = [label_dict['pred'] for _, _, label_dict in result]
 
-logging.info(ground_truth)
-logging.info(predicted_labels)
 # Calculate F1 score
 f1 = f1_score(ground_truth, predicted_labels, average='macro')
 
