@@ -4,6 +4,7 @@ import pickle
 import random
 import tqdm
 import networkx as nx
+import torch
 from transformers import LlamaForCausalLM
 TOTAL = 300
 logging.basicConfig(
