@@ -162,8 +162,8 @@ for edge in tqdm.tqdm(core_graph.edges()):
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
-        parent_label = get_first_label_with_n(definitions[parent]['label'])
-        kid_label = get_first_label_with_n(definitions[kid]['label'])
+        parent_label = get_first_label_without_n(definitions[parent]['label'])
+        kid_label = get_first_label_without_n(definitions[kid]['label'])
         prompt += f"Pair: {parent_label} -> {kid_label}\n"
 
     print(prompt)
