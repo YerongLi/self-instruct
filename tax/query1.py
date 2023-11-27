@@ -140,17 +140,18 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
 if min_pair is not None:
     parent, kid = min_pair
-    print("Minimum pair:")
-    print("Parent:", definitions[parent])
-    print("Kid:", definitions[kid])
+    logging.info("Minimum pair:")
+    logging.info("Parent:", definitions[parent])
+    logging.info("Kid:", definitions[kid])
 
 if max_pair is not None:
     parent, kid = max_pair
-    print("Maximum pair:")
-    print("Parent:", definitions[parent])
-    print("Kid:", definitions[kid])
-print(f"The minimum length of the edge lists is {min_len}.")
-print(f"The maximum length of the edge lists is {max_len}.")
+    logging.info("Maximum pair:")
+    logging.info("Parent:", definitions[parent])
+    logging.info("Kid:", definitions[kid])
+logging.info(f"The minimum length of the edge lists is {min_len}.")
+logging.info(f"The maximum length of the edge lists is {max_len}.")
+logging.info(core_graph)
 #     try:
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
