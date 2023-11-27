@@ -119,8 +119,8 @@ logging.info(f"Number of nodes with zero predecessors: {zero_neighbor_count}")
 logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
-min_len = float('inf')
-max_len = float('-inf')
+min_pair = None
+max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
 
