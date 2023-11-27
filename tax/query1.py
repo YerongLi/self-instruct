@@ -16,8 +16,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = 
-LlamaForCausalLM.from_pretrained(
+model = LlamaForCausalLM.from_pretrained(
   model_path,
   torch_dtype=torch.float16,
   device_map='auto',
