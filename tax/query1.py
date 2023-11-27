@@ -121,7 +121,7 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 
 min_len = float('inf')
 max_len = float('-inf')
-for edge in core_graph.edges():
+for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
     edge_list = edges_within_k_edges(core_graph, parent, kid)
     edge_list_len = len(edge_list)
