@@ -68,9 +68,12 @@ with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
     core_graph = pickle.load(f)
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
+rootkey = None
+
 for key, value in definitions.items():
     if value['label'].strip() == '' and value['summary'].strip() == '':
         print(f"Key: {key}, Value: {value}")
+        rootkey = key
         break
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
@@ -80,7 +83,7 @@ multiple_neighbor_count = 0
 # print(definitions)
 max_node = None
 for node in core_graph.nodes():
-    if definitions[node]['label'] == ' ': continue
+    if node == rootkey: continue
     if not core_graph.has_node(node): continue
 
     length = len([_ for _ in core_graph.neighbors(node)])
@@ -111,7 +114,7 @@ multiple_neighbor_count = 0
 # print(definitions)
 max_node = None
 for node in core_graph.nodes():
-    if definitions[node]['label'] == ' ': continue
+    if node == rootkey: continue
     if not core_graph.has_node(node): continue
 
     length = len([_ for _ in core_graph.predecessors(node)])
@@ -139,7 +142,7 @@ max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
 
-    if len(definitions[parent]['label'].strip()) == '' or definitions[kid]['label'].strip() == '':
+    if parent == rootkey or kid == rootkey:
         continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
