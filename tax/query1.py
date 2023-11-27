@@ -25,6 +25,8 @@ model = LlamaForCausalLM.from_pretrained(
   device_map='auto',
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
+tokenizer.pad_token = tokenizer.eos_token
+tokenizer.padding_side = "left"
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 logits_processor = LogitsProcessorList()
 # logging.info(f'Yes id is : {tokenizer(["Yes"])}')
@@ -238,9 +240,10 @@ max_pair = None
 result = []
 count_edges = 0
 count_neg_label = 0
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total=30):
 prompts = []
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total=30):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     count_edges+= 1
