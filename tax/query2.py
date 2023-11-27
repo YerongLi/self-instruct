@@ -18,37 +18,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
 
-def predict_next_token(prompt):
-    input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
-    # Generate the next token using the model
-    with torch.no_grad():
-        outputs = model(input_ids)
-        logits = outputs.logits[:, -1, :]
-
-    # Extract probabilities for "Yes" and "No"
-    # Extract the probability for "Yes"
-    # print(logits[tokenizer.convert_tokens_to_ids(["Yes"])])
-    next_tokens_scores = logits_processor(input_ids, logits)
-    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
-    # print(next_tokens_scores.shape)
-    # Calculate the probability for "No"
-    yes_prob = next_tokens_scores[0][3869].item()
-
-    no_prob = next_tokens_scores[0][1939].item()
-    # logging.info(f'{yes_prob}    {no_prob}')
-    # Calculate the difference in probabilities
-    prob_diff = yes_prob - no_prob
-
-    # Determine the prediction based on probability difference
-    if prob_diff > 0:
-        prediction = 1
-    else:
-        prediction = -1
-    # logging.info('next_token')
-    # logging.info(next_tokens)
-    return prediction
-    # return  tokenizer.decode(next_tokens)
 
 
 def get_first_label_without_n(label_str):
@@ -177,9 +147,19 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 
 min_pair = None
 max_pair = None
-result = []
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+    edge_list = edges_within_k_edges(core_graph, parent_, kid_)
 
+    edge_list_len = len(edge_list)
 
+    if min_pair is None or edge_list_len < min_len:
+        min_pair = (parent, kid)
+        min_len = edge_list_len
+
+    if max_pair is None or edge_list_len > max_len:
+        max_pair = (parent, kid)
+        max_len = edge_list_len
+    # Check if we need to sample additional negative pairs
 
 if min_pair is not None:
     parent, kid = min_pair
