@@ -290,7 +290,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
         logging.info(prompt)
-        logging.info(predicted_label)
+        # logging.info(predicted_label)
     if core_graph[parent_][kid_]['weight'] == -1: count_neg_label+= 1
     # result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : predicted_label}))
     edge_list_len = len(edge_list)
