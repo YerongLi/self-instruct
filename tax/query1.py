@@ -25,7 +25,8 @@ model = LlamaForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 logits_processor = LogitsProcessorList()
-
+logging.info(f'Yes id is : {tokenizer.convert_tokens_to_ids(["Yes"])}')
+logging.info(f'No id is : {tokenizer.convert_tokens_to_ids(["No"])}')
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -37,13 +38,14 @@ def predict_next_token(prompt):
     # Extract probabilities for "Yes" and "No"
     # Extract the probability for "Yes"
     # print(logits[tokenizer.convert_tokens_to_ids(["Yes"])])
-    # yes_prob = logits[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
-    next_tokens_scores = logits_processor(input_ids, logits)
-    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+     = logits_processor(input_ids, logits)
+    # next_tokens = torch.argmax(next_tokens_scores, dim=-1)
 
     # Calculate the probability for "No"
-    # no_prob = logits[0][tokenizer.convert_tokens_to_ids(["No"])].item()
-    # logging.info(f'{yes_prob}    {no_prob}')
+    yes_prob = next_tokens_scores[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
+
+    no_prob = next_tokens_scores[0][tokenizer.convert_tokens_to_ids(["No"])].item()
+    logging.info(f'{yes_prob}    {no_prob}')
     # Calculate the difference in probabilities
     # prob_diff = yes_prob - no_prob
 
