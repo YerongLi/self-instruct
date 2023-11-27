@@ -119,7 +119,7 @@ def predict_next_token_batch(prompts, batch_size=10):
     sentences = [item['prompt'] for item in prompts]
     # Split prompts into batches
     for i in range(0, len(sentences), batch_size):
-        batch_prompts = prompts[i:i + batch_size]
+        batch_prompts = sentences[i:i + batch_size]
 
         # Tokenize prompts and convert to PyTorch tensors
         input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
