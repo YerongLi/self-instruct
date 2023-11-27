@@ -40,7 +40,7 @@ def predict_next_token(prompt):
     # print(logits[tokenizer.convert_tokens_to_ids(["Yes"])])
     next_tokens_scores = logits_processor(input_ids, logits)
     next_tokens = torch.argmax(next_tokens_scores, dim=-1)
-
+    print(next_tokens_scores.shape)
     # Calculate the probability for "No"
     yes_prob = next_tokens_scores[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
 
