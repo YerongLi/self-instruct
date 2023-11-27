@@ -55,7 +55,7 @@ def predict_next_token(prompt):
     # else:
     #     prediction = -1
     logging.info('next_token')
-    logging.info(next_token)
+    logging.info(next_tokens)
     return  tokenizer.decode(next_tokens)
 
 
