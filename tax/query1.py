@@ -223,8 +223,9 @@ for edge in tqdm.tqdm(core_graph.edges()):
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
-        # parent_label = get_first_label_without_n(definitions[parent]['label'])
-        # kid_label = get_first_label_without_n(definitions[kid]['label'])
+        if parent == parent_ and kid == kid_: continue
+        parent_label = get_first_label_without_n(definitions[parent]['label'])
+        kid_label = get_first_label_without_n(definitions[kid]['label'])
         pairs.append((parent_label, kid_label, 'Yes'))
 
     # Combine negative pairs and additional pairs
@@ -235,6 +236,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
     for pair in (negative_pairs )[:6]:
         parent = pair[0]
         kid = pair[1]
+        if parent == parent_ and kid == kid_: continue
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
         pairs.append((parent_label, kid_label, 'No'))
