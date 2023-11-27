@@ -149,7 +149,9 @@ for node in core_graph.nodes():
     else:
         multiple_neighbor_count += 1
 
-
+    if length > ans:
+        ans = length
+        max_node = node
 
 # print(definitions[max_node])
 # print(core_graph.neighbors(max_node))
