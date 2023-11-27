@@ -327,7 +327,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total
     
     prompts.append(prompt)
     # predicted_label = predict_next_token(prompt)
-    if iteration <= 10:
+    if iteration <= 0:
         logging.info(prompt)
         # logging.info(predicted_label)
     if core_graph[parent_][kid_]['weight'] == -1: count_neg_label+= 1
@@ -346,23 +346,30 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total
 
 max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 
-# Create a dataset and dataloader
-batch_size = 4
-prompt_dataset = PromptDataset(prompts, tokenizer, max_length=max_length)
-prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=1)  # Adjust num_workers based on your system capabilities
+# # Create a dataset and dataloader
+# batch_size = 4
+# prompt_dataset = PromptDataset(prompts, tokenizer, max_length=max_length)
+# prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=1)  # Adjust num_workers based on your system capabilities
 
-# Iterate over batches
-for batch in prompt_dataloader:
-    inputs = {k: v.to(device) for k, v in batch.items()}
+# # Iterate over batches
+# for batch in prompt_dataloader:
+#     inputs = {k: v.to(device) for k, v in batch.items()}
     
-    with torch.no_grad():
-        outputs = model(**inputs)
+#     with torch.no_grad():
+#         outputs = model(**inputs)
 
-    logits = outputs.logits
-    # Process logits or do whatever you need with them
-    print(logits.shape)
+#     logits = outputs.logits
+#     # Process logits or do whatever you need with them
+#     print(logits.shape)
 
+inputs = tokenizer(prompts, return_tensors="pt", padding=True).to(model.device)
+print(inputs['input_ids'].shape)
+
+output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
+
+print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
 logging.info(f"Count number of -1 {count_neg_label}")
+
 if min_pair is not None:
     parent, kid = min_pair
     logging.info("Minimum pair:")
