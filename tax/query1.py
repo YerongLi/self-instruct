@@ -183,7 +183,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         max_pair = (parent, kid)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
-    print(len(edge_list) < len(nodes) * (len(nodes) - 1) - 6)
+    print(len(edge_list) , len(nodes) * (len(nodes) - 1) - 6)
     if len(edge_list) < len(nodes) * (len(nodes) - 1) - 6:
         # Sample all negative pairs within nodes
         negative_pairs = []
