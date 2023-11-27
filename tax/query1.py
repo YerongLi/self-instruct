@@ -25,8 +25,10 @@ model = LlamaForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 logits_processor = LogitsProcessorList()
-logging.info(f'Yes id is : {tokenizer(["Yes"])}')
-logging.info(f'No id is : {tokenizer(["No"])}')
+# logging.info(f'Yes id is : {tokenizer(["Yes"])}')
+# logging.info(f'No id is : {tokenizer(["No"])}')
+# 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
+# 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -42,26 +44,23 @@ def predict_next_token(prompt):
     next_tokens = torch.argmax(next_tokens_scores, dim=-1)
     # print(next_tokens_scores.shape)
     # Calculate the probability for "No"
-    yes_prob = next_tokens_scores[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
+    yes_prob = next_tokens_scores[0][3869].item()
 
-    no_prob = next_tokens_scores[0][tokenizer.convert_tokens_to_ids(["No"])].item()
-    logging.info(f'{yes_prob}    {no_prob}')
+    no_prob = next_tokens_scores[0][1939].item()
+    # logging.info(f'{yes_prob}    {no_prob}')
     # Calculate the difference in probabilities
-    # prob_diff = yes_prob - no_prob
+    prob_diff = yes_prob - no_prob
 
-    # # Determine the prediction based on probability difference
-    # if prob_diff > 0:
-    #     prediction = 1
-    # else:
-    #     prediction = -1
-    logging.info('next_token')
-    logging.info(next_tokens)
-    return  tokenizer.decode(next_tokens)
+    # Determine the prediction based on probability difference
+    if prob_diff > 0:
+        prediction = 1
+    else:
+        prediction = -1
+    # logging.info('next_token')
+    # logging.info(next_tokens)
+    return prediction
+    # return  tokenizer.decode(next_tokens)
 
-
-prompt = "The quick brown fox jumps over the lazy dog. "
-next_token = predict_next_token(prompt)
-print("Predicted Token:", next_token)
 
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
