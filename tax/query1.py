@@ -175,7 +175,9 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
 
     # Create the prompt
-    prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs."
+    node_definitions.add(parent), node_definitions.add(kid)
+    random.shuffle(node_definitions)
     for node in node_definitions:
         label = get_first_label_without_n(definitions[node]['label'])
         # logging.info(node)
