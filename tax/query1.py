@@ -189,8 +189,8 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 result = []
-for edge in tqdm.tqdm(list(core_graph.edges())[:50]):
-# for edge in tqdm.tqdm(core_graph.edges()):
+# for i, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:50])):
+for i, edge in tqdm.tqdm(enumerate(core_graph.edges())):
     parent_, kid_ = edge
     neighbors = list(core_graph.neighbors(parent_))
     neighbors = random.sample(neighbors, min(6, len(neighbors)))
@@ -266,9 +266,10 @@ for edge in tqdm.tqdm(list(core_graph.edges())[:50]):
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
     prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    logging.info(prompt)
     predicted_label = predict_next_token(prompt)
-    logging.info(predicted_label)
+    if iteration <= 10:
+        logging.info(prompt)
+        logging.info(predicted_label)
 
     result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : predicted_label}))
     edge_list_len = len(edge_list)
@@ -295,9 +296,6 @@ if max_pair is not None:
     logging.info("Maximum pair:")
     logging.info(definitions[parent])
     logging.info(definitions[kid])
-    logging.info(f"The first 100 neighbors of {definitions[parent]['label']} are:")
-    # for neighbor in list(core_graph.neighbors(parent))[:100]:
-        # logging.info(definitions[neighbor])
 
 logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
