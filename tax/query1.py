@@ -141,7 +141,7 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
-    parent, kid = edge
+    parent_, kid_ = edge
 
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
@@ -176,8 +176,8 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     # Create the prompt
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs."
-    node_definitions.add(parent)
-    node_definitions.add(kid)
+    node_definitions.add(parent_)
+    node_definitions.add(kid_)
     # random.shuffle(node_definitions)
     for node in node_definitions:
         label = get_first_label_without_n(definitions[node]['label'])
@@ -194,7 +194,6 @@ for edge in tqdm.tqdm(core_graph.edges()):
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
         pairs.append((parent_label, kid_label, 'Yes'))
-        # prompt += f"Pair: {parent_label} -> {kid_label}\n"
 
     # Combine negative pairs and additional pairs
     negative_pairs += additional_pairs
@@ -210,7 +209,9 @@ for edge in tqdm.tqdm(core_graph.edges()):
     random.shuffle(pairs)
 
     for pair in pairs:
-        prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}\n Answer: {pair[2]}' 
+        prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
+        prompt+= f'\n Question: Is {pair[0]} a parent of {definitions[parent_]['label']}?\n Answer: {definitions[kid_]['label']}' 
+    
     logging.info(prompt)
     edge_list_len = len(edge_list)
 
