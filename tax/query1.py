@@ -25,8 +25,8 @@ model = LlamaForCausalLM.from_pretrained(
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 logits_processor = LogitsProcessorList()
-logging.info(f'Yes id is : {tokenizer.convert_tokens_to_ids(["Yes"])}')
-logging.info(f'No id is : {tokenizer.convert_tokens_to_ids(["No"])}')
+logging.info(f'Yes id is : {tokenizer(["Yes"])}')
+logging.info(f'No id is : {tokenizer(["No"])}')
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
