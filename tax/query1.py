@@ -113,29 +113,38 @@ def predict_next_token(prompt):
     # logging.info(next_tokens)
     return prediction
     # return  tokenizer.decode(next_tokens)
-def predict_next_token_batch(prompts):
-    # Tokenize prompts and convert to PyTorch tensors
-    input_ids = tokenizer(prompts, return_tensors="pt", padding=True).to(device)
 
-    # Generate logits for the next token using the model
-    with torch.no_grad():
-        outputs = model(**input_ids)
-        logits = outputs.logits[:, -1, :]
+def predict_next_token_batched(prompts, batch_size=10):
+    predictions = []
 
-    # Process logits or do whatever you need with them
-    next_tokens_scores = logits  # Assuming logits_processor is not used in this function
-    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+    # Split prompts into batches
+    for i in range(0, len(prompts), batch_size):
+        batch_prompts = prompts[i:i + batch_size]
 
+        # Tokenize prompts and convert to PyTorch tensors
+        input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+
+        # Generate logits for the next token using the model
+        with torch.no_grad():
+            outputs = model(input_ids)
+            logits = outputs.logits[:, -1, :]
+
+        # Process logits or do whatever you need with them
+        next_tokens_scores = logits  # Assuming logits_processor is not used in this function
+        next_tokens = torch.argmax(next_tokens_scores, dim=-1)
     # Example: Extract probabilities for specific tokens (adjust token IDs as needed)
     yes_prob = next_tokens_scores[:, 3869]
     no_prob = next_tokens_scores[:, 1939]
 
-    # Calculate the difference in probabilities
-    prob_diff = yes_prob - no_prob
+       # Calculate the difference in probabilities
+        prob_diff = yes_prob - no_prob
 
-    # Determine the predictions based on probability differences
-    predictions = torch.where(prob_diff > 0, 1, -1).tolist()
-    print(next_tokens)
+        # Determine the predictions based on probability differences
+        batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
+        
+        # Append batch predictions to the overall predictions list
+        predictions.extend(batch_predictions)
+
     return predictions
 
 def get_first_label_without_n(label_str):
@@ -366,10 +375,10 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:8]), total=
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
+batch_size = 4
 
 
 # # Create a dataset and dataloader
-# batch_size = 4
 # prompt_dataset = PromptDataset(prompts, tokenizer, max_length=max_length)
 # prompt_dataloader = DataLoader(prompt_dataset, batch_size=batch_size, shuffle=False, num_workers=1)  # Adjust num_workers based on your system capabilities
 
