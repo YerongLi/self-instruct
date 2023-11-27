@@ -14,6 +14,18 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
+def get_first_label_without_n(label_str):
+    # Split the label string by "||"
+    labels = label_str.split('||')
+
+    # Find the first label that contains ".n."
+    for label in labels:
+        if not ".n." in label:
+            return label
+
+    # If no label contains ".n.", return the first label
+    print(label[0])
+    return labels[0]
 def edges_within_k_edges(graph, parent, child, k=3):
     # Create a set to store the visited nodes
     visited = set()
@@ -140,7 +152,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
     # Create the prompt
     prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
     for node in nodes:
-        label = get_first_label_with_n(definitions[node]['label'])
+        label = get_first_label_without_n(definitions[node]['label'])
         description = definitions[node]['description']
         prompt += f"Definitions: {label} : {description}\n"
 
