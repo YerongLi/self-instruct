@@ -243,7 +243,8 @@ for edge in tqdm.tqdm(core_graph.edges()):
     prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     logging.info(prompt)
-    predict_next_token(prompt)
+    logging.info(predict_next_token(prompt))
+
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
