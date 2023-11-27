@@ -155,11 +155,11 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
-        min_pair = (parent, kid)
+        min_pair = (parent_, kid_)
         min_len = edge_list_len
 
     if max_pair is None or edge_list_len > max_len:
-        max_pair = (parent, kid)
+        max_pair = (parent_, kid_)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
