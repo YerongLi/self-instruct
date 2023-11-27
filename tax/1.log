@@ -1,0 +1,587 @@
+11-27 02:43:14 INFO - query1.py:16 - Logger start: ccc0060.campuscluster.illinois.edu
+11-27 02:43:15 INFO - modeling.py:799 - We will use 90% of the memory on device 0 for storing the model, and 10% for the buffer to avoid OOM. You can set `max_memory` in to a higher value to use more memory (at your own risk).
+11-27 02:43:24 INFO - query1.py:153 - Max number of the neighbors are 29
+11-27 02:43:24 INFO - query1.py:154 - Number of nodes with zero neighbors: 3530
+11-27 02:43:24 INFO - query1.py:155 - Number of nodes with one neighbor: 2325
+11-27 02:43:24 INFO - query1.py:156 - Number of nodes with two or more neighbors: 262
+11-27 02:43:24 INFO - query1.py:157 - ====
+11-27 02:43:24 INFO - query1.py:184 - Max number of the predecessors are 6
+11-27 02:43:24 INFO - query1.py:185 - Number of nodes with zero predecessors: 0
+11-27 02:43:24 INFO - query1.py:186 - Number of nodes with one predecessor: 6012
+11-27 02:43:24 INFO - query1.py:187 - Number of nodes with two or more predecessors: 105
+11-27 02:43:24 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: hunk : a well-built sexually attractive man
+Definitions: object : a tangible and visible entity; an entity that can cast a shadow
+Definitions: infidelity : the quality of being unfaithful
+Definitions: partisan : a fervent and even militant proponent of something
+Definitions: drymoglossum : epiphytic ferns of Madagascar to tropical Asia and New Guinea
+Definitions: hoodoo : something believed to bring bad luck
+Definitions: wall : anything that suggests a wall in structure or function or effect
+Definitions: amorphous_shape : an ill-defined or arbitrary shape
+Definitions: fern_genus : genera of ferns and fern allies
+Definitions: box_seat : a special seat in a theater or grandstand box
+Definitions: man : an adult person who is male (as opposed to a woman)
+Definitions: quality : an essential and distinguishing attribute of something or someone; --Shakespeare
+Definitions: seat : furniture that is designed for sitting on
+Definitions: bigot : a prejudiced person who is intolerant of any opinions differing from his own
+Definitions: sphyrapicus : a genus of Picidae
+
+
+ Question: Is amorphous_shape a parent of sphyrapicus?
+ Answer: Yes
+ Question: Is seat a parent of man?
+ Answer: No
+ Question: Is man a parent of hunk?
+ Answer: Yes
+ Question: Is seat a parent of box_seat?
+ Answer: Yes
+ Question: Is hunk a parent of fern_genus?
+ Answer: No
+ Question: Is object a parent of wall?
+ Answer: Yes
+ Question: Is sphyrapicus a parent of drymoglossum?
+ Answer: No
+ Question: Is fern_genus a parent of drymoglossum?
+ Answer: Yes
+ Question: Is man a parent of fern_genus?
+ Answer: No
+ Question: Is box_seat a parent of sphyrapicus?
+ Answer: No
+ Question: Is partisan a parent of bigot?
+ Answer: Yes
+ Question: Is partisan a parent of amorphous_shape?
+ Answer: No
+ Question: Is quality a parent of infidelity?
+ Answer: Yes
+ Question: Is object a parent of hoodoo?
+ Answer:
+11-27 02:43:24 INFO - query1.py:272 - -1
+11-27 02:43:25 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: dollar : the basic monetary unit in many countries; equal to 100 cents
+Definitions: antacid : an agent that counteracts or neutralizes acidity (especially in the stomach)
+Definitions: bermuda_dollar : the basic unit of money in Bermuda
+Definitions: lettuce : any of various plants of the genus Lactuca
+Definitions: amateurism : the conviction that people should participate in sports as a hobby (for the fun of it) rather than for money
+Definitions: object : a tangible and visible entity; an entity that can cast a shadow
+Definitions: conviction : an unshakable belief in something without need for proof or evidence
+Definitions: hoodoo : something believed to bring bad luck
+Definitions: maratha : a member of a people of India living in Maharashtra
+Definitions: wall : anything that suggests a wall in structure or function or effect
+Definitions: force : group of people willing to obey orders
+Definitions: curvet : a light leap by a horse in which both hind legs leave the ground before the forelegs come down
+Definitions: indian : a native or inhabitant of India
+Definitions: bromo-seltzer : an antacid
+Definitions: garden_lettuce : annual or perennial garden plant having succulent leaves used in salads; widely grown
+
+
+ Question: Is dollar a parent of bermuda_dollar?
+ Answer: Yes
+ Question: Is conviction a parent of dollar?
+ Answer: No
+ Question: Is lettuce a parent of garden_lettuce?
+ Answer: Yes
+ Question: Is indian a parent of maratha?
+ Answer: Yes
+ Question: Is curvet a parent of indian?
+ Answer: No
+ Question: Is force a parent of curvet?
+ Answer: Yes
+ Question: Is antacid a parent of amateurism?
+ Answer: No
+ Question: Is antacid a parent of bromo-seltzer?
+ Answer: Yes
+ Question: Is conviction a parent of amateurism?
+ Answer: Yes
+ Question: Is object a parent of hoodoo?
+ Answer: Yes
+ Question: Is bermuda_dollar a parent of bromo-seltzer?
+ Answer: No
+ Question: Is antacid a parent of curvet?
+ Answer: No
+ Question: Is bromo-seltzer a parent of garden_lettuce?
+ Answer: No
+ Question: Is object a parent of wall?
+ Answer:
+11-27 02:43:25 INFO - query1.py:272 - 1
+11-27 02:43:25 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: mental_illness : any disease of the mind; the psychological state of someone who has emotional or behavioral problems serious enough to require psychiatric intervention
+Definitions: comedy : light and humorous drama with a happy ending
+Definitions: nitrobenzene : a poisonous oily water-soluble liquid used as a solvent and in the manufacture of aniline
+Definitions: organic_compound : any compound of carbon and another element or a radical
+Definitions: myrmecophile : an organism such as an insect that habitually shares the nest of a species of ant
+Definitions: organism : a living thing that has (or can develop) the ability to act or function independently
+Definitions: benthos : organisms (plants and animals) that live at or near the bottom of a sea
+Definitions: gonad : a gland in which gametes (sex cells) are produced
+Definitions: testis : one of the two male reproductive glands that produce spermatozoa and secrete androgens
+Definitions: megalomania : a psychological state characterized by delusions of grandeur
+Definitions: situation_comedy : a humorous drama based on situations that might arise in day-to-day life
+Definitions: liliaceous_plant : plant growing from a bulb or corm or rhizome or tuber
+Definitions: fielder : a member of the baseball team that is in the field instead of at bat
+Definitions: outfielder : (baseball) a person who plays in the outfield
+Definitions: utterer : an organism that can utter vocal sounds
+Definitions: saint-bernard's-lily : southern European plant commonly cultivated for its spikes of small starry greenish-white flowers
+
+
+ Question: Is mental_illness a parent of nitrobenzene?
+ Answer: No
+ Question: Is liliaceous_plant a parent of saint-bernard's-lily?
+ Answer: Yes
+ Question: Is gonad a parent of testis?
+ Answer: Yes
+ Question: Is situation_comedy a parent of megalomania?
+ Answer: No
+ Question: Is organism a parent of utterer?
+ Answer: Yes
+ Question: Is outfielder a parent of saint-bernard's-lily?
+ Answer: No
+ Question: Is megalomania a parent of nitrobenzene?
+ Answer: No
+ Question: Is organic_compound a parent of nitrobenzene?
+ Answer: Yes
+ Question: Is organism a parent of myrmecophile?
+ Answer: Yes
+ Question: Is mental_illness a parent of megalomania?
+ Answer: Yes
+ Question: Is situation_comedy a parent of testis?
+ Answer: No
+ Question: Is comedy a parent of situation_comedy?
+ Answer: Yes
+ Question: Is fielder a parent of outfielder?
+ Answer: Yes
+ Question: Is megalomania a parent of organic_compound?
+ Answer: No
+ Question: Is organism a parent of benthos?
+ Answer:
+11-27 02:43:25 INFO - query1.py:272 - 1
+11-27 02:43:25 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: balloon_flower : fragrant puffed-up white to reddish-pink flowers in long narrow clusters on erect stems; Arizona to New Mexico and Utah
+Definitions: physical_phenomenon : a natural phenomenon involving the physical properties of matter and energy
+Definitions: hock : tarsal joint of the hind leg of hoofed mammals; corresponds to the human ankle
+Definitions: bag : a flexible container with a single opening
+Definitions: schoolbag : a bag for carrying school books and supplies
+Definitions: organism : a living thing that has (or can develop) the ability to act or function independently
+Definitions: benthos : organisms (plants and animals) that live at or near the bottom of a sea
+Definitions: joint : (anatomy) the point of connection between two bones or elements of a skeleton (especially if it allows motion)
+Definitions: disability : the condition of being unable to perform as a consequence of physical or mental unfitness
+Definitions: conduction : the transmission of heat or electricity or sound
+Definitions: utterer : an organism that can utter vocal sounds
+Definitions: dysphasia : an impairment of language (especially speech production) that is usually due to brain damage
+Definitions: myrmecophile : an organism such as an insect that habitually shares the nest of a species of ant
+Definitions: wildflower : wild or uncultivated flowering plant
+Definitions: hard_candy : candy that is brittle
+Definitions: barley-sugar : a brittle transparent candy made by melting and cooling cane sugar
+
+
+ Question: Is joint a parent of barley-sugar?
+ Answer: No
+ Question: Is hard_candy a parent of wildflower?
+ Answer: No
+ Question: Is wildflower a parent of balloon_flower?
+ Answer: Yes
+ Question: Is disability a parent of conduction?
+ Answer: No
+ Question: Is organism a parent of utterer?
+ Answer: Yes
+ Question: Is bag a parent of schoolbag?
+ Answer: Yes
+ Question: Is schoolbag a parent of disability?
+ Answer: No
+ Question: Is joint a parent of hock?
+ Answer: Yes
+ Question: Is hard_candy a parent of barley-sugar?
+ Answer: Yes
+ Question: Is physical_phenomenon a parent of disability?
+ Answer: No
+ Question: Is organism a parent of benthos?
+ Answer: Yes
+ Question: Is disability a parent of dysphasia?
+ Answer: Yes
+ Question: Is physical_phenomenon a parent of conduction?
+ Answer: Yes
+ Question: Is conduction a parent of wildflower?
+ Answer: No
+ Question: Is organism a parent of myrmecophile?
+ Answer:
+11-27 02:43:25 INFO - query1.py:272 - 1
+11-27 02:43:25 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: model : representation of something (sometimes on a smaller scale)
+Definitions: organism : a living thing that has (or can develop) the ability to act or function independently
+Definitions: benthos : organisms (plants and animals) that live at or near the bottom of a sea
+Definitions: notch : a V-shaped or U-shaped indentation carved or scratched into a surface
+Definitions: bacteria_genus : a genus of bacteria
+Definitions: opening : a vacant or unobstructed space that is man-made
+Definitions: thumb_index : one of a series of rounded notches in the fore edge of a book to indicate sections
+Definitions: representation : a creation that is a visual or tangible rendering of someone or something
+Definitions: genus_staphylococcus : includes many pathogenic species
+Definitions: religion : a strong belief in a supernatural power or powers that control human destiny
+Definitions: cult : a religion or sect that is generally considered to be unorthodox, extremist, or false
+Definitions: harpist : someone who plays the harp
+Definitions: utterer : an organism that can utter vocal sounds
+Definitions: myrmecophile : an organism such as an insect that habitually shares the nest of a species of ant
+Definitions: spout : an opening that allows the passage of liquids or grain
+Definitions: musician : someone who plays a musical instrument (as a profession)
+
+
+ Question: Is organism a parent of myrmecophile?
+ Answer: Yes
+ Question: Is bacteria_genus a parent of genus_staphylococcus?
+ Answer: Yes
+ Question: Is representation a parent of model?
+ Answer: Yes
+ Question: Is musician a parent of harpist?
+ Answer: Yes
+ Question: Is harpist a parent of spout?
+ Answer: No
+ Question: Is organism a parent of benthos?
+ Answer: Yes
+ Question: Is religion a parent of cult?
+ Answer: Yes
+ Question: Is musician a parent of cult?
+ Answer: No
+ Question: Is harpist a parent of notch?
+ Answer: No
+ Question: Is opening a parent of spout?
+ Answer: Yes
+ Question: Is religion a parent of genus_staphylococcus?
+ Answer: No
+ Question: Is notch a parent of thumb_index?
+ Answer: Yes
+ Question: Is bacteria_genus a parent of musician?
+ Answer: No
+ Question: Is genus_staphylococcus a parent of model?
+ Answer: No
+ Question: Is organism a parent of utterer?
+ Answer:
+11-27 02:43:25 INFO - query1.py:272 - 1
+11-27 02:43:25 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: new_mexican : a native or resident of New Mexico
+Definitions: criminal_negligence : (law) recklessly acting without reasonable caution and putting another person at risk of injury or death (or failing to do something with the same consequences)
+Definitions: patina : a fine coating of oxide on the surface of a metal
+Definitions: acid : any of various water-soluble compounds having a sour taste and capable of turning litmus red and reacting with a base to form a salt
+Definitions: oleoresin : a naturally occurring mixture of a resin and an essential oil; obtained from certain plants
+Definitions: tree : a tall perennial woody plant having a main trunk and branches forming a distinct elevated crown; includes both gymnosperms and angiosperms
+Definitions: cell : (biology) the basic structural and functional unit of all organisms; they may exist as independent units of life (as in monads) or may form colonies or tissues as in higher plants and animals
+Definitions: copaiba : an oleoresin used in varnishes and ointments
+Definitions: gymnospermous_tree : any tree of the division Gymnospermophyta
+Definitions: monobasic_acid : an acid containing only one replaceable hydrogen atom per molecule
+Definitions: polar_body : a small cell containing little cytoplasm that is produced along with the oocyte and later discarded
+Definitions: verdigris : a green patina that forms on copper or brass or bronze that has been exposed to the air or water for long periods of time
+Definitions: american : a native or inhabitant of the United States
+Definitions: negligence : failure to act with the prudence that a reasonable person would exercise under the same circumstances
+
+
+ Question: Is verdigris a parent of negligence?
+ Answer: No
+ Question: Is monobasic_acid a parent of copaiba?
+ Answer: No
+ Question: Is tree a parent of monobasic_acid?
+ Answer: No
+ Question: Is negligence a parent of criminal_negligence?
+ Answer: Yes
+ Question: Is tree a parent of gymnospermous_tree?
+ Answer: Yes
+ Question: Is acid a parent of monobasic_acid?
+ Answer: Yes
+ Question: Is oleoresin a parent of copaiba?
+ Answer: Yes
+ Question: Is gymnospermous_tree a parent of copaiba?
+ Answer: No
+ Question: Is american a parent of new_mexican?
+ Answer: Yes
+ Question: Is patina a parent of verdigris?
+ Answer: Yes
+ Question: Is oleoresin a parent of tree?
+ Answer: No
+ Question: Is tree a parent of new_mexican?
+ Answer: No
+ Question: Is cell a parent of polar_body?
+ Answer:
+11-27 02:43:25 INFO - query1.py:272 - 1
+11-27 02:43:26 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: membrane : a pliable sheet of tissue that covers or lines or connects the organs or cells of animals or plants
+Definitions: spit : the act of spitting (forcefully expelling saliva)
+Definitions: wire_recorder : an early type of magnetic recorder using iron wire
+Definitions: xhosa : a member of the Negroid people of southern South Africa
+Definitions: tunic : an enveloping or covering membrane or layer of body tissue
+Definitions: theurgy : the effect of supernatural or divine intervention in human affairs
+Definitions: motion : a change of position that does not entail a change of location
+Definitions: kickoff : a start given to contestants
+Definitions: expulsion : the act of expelling or projecting or ejecting
+Definitions: causal_agent : any entity that produces an effect or is responsible for events or results
+Definitions: start : the beginning of anything
+Definitions: reach : the act of physically reaching or thrusting out
+Definitions: magnetic_recorder : recorder consisting of equipment for making records on magnetic media
+Definitions: genus : (biology) taxonomic group containing one or more species
+
+
+ Question: Is membrane a parent of expulsion?
+ Answer: No
+ Question: Is genus a parent of xhosa?
+ Answer: Yes
+ Question: Is reach a parent of tunic?
+ Answer: No
+ Question: Is motion a parent of reach?
+ Answer: Yes
+ Question: Is motion a parent of spit?
+ Answer: No
+ Question: Is spit a parent of kickoff?
+ Answer: No
+ Question: Is membrane a parent of tunic?
+ Answer: Yes
+ Question: Is motion a parent of start?
+ Answer: No
+ Question: Is start a parent of kickoff?
+ Answer: Yes
+ Question: Is expulsion a parent of spit?
+ Answer: Yes
+ Question: Is magnetic_recorder a parent of wire_recorder?
+ Answer: Yes
+ Question: Is genus a parent of motion?
+ Answer: No
+ Question: Is causal_agent a parent of theurgy?
+ Answer:
+11-27 02:43:26 INFO - query1.py:272 - 1
+11-27 02:43:26 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: effecter : one who brings about a result or event; one who accomplishes a purpose
+Definitions: programming : creating a sequence of instructions to enable the computer to do something
+Definitions: person : a human being
+Definitions: combatant : someone who fights (or is fighting)
+Definitions: dipterous_insect : insects having usually a single pair of functional wings (anterior pair) with the posterior pair reduced to small knobbed structures and mouth parts adapted for sucking or lapping or piercing
+Definitions: decrease : the act of decreasing or reducing something
+Definitions: functional_programming : functional_programming
+Definitions: brass_monkey : a metal stand that formerly held cannon balls on sailing ships
+Definitions: protectionist : an advocate of protectionism
+Definitions: asterid_dicot_genus : genus of more or less advanced dicotyledonous herbs and some trees and shrubs
+Definitions: ashlar : a rectangular block of hewn stone used for building purposes
+Definitions: termer : a person who serves a specified term
+Definitions: advocate : a person who pleads for a cause or propounds an idea
+Definitions: fruit_fly : any of numerous small insects whose larvae feed on fruits
+Definitions: subtraction : the act of subtracting (removing a part from the whole)
+Definitions: baby_boomer : a member of the baby boom generation in the 1950s
+Definitions: aegiceras : a genus of herbs of the family Verbenaceae
+Definitions: base : a support or foundation
+Definitions: perceiver : a person who becomes aware (of things or events) through the senses
+Definitions: african : a native or inhabitant of Africa
+
+
+ Question: Is programming a parent of functional_programming?
+ Answer: Yes
+ Question: Is person a parent of baby_boomer?
+ Answer: Yes
+ Question: Is asterid_dicot_genus a parent of functional_programming?
+ Answer: No
+ Question: Is asterid_dicot_genus a parent of aegiceras?
+ Answer: Yes
+ Question: Is person a parent of combatant?
+ Answer: Yes
+ Question: Is advocate a parent of protectionist?
+ Answer: Yes
+ Question: Is dipterous_insect a parent of fruit_fly?
+ Answer: Yes
+ Question: Is decrease a parent of subtraction?
+ Answer: Yes
+ Question: Is aegiceras a parent of protectionist?
+ Answer: No
+ Question: Is decrease a parent of fruit_fly?
+ Answer: No
+ Question: Is base a parent of brass_monkey?
+ Answer: Yes
+ Question: Is person a parent of termer?
+ Answer: Yes
+ Question: Is functional_programming a parent of decrease?
+ Answer: No
+ Question: Is person a parent of effecter?
+ Answer: Yes
+ Question: Is decrease a parent of functional_programming?
+ Answer: No
+ Question: Is person a parent of ashlar?
+ Answer: Yes
+ Question: Is functional_programming a parent of aegiceras?
+ Answer: No
+ Question: Is person a parent of perceiver?
+ Answer: Yes
+ Question: Is person a parent of african?
+ Answer:
+11-27 02:43:26 INFO - query1.py:272 - 1
+11-27 02:43:26 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: waterspout : a channel through which water is discharged (especially one used for drainage from the gutters of a roof)
+Definitions: dive : a headlong plunge into water
+Definitions: belly_flop : a dive in which the abdomen bears the main force of impact with the water
+Definitions: person : a human being
+Definitions: lamellar_mixture : a mixture in which substances occur in distinct layers
+Definitions: mixture : (chemistry) a substance consisting of two or more substances mixed together (not in fixed proportions and not with chemical bonding)
+Definitions: happiness : emotions experienced when in a state of well-being
+Definitions: safety_curtain : a fireproof theater curtain to be dropped in case of fire
+Definitions: digit : one of the elements that collectively form a system of numeration
+Definitions: rejoicing : a feeling of great happiness
+Definitions: hexadecimal_digit : a digit from 0 to 15 in hexadecimal notation
+Definitions: stabilizer_bar : a rigid metal bar between the front suspensions and between the rear suspensions of cars and trucks; serves to stabilize the chassis
+Definitions: sport : a person known for the way she (or he) behaves when teased or defeated or subjected to trying circumstances
+Definitions: conduit : a passage (a pipe or tunnel) through which water or electric wires can pass
+Definitions: baby_boomer : a member of the baby boom generation in the 1950s
+Definitions: perceiver : a person who becomes aware (of things or events) through the senses
+Definitions: pussycat : a person who is regarded as easygoing and agreeable
+Definitions: cordgrass : any of several perennial grasses of the genus Spartina; some important as coastal soil binders
+Definitions: prairie_cordgrass : North American cordgrass having leaves with dry membranous margins and glumes with long awns
+
+
+ Question: Is belly_flop a parent of digit?
+ Answer: No
+ Question: Is dive a parent of happiness?
+ Answer: No
+ Question: Is person a parent of pussycat?
+ Answer: Yes
+ Question: Is person a parent of sport?
+ Answer: Yes
+ Question: Is conduit a parent of waterspout?
+ Answer: Yes
+ Question: Is cordgrass a parent of prairie_cordgrass?
+ Answer: Yes
+ Question: Is mixture a parent of lamellar_mixture?
+ Answer: Yes
+ Question: Is person a parent of perceiver?
+ Answer: Yes
+ Question: Is happiness a parent of rejoicing?
+ Answer: Yes
+ Question: Is hexadecimal_digit a parent of happiness?
+ Answer: No
+ Question: Is cordgrass a parent of lamellar_mixture?
+ Answer: No
+ Question: Is digit a parent of hexadecimal_digit?
+ Answer: Yes
+ Question: Is person a parent of safety_curtain?
+ Answer: Yes
+ Question: Is digit a parent of cordgrass?
+ Answer: No
+ Question: Is person a parent of stabilizer_bar?
+ Answer: Yes
+ Question: Is dive a parent of belly_flop?
+ Answer: Yes
+ Question: Is happiness a parent of dive?
+ Answer: No
+ Question: Is person a parent of baby_boomer?
+ Answer:
+11-27 02:43:26 INFO - query1.py:272 - 1
+11-27 02:43:26 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: effecter : one who brings about a result or event; one who accomplishes a purpose
+Definitions: stevens'_law : (psychophysics) the concept that the magnitude of a subjective sensation increases proportional to a power of the stimulus intensity
+Definitions: person : a human being
+Definitions: apocrypha : 14 books of the Old Testament included in the Vulgate (except for II Esdras) but omitted in Jewish and Protestant versions of the Bible; eastern Christian churches (except the Coptic Church) accept all these books as canonical; the Russian Orthodox Church accepts these texts as divinely inspired but does not grant them the same status
+Definitions: combatant : someone who fights (or is fighting)
+Definitions: virginian : a native or resident of Virginia
+Definitions: messaging : the sending and processing of e-mail by computer
+Definitions: law : a generalization that describes recurring facts or events in nature
+Definitions: propylene_glycol : a sweet colorless, viscous, hygroscopic liquid used as an antifreeze and in brake fluid and also as a humectant in cosmetics and personal care items although it can be absorbed through the skin with harmful effects
+Definitions: arthropod_genus : a genus of arthropods
+Definitions: stabilizer_bar : a rigid metal bar between the front suspensions and between the rear suspensions of cars and trucks; serves to stabilize the chassis
+Definitions: fabric : artifact made by weaving or felting or knitting or crocheting natural or synthetic fibers
+Definitions: bullring : a stadium where bullfights take place
+Definitions: antifreeze : a liquid added to the water in a cooling system to lower its freezing point
+Definitions: stadium : a large structure for open-air sports or entertainments
+Definitions: baby_boomer : a member of the baby boom generation in the 1950s
+Definitions: perceiver : a person who becomes aware (of things or events) through the senses
+Definitions: widow : widow
+Definitions: motley : a multicolored woolen fabric woven of mixed threads in 14th to 17th century England
+Definitions: american : a native or inhabitant of the United States
+
+
+ Question: Is law a parent of american?
+ Answer: No
+ Question: Is person a parent of baby_boomer?
+ Answer: Yes
+ Question: Is person a parent of apocrypha?
+ Answer: Yes
+ Question: Is person a parent of messaging?
+ Answer: Yes
+ Question: Is law a parent of stevens'_law?
+ Answer: Yes
+ Question: Is stevens'_law a parent of virginian?
+ Answer: No
+ Question: Is stadium a parent of bullring?
+ Answer: Yes
+ Question: Is american a parent of virginian?
+ Answer: Yes
+ Question: Is person a parent of stabilizer_bar?
+ Answer: Yes
+ Question: Is arthropod_genus a parent of widow?
+ Answer: Yes
+ Question: Is fabric a parent of motley?
+ Answer: Yes
+ Question: Is person a parent of perceiver?
+ Answer: Yes
+ Question: Is widow a parent of law?
+ Answer: No
+ Question: Is person a parent of effecter?
+ Answer: Yes
+ Question: Is propylene_glycol a parent of stadium?
+ Answer: No
+ Question: Is antifreeze a parent of propylene_glycol?
+ Answer: Yes
+ Question: Is arthropod_genus a parent of bullring?
+ Answer: No
+ Question: Is widow a parent of bullring?
+ Answer: No
+ Question: Is person a parent of combatant?
+ Answer:
+11-27 02:43:26 INFO - query1.py:272 - 1
+11-27 02:43:26 INFO - query1.py:271 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship at the same granularity as the example pairs.Definitions: samoyedic : the Uralic languages spoken by the Samoyed in northwestern Siberia
+Definitions: selkup : the Uralic language spoken by the Ostyak-Samoyed
+Definitions: effecter : one who brings about a result or event; one who accomplishes a purpose
+Definitions: mistletoe : American plants closely resembling Old World mistletoe
+Definitions: person : a human being
+Definitions: cellblock : a division of a prison (usually consisting of several cells)
+Definitions: ballplayer : an athlete who plays baseball
+Definitions: minor_leaguer : a player on a minor-league baseball team
+Definitions: parasitic_plant : plant living on another plant and obtaining organic nutriment from it
+Definitions: death_house : the cellblock in a prison where those condemned to death await execution
+Definitions: fern_genus : genera of ferns and fern allies
+Definitions: messaging : the sending and processing of e-mail by computer
+Definitions: feed : food for domestic livestock
+Definitions: safety_curtain : a fireproof theater curtain to be dropped in case of fire
+Definitions: follower : a person who accepts the leadership of another
+Definitions: drymoglossum : epiphytic ferns of Madagascar to tropical Asia and New Guinea
+Definitions: user : a person who makes use of a thing; someone who uses or employs something
+Definitions: cud : food of a ruminant regurgitated to be chewed again
+Definitions: longer : a person with a strong desire for something
+
+
+ Question: Is drymoglossum a parent of mistletoe?
+ Answer: No
+ Question: Is feed a parent of drymoglossum?
+ Answer: No
+ Question: Is person a parent of user?
+ Answer: Yes
+ Question: Is fern_genus a parent of drymoglossum?
+ Answer: Yes
+ Question: Is person a parent of safety_curtain?
+ Answer: Yes
+ Question: Is person a parent of longer?
+ Answer: Yes
+ Question: Is parasitic_plant a parent of drymoglossum?
+ Answer: No
+ Question: Is feed a parent of cud?
+ Answer: Yes
+ Question: Is mistletoe a parent of drymoglossum?
+ Answer: No
+ Question: Is ballplayer a parent of minor_leaguer?
+ Answer: Yes
+ Question: Is cellblock a parent of death_house?
+ Answer: Yes
+ Question: Is parasitic_plant a parent of mistletoe?
+ Answer: Yes
+ Question: Is person a parent of follower?
+ Answer: Yes
+ Question: Is samoyedic a parent of selkup?
+ Answer: Yes
+ Question: Is selkup a parent of cellblock?
+ Answer: No
+ Question: Is person a parent of messaging?
+ Answer: Yes
+ Question: Is drymoglossum a parent of selkup?
+ Answer: No
+ Question: Is person a parent of effecter?
+ Answer:
+11-27 02:43:26 INFO - query1.py:272 - 1
+11-27 03:05:26 INFO - query1.py:290 - Minimum pair:
+11-27 03:05:26 INFO - query1.py:291 - {'label': 'pep_rally||pep_rally.n.01', 'summary': 'a rally (especially of students) before a game'}
+11-27 03:05:26 INFO - query1.py:292 - {'label': 'shaking||shaking.n.01', 'summary': 'the act of causing something to move up and down (or back and forth) with quick movements'}
+11-27 03:05:26 INFO - query1.py:296 - Maximum pair:
+11-27 03:05:26 INFO - query1.py:297 - {'label': 'relief||relief.n.05', 'summary': 'assistance in time of difficulty'}
+11-27 03:05:26 INFO - query1.py:298 - {'label': 'lacewing||lacewing.n.01', 'summary': 'any of two families of insects with gauzy wings (Chrysopidae and Hemerobiidae); larvae feed on insect pests such as aphids'}
+11-27 03:05:26 INFO - query1.py:300 - The minimum length of the edge lists is 2.
+11-27 03:05:26 INFO - query1.py:301 - The maximum length of the edge lists is 3046.
+11-27 03:05:26 INFO - query1.py:302 - DiGraph with 6118 nodes and 6292 edges
+11-27 03:05:30 INFO - query1.py:329 - F1 score: 0.514289
+11-27 03:05:30 INFO - query1.py:341 - Accuracy score: 0.879371
+11-27 03:05:30 INFO - query1.py:353 - Recall score: 0.562818
+11-27 03:05:30 INFO - query1.py:365 - AUC score: 0.562818
