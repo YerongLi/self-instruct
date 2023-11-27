@@ -8,7 +8,7 @@ parser = argparse.ArgumentParser(description="Your script description")
 
 # Add the TOTAL argument as a positional argument
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-
+args = parser.parse_args()
 TOTAL = args.TOTAL
 
 taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
