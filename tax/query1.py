@@ -4,7 +4,7 @@ import pickle
 import random
 import tqdm
 import networkx as nx
-
+import multiprocessing
 TOTAL = 300
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -119,14 +119,18 @@ logging.info(f"Number of nodes with zero predecessors: {zero_neighbor_count}")
 logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
-min_len = float('inf')
-max_len = float('-inf')
-for edge in tqdm.tqdm(core_graph.edges()):
-    parent, kid = edge
-    edge_list = edges_within_k_edges(core_graph, parent, kid)
-    edge_list_len = len(edge_list)
-    min_len = min(min_len, edge_list_len)
-    max_len = max(max_len, edge_list_len)
+
+pool = multiprocessing.Pool(processes=4)  # Adjust the number of processes as needed
+
+# Map the `edges_within_k_edges` function directly to each edge and collect the results
+results = pool.map(lambda edge: len(edges_within_k_edges(core_graph, *edge)), core_graph.edges())
+
+# Calculate the min and max lengths based on the results
+min_len = min(results)
+max_len = max(results)
+
+print("Min length:", min_len)
+print("Max length:", max_len)
 
 # Print the minimum and maximum length of the edge lists
 print(f"The minimum length of the edge lists is {min_len}.")
