@@ -278,7 +278,7 @@ count_edges = 0
 count_neg_label = 0
 prompts = []
 
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:100]), total=100):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:31]), total=31):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
@@ -397,7 +397,7 @@ batch_size = 10
 predictions =predict_next_token_batch(prompts, batch_size)
 print(len(predictions))
 print(len(prompts))
-results = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
+result = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 
 # print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
