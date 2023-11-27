@@ -144,7 +144,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
     parent_, kid_ = edge
 
 
-    edge_list = edges_within_k_edges(core_graph, parent, kid)
+    edge_list = edges_within_k_edges(core_graph, parent_, kid_)
     # Sample 6 edges from edge_list
     sampled_edges = random.sample(edge_list, min(6, len(edge_list)))
 
@@ -210,7 +210,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     for pair in pairs:
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
-        prompt+= f'\n Question: Is {pair[0]} a parent of {definitions[parent_]['label']}?\n Answer: {definitions[kid_]['label']}' 
+        prompt+= f'\n Question: Is {definitions[parent_]['label']} a parent of {definitions[kid_]['label']}?\n Answer:' 
     
     logging.info(prompt)
     edge_list_len = len(edge_list)
