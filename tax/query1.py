@@ -4,7 +4,7 @@ import pickle
 import random
 import tqdm
 import networkx as nx
-
+from transformers import LlamaForCausalLM
 TOTAL = 300
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
