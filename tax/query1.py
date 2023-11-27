@@ -4,7 +4,7 @@ import pickle
 import random
 import tqdm
 import networkx as nx
-import multiprocessing
+
 TOTAL = 300
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -13,9 +13,7 @@ logging.basicConfig(
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
-def process_edge_wrapper(edge):
-    parent, kid = edge
-    return len(edges_within_k_edges(core_graph, parent, kid))
+
 def edges_within_k_edges(graph, parent, child, k=2):
     # Create a set to store the visited nodes
     visited = set()
@@ -121,17 +119,18 @@ logging.info(f"Number of nodes with zero predecessors: {zero_neighbor_count}")
 logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
+min_len = float('inf')
+max_len = float('-inf')
+for edge in tqdm.tqdm(core_graph.edges()):
+    parent, kid = edge
+    edge_list = edges_within_k_edges(core_graph, parent, kid)
+    edge_list_len = len(edge_list)
+    min_len = min(min_len, edge_list_len)
+    max_len = max(max_len, edge_list_len)
 
-# Create a pool of worker processes
-pool = multiprocessing.Pool(processes=4)  # Adjust the number of processes as needed
-
-# Use tqdm to track the progress of the `imap` operation
-with tqdm.tqdm(total=len(core_graph.edges())) as pbar:
-    for result in pool.imap(process_edge_wrapper, core_graph.edges(), chunksize=1024):
-        pbar.update()
-
-# Process the results
-results = list(pool.imap(process_edge_wrapper, core_graph.edges()))
+# Print the minimum and maximum length of the edge lists
+print(f"The minimum length of the edge lists is {min_len}.")
+print(f"The maximum length of the edge lists is {max_len}.")
 #     try:
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
