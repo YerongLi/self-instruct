@@ -147,10 +147,11 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 
 min_pair = None
 max_pair = None
+count_edges = 0
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
-    if parent_ == rootkey : continue
-
+    if parent_ == rootkey or kid_ == rootkey : continue
+    count_edges+= 1
     edge_list = edges_within_k_edges(core_graph, parent_, kid_)
 
     edge_list_len = len(edge_list)
@@ -179,6 +180,7 @@ if max_pair is not None:
 logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
 logging.info(core_graph)
+logging.info(f"Number of edges : {count_edges}")
 #     try:
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
