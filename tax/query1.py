@@ -278,7 +278,7 @@ count_edges = 0
 count_neg_label = 0
 prompts = []
 
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:31]), total=31):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:100]), total=100):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
