@@ -190,6 +190,7 @@ min_pair = None
 max_pair = None
 result = []
 count_edges = 0
+count_neg_label = 0
 # for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:30]), total=30):
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -273,7 +274,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     if iteration <= 10:
         logging.info(prompt)
         logging.info(predicted_label)
-
+    if core_graph[parent_][kid_]['weight'] == -1: count_neg_label+= 1
     result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : predicted_label}))
     edge_list_len = len(edge_list)
 
@@ -287,7 +288,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     # Check if we need to sample additional negative pairs
 
 
-
+logging.info(f"Count number of -1 {count_neg_label}")
 if min_pair is not None:
     parent, kid = min_pair
     logging.info("Minimum pair:")
