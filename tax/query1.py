@@ -189,8 +189,8 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 result = []
-# for i, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:50])):
-for i, edge in tqdm.tqdm(enumerate(core_graph.edges())):
+# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:50])):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges())):
     parent_, kid_ = edge
     neighbors = list(core_graph.neighbors(parent_))
     neighbors = random.sample(neighbors, min(6, len(neighbors)))
