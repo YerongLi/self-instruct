@@ -31,6 +31,37 @@ logits_processor = LogitsProcessorList()
 # logging.info(f'No id is : {tokenizer(["No"])}')
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
 # 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
+def collate_fn(batch):
+    # Get the input_ids and attention_masks from the batch
+    input_ids = [item[0] for item in batch]
+    attn_masks = [item[1] for item in batch]
+
+    # Calculate the maximum length in the batch
+    max_len = max([input_id.shape[1] for input_id in input_ids])
+
+    # Pad input_ids and attention_masks
+    padded_input_ids = []
+    padded_attn_masks = []
+
+    for input_id, attn_mask in zip(input_ids, attn_masks):
+        if input_id.shape[1] < max_len:
+            padding = torch.zeros((1, max_len - input_id.shape[1])).to(input_id.dtype)
+            padded_input_id = torch.cat([input_id, padding], dim=1)
+        else:
+            padded_input_id = input_id
+
+        if attn_mask.shape[1] < max_len:
+            padding = torch.zeros((1, max_len - attn_mask.shape[1])).to(attn_mask.dtype)
+            padded_attn_mask = torch.cat([attn_mask, padding], dim=1)
+        else:
+            padded_attn_mask = attn_mask
+
+        padded_input_ids.append(padded_input_id)
+        padded_attn_masks.append(padded_attn_mask)
+
+    return torch.stack(padded_input_ids, dim=0), torch.stack(padded_attn_masks, dim=0)
+
+
 class PromptDataset(Dataset):
     def __init__(self, prompts):
         self.prompts = prompts
@@ -41,9 +72,21 @@ class PromptDataset(Dataset):
     def __getitem__(self, idx):
         prompt = self.prompts[idx]
         return preprocess_prompt(prompt)
-def preprocess_prompt(prompt):
+# Preprocess the prompts with padding
+def preprocess_prompt(prompt, max_len=800):
     encoded_prompt = tokenizer(prompt, return_tensors="pt")
-    return encoded_prompt
+    input_ids = encoded_prompt["input_ids"]
+    attn_mask = encoded_prompt["attention_mask"]
+
+    # Pad input_ids and attention_mask
+    if input_ids.shape[1] < max_len:
+        padding = torch.zeros((1, max_len - input_ids.shape[1])).to(input_ids.dtype)
+        input_ids = torch.cat([input_ids, padding], dim=1)
+
+        padding = torch.zeros((1, max_len - attn_mask.shape[1])).to(attn_mask.dtype)
+        attn_mask = torch.cat([attn_mask, padding], dim=1)
+
+    return input_ids, attn_mask
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
 
@@ -307,7 +350,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
 # Create a dataloader with batch_size=4
 batch_size=4
-dataloader = DataLoader(PromptDataset(prompts), batch_size=batch_size)
+dataloader = DataLoader(PromptDataset(prompts), batch_size=4, collate_fn=default_collate)
 
 # Make predictions in batches
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
