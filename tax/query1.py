@@ -26,7 +26,7 @@ def get_first_label_without_n(label_str):
     # If no label contains ".n.", return the first label
     print(label[0])
     return labels[0]
-def edges_within_k_edges(graph, parent, child, k=4):
+def edges_within_k_edges(graph, parent, child, k=3):
     # Create a set to store the visited nodes
     visited = set()
 
@@ -36,7 +36,6 @@ def edges_within_k_edges(graph, parent, child, k=4):
     # Recursive function to perform DFS
     def dfs(node, depth):
         # Mark the node as visited
-        if node == rootkey: return
         visited.add(node)
 
         # Check if the depth is greater than or equal to k
@@ -61,6 +60,7 @@ def edges_within_k_edges(graph, parent, child, k=4):
     dfs(child, 0)
 
     # Return the list of edges within k edge distances
+    ans = [(parent, kid) for parent, kid in ans if parent != rootkey and kid != rootkey]
     return ans
 
 
