@@ -5,7 +5,7 @@ import random
 import tqdm
 import networkx as nx
 import torch
-from transformers import LlamaForCausalLM, AutoTokenizer
+from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 TOTAL = 300
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
@@ -24,7 +24,7 @@ model = LlamaForCausalLM.from_pretrained(
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
-logits_processor = logits_processor if logits_processor is not None else LogitsProcessorList()
+logits_processor = LogitsProcessorList()
 
 def predict_next_token(prompt):
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
