@@ -68,7 +68,10 @@ with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
     core_graph = pickle.load(f)
 with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
-
+for key, value in definitions.items():
+    if value['label'].strip() == '' and value['summary'].strip() == '':
+        print(f"Key: {key}, Value: {value}")
+        break
 ans = -0x7f7f7f7f
 single_neighbor_count = 0
 zero_neighbor_count = 0
