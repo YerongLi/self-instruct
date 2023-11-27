@@ -219,7 +219,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         prompt += f"Definitions: {label} : {description}\n"
 
     prompt += "\n"
-    pairs = [(parent_, node)for node in neighbors]
+    pairs = [(parent_, node, 'Yes')for node in neighbors]
     for edge in sampled_edges:
         parent = edge[0]
         kid = edge[1]
