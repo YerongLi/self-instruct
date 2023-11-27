@@ -280,6 +280,9 @@ for edge in tqdm.tqdm(list(core_graph.edges())[:100]):
         max_pair = (parent, kid)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
+
+
+
 if min_pair is not None:
     parent, kid = min_pair
     logging.info("Minimum pair:")
@@ -306,3 +309,32 @@ logging.info(core_graph)
 #         logging.info(definitions[parent])
 #         logging.info(definitions[kid])
 #         logging.info(core_graph[parent][kid])
+
+
+from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_score
+
+# Extract ground truth and predicted labels
+ground_truth = []
+predicted_labels = []
+
+for parent_, kid_, label_dict in result:
+    ground_truth.append(label_dict['label'])
+    predicted_labels.append(label_dict['pred'])
+
+# Calculate F1 score
+f1 = f1_score(ground_truth, predicted_labels, average='macro')
+
+# Calculate accuracy score
+accuracy = accuracy_score(ground_truth, predicted_labels)
+
+# Calculate recall score
+recall = recall_score(ground_truth, predicted_labels, average='macro')
+
+# Calculate AUC score
+auc = roc_auc_score(ground_truth, predicted_labels)
+
+# Log the metrics
+logging.info("F1 score: {:.4f}", f1)
+logging.info("Accuracy score: {:.4f}", accuracy)
+logging.info("Recall score: {:.4f}", recall)
+logging.info("AUC score: {:.4f}", auc)
