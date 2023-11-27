@@ -173,7 +173,8 @@ max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent_, kid_ = edge
 
-
+    neighbors = core_graph.neighbors(parent_)[:6]
+    print(neighbors)
     edge_list = edges_within_k_edges(core_graph, parent_, kid_)
     # Sample 6 edges from edge_list
     sampled_edges = random.sample(edge_list, min(6, len(edge_list)))
