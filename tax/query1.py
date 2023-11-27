@@ -118,7 +118,7 @@ def predict_next_token_batch(prompts, batch_size=10):
     predictions = []
     sentences = [item['prompt'] for item in prompts]
     # Split prompts into batches
-    for i in tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
+    for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
         batch_prompts = sentences[i:i + batch_size]
 
         # Tokenize prompts and convert to PyTorch tensors
@@ -375,7 +375,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
-batch_size = 32
+batch_size = 321
 
 
 # # Create a dataset and dataloader
