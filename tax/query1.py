@@ -116,9 +116,9 @@ def predict_next_token(prompt):
 
 def predict_next_token_batch(prompts, batch_size=10):
     predictions = []
-
+    sentences = [item['prompt'] for item in prompts]
     # Split prompts into batches
-    for i in range(0, len(prompts), batch_size):
+    for i in range(0, len(sentences), batch_size):
         batch_prompts = prompts[i:i + batch_size]
 
         # Tokenize prompts and convert to PyTorch tensors
@@ -357,7 +357,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:8]), total=
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
     prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append(prompt)
+    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']})
     # predicted_label = predict_next_token(prompt)
     if iteration <= 0:
         logging.info(prompt)
@@ -375,7 +375,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:8]), total=
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
-batch_size = 4
+batch_size = 10
 
 
 # # Create a dataset and dataloader
@@ -393,7 +393,9 @@ batch_size = 4
 #     # Process logits or do whatever you need with them
 #     print(logits.shape)
 
-print (predict_next_token_batch(prompts))
+
+predictions =predict_next_token_batch(prompts, batch_size)
+results = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 
 # print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
@@ -437,8 +439,8 @@ logging.info(core_graph)
 from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_score, confusion_matrix
 
 # Extract ground truth and predicted labels
-ground_truth = [label_dict['label'] for _, _, label_dict in result]
-predicted_labels = [label_dict['pred'] for _, _, label_dict in result]
+ground_truth = [label_dict['label'] for label_dict in result]
+predicted_labels = [label_dict['pred'] for label_dict in result]
 
 # Calculate F1 score
 f1_score_value = f1_score(ground_truth, predicted_labels, average='macro')
