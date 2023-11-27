@@ -33,14 +33,13 @@ def predict_next_token(prompt):
         logits = outputs.logits[:, -1, :]
 
     # Extract probabilities for "Yes" and "No"
-    print(logits.shape)
     # Extract the probability for "Yes"
     # print(logits[tokenizer.convert_tokens_to_ids(["Yes"])])
     yes_prob = logits[0][tokenizer.convert_tokens_to_ids(["Yes"])].item()
 
     # Calculate the probability for "No"
     no_prob = logits[0][tokenizer.convert_tokens_to_ids(["No"])].item()
-
+    logging.info(f'{yes_prob}    {no_prob}')
     # Calculate the difference in probabilities
     prob_diff = yes_prob - no_prob
 
