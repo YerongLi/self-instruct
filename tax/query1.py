@@ -144,7 +144,8 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     if parent == rootkey or kid == rootkey:
         continue
-    logging.info(parent, kid)
+    logging.info(type(parent))
+    logging.info(parent)
     edge_list = edges_within_k_edges(core_graph, parent, kid)
     # Sample 6 edges from edge_list
     sampled_edges = random.sample(edge_list, 6)
