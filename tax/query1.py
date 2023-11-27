@@ -365,9 +365,15 @@ max_length = max(len(tokenizer.encode(prompt)) for prompt in prompts)
 inputs = tokenizer(prompts, return_tensors="pt", padding=True).to(model.device)
 print(inputs['input_ids'].shape)
 
-output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
+with torch.no_grad():
+    outputs = model(**inputs)
 
-print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
+# Get logits
+logits = outputs.logits
+logging.info(logits.shape)
+# output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
+
+# print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
 logging.info(f"Count number of -1 {count_neg_label}")
 
 if min_pair is not None:
