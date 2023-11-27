@@ -150,6 +150,9 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     # Get all nodes from sampled edges
     nodes = set()
+    for edge in sampled_edges:
+        nodes.add(edge[0])
+        nodes.add(edge[1])
     node_definitions = nodes.copy()
     # Sample all negative pairs within nodes
     negative_pairs = []
@@ -169,9 +172,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         if (node1, node2) not in edge_list and (node1, node2) not in sampled_edges:
             additional_pairs.append((node1, node2))
 
-    for edge in sampled_edges:
-        nodes.add(edge[0])
-        nodes.add(edge[1])
+
 
     # Create the prompt
     prompt = "Your task is to determine whether the following pairs have a parenting and child relationship according to the example pairs, and try to establish the parenting relationship at the same granularity:\n\n"
