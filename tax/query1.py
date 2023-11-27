@@ -136,7 +136,7 @@ max_pair = None
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
 
-    if definitions[parent]['label'].strip() == '' or definitions[kid]['label'].strip() == '':
+    if len(definitions[parent]['label'].strip()) == '' or definitions[kid]['label'].strip() == '':
         continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
