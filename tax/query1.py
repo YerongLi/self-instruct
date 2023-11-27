@@ -123,14 +123,32 @@ min_len = float('inf')
 max_len = float('-inf')
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
-    if definitions[parent]['label'] == ' ' or definitions[kid]['label'] == ' ': continue
+
+    if definitions[parent]['label'] == ' ' or definitions[kid]['label'] == ' ':
+        continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
     edge_list_len = len(edge_list)
-    min_len = min(min_len, edge_list_len)
-    max_len = max(max_len, edge_list_len)
 
-# Print the minimum and maximum length of the edge lists
+    if min_pair is None or edge_list_len < min_len:
+        min_pair = (parent, kid)
+        min_len = edge_list_len
+
+    if max_pair is None or edge_list_len > max_len:
+        max_pair = (parent, kid)
+        max_len = edge_list_len
+
+if min_pair is not None:
+    parent, kid = min_pair
+    print("Minimum pair:")
+    print("Parent:", definitions[parent])
+    print("Kid:", definitions[kid])
+
+if max_pair is not None:
+    parent, kid = max_pair
+    print("Maximum pair:")
+    print("Parent:", definitions[parent])
+    print("Kid:", definitions[kid])
 print(f"The minimum length of the edge lists is {min_len}.")
 print(f"The maximum length of the edge lists is {max_len}.")
 #     try:
