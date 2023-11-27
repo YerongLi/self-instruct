@@ -171,7 +171,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
         parent_label = get_first_label_without_n(definitions[parent]['label'])
         kid_label = get_first_label_without_n(definitions[kid]['label'])
         prompt += f"Pair: {parent_label} -> {kid_label}\n"
-    if len(edge_list) < len(nodes) * (len(nodes) - 1) - 6:
+    if len(sampled_edges) < len(nodes) * (len(nodes) - 1) - 6:
         # Sample all negative pairs within nodes
         negative_pairs = []
         for node1 in nodes:
@@ -180,12 +180,12 @@ for edge in tqdm.tqdm(core_graph.edges()):
                     negative_pairs.append((node1, node2))
 
         # Sample additional negative pairs from core_graph.nodes()
-        num_additional_pairs = 6 - (len(nodes) * (len(nodes) - 1) - len(edge_list))
+        num_additional_pairs = 6 - (len(nodes) * (len(nodes) - 1) - len(sampled_edges))
         additional_pairs = []
         while len(additional_pairs) < num_additional_pairs:
             node1 = random.choice(list(core_graph.nodes()))
             node2 = random.choice(list(nodes))
-            if (node1, node2) not in edge_list and (node2, node1) not in edge_list:
+            if (node1, node2) not in edge_list and (node2, node1) not in sampled_edges:
                 additional_pairs.append((node1, node2))
 
         # Combine negative pairs and additional pairs
