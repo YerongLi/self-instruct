@@ -314,33 +314,35 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 
 for batch in dataloader:
-    encoded_prompts = batch[0].to(device)
+    print(batch)
+    print(batch.shape)
+    # encoded_prompts = batch[0].to(device)
 
-    with torch.no_grad():
-        outputs = model(encoded_prompts)
-        logits = outputs.logits[:, -1, :]
+    # with torch.no_grad():
+    #     outputs = model(encoded_prompts)
+    #     logits = outputs.logits[:, -1, :]
 
-    # Extract probabilities for "Yes" and "No"
-    next_tokens_scores = logits_processor(encoded_prompts, logits)
-    next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+    # # Extract probabilities for "Yes" and "No"
+    # next_tokens_scores = logits_processor(encoded_prompts, logits)
+    # next_tokens = torch.argmax(next_tokens_scores, dim=-1)
 
-    # Calculate the probability for "Yes"
-    yes_prob = next_tokens_scores[0][3869].item()
+    # # Calculate the probability for "Yes"
+    # yes_prob = next_tokens_scores[0][3869].item()
 
-    # Calculate the probability for "No"
-    no_prob = next_tokens_scores[0][1939].item()
+    # # Calculate the probability for "No"
+    # no_prob = next_tokens_scores[0][1939].item()
 
-    # Calculate the difference in probabilities
-    prob_diff = yes_prob - no_prob
+    # # Calculate the difference in probabilities
+    # prob_diff = yes_prob - no_prob
 
-    # Determine the prediction based on probability difference
-    if prob_diff > 0:
-        prediction = 1
-    else:
-        prediction = -1
+    # # Determine the prediction based on probability difference
+    # if prob_diff > 0:
+    #     prediction = 1
+    # else:
+    #     prediction = -1
 
-    # Print the predictions
-    print(prediction)
+    # # Print the predictions
+    # print(prediction)
 
 logging.info(f"Count number of -1 {count_neg_label}")
 if min_pair is not None:
