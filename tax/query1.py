@@ -14,7 +14,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def edges_within_k_edges(graph, parent, child, k):
+def edges_within_k_edges(graph, parent, child, k=2):
     # Create a set to store the visited nodes
     visited = set()
 
@@ -42,6 +42,7 @@ def edges_within_k_edges(graph, parent, child, k):
 
     # Perform DFS starting from the parent node
     dfs(parent, 0)
+    dfs(child, 0)
 
     # Return the list of edges within k edge distances
     return ans
