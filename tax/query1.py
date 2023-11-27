@@ -26,7 +26,7 @@ def get_first_label_without_n(label_str):
     # If no label contains ".n.", return the first label
     print(label[0])
     return labels[0]
-def edges_within_k_edges(graph, parent, child, k=3):
+def edges_within_k_edges(graph, parent, child, k=4):
     # Create a set to store the visited nodes
     visited = set()
 
