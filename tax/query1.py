@@ -14,7 +14,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-def edges_within_k_edges(graph, parent, child, k=2):
+def edges_within_k_edges(graph, parent, child, k):
     # Create a set to store the visited nodes
     visited = set()
 
@@ -30,22 +30,26 @@ def edges_within_k_edges(graph, parent, child, k=2):
         if depth >= k:
             return
 
-        # Check if the child node is reachable from the current node
-        if nx.has_path(graph, node, child) and nx.shortest_path_length(graph, node, child) <= k:
-            # Add the edge to the list of edges within k edge distances
-            ans.append((node, child))
+        # Iterate over the predecessors of the node
+        for neighbor in graph.predecessors(node):
+            if neighbor not in visited:
+                # Add the edge to the list of edges within k edge distances
+                ans.append((neighbor, node))
+                dfs(neighbor, depth + 1)
 
         # Iterate over the neighbors of the node
         for neighbor in graph.neighbors(node):
             if neighbor not in visited:
+                # Add the edge to the list of edges within k edge distances
+                ans.append((node, neighbor))
                 dfs(neighbor, depth + 1)
 
-    # Perform DFS starting from the parent node
     dfs(parent, 0)
     dfs(child, 0)
 
     # Return the list of edges within k edge distances
     return ans
+
 
 # Load the definitions variable from the file
 with open('../../TaxoComplete/core_graph.pkl', 'rb') as f:
