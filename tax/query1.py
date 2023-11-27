@@ -210,7 +210,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
 
     for pair in pairs:
         prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
-        prompt+= f'\n Question: Is {definitions[parent_]['label']} a parent of {definitions[kid_]['label']}?\n Answer:' 
+        prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     logging.info(prompt)
     edge_list_len = len(edge_list)
