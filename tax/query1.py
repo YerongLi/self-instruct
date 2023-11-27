@@ -26,7 +26,7 @@ model = LlamaForCausalLM.from_pretrained(
   device_map='auto',
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
-tokenizer.pad_token = tokenizer.eos_token
+tokenizer.pad_token = "[PAD]"
 tokenizer.padding_side = "left"
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 logits_processor = LogitsProcessorList()
