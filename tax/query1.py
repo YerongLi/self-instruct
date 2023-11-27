@@ -154,7 +154,7 @@ for edge in tqdm.tqdm(core_graph.edges()):
     for node in nodes:
         label = get_first_label_without_n(definitions[node]['label'])
         print(definitions[node])
-        description = definitions[node]['description']
+        description = definitions[node]['summary']
         prompt += f"Definitions: {label} : {description}\n"
 
     prompt += "\n"
