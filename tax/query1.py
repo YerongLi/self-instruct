@@ -26,7 +26,7 @@ def get_first_label_without_n(label_str):
     # If no label contains ".n.", return the first label
     print(label[0])
     return labels[0]
-def edges_within_k_edges(graph, parent, child, k=3):
+def edges_within_k_edges(graph, parent, child, k=4):
     # Create a set to store the visited nodes
     visited = set()
 
@@ -196,8 +196,8 @@ if max_pair is not None:
     logging.info(definitions[parent])
     logging.info(definitions[kid])
     logging.info(f"The first 100 neighbors of {definitions[parent]['label']} are:")
-    for neighbor in list(core_graph.neighbors(parent))[:100]:
-        logging.info(definitions[neighbor])
+    # for neighbor in list(core_graph.neighbors(parent))[:100]:
+        # logging.info(definitions[neighbor])
 
 logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
