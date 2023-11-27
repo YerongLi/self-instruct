@@ -3,7 +3,7 @@ import os
 import pickle
 import random
 import tqdm
-import networkx as nx
+# import networkx as nx
 import torch
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 TOTAL = 300
