@@ -123,7 +123,7 @@ min_len = float('inf')
 max_len = float('-inf')
 for edge in tqdm.tqdm(core_graph.edges()):
     parent, kid = edge
-    if definitions[parent]['label'] == ' ': continue
+    if definitions[parent]['label'] == ' ' or definitions[kid]['label'] == ' ': continue
 
     edge_list = edges_within_k_edges(core_graph, parent, kid)
     edge_list_len = len(edge_list)
