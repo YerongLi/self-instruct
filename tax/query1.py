@@ -119,10 +119,18 @@ logging.info(f"Number of nodes with zero predecessors: {zero_neighbor_count}")
 logging.info(f"Number of nodes with one predecessor: {single_neighbor_count}")
 logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor_count}")
 
-# Get the statistics
+min_len = float('inf')
+max_len = float('-inf')
 for edge in core_graph.edges():
     parent, kid = edge
-    edges_within_k_edges(core_graph, parent, kid)
+    edge_list = edges_within_k_edges(core_graph, parent, kid)
+    edge_list_len = len(edge_list)
+    min_len = min(min_len, edge_list_len)
+    max_len = max(max_len, edge_list_len)
+
+# Print the minimum and maximum length of the edge lists
+print(f"The minimum length of the edge lists is {min_len}.")
+print(f"The maximum length of the edge lists is {max_len}.")
 #     try:
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
