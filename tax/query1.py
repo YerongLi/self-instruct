@@ -149,8 +149,13 @@ if max_pair is not None:
     logging.info("Maximum pair:")
     logging.info("Parent:", definitions[parent])
     logging.info("Kid:", definitions[kid])
+    logging.info(f"The first 100 neighbors of {kid} are:")
+    for neighbor in list(core_graph.neighbors(kid))[:100]:
+        logging.info(neighbor)
+
 logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
+logging.info([])
 logging.info(core_graph)
 #     try:
 #         weight = core_graph[parent][kid]['weight']
