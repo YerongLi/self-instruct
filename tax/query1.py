@@ -1,3 +1,4 @@
+import argparse
 import logging
 import os
 import pickle
@@ -7,12 +8,17 @@ import tqdm
 import torch
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader, Dataset
+parser = argparse.ArgumentParser(description="Your script description")
 
-TOTAL = 700
+# Add the TOTAL argument as a positional argument
+parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+args = parser.parse_args()
+TOTAL = args.TOTAL
+
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
-    filename='./output.log',
+    filename=f'./output_{TOTAL}.log',
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
