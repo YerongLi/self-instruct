@@ -189,7 +189,8 @@ logging.info(f"Number of nodes with two or more predecessors: {multiple_neighbor
 min_pair = None
 max_pair = None
 result = []
-for edge in tqdm.tqdm(list(core_graph.edges())[:100]):
+# for edge in tqdm.tqdm(list(core_graph.edges())[:100]):
+for edge in tqdm.tqdm(core_graph.edges()):
     parent_, kid_ = edge
     neighbors = list(core_graph.neighbors(parent_))
     neighbors = random.sample(neighbors, min(6, len(neighbors)))
@@ -317,10 +318,11 @@ from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_scor
 ground_truth = []
 predicted_labels = []
 
-for parent_, kid_, label_dict in result:
+for _, _, label_dict in result:
     ground_truth.append(label_dict['label'])
     predicted_labels.append(label_dict['pred'])
-
+logging.info(ground_truth)
+logging.info(predicted_labels)
 # Calculate F1 score
 f1 = f1_score(ground_truth, predicted_labels, average='macro')
 
