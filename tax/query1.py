@@ -45,12 +45,11 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = None
-# model = LlamaForCausalLM.from_pretrained(
-#   model_path,
-#   torch_dtype=torch.float16,
-#   device_map='auto',
-# ).eval()
+model = LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 tokenizer.padding_side = "left"
