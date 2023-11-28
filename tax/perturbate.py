@@ -170,6 +170,6 @@ def get_first_label_with_n(label_str):
 with open(new_taxofilename, 'a') as fout:
     for pair in ans:
         first_label_0 = get_first_label_with_n(definitions[pair[0]]['label'])
-        # print(definitions[pair[1]]['label'])
+        print(definitions[pair[1]]['label'])
         first_label_1 = get_first_label_with_n(definitions[pair[1]]['label'])
         fout.write(f"{first_label_0}\t{first_label_1}\t-1\n")
