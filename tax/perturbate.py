@@ -22,16 +22,17 @@ with open(config_file) as f:
 # Get the configuration values
 TOTAL = config['TOTAL']
 taxofilename = config['taxofilename']
-source_file = config['source_term_file']
-destination_file = config['destination_file']
+# Extract the base filename without the ".taxo" extension
+base_filename = config['taxofilename'].split(".taxo")[0]
 
-# Read the paths to the pickle files from the configuration file
-all_path_pkl = config['all_path_pkl']
-definitions_pkl = config['definitions_pkl']
-edges_pkl = config['edges_pkl']
+# Construct the new taxofilename and new_terms_filename
+new_taxofilename = f"{base_filename}-pert_{TOTAL}.taxo"
+old_terms_filename = f"{base_filename}.terms"
+new_terms_filename = f"{base_filename}-pert_{TOTAL}.terms"
 
-# Copy the source file to the destination file
-shutil.copyfile(source_file, destination_file)
+# Copy the terms file to the destination file with the new filename
+shutil.copyfile(old_terms_filename, new_terms_filename)
+
 
 # Set up logging
 logging.basicConfig(
