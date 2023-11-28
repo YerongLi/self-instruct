@@ -146,7 +146,7 @@ def predict_next_token_batch(prompts, batch_size=10):
     # Split prompts into batches
     for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
         batch_prompts = sentences[i:i + batch_size]
-
+        print(batch_prompts)
         # Tokenize prompts and convert to PyTorch tensors
         input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
 
