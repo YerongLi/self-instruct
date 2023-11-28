@@ -1,8 +1,8 @@
 {
   "TOTAL": 700,
-  "taxofilename": "wordnet_noun-pert_{TOTAL}.taxo",
-  "source_term_file": "wordnet_noun.terms",
-  "destination_file": "wordnet_noun-pert_{TOTAL}.terms",
+  "taxofilename": "../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo",
+  "source_term_file": "../../TaxoComplete/data/SemEval-Noun/wordnet_noun.terms",
+  "destination_file": "../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.terms",
   "all_path_pkl": "../../TaxoComplete/all_path.pkl",
   "definitions_pkl": "../../TaxoComplete/definitions.pkl",
   "edges_pkl": "../../TaxoComplete/edges.pkl"
