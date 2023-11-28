@@ -406,7 +406,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
-batch_size = 3
+batch_size = 2
 
 
 # # Create a dataset and dataloader
