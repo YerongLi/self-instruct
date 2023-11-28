@@ -122,10 +122,10 @@ for parent, child in core_graph.edges():
 # Calculate the percentage of edges where a parent has more than one child
 percentage = (count / non_root_edges) * 100
 
-logging.info("Total number of edges:", core_graph.number_of_edges())
-logging.info("Number of edges (excluding root):", non_root_edges)
-logging.info("Number of edges where a parent has more than one child:", count)
-logging.info("Percentage of edges where a parent has more than one child:", percentage)
+logging.info(f"Total number of edges: {core_graph.number_of_edges()}")
+logging.info(f"Number of edges (excluding root): {non_root_edges}")
+logging.info(f"Number of edges where a parent has more than one child: {count}")
+logging.info(f"Percentage of edges where a parent has more than one child: {percentage:.2f}%")
 
 for key, value in definitions.items():
     try:
