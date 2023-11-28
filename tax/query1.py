@@ -12,6 +12,18 @@ parser = argparse.ArgumentParser(description="Your script description")
 
 # Add the TOTAL argument as a positional argument
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+parser.add_argument("config_file", type=str, help="Path to the configuration file")
+config_file = args.config_file
+
+# Read the configuration file
+with open(config_file) as f:
+    config = json.load(f)
+
+# Get the configuration values
+# Extract the base filename without the ".taxo" extension
+datapath = config['taxofilename'].split('/')[:-1]
+datapath = '/'.join(datapath)
+print(datapath)
 args = parser.parse_args()
 TOTAL = args.TOTAL
 print(TOTAL)
@@ -209,9 +221,9 @@ def edges_within_k_edges(graph, parent, child, k=3):
 
 
 # Load the definitions variable from the file
-with open(f'../../TaxoComplete/core_graph_{TOTAL}.pkl', 'rb') as f:
+with open(f'{datapath}/core_graph_{TOTAL}.pkl', 'rb') as f:
     core_graph = pickle.load(f)
-with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
+with open(f'{datapath}/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 rootkey = None
 
