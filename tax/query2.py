@@ -1,16 +1,41 @@
+import argparse
+import json
 import logging
 import os
 import pickle
 import random
 import tqdm
 # import networkx as nx
-import torch
-from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
-TOTAL = 700
+
+parser = argparse.ArgumentParser(description="Your script description")
+# Add the configuration file argument
+parser.add_argument("config_file", type=str, help="Path to the configuration file")
+parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+
+args = parser.parse_args()
+TOTAL = args.TOTAL
+
+config_file = args.config_file
+# Read the configuration file
+with open(config_file) as f:
+    config = json.load(f)
+
+# Get the configuration values
+# Extract the base filename without the ".taxo" extension
+datapath = config['taxofilename'].split('/')[:-1]
+datapath = '/'.join(datapath)
+print(datapath)
+
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
+print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
-    filename='./2output.log',
+    filename=f'{datapath}/output_{TOTAL}.log',
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
@@ -18,7 +43,10 @@ logging.info(f'Logger start: {os.uname()[1]}')
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
 
-
+# logging.info(f'Yes id is : {tokenizer(["Yes"])}')
+# logging.info(f'No id is : {tokenizer(["No"])}')
+# 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
+# 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
 
 
 def get_first_label_without_n(label_str):
@@ -72,24 +100,50 @@ def edges_within_k_edges(graph, parent, child, k=3):
 
 
 # Load the definitions variable from the file
-with open(f'../../TaxoComplete/core_graph_{TOTAL}.pkl', 'rb') as f:
+with open(f'{datapath}/core_graph_{TOTAL}.pkl', 'rb') as f:
     core_graph = pickle.load(f)
-with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
+with open(f'{datapath}/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
 rootkey = None
 
+# Count the number of edges where a parent has more than one child
+count = 0
+non_root_edges = 0
+
+for parent, child in core_graph.edges():
+    if parent == rootkey:
+        continue
+
+    if len(list(core_graph.neighbors(parent))) > 1:
+        count += 1
+
+    non_root_edges += 1
+
+# Calculate the percentage of edges where a parent has more than one child
+percentage = (count / non_root_edges) * 100
+
+logging.info("Total number of edges:", core_graph.number_of_edges())
+logging.info("Number of edges (excluding root):", non_root_edges)
+logging.info("Number of edges where a parent has more than one child:", count)
+logging.info("Percentage of edges where a parent has more than one child:", percentage)
+
 for key, value in definitions.items():
-    if value['label'].strip() == '' and value['summary'].strip() == '':
-        print(f"Key: {key}, Value: {value}")
-        rootkey = key
-        break
-ans = -0x7f7f7f7f
+    try:
+        if value['label'].strip() == '' and value['summary'].strip() == '':
+            print(f"Key: {key}, Value: {value}")
+            rootkey = key
+            break
+    except:
+        continue
 single_neighbor_count = 0
 zero_neighbor_count = 0
 multiple_neighbor_count = 0
 multiple_neighbor_nodes, multiple_neighbor_nodes_6 = [], []
 # print(definitions)
 max_node = None
+
+
+
 for node in core_graph.nodes():
     if node == rootkey: continue
     if not core_graph.has_node(node): continue
