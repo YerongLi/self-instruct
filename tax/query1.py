@@ -351,13 +351,15 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     node_definitions.add(parent_)
     node_definitions.add(kid_)
     # random.shuffle(node_definitions)
-    for node in node_definitions:
-        print(definitions[node])
-        label = get_first_label_without_n(definitions[node]['label'])
-        # logging.info(node)
-        # logging.info(definitions[node])
-        description = definitions[node]['summary']
-        prompt += f"Definitions: {label} : {description}\n"
+    try:
+        for node in node_definitions:
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"Definitions: {label} : {description}\n"
+    except:
+        continue
 
     prompt += "\n"
     pairs = [(get_first_label_without_n(definitions[parent_]['label']), get_first_label_without_n(definitions[kid]['label']), 'Yes') for kid in neighbors if kid is not kid_]
