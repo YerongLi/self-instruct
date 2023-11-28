@@ -156,15 +156,19 @@ with open(config['taxofilename'], 'r') as fin, open(new_taxofilename, 'w') as fo
 
 def get_first_label_with_n(label_str):
     # Split the label string by "||"
-    labels = label_str.split('||')
+    try:
+        labels = label_str.split('||')
 
-    # Find the first label that contains ".n."
-    for label in labels:
-        if ".n." in label:
-            return label
+        # Find the first label that contains ".n."
+        for label in labels:
+            if ".n." in label:
+                return label
 
-    # If no label contains ".n.", return the first label
-    return labels[0]
+        # If no label contains ".n.", return the first label
+        return labels[0]
+    except:
+        print(label_str)
+        a = 1 + asdfasfa 
 
 # Extract and write the first labels with ".n." to the output file
 with open(new_taxofilename, 'a') as fout:
