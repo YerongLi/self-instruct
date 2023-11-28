@@ -167,7 +167,7 @@ def get_first_label_with_n(label_str):
     return labels[0]
 
 # Extract and write the first labels with ".n." to the output file
-with open(taxofilename, 'a') as fout:
+with open(new_taxofilename, 'a') as fout:
     for pair in ans:
         first_label_0 = get_first_label_with_n(definitions[pair[0]]['label'])
         # print(definitions[pair[1]]['label'])
