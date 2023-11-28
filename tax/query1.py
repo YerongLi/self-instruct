@@ -1,13 +1,23 @@
+# import argparse
+# import logging
+# import os
+# import pickle
+# import random
+# import tqdm
+# # import networkx as nx
+# import torch
+# from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+# from torch.utils.data import DataLoader, Dataset
+
+
 import argparse
+import json
 import logging
 import os
 import pickle
 import random
+import shutil
 import tqdm
-# import networkx as nx
-import torch
-from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
-from torch.utils.data import DataLoader, Dataset
 
 parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
@@ -19,18 +29,22 @@ TOTAL = args.TOTAL
 
 config_file = args.config_file
 
-# Get the configuration values
-# Extract the base filename without the ".taxo" extension
-datapath = config['taxofilename'].split('/')[:-1]
-datapath = '/'.join(datapath)
-print(datapath)
 
-print(TOTAL)
-print(TOTAL)
-print(TOTAL)
-print(TOTAL)
-print(TOTAL)
-print(TOTAL)
+
+
+
+# # Get the configuration values
+# # Extract the base filename without the ".taxo" extension
+# datapath = config['taxofilename'].split('/')[:-1]
+# datapath = '/'.join(datapath)
+# print(datapath)
+
+# print(TOTAL)
+# print(TOTAL)
+# print(TOTAL)
+# print(TOTAL)
+# print(TOTAL)
+# print(TOTAL)
 # logging.basicConfig(
 #     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
 #     level=logging.INFO,
