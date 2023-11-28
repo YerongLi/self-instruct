@@ -21,7 +21,6 @@ with open(config_file) as f:
 
 # Get the configuration values
 TOTAL = config['TOTAL']
-taxofilename = config['taxofilename']
 # Extract the base filename without the ".taxo" extension
 base_filename = config['taxofilename'].split(".taxo")[0]
 
