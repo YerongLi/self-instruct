@@ -143,7 +143,7 @@ multiple_neighbor_nodes, multiple_neighbor_nodes_6 = [], []
 max_node = None
 
 
-
+ans = -0x7f7f7f7f
 for node in core_graph.nodes():
     if node == rootkey: continue
     if not core_graph.has_node(node): continue
