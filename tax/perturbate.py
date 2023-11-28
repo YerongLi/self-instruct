@@ -149,7 +149,7 @@ for pair in ans:
     logging.info(definitions[pair[0]])
     logging.info(definitions[pair[1]])
 
-with open('../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo', 'r') as fin, open(taxofilename, 'w') as fout:
+with open(config['taxofilename'], 'r') as fin, open(new_taxofilename, 'w') as fout:
     for line in fin:
         fout.write(line.strip() + '\t1\n')
 
