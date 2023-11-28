@@ -9,11 +9,12 @@ import tqdm
 
 parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-TOTAL = args.TOTAL
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 
 args = parser.parse_args()
+TOTAL = args.TOTAL
+
 config_file = args.config_file
 
 # Read the configuration file
