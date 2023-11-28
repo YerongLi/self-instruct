@@ -18,17 +18,13 @@ args = parser.parse_args()
 TOTAL = args.TOTAL
 
 config_file = args.config_file
-# Read the configuration file
-with open(config_file) as f:
-    config = json.load(f)
 
 # Get the configuration values
 # Extract the base filename without the ".taxo" extension
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 print(datapath)
-args = parser.parse_args()
-TOTAL = args.TOTAL
+
 print(TOTAL)
 print(TOTAL)
 print(TOTAL)
