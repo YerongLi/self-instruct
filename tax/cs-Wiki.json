@@ -1,0 +1,6 @@
+{
+  "taxofilename": "../../TaxoComplete/data/MAG-CS-Wiki//wordnet_noun.taxo",
+  "all_path_pkl": "../../TaxoComplete/data/MAG-CS-Wiki/all_path.pkl",
+  "definitions_pkl": "../../TaxoComplete/data/MAG-CS-Wiki/definitions.pkl",
+  "edges_pkl": "../../TaxoComplete/data/MAG-CS-Wiki/edges.pkl"
+}
