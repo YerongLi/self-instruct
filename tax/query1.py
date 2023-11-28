@@ -352,6 +352,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     node_definitions.add(kid_)
     # random.shuffle(node_definitions)
     for node in node_definitions:
+        print(definitions[node])
         label = get_first_label_without_n(definitions[node]['label'])
         # logging.info(node)
         # logging.info(definitions[node])
