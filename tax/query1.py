@@ -49,6 +49,7 @@ model = LlamaForCausalLM.from_pretrained(
   model_path,
   torch_dtype=torch.float16,
   device_map='auto',
+  low_cpu_mem_usage=True,
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
