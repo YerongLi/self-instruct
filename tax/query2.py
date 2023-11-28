@@ -35,7 +35,7 @@ print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
-    filename=f'{datapath}/output.log',
+    filename=f'output.log',
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
