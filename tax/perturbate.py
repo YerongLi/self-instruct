@@ -1,24 +1,36 @@
 import argparse
+import json
 import logging
-import os
 import pickle
-import random
-import tqdm
-parser = argparse.ArgumentParser(description="Your script description")
-
-# Add the TOTAL argument as a positional argument
-parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-args = parser.parse_args()
-TOTAL = args.TOTAL
-
-taxofilename = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.taxo'
-print(taxofilename)
 import shutil
 
-source_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun.terms'
-destination_file = f'../../TaxoComplete/data/SemEval-Noun/wordnet_noun-pert_{TOTAL}.terms'
+parser = argparse.ArgumentParser(description="Your script description")
 
+# Add the configuration file argument
+parser.add_argument("config_file", type=str, help="Path to the configuration file")
+
+args = parser.parse_args()
+config_file = args.config_file
+
+# Read the configuration file
+with open(config_file) as f:
+    config = json.load(f)
+
+# Get the configuration values
+TOTAL = config['TOTAL']
+taxofilename = config['taxofilename']
+source_file = config['source_term_file']
+destination_file = config['destination_file']
+
+# Read the paths to the pickle files from the configuration file
+all_path_pkl = config['all_path_pkl']
+definitions_pkl = config['definitions_pkl']
+edges_pkl = config['edges_pkl']
+
+# Copy the source file to the destination file
 shutil.copyfile(source_file, destination_file)
+
+# Set up logging
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
@@ -27,14 +39,14 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 
-# Load the all_path variable from the file
-with open('../../TaxoComplete/all_path.pkl', 'rb') as f:
+# Load the data from the pickle files
+with open(all_path_pkl, 'rb') as f:
     all_path = pickle.load(f)
 
-# Load the definitions variable from the file
-with open('../../TaxoComplete/definitions.pkl', 'rb') as f:
+with open(definitions_pkl, 'rb') as f:
     definitions = pickle.load(f)
-with open('../../TaxoComplete/edges.pkl', 'rb') as f:
+
+with open(edges_pkl, 'rb') as f:
     edges = pickle.load(f)
 edges_dict = {pair: 0 for pair in list(edges)}
 logging.info(len(edges_dict))
