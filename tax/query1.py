@@ -231,6 +231,7 @@ with open(f'{datapath}/definitions.pkl', 'rb') as f:
 rootkey = None
 
 for key, value in definitions.items():
+    print(value)
     if value['label'].strip() == '' and value['summary'].strip() == '':
         print(f"Key: {key}, Value: {value}")
         rootkey = key
