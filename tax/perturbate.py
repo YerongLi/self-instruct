@@ -4,6 +4,7 @@ import logging
 import os
 import pickle
 import shutil
+import tqdm
 
 parser = argparse.ArgumentParser(description="Your script description")
 
