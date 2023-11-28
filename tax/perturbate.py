@@ -9,7 +9,6 @@ import tqdm
 
 parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-args = parser.parse_args()
 TOTAL = args.TOTAL
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
@@ -22,7 +21,6 @@ with open(config_file) as f:
     config = json.load(f)
 
 # Get the configuration values
-TOTAL = config['TOTAL']
 # Extract the base filename without the ".taxo" extension
 base_filename = config['taxofilename'].split(".taxo")[0]
 
