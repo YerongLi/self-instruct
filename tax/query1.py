@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader, Dataset
 parser = argparse.ArgumentParser(description="Your script description")
 
 # Add the TOTAL argument as a positional argument
-parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+parser.add_argument("TOTAL", type=int, default=700, help="Number of total items to process")
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 config_file = args.config_file
 
