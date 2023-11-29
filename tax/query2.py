@@ -343,7 +343,7 @@ def predict_batch(prompts, batch_size=10):
         predictions.extend(outputs)
 
     return predictions
-batch_size = 8
+batch_size = 3
 predictions = predict_batch(prompts)
 
 for prompt, output in zip(prompts, predictions):
