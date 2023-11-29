@@ -1,4 +1,12 @@
-import argparse
+#     "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanatio
+# n on your decision.\n Question: \ncausal_agent : any entity that produces an effect or is responsible for events or results\nphysical_entity : an entity that has physical existence\n Is physical_entity a parent of causal_agent?\n Answer: Yes\n Explanation: ": "Causality is a property of an entity that
+#  produces an effect or is responsible for events or results. Anything that produces an effect or is responsible for events or results must have physica
+# l existence.",
+#     "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanatio
+# n on your decision.\n Question: \nmatter : that which has mass and occupies space\nphysical_entity : an entity that has physical existence\n Is physica
+# l_entity a parent of matter?\n Answer: Yes\n Explanation: ": "A physical entity is something that has physical existence. Matter is that which has mass and occupies space. Therefore, a physical entity is a parent of matter.",
+
+# import argparse
 import json
 import logging
 import os
@@ -272,8 +280,8 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), total=301):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total=11):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
@@ -321,7 +329,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']})
+    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']}, 'pair': (parent_label, kid_label))
 
     if iteration <= 10:
         logging.info(prompt)
@@ -365,7 +373,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': -1})
+    prompts.append({'prompt': prompt, 'label': -1, 'pair': (parent_label, grand_label)})
 
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
