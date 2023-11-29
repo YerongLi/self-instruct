@@ -344,7 +344,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
 
     pairs = []
-    pairs.append((parent_label, grand_label, 'Yes'))
+    pairs.append((parent_label, grand_label, 'No'))
 
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
