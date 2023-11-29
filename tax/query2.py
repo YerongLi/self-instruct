@@ -281,7 +281,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     
     node_definitions = set()
     node_definitions.add(parent_)
-    node_definitions.add(kid_)
+    node_definitions.add(grand_)
     try:
         for node in node_definitions:
             print(node)
