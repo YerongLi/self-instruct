@@ -284,12 +284,12 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
     children = list(core_graph.neighbors(parent_))
-    all_grand = {}
+    all_grand = set()
     for kid in children:
         # Get all grandchild nodes that are children of one child from parent_
         # For simplicity, this example assumes the graph is undirected
         grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
-        all_grand.extend(grandchild_candidates)
+        all_grand = all_grand.union(grandchild_candidates)
     grand_ = random.choice(all_grand)
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
 
