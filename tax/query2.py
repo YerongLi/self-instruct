@@ -344,7 +344,7 @@ def predict_batch(prompts, batch_size=10):
 
     return predictions
 batch_size = 3
-predictions = predict_batch(prompts)
+predictions = predict_batch(prompts, batch_size)
 
 for prompt, output in zip(prompts, predictions):
     logging.info(prompt['prompt'])
