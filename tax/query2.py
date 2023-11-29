@@ -279,20 +279,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     
-    node_definitions = set()
-    node_definitions.add(parent_)
-    node_definitions.add(grand_)
-    try:
-        for node in node_definitions:
-            print(node)
-            label = get_first_label_without_n(definitions[node]['label'])
-            # logging.info(node)
-            # logging.info(definitions[node])
-            description = definitions[node]['summary']
-            prompt += f"\n{label} : {description}"
-    except:
-        print('error')
-        continue
+
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
@@ -306,6 +293,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     grand_ = random.choice(all_grand)
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
 
+    #POSTIVE
     pairs = []
     pairs.append((parent_label, kid_label, 'Yes'))
 
@@ -325,7 +313,20 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     # random.shuffle(pairs)
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
-
+    node_definitions = set()
+    node_definitions.add(parent_)
+    node_definitions.add(kid_)
+    try:
+        for node in node_definitions:
+            print(node)
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"\n{label} : {description}"
+    except:
+        print('error')
+        continue
     prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -347,7 +348,20 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
 
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
-
+    node_definitions = set()
+    node_definitions.add(parent_)
+    node_definitions.add(grand_)
+    try:
+        for node in node_definitions:
+            print(node)
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"\n{label} : {description}"
+    except:
+        print('error')
+        continue
     prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
