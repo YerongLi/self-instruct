@@ -329,7 +329,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']}, 'pair': (parent_label, kid_label))
+    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight'], 'pair': (parent_label, kid_label)})
 
     if iteration <= 10:
         logging.info(prompt)
