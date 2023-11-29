@@ -9,6 +9,11 @@ import tqdm
 import torch
 import requests
 import json
+
+import google.generativeai as palm
+import os
+
+palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 # from torch.utils.data import DataLoader, Dataset
 parser = argparse.ArgumentParser(description="Your script description")
@@ -334,46 +339,13 @@ def predict_batch(prompts, batch_size=10):
     predictions = []
     sentences = [item['prompt'] for item in prompts]
     # Split prompts into batches
-    for sentence in sentences:
-
-
-        url = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=your_api_key"
-
-        headers = {
-            'Content-Type': 'application/json'
-        }
-
-        data = {
-            "prompt": {
-                "text": "Write a story about a magic backpack"
-            }
-        }
-
-        # Convert the data dictionary to a JSON string
-        json_data = json.dumps(data)
-
-        # Make the HTTP request using the requests library
-        response = requests.post(url, headers=headers, data=json_data)
-
-        # Check if the request was successful (status code 200)
-        if response.status_code == 200:
-            # Parse the JSON response
-            response_data = response.json()
-
-            # Access the desired information
-            output_text = response_data['candidates'][0]['output']
-            print("Generated Text:", output_text)
-
-        else:
-            # Print an error message if the request was not successful
-            print(f"Error: {response.status_code} - {response.text}")
-
+    predictions =  [palm.generate_text(prompt=sentence).result for sentence in sentences]
     return predictions
 batch_size = 3
 predictions = predict_batch(prompts, batch_size)
 
 for prompt, output in zip(prompts, predictions):
     logging.info(prompt['prompt'])
-    logging.info(prediction) 
+    logging.info(output) 
 
 
