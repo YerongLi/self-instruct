@@ -252,12 +252,91 @@ logging.info(f"The minimum length of the edge lists is {min_len}.")
 logging.info(f"The maximum length of the edge lists is {max_len}.")
 logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
-#     try:
-#         weight = core_graph[parent][kid]['weight']
-#         if weight == -1:
-#             print(parent, kid)
-#     except:
-#         logging.info(definitions[parent])
-#         logging.info(definitions[kid])
-#         logging.info(core_graph[parent][kid])
+
+
+or iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total=11):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+    parent_, kid_ = edge
+    if len(core_graph.neighbors(parent_)) < 2:
+        continue
+    if parent_ == rootkey or kid_ == rootkey : continue
+    
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship with examples"
+    node_definitions.add(parent_)
+    node_definitions.add(kid_)
+    # random.shuffle(node_definitions)
+    try:
+        for node in node_definitions:
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"{label} : {description}\n"
+    except:
+        continue
+    parent_label = get_first_label_without_n(definitions[parent_]['label'])
+    kid_label = get_first_label_without_n(definitions[kid_]['label'])
+    pairs = []
+    pairs.append((parent_label, kid_label, 'Yes'))
+
+
+    # # Combine negative pairs and additional pairs
+    # negative_pairs += additional_pairs
+
+    # # Create the negative samples prompt
+    # # prompt += "\nNegative Samples:\n\n"
+    # for pair in (negative_pairs )[:6]:
+    #     parent = pair[0]
+    #     kid = pair[1]
+    #     if parent == parent_ and kid == kid_: continue
+    #     parent_label = get_first_label_without_n(definitions[parent]['label'])
+    #     kid_label = get_first_label_without_n(definitions[kid]['label'])
+    #     pairs.append((parent_label, kid_label, 'No'))
+    # random.shuffle(pairs)
+
+    for pair in pairs:
+        prompt+= f'\n Question: Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
+    prompt+= f'\n Explanation: '
+    # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
+    
+    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']})
+    # predicted_label = predict_next_token(prompt)
+    if iteration <= 10:
+        logging.info(prompt)
+        # logging.info(predicted_label)
+    if core_graph[parent_][kid_]['weight'] == -1: count_neg_label+= 1
+    # result.append((parent_, kid_, {'label': core_graph[parent_][kid_]['weight'], 'pred' : predicted_label}))
+    edge_list_len = len(edge_list)
+
+    if min_pair is None or edge_list_len < min_len:
+        min_pair = (parent_, kid_)
+        min_len = edge_list_len
+
+    if max_pair is None or edge_list_len > max_len:
+        max_pair = (parent_, kid_)
+        max_len = edge_list_len
+    # Check if we need to sample additional negative pairs
+
+def predict_batch(prompts, batch_size=10):
+    predictions = []
+    sentences = [item['prompt'] for item in prompts]
+    # Split prompts into batches
+    for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
+        batch_prompts = sentences[i:i + batch_size]
+        # Tokenize prompts and convert to PyTorch tensors
+        input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+
+        output_sequences = model.generate(**inputs, do_sample=True, top_p=0.9)
+        outputs = tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
+
+        predictions.extend(outputs)
+
+    return predictions
+batch_size = 8
+predictions = predict_batch(prompts)
+
+for prompt, output in zip(prompts, predictions):
+    logging.info(prompt['prompt'])
+    logging.info(prediction) 
+
 

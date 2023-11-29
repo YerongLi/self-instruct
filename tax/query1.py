@@ -223,7 +223,7 @@ def edges_within_k_edges(graph, parent, child, k=3):
 
 
 # Load the definitions variable from the file
-with open(f'{datapath}/core_graph_{TOTAL}.pkl', 'rb') as f:
+with open(f'{datapath}/core_graph_{TOTAL}.pkl' if TOTAL > 0 else f'{datapath}/core_graph_{TOTAL}.pkl', 'rb') as f:
     core_graph = pickle.load(f)
 with open(f'{datapath}/definitions.pkl', 'rb') as f:
     definitions = pickle.load(f)
@@ -309,13 +309,15 @@ prompts = []
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total=11):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
+    if len(core_graph.neighbors(parent_)) < 2:
+        continue
     if parent_ == rootkey or kid_ == rootkey : continue
     count_edges+= 1
     neighbors = list(core_graph.neighbors(parent_))
     neighbors = random.sample(neighbors, min(6, len(neighbors)))
     edge_list = edges_within_k_edges(core_graph, parent_, kid_)
-    # Sample 6 edges from edge_list
-    sampled_edges = random.sample(edge_list, min(6, len(edge_list)))
+    # Sample 2 edges from edge_list
+    sampled_edges = random.sample(edge_list, min(2, len(edge_list)))
 
     # Get all nodes from sampled edges
     nodes = set()
