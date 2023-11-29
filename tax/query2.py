@@ -7,8 +7,10 @@ import random
 import tqdm
 # import networkx as nx
 import torch
-from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
-from torch.utils.data import DataLoader, Dataset
+import requests
+import json
+# from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+# from torch.utils.data import DataLoader, Dataset
 parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
@@ -44,16 +46,16 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-  low_cpu_mem_usage=True,
-).eval()
-tokenizer = AutoTokenizer.from_pretrained(model_path)
-tokenizer.pad_token = "[PAD]"
-tokenizer.padding_side = "left"
-device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
+# model = LlamaForCausalLM.from_pretrained(
+#   model_path,
+#   torch_dtype=torch.float16,
+#   device_map='auto',
+#   low_cpu_mem_usage=True,
+# ).eval()
+# tokenizer = AutoTokenizer.from_pretrained(model_path)
+# tokenizer.pad_token = "[PAD]"
+# tokenizer.padding_side = "left"
+# device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 # logging.info(f'No id is : {tokenizer(["No"])}')
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
@@ -332,15 +334,39 @@ def predict_batch(prompts, batch_size=10):
     predictions = []
     sentences = [item['prompt'] for item in prompts]
     # Split prompts into batches
-    for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
-        batch_prompts = sentences[i:i + batch_size]
-        # Tokenize prompts and convert to PyTorch tensors
-        input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+    for sentence in sentences:
 
-        output_sequences = model.generate(**input_ids, do_sample=True, top_p=0.9)
-        outputs = tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
 
-        predictions.extend(outputs)
+        url = "https://generativelanguage.googleapis.com/v1beta3/models/text-bison-001:generateText?key=your_api_key"
+
+        headers = {
+            'Content-Type': 'application/json'
+        }
+
+        data = {
+            "prompt": {
+                "text": "Write a story about a magic backpack"
+            }
+        }
+
+        # Convert the data dictionary to a JSON string
+        json_data = json.dumps(data)
+
+        # Make the HTTP request using the requests library
+        response = requests.post(url, headers=headers, data=json_data)
+
+        # Check if the request was successful (status code 200)
+        if response.status_code == 200:
+            # Parse the JSON response
+            response_data = response.json()
+
+            # Access the desired information
+            output_text = response_data['candidates'][0]['output']
+            print("Generated Text:", output_text)
+
+        else:
+            # Print an error message if the request was not successful
+            print(f"Error: {response.status_code} - {response.text}")
 
     return predictions
 batch_size = 3
