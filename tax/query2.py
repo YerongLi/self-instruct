@@ -290,6 +290,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
             description = definitions[node]['summary']
             prompt += f"\n{label} : {description}"
     except:
+        print('error')
         continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
@@ -337,7 +338,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
 
 
 
-        
+
     # NEGATIVE sample
 
     pairs = []
