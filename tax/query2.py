@@ -318,7 +318,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     except:
         print('error')
         continue
-    prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
+    prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
@@ -362,7 +362,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     except:
         print('error')
         continue
-    prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
+    prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
