@@ -337,7 +337,7 @@ def predict_batch(prompts, batch_size=10):
         # Tokenize prompts and convert to PyTorch tensors
         input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
 
-        output_sequences = model.generate(**inputs, do_sample=True, top_p=0.9)
+        output_sequences = model.generate(**input_ids, do_sample=True, top_p=0.9)
         outputs = tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
 
         predictions.extend(outputs)
