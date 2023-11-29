@@ -265,7 +265,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
-    random.shuffle(node_definitions)
     try:
         for node in node_definitions:
             label = get_first_label_without_n(definitions[node]['label'])
