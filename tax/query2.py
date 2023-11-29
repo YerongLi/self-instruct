@@ -284,6 +284,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     node_definitions.add(kid_)
     try:
         for node in node_definitions:
+            print(node)
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
