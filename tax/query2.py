@@ -386,9 +386,9 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
 
 
 filename=f"{datapath}/predictions_{TOTAL}.json"
-def save_predictions_to_file(predictions):
+def save_predictions_to_file(predictions, filename):
     with open(filename, "w") as file:
-        json.dump(predictions, file)
+        json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
     print(f"Predictions saved to {filename}")
 def predict_batch(prompts, batch_size=10):
     predictions = {}
