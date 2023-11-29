@@ -340,6 +340,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
         # For simplicity, this example assumes the graph is undirected
         grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
         all_grand = all_grand.union(grandchild_candidates)
+    if not all_grand : continue
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
 
