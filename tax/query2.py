@@ -6,7 +6,9 @@ import pickle
 import random
 import tqdm
 # import networkx as nx
-
+import torch
+from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+from torch.utils.data import DataLoader, Dataset
 parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
@@ -42,7 +44,16 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-
+model = LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+  low_cpu_mem_usage=True,
+).eval()
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+tokenizer.pad_token = "[PAD]"
+tokenizer.padding_side = "left"
+device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 # logging.info(f'No id is : {tokenizer(["No"])}')
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
