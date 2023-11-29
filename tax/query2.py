@@ -357,9 +357,9 @@ def predict_batch(prompts, batch_size=10):
     except Exception as e:
         print(f"An error occurred: {e}")
         save_predictions_to_file(predictions)
-    save_predictions_to_file
+    save_predictions_to_file(predictions)
 batch_size = 3
-# predictions = predict_batch(prompts, batch_size)
+predict_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
