@@ -253,7 +253,7 @@ logging.info(f"The maximum length of the edge lists is {max_len}.")
 logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
-
+prompts = []
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total=11):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
