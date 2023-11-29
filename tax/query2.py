@@ -272,14 +272,13 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:111]), total=11):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), total=301):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
@@ -294,6 +293,17 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:111]), tota
         continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
+
+    children = list(core_graph.neighbors(parent_))
+    all_grand = {}
+    for kid in children:
+        # Get all grandchild nodes that are children of one child from parent_
+        # For simplicity, this example assumes the graph is undirected
+        grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
+        all_grand.extend(grandchild_candidates)
+    grand_ = random.choice(all_grand)
+    grand_label = get_first_label_without_n(definitions[grand_]['label'])
+
     pairs = []
     pairs.append((parent_label, kid_label, 'Yes'))
 
@@ -311,13 +321,31 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:111]), tota
     #     kid_label = get_first_label_without_n(definitions[kid]['label'])
     #     pairs.append((parent_label, kid_label, 'No'))
     # random.shuffle(pairs)
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
-    for pair in pairs:
-        prompt+= f'\n Is {pair[0]} a parent of {pair[1]}?\n Answer: {pair[2]}' 
+
+    prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight']})
+
+    if iteration <= 10:
+        logging.info(prompt)
+    # NEGATIVE sample
+
+    pairs = []
+    pairs.append((parent_label, grand_label, 'Yes'))
+
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
+
+
+    prompt+= f'\n Is {pair[0][0]} a parent of {pair[0][1]}?\n Answer: {pair[0][2]}' 
+    prompt+= f'\n Explanation: '
+    # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
+    
+    prompts.append({'prompt': prompt, 'label': core_graph[parent_][grand_]['weight']})
+
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
         logging.info(prompt)
