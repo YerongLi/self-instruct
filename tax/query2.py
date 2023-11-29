@@ -335,17 +335,34 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
 
-def predict_batch(prompts, batch_size=10):
-    predictions = []
-    sentences = [item['prompt'] for item in prompts]
-    # Split prompts into batches
-    predictions =  [palm.generate_text(prompt=sentence).result for sentence in sentences]
-    return predictions
-batch_size = 3
-predictions = predict_batch(prompts, batch_size)
 
-for prompt, output in zip(prompts, predictions):
-    logging.info(prompt['prompt'])
-    logging.info(output) 
+filename=f"{datapath}predictions_{TOTAL}.json"
+def save_predictions_to_file(predictions):
+    with open(filename, "w") as file:
+        json.dump(predictions, file)
+    print(f"Predictions saved to {filename}")
+def predict_batch(prompts, batch_size=10):
+    predictions = {}
+
+    # Check if the predictions file exists
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            predictions = json.load(f)
+    try:
+        for sentence in sentences:
+            # Check if the sentence is already in the predictions
+            if sentence not in predictions:
+                result = palm.generate_text(prompt=sentence).result
+                predictions[sentence] = result
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        save_predictions_to_file(predictions)
+    save_predictions_to_file
+batch_size = 3
+# predictions = predict_batch(prompts, batch_size)
+
+# for prompt, output in zip(prompts, predictions):
+#     logging.info(prompt['prompt'])
+#     logging.info(output) 
 
 
