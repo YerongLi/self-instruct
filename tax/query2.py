@@ -272,7 +272,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:11]), total
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship with examples"
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
