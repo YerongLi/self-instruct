@@ -309,7 +309,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     node_definitions.add(kid_)
     try:
         for node in node_definitions:
-            print(node)
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
@@ -354,14 +353,13 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     node_definitions.add(grand_)
     try:
         for node in node_definitions:
-            print(node)
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
             description = definitions[node]['summary']
             prompt += f"\n{label} : {description}"
     except:
-        print('error')
+        print('err')
         continue
     prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
     prompt+= f'\n Explanation: '
