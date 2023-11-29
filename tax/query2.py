@@ -366,7 +366,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:301]), tota
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': core_graph[parent_][grand_]['weight']})
+    prompts.append({'prompt': prompt, 'label': -1})
 
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
