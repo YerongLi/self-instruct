@@ -343,6 +343,7 @@ def save_predictions_to_file(predictions):
     print(f"Predictions saved to {filename}")
 def predict_batch(prompts, batch_size=10):
     predictions = {}
+    sentences = [item['prompt'] for item in prompts]
 
     # Check if the predictions file exists
     if os.path.exists(filename):
