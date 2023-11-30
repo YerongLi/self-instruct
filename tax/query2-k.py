@@ -328,8 +328,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             # Perform actions for the even case
-            prompt+= f'\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}' 
-            prompt+= f'\n Explanation: \n{pair['o']}\n'
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}" 
+            prompt+= f"\n Explanation: \n{pair['o']}\n"
 
         else:
             prompt+= "\n\n Question: "
@@ -404,8 +404,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             # Perform actions for the even case
-            prompt+= f'\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}' 
-            prompt+= f'\n Explanation: \n{pair['o']}\n'
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}" 
+            prompt+= f"\n Explanation: \n{pair['o']}\n"
 
         else:
             prompt+= "\n\n Question: "
@@ -415,8 +415,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
-
+    prompt+= "\n\n Question: "
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(grand_)
@@ -430,6 +429,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('err')
         continue
+
     prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
     prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
