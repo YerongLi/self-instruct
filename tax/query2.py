@@ -404,7 +404,7 @@ def predict_batch(prompts, batch_size=10):
             result = palm.generate_text(prompt=sentence).result
             predictions[hs] = {'i' : sentence, 'o': result}
     except KeyboardInterrupt as e:
-        print(f"Interupt: {e}")
+        print(f"Interupt")
         save_predictions_to_file(predictions)
     except Exception as e:
         print(f"An error occurred: {e}")
