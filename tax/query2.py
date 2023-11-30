@@ -369,7 +369,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
         print('err')
         continue
     prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
-    prompt+= f'\n Explanation: '
+    prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
