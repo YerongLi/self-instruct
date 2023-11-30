@@ -436,8 +436,8 @@ def predict_llama_batch(prompts, batch_size=10):
     print(f'Total Number of Queries are {len(prompts)}')
 
     try:
-        for i in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = prompts[i:i + batch_size]
+        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = prompts[z:z + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
             i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
