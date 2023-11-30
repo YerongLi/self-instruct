@@ -292,8 +292,9 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), total=123):
+with open(f'{datapath}/predictions_0shot_{TOTAL}.json', "r") as f:
+    exemplars = json.load(f)
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
@@ -306,12 +307,37 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
 
 
     #POSTIVE
-    pairs = []
-    pairs.append((parent_label, kid_label, 'Yes'))
+    # pairs.append((parent_label, kid_label, 'Yes'))
+    eligible_keys = [key for key in exemplars if key != hs]
 
-    
+    sampled_keys = random.sample(eligible_keys, min(4, len(eligible_keys)))
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
+    # Create a dictionary with the sampled instances
+    pairs = {key: exemplars[key] for key in sampled_keys}
+
+
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
+    del description
+    for pair in pairs:
+
+        random_number = random.randint(1, 10)  # Adjust the range as needed
+
+        # Perform an action based on the random number
+        if random_number % 2 == 0:
+            prompt+= "\n\n Question: "
+            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+            # Perform actions for the even case
+            prompt+= f'\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}' 
+            prompt+= f'\n Explanation: \n{pair['o']}\n'
+
+        else:
+            prompt+= "\n\n Question: "
+            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}"
+            prompt+= f"\n Explanation: \n{pair['o']}\n"
+
 
     node_definitions = set()
     node_definitions.add(parent_)
@@ -326,15 +352,15 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     except:
         print('error')
         continue
-    prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
+
+    prompt+= "\n\n Question: "
+    prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer: {"Yes"}' 
     prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 
         'label': core_graph[parent_][kid_]['weight'],
         'hs': hs,
-        'pair': [parent_label, kid_label],
-        'summary': [definitions[parent_]['summary'], definitions[kid_]['summary']],
         })
 
     if iteration <= 10:
@@ -344,7 +370,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
 
 
 
-    del hs, kid_, kid_label, prompt
+    del hs, kid_, kid_label, prompt, pairs
     # NEGATIVE sample
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
@@ -357,9 +383,37 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+    
+    # eligible_keys = [key for key in exemplars if key != hs]
 
-    pairs = []
-    pairs.append((parent_label, grand_label, 'No'))
+    sampled_keys = random.sample(eligible_keys, min(4, len(eligible_keys)))
+
+    # Create a dictionary with the sampled instances
+    pairs = {key: exemplars[key] for key in sampled_keys}
+
+    del description
+
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
+    for pair in pairs:
+
+        random_number = random.randint(1, 10)  # Adjust the range as needed
+
+        # Perform an action based on the random number
+        if random_number % 2 == 0:
+            prompt+= "\n\n Question: "
+            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+            # Perform actions for the even case
+            prompt+= f'\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}' 
+            prompt+= f'\n Explanation: \n{pair['o']}\n'
+
+        else:
+            prompt+= "\n\n Question: "
+            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}"
+            prompt+= f"\n Explanation: \n{pair['o']}\n"
+
 
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
@@ -376,16 +430,11 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     except:
         print('err')
         continue
-    prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
+    prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
     prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt,
-        'label': -1, 
-        'hs' : hs,
-        'pair': [parent_label, grand_label],
-        'summary': [definitions[parent_]['summary'], definitions[grand_]['summary']],
-        })
+    prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
@@ -403,7 +452,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/predictions_0shot_{TOTAL}.json"
+filename=f"{datapath}/predictions_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
@@ -443,14 +492,15 @@ def predict_llama_batch(prompts, batch_size=10):
         shutil.copyfile(filename, backup_filename)
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
+
             predictions = json.load(f)
-    const_prompts = [item for item in prompts if item['hs'] not in predictions]
+    prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
-    print(f'Total Number of Queries are {len(const_prompts)}')
-    del prompts
+    print(f'Total Number of Queries are {len(prompts)}')
+
     try:
-        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = const_prompts[z:z + batch_size]
+        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = prompts[z:z + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
             i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
@@ -470,7 +520,7 @@ def predict_llama_batch(prompts, batch_size=10):
                     sentence_lengths.append(sentence_length.item())
             c_ids, outputs = [], []
             with torch.no_grad():
-                o_ids = model.generate(**i_ids, max_new_tokens=200, num_beams=10,
+                o_ids = model.generate(**i_ids, max_new_tokens=88, num_beams=10,
     num_return_sequences=1,no_repeat_ngram_size=1,)
                 for i in range(len(batch_prompts)):
                     o_id = o_ids[i][o_ids[i] != pad_token_id][sentence_lengths[i]:]
@@ -482,11 +532,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(batch_prompts)):
                     outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
 
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i],
-                    'o' : outputs[i], 
-                    'lbl' : batch_prompts[i]['label'], 
-                    'p' : batch_prompts[i]['pair'],
-                    'su' :batch_prompts[i]['summary']}
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
