@@ -433,7 +433,7 @@ def predict_llama_batch(prompts, batch_size=10):
             batch_prompts = prompts[i:i + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
-            input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+            input_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
 
             # Generate logits for the next token using the model
             with torch.no_grad():
