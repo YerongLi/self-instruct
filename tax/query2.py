@@ -327,7 +327,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
         print('error')
         continue
     prompt+= f'\n Is {pairs[0][0]} a parent of {pairs[0][1]}?\n Answer: {pairs[0][2]}' 
-    prompt+= f'\n Explanation: '
+    prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 
@@ -403,7 +403,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/predictions_{TOTAL}.json"
+filename=f"{datapath}/predictions_0shot_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
