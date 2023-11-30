@@ -20,7 +20,7 @@ import json
 
 import google.generativeai as palm
 import os
-
+LOGFILE='output.log'
 palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 # from torch.utils.data import DataLoader, Dataset
@@ -52,7 +52,7 @@ print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
-    filename=f'output.log',
+    filename=LOGFILE,
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
@@ -280,13 +280,14 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), total=201):
+
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), total=123):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
-    
+    hs = hash(definitions[parent_]['summary']+definitions[kid_]['summary'])
 
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
@@ -296,20 +297,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), tota
     pairs = []
     pairs.append((parent_label, kid_label, 'Yes'))
 
+    
 
-    # # Combine negative pairs and additional pairs
-    # negative_pairs += additional_pairs
-
-    # # Create the negative samples prompt
-    # # prompt += "\nNegative Samples:\n\n"
-    # for pair in (negative_pairs )[:6]:
-    #     parent = pair[0]
-    #     kid = pair[1]
-    #     if parent == parent_ and kid == kid_: continue
-    #     parent_label = get_first_label_without_n(definitions[parent]['label'])
-    #     kid_label = get_first_label_without_n(definitions[kid]['label'])
-    #     pairs.append((parent_label, kid_label, 'No'))
-    # random.shuffle(pairs)
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
 
     node_definitions = set()
@@ -329,7 +318,10 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), tota
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': core_graph[parent_][kid_]['weight'], 'pair': (parent_label, kid_label)})
+    prompts.append({'prompt': prompt, 
+        'label': core_graph[parent_][kid_]['weight'],
+        'hs': hs,
+        })
 
     if iteration <= 10:
         logging.info(prompt)
@@ -338,7 +330,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), tota
 
 
 
-
+    del hs, kid_, prompt
     # NEGATIVE sample
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
@@ -350,6 +342,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), tota
     if not all_grand : continue
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
+    hs = hash(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
     pairs = []
     pairs.append((parent_label, grand_label, 'No'))
@@ -373,7 +366,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:201]), tota
     prompt+= f'\n Explanation: '
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': -1, 'pair': (parent_label, grand_label)})
+    prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
@@ -400,18 +393,18 @@ def save_predictions_to_file(predictions):
     print(f"Predictions saved to {filename}")
 def predict_batch(prompts, batch_size=10):
     predictions = {}
-    sentences = [item['prompt'] for item in prompts]
 
     # Check if the predictions file exists
     if os.path.exists(filename):
         with open(filename, "r") as f:
             predictions = json.load(f)
     try:
-        for sentence in sentences:
+        for item in prompts:
             # Check if the sentence is already in the predictions
-            if sentence not in predictions:
-                result = palm.generate_text(prompt=sentence).result
-                predictions[sentence] = result
+            if item['hs'] in predictions: continue
+            sentence = item['prompt']
+            result = palm.generate_text(prompt=sentence).result
+            predictions[hs] = {'i' : sentence, 'o': result}
     except Exception as e:
         print(f"An error occurred: {e}")
         save_predictions_to_file(predictions)
