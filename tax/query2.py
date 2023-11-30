@@ -449,7 +449,7 @@ def predict_llama_batch(prompts, batch_size=10):
     print(f'Total Number of Queries are {len(const_prompts)}')
     del prompts
     try:
-        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
+        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
             batch_prompts = const_prompts[z:z + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
