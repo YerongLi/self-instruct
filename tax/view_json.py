@@ -1,4 +1,3 @@
-import argparse
 import json
 
 def view_nested_json(filename):
@@ -6,8 +5,9 @@ def view_nested_json(filename):
     with open(filename, 'r') as file:
         predictions = json.load(file)
 
-    # Print the nested structure
-    print(json.dumps(predictions, indent=2))
+    # Print the nested structure with line breaks
+    formatted_predictions = json.dumps(predictions, indent=2).replace("\\n", "\n")
+    print(formatted_predictions)
 
 if __name__ == "__main__":
     # Set up argument parser
