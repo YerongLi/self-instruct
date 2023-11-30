@@ -482,7 +482,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(batch_prompts)):
                     outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
 
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : batch_prompts[i]['label'], 'p' : batch_prompts['pair']}
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : batch_prompts[i]['label'], 'p' : batch_prompts[i]['pair']}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
