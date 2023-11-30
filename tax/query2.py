@@ -449,7 +449,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(i_ids)):
                     c_ids.append(o_ids[i][len(i_ids[i]):])
                 for i in range(len(batch_prompts)):
-                    outputs=tokenizer(c_ids[i], skip_special_tokens=True)
+                    outputs=tokenizer.decode(c_ids[i], skip_special_tokens=True)
 
                     predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
     except KeyboardInterrupt as e:
