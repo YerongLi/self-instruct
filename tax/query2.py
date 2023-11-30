@@ -455,7 +455,7 @@ def predict_llama_batch(prompts, batch_size=10):
             # Iterate through each batch
             for batch in i_ids:
                 # Iterate through each sentence in the batch
-                for sentence in batch:
+                for sentence in i_ids['input_ids']:
                     # Get the length of the sentence
                     sentence_length = torch.sum(sentence != 0)  # Assuming 0 is the padding token
                     sentence_lengths.append(sentence_length.item())
