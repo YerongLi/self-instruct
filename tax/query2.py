@@ -33,7 +33,12 @@ parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+def HASH(input_string):
+    # Use SHA-256 for deterministic hashing
+    hash_object = hashlib.sha256(input_string.encode())
+    hash_value = int.from_bytes(hash_object.digest(), byteorder='big')
 
+    return hash_value
 args = parser.parse_args()
 TOTAL = args.TOTAL
 
@@ -293,7 +298,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
-    hs = hash(definitions[parent_]['summary']+definitions[kid_]['summary'])
+    hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
 
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
@@ -348,7 +353,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     if not all_grand : continue
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
-    hs = hash(definitions[parent_]['summary']+definitions[grand_]['summary'])
+    hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
     pairs = []
     pairs.append((parent_label, grand_label, 'No'))
