@@ -39,7 +39,7 @@ def HASH(input_string):
     hash_object = hashlib.sha256(input_string.encode())
     hash_value = int.from_bytes(hash_object.digest(), byteorder='big')
 
-    return hash_value
+    return str(hash_value)
 args = parser.parse_args()
 TOTAL = args.TOTAL
 
