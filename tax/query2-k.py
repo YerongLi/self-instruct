@@ -70,11 +70,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-).eval()
+model = None
+# model = LlamaForCausalLM.from_pretrained(
+#   model_path,
+#   torch_dtype=torch.float16,
+#   device_map='auto',
+# ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
@@ -320,7 +321,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     for pair in pairs:
 
         random_number = random.randint(1, 10)  # Adjust the range as needed
-
+        print([pair])
         # Perform an action based on the random number
         if random_number % 2 == 0:
             prompt+= "\n\n Question: "
