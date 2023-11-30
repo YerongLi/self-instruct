@@ -444,10 +444,10 @@ def predict_llama_batch(prompts, batch_size=10):
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
-    except Exception as e:
-        print(f"An error occurred: {e}")
-        save_predictions_to_file(predictions)
-        return
+    # except Exception as e:
+    #     print(f"An error occurred: {e}")
+    #     save_predictions_to_file(predictions)
+    #     return
     save_predictions_to_file(predictions)
 
 batch_size = 3
