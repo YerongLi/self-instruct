@@ -429,7 +429,7 @@ def predict_llama_batch(prompts, batch_size=10):
     prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
     try:
-        for i in tqdm.tqdm(range(0, len(pre), batch_size), desc="Processing Batches", unit="batch"):
+        for i in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
             batch_prompts = prompts[i:i + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
