@@ -443,7 +443,7 @@ def predict_llama_batch(prompts, batch_size=10):
 
             # Generate logits for the next token using the model
             with torch.no_grad():
-                o_ids = model.generate(**i_ids, max_new_tokens=200, do_sample=True, top_p=0.9)
+                o_ids = model.generate(**i_ids, max_new_tokens=80, do_sample=True, top_p=0.9)
                 outputs=tokenizer.batch_decode(o_ids, skip_special_tokens=True)
                 for i in range(len(batch_prompts)):
                     predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
