@@ -458,7 +458,8 @@ def predict_llama_batch(prompts, batch_size=10):
                     sentence_lengths.append(sentence_length.item())
             c_ids, outputs = [], []
             with torch.no_grad():
-                o_ids = model.generate(**i_ids, max_new_tokens=88, do_sample=True, top_p=0.1,repetition_penalty=0.1)
+                o_ids = model.generate(**i_ids, max_new_tokens=88, num_beams=10,
+    num_return_sequences=1,no_repeat_ngram_size=1,)
                 for i in range(len(batch_prompts)):
                     o_id = o_ids[i][o_ids[i] != pad_token_id][sentence_lengths[i]:]
                     c_ids.append(o_id)
