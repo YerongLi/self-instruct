@@ -12,6 +12,7 @@ import logging
 import os
 import pickle
 import random
+import shutil
 import tqdm
 # import networkx as nx
 import torch
@@ -424,7 +425,11 @@ def predict_batch(prompts, batch_size=10):
 def predict_llama_batch(prompts, batch_size=10):
     # Check if the predictions file exists
     if os.path.exists(filename):
+        backup_filename = filename + ".backup"
+        shutil.copyfile(filename, backup_filename)
+        print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
+
             predictions = json.load(f)
     prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
