@@ -463,7 +463,7 @@ def predict_llama_batch(prompts, batch_size=10):
             with torch.no_grad():
                 o_ids = model.generate(**i_ids, max_new_tokens=88, do_sample=True, top_p=0.1)
                 print(o_ids)
-                for i in range(len(i_ids)):
+                for i in range(len(o_ids)):
                     c_ids.append(o_ids[i][o_ids[i] != pad_token_id])
                     print('o_ids i')
                     print(o_ids[i])
