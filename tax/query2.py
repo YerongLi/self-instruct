@@ -388,7 +388,7 @@ filename=f"{datapath}/predictions_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
-    print(f"Predictions saved to {filename}")
+    print(f"Predictions saved to {filename} {len(predictions)}")
 def predict_batch(prompts, batch_size=10):
     predictions = {}
 
@@ -403,6 +403,9 @@ def predict_batch(prompts, batch_size=10):
             sentence = item['prompt']
             result = palm.generate_text(prompt=sentence).result
             predictions[hs] = {'i' : sentence, 'o': result}
+    except KeyboardInterrupt as e:
+        print(f"Interupt: {e}")
+        save_predictions_to_file(predictions)
     except Exception as e:
         print(f"An error occurred: {e}")
         save_predictions_to_file(predictions)
