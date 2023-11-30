@@ -311,7 +311,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # pairs.append((parent_label, kid_label, 'Yes'))
     eligible_keys = [key for key in exemplars if key != hs]
 
-    sampled_keys = random.sample(eligible_keys, min(4, len(eligible_keys)))
+    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
 
     # Create a dictionary with the sampled instances
     pairs = [exemplars[key] for key in sampled_keys]
@@ -385,7 +385,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     
     # eligible_keys = [key for key in exemplars if key != hs]
 
-    sampled_keys = random.sample(eligible_keys, min(4, len(eligible_keys)))
+    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
 
     # Create a dictionary with the sampled instances
     pairs = [exemplars[key] for key in sampled_keys]
