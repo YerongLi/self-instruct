@@ -452,7 +452,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/predictions_{TOTAL}.json"
+filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
