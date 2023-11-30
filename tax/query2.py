@@ -411,7 +411,7 @@ def save_predictions_to_file(predictions):
 
 
 # PALM
-def predict_batch(prompts, batch_size=10):
+def predict_palm_batch(prompts, batch_size=10):
     predictions = {}
 
     # Check if the predictions file exists
@@ -498,8 +498,8 @@ def predict_llama_batch(prompts, batch_size=10):
 
 batch_size = 3
 
-# predict_batch(prompts, batch_size)
-predict_llama_batch(prompts, batch_size)
+predict_palm_batch(prompts, batch_size)
+# predict_llama_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])

@@ -324,7 +324,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         random_number = random.randint(1, 10)  # Adjust the range as needed
         # Perform an action based on the random number
         if random_number % 2 == 0:
-            prompt+= "\n\n Question: "
+            prompt+= "\n\n - Question: "
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             # Perform actions for the even case
@@ -332,7 +332,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
         else:
-            prompt+= "\n\n Question: "
+            prompt+= "\n\n - Question: "
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
@@ -353,7 +353,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
 
-    prompt+= "\n\n Question: "
+    prompt+= "\n\n - Question: "
     prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer: {"Yes"}' 
     prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -400,7 +400,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
         # Perform an action based on the random number
         if random_number % 2 == 0:
-            prompt+= "\n\n Question: "
+            prompt+= "\n\n - Question: "
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             # Perform actions for the even case
@@ -408,14 +408,14 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
         else:
-            prompt+= "\n\n Question: "
+            prompt+= "\n\n - Question: "
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
 
-    prompt+= "\n\n Question: "
+    prompt+= "\n\n - Question: "
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(grand_)
