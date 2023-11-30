@@ -404,14 +404,14 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             # Perform actions for the even case
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}" 
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
         else:
             prompt+= "\n\n Question: "
             prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
             prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {pair['lbl']}"
+            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
             prompt+= f"\n Explanation: \n{pair['o']}\n"
 
 
