@@ -59,20 +59,21 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-# model = LlamaForCausalLM.from_pretrained(
-#   model_path,
-#   torch_dtype=torch.float16,
-#   device_map='auto',
-#   low_cpu_mem_usage=True,
-# ).eval()
-# tokenizer = AutoTokenizer.from_pretrained(model_path)
-# tokenizer.pad_token = "[PAD]"
-# tokenizer.padding_side = "left"
-# device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
+model = LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+  low_cpu_mem_usage=True,
+).eval()
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+tokenizer.pad_token = "[PAD]"
+tokenizer.padding_side = "left"
+device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 # logging.info(f'No id is : {tokenizer(["No"])}')
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
 # 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
+
 
 
 def get_first_label_without_n(label_str):
@@ -389,6 +390,9 @@ def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
     print(f"Predictions saved to {filename} === Total {len(predictions)}")
+
+
+# PALM
 def predict_batch(prompts, batch_size=10):
     predictions = {}
 
@@ -411,8 +415,40 @@ def predict_batch(prompts, batch_size=10):
         save_predictions_to_file(predictions)
         return
     save_predictions_to_file(predictions)
+
+# LlaMA
+def predict_llama_batch(prompts, batch_size=10):
+    # Check if the predictions file exists
+    if os.path.exists(filename):
+        with open(filename, "r") as f:
+            predictions = json.load(f)
+    prompts = [item for item if item['hs'] not in predictions]
+    # Split prompts into batches
+    try:
+        for i in tqdm.tqdm(range(0, len(pre), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = prompts[i:i + batch_size]
+            batch_sentences = [item['prompt'] for item in batch_prompts]
+            # Tokenize prompts and convert to PyTorch tensors
+            input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+
+            # Generate logits for the next token using the model
+            with torch.no_grad():
+                output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
+                outputs=tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
+                for i in range(len(batch_prompts)):
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
+    except KeyboardInterrupt as e:
+        print(f"Interupt")
+        save_predictions_to_file(predictions)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        save_predictions_to_file(predictions)
+        return
+    save_predictions_to_file(predictions)
+
 batch_size = 3
-predict_batch(prompts, batch_size)
+# predict_batch(prompts, batch_size)
+predict_llama_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
