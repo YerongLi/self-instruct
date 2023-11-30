@@ -9,6 +9,7 @@
 import argparse
 import json
 import logging
+import hashlib
 import os
 import pickle
 import random
