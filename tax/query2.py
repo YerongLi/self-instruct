@@ -423,6 +423,7 @@ def predict_batch(prompts, batch_size=10):
 # LlaMA
 def predict_llama_batch(prompts, batch_size=10):
     # Check if the predictions file exists
+    predictions = {}
     if os.path.exists(filename):
         backup_filename = filename + ".backup"
         shutil.copyfile(filename, backup_filename)
