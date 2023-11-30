@@ -333,6 +333,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     prompts.append({'prompt': prompt, 
         'label': core_graph[parent_][kid_]['weight'],
         'hs': hs,
+        'pair': [parent_label, kid_label],
         })
 
     if iteration <= 10:
@@ -378,7 +379,12 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
-    prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
+    prompts.append({'prompt': prompt,
+     'label': -1, 
+     'hs' : hs},
+    'pair': [parent_label, grand_label],
+
+     )
 
     # predicted_label = predict_next_token(prompt)
     if iteration <= 10:
@@ -475,7 +481,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(batch_prompts)):
                     outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
 
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : prompts[i]['label']}
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : prompts[i]['label'], 'p' : prompts['pair']}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
