@@ -71,6 +71,7 @@ model = LlamaForCausalLM.from_pretrained(
 ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
+pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
 tokenizer.padding_side = "left"
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # logging.info(f'Yes id is : {tokenizer(["Yes"])}')
@@ -447,11 +448,22 @@ def predict_llama_batch(prompts, batch_size=10):
             print('batch_sentences')
             print(len(i_ids))
             print(i_ids)
+
+            sentence_lengths = []
+
+            # Assuming input_ids is a torch tensor
+            # Iterate through each batch
+            for batch in i_ids:
+                # Iterate through each sentence in the batch
+                for sentence in batch:
+                    # Get the length of the sentence
+                    sentence_length = torch.sum(sentence != 0)  # Assuming 0 is the padding token
+                    sentence_lengths.append(sentence_length.item())
             c_ids, outputs = [], []
             with torch.no_grad():
                 o_ids = model.generate(**i_ids, max_new_tokens=80, do_sample=True, top_p=0.1)
                 for i in range(len(i_ids)):
-                    c_ids.append(o_ids[i][len(i_ids[i]):])
+                    c_ids.append(o_ids[i][o_ids[i] != pad_token_id])
                 print(len(i_ids))
                 print(len(o_ids))
                 print(o_ids)
