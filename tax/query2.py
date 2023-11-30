@@ -454,6 +454,7 @@ def predict_llama_batch(prompts, batch_size=10):
                     c_ids.append(o_ids[i][len(i_ids[i]):])
                 print(len(i_ids))
                 print(len(o_ids))
+                print(o_ids)
                 
                 print(c_ids)
                 for i in range(len(batch_prompts)):
