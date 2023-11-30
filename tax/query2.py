@@ -444,13 +444,13 @@ def predict_llama_batch(prompts, batch_size=10):
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
             predictions = json.load(f)
-    prompts = [item for item in prompts if item['hs'] not in predictions]
+    const_prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
-    print(f'Total Number of Queries are {len(prompts)}')
-
+    print(f'Total Number of Queries are {len(const_prompts)}')
+    del prompts
     try:
         for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = prompts[z:z + batch_size]
+            batch_prompts = const_prompts[z:z + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
             i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
@@ -482,7 +482,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(batch_prompts)):
                     outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
 
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : prompts[i]['label'], 'p' : prompts['pair']}
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : batch_prompts[i]['label'], 'p' : batch_prompts['pair']}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
