@@ -436,7 +436,6 @@ def predict_llama_batch(prompts, batch_size=10):
         shutil.copyfile(filename, backup_filename)
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
-
             predictions = json.load(f)
     prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
@@ -476,7 +475,7 @@ def predict_llama_batch(prompts, batch_size=10):
                 for i in range(len(batch_prompts)):
                     outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
 
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
+                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i], 'lbl' : prompts[i]['label']}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
