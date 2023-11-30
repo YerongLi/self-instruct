@@ -446,6 +446,7 @@ def predict_llama_batch(prompts, batch_size=10):
             print(len(batch_sentences))
             print('batch_sentences')
             print(len(i_ids))
+            print(i_ids)
             c_ids, outputs = [], []
             with torch.no_grad():
                 o_ids = model.generate(**i_ids, max_new_tokens=80, do_sample=True, top_p=0.1)
