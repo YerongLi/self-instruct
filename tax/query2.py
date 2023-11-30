@@ -380,9 +380,10 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt,
-     'label': -1, 
-     'hs' : hs},
-    'pair': [parent_label, grand_label],
+         'label': -1, 
+         'hs' : hs,
+        'pair': [parent_label, grand_label],
+        }
 
      )
 
