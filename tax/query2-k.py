@@ -317,7 +317,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
     prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
-    del description
     for pair in pairs:
 
         random_number = random.randint(1, 10)  # Adjust the range as needed
