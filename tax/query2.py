@@ -438,12 +438,12 @@ def predict_llama_batch(prompts, batch_size=10):
             batch_prompts = prompts[i:i + batch_size]
             batch_sentences = [item['prompt'] for item in batch_prompts]
             # Tokenize prompts and convert to PyTorch tensors
-            input_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
+            i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
 
             # Generate logits for the next token using the model
             with torch.no_grad():
-                output_ids = model.generate(**inputs_ids, do_sample=True, top_p=0.9)
-                outputs=tokenizer.batch_decode(output_ids, skip_special_tokens=True)
+                o_ids = model.generate(**i_ids, do_sample=True, top_p=0.9)
+                outputs=tokenizer.batch_decode(o_ids, skip_special_tokens=True)
                 for i in range(len(batch_prompts)):
                     predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
     except KeyboardInterrupt as e:
