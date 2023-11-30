@@ -422,7 +422,7 @@ def predict_llama_batch(prompts, batch_size=10):
     if os.path.exists(filename):
         with open(filename, "r") as f:
             predictions = json.load(f)
-    prompts = [item for item if item['hs'] not in predictions]
+    prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
     try:
         for i in tqdm.tqdm(range(0, len(pre), batch_size), desc="Processing Batches", unit="batch"):
