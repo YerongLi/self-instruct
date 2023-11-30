@@ -443,6 +443,8 @@ def predict_llama_batch(prompts, batch_size=10):
             i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
 
             # Generate logits for the next token using the model
+            print(len(batch_sentences))
+            print('batch_sentences')
             print(len(i_ids))
             c_ids, outputs = [], []
             with torch.no_grad():
