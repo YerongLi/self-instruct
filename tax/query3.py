@@ -409,7 +409,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             # logging.info(node)
             # logging.info(definitions[node])
             description = definitions[node]['summary']
-            prompt += f"\n\\"{label}\\"" : {description}"
+            prompt += f"\n\"{label}\" : {description}"
     except:
         print('error')
         continue
