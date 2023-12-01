@@ -62,7 +62,11 @@ print(TOTAL)
 print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
-    level=logging.INFO,
+    level=logmodel = LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+).eval()ging.INFO,
     filename=LOGFILE,
     datefmt='%m-%d %H:%M:%S')
 
@@ -337,6 +341,9 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('error')
         continue
+    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
+    prompt += f"\n\"{kid_}\" : {definitions[kid_]['summary']}"
+
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     q_nei_labels = [f'"{label}"' for label in nei_labels]
     if len(selected_neighbors) > 1:
@@ -413,6 +420,9 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('error')
         continue
+    prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}"
+    prompt += f"\n\"{grand_}\" : {definitions[grand_]['summary']}"
+
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     q_nei_labels = [f'"{label}"' for label in nei_labels]
     if len(selected_neighbors) > 1:
