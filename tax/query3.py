@@ -1,7 +1,7 @@
-#     "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanatio
-# n on your decision.\n Question: \ncausal_agent : any entity that produces an effect or is responsible for events or results\nphysical_entity : an entity that has physical existence\n Is physical_entity a parent of causal_agent?\n Answer: Yes\n Explanation: ": "Causality is a property of an entity that
+#     "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent\n Question: \ncausal_agent : any entity that produces an effect or is responsible for events or results\nphysical_entity : an entity that has physical existence\n Is physical_entity a parent of causal_agent?\n Answer: Yes\n Explanation: ": "Causality is a property of an entity that
 #  produces an effect or is responsible for events or results. Anything that produces an effect or is responsible for events or results must have physica
 # l existence.",
+# Given B is a child node of A, V is a child node of A. We can add D as a child node of A, as a result D is a sibling of B and C with a same granularity. 
 #     "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanatio
 # n on your decision.\n Question: \nmatter : that which has mass and occupies space\nphysical_entity : an entity that has physical existence\n Is physica
 # l_entity a parent of matter?\n Answer: Yes\n Explanation: ": "A physical entity is something that has physical existence. Matter is that which has mass and occupies space. Therefore, a physical entity is a parent of matter.",
@@ -70,13 +70,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-# model = None
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-  low_cpu_mem_usage=True,
-).eval()
+model = None
+# model = LlamaForCausalLM.from_pretrained(
+#   model_path,
+#   torch_dtype=torch.float16,
+#   device_map='auto',
+# ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
@@ -294,8 +293,7 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-with open(f'{datapath}/predictions_0shot_{TOTAL}.json', "r") as f:
-    exemplars = json.load(f)
+
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -309,41 +307,27 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
     #POSTIVE
-    # pairs.append((parent_label, kid_label, 'Yes'))
-    eligible_keys = [key for key in exemplars if key != hs]
 
-    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
+    
 
-    # Create a dictionary with the sampled instances
-    pairs = [exemplars[key] for key in sampled_keys]
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
 
+    prompt+= f"\n{parent_label} is the parenting node. \n{parent_label} : {definitions[parent_]['summary']}"
+    # Get neighbors of the parent_ node
+    neighbors_of_parent = list(core_graph.neighbors(parent_))
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
-    for pair in pairs:
+    # Filter out nodes that are equal to kid_
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
 
-        random_number = random.randint(1, 10)  # Adjust the range as needed
-        # Perform an action based on the random number
-        if random_number % 2 == 0:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            # Perform actions for the even case
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
+    # Take up to three random neighbors
+    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
+    
+    prompt+= f"\n{parent_label} has following existing childen: "
+    # for k in selected_neighbors:
+    #     node_definitions.add(k)
 
-        else:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
-
-    node_definitions = set()
-    node_definitions.add(parent_)
-    node_definitions.add(kid_)
     try:
-        for node in node_definitions:
+        for node in selected_neighbors:
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
@@ -352,10 +336,20 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('error')
         continue
+    if len(selected_neighbors) > 1:
+        prompt+= f"\nGiven {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
+    else:
+        prompt+= f"\nGiven {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= "\n\n - Question: "
-    prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer: {"Yes"}' 
-    prompt+= f'\n Explanation: \n'
+    prompt+= f" We can add {kid_label} as a child node of {parent_label},"
+    if len(selected_neighbors) > 1:
+        prompt+= f" as a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+    else:
+        prompt+= f" as a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+    prompt+= "\nAnswer:\n{'Yes'}"
+    prompt+= "\nExplanation:\n"
+
+
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 
@@ -370,7 +364,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
 
-    del hs, kid_, kid_label, prompt, pairs
+    del hs, kid_, kid_label, prompt
     # NEGATIVE sample
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
@@ -383,57 +377,45 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+
+     prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
+
+    prompt+= f"\n{parent_label} is the parenting node. \n{parent_label} : {definitions[parent_]['summary']}"
+    # Get neighbors of the parent_ node
+    neighbors_of_parent = list(core_graph.neighbors(parent_))
+
+    # Filter out nodes that are equal to kid_
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+
+    # Take up to three random neighbors
+    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
     
-    # eligible_keys = [key for key in exemplars if key != hs]
+    prompt+= f"\n{parent_label} has following existing childen: "
+    # for k in selected_neighbors:
+    #     node_definitions.add(k)
 
-    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
-
-    # Create a dictionary with the sampled instances
-    pairs = [exemplars[key] for key in sampled_keys]
-
-    del description
-
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision."
-    for pair in pairs:
-
-        random_number = random.randint(1, 10)  # Adjust the range as needed
-
-        # Perform an action based on the random number
-        if random_number % 2 == 0:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            # Perform actions for the even case
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
-        else:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
-
-    prompt+= "\n\n - Question: "
-    node_definitions = set()
-    node_definitions.add(parent_)
-    node_definitions.add(grand_)
     try:
-        for node in node_definitions:
+        for node in selected_neighbors:
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
             description = definitions[node]['summary']
             prompt += f"\n{label} : {description}"
     except:
-        print('err')
+        print('error')
         continue
+    if len(selected_neighbors) > 1:
+        prompt+= f"\nGiven {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
+    else:
+        prompt+= f"\nGiven {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
-    prompt+= f'\n Explanation: \n'
-    # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
-    
+    prompt+= f" We can add {kid_label} as a child node of {parent_label},"
+    if len(selected_neighbors) > 1:
+        prompt+= f" as a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+    else:
+        prompt+= f" as a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+    prompt+= "\nAnswer:\n{'No'}"
+    prompt+= "\nExplanation:\n"
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
     # predicted_label = predict_next_token(prompt)
@@ -452,7 +434,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
+filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
@@ -542,7 +524,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     return
     save_predictions_to_file(predictions)
 
-batch_size = 1
+batch_size = 3
 
 # predict_batch(prompts, batch_size)
 predict_llama_batch(prompts, batch_size)

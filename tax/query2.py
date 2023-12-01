@@ -311,7 +311,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:123]), tota
 
     
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.\n Question: "
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.\n Question: "
 
     node_definitions = set()
     node_definitions.add(parent_)
