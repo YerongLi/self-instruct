@@ -338,7 +338,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
-    prompt += f"\n\"{q_kid_label}\" : {definitions[kid_]['summary']}"
+    prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
 
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     q_nei_labels = [f'"{label}"' for label in nei_labels]
@@ -417,7 +417,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
     prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}"
-    prompt += f"\n\"{q_grand_label}\" : {definitions[grand_]['summary']}"
+    prompt += f"\n{q_grand_label} : {definitions[grand_]['summary']}"
 
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     q_nei_labels = [f'"{label}"' for label in nei_labels]
