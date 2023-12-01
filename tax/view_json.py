@@ -7,7 +7,7 @@ def view_nested_json(filename):
         predictions = json.load(file)
 
     # Print the nested structure with line breaks
-    formatted_predictions = json.dumps(predictions, indent=2).replace("\\n", "\n").replace('\"', '"')
+    formatted_predictions = json.dumps(predictions, indent=2).replace("\\n", "\n").replace('\\"', '"')
     print(formatted_predictions)
 
 if __name__ == "__main__":
