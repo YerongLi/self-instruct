@@ -338,7 +338,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         continue
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     if len(selected_neighbors) > 1:
-        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} are child term of {parent_label}."
+        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {nei_labels[:-1]} are child term of {parent_label}."
     else:
         prompt+= f"\nWith the information that {nei_labels[0]} is a child node of {parent_label}."
 
@@ -408,7 +408,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     if len(selected_neighbors) > 1:
-        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} are child term of {parent_label}."
+        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {nei_labels[:-1]} are child term of {parent_label}."
     else:
         prompt+= f"\nWith the information that {nei_labels[0]} is a child node of {parent_label}."
 
