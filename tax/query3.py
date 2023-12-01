@@ -385,7 +385,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     neighbors_of_parent = list(core_graph.neighbors(parent_))
 
     # Filter out nodes that are equal to kid_
-    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != grand_]
 
     # Take up to three random neighbors
     selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
@@ -409,11 +409,11 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     else:
         prompt+= f"\nWe know that {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= f" We can add {kid_label} as a child node of {parent_label} without any conflicts."
+    prompt+= f" We can add {grand_label} as a child node of {parent_label} without any conflicts."
     if len(selected_neighbors) > 1:
-        prompt+= f" As a result, {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+        prompt+= f" As a result, {grand_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
     else:
-        prompt+= f" As a result, {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+        prompt+= f" As a result, {grand_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
     prompt+= "\nAnswer:\n{'No'}"
     prompt+= "\nExplanation:\n"
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
