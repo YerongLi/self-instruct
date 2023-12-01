@@ -344,7 +344,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     else:
         prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
 
-    prompt+= f" We can add {q_kid_label} as a child node of {q_parent_label} without any conflicts,"
+    prompt+= f" We can add {q_kid_label} as a child node of {q_parent_label} without any conflicts."
     if len(selected_neighbors) > 1:
         prompt+= f" As a result {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
     else:
@@ -409,7 +409,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
             # logging.info(node)
             # logging.info(definitions[node])
             description = definitions[node]['summary']
-            prompt += f"\n{label} : {description}"
+            prompt += f"\n\\"{label}\\"" : {description}"
     except:
         print('error')
         continue
@@ -420,7 +420,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     else:
         prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
 
-    prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts,"
+    prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts."
     if len(selected_neighbors) > 1:
         prompt+= f" As a result {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
     else:
