@@ -62,11 +62,7 @@ print(TOTAL)
 print(TOTAL)
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
-    level=logmodel = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-).eval()ging.INFO,
+    level=logging.INFO,
     filename=LOGFILE,
     datefmt='%m-%d %H:%M:%S')
 
@@ -74,12 +70,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-model = None
-# model = LlamaForCausalLM.from_pretrained(
-#   model_path,
-#   torch_dtype=torch.float16,
-#   device_map='auto',
-# ).eval()
+# model = None
+model = LlamaForCausalLM.from_pretrained(
+  model_path,
+  torch_dtype=torch.float16,
+  device_map='auto',
+).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
