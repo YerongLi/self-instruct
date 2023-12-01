@@ -337,15 +337,15 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
     if len(selected_neighbors) > 1:
-        prompt+= f"\nGiven {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
+        prompt+= f"\nWe know that {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
     else:
-        prompt+= f"\nGiven {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
+        prompt+= f"\nWe know that {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= f" We can add {kid_label} as a child node of {parent_label},"
+    prompt+= f" We can add {kid_label} as a child node of {parent_label} without any conflicts,"
     if len(selected_neighbors) > 1:
-        prompt+= f" as a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+        prompt+= f" As a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
     else:
-        prompt+= f" as a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+        prompt+= f" As a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
     prompt+= "\nAnswer:\n{'Yes'}"
     prompt+= "\nExplanation:\n"
 
@@ -378,7 +378,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
-     prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
 
     prompt+= f"\n{parent_label} is the parenting node. \n{parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
@@ -405,15 +405,15 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
     if len(selected_neighbors) > 1:
-        prompt+= f"\nGiven {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
+        prompt+= f"\nWe know that {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
     else:
-        prompt+= f"\nGiven {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
+        prompt+= f"\nWe know that {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= f" We can add {kid_label} as a child node of {parent_label},"
+    prompt+= f" We can add {kid_label} as a child node of {parent_label} without any conflicts."
     if len(selected_neighbors) > 1:
-        prompt+= f" as a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+        prompt+= f" As a result, {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
     else:
-        prompt+= f" as a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+        prompt+= f" As a result, {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
     prompt+= "\nAnswer:\n{'No'}"
     prompt+= "\nExplanation:\n"
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
