@@ -336,14 +336,15 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('error')
         continue
+    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     if len(selected_neighbors) > 1:
-        prompt+= f"\nWe know that {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
+        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} are child term of {parent_label}."
     else:
-        prompt+= f"\nWe know that {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
+        prompt+= f"\nWith the information that {nei_labels[0]} is a child node of {parent_label}."
 
     prompt+= f" We can add {kid_label} as a child node of {parent_label} without any conflicts,"
     if len(selected_neighbors) > 1:
-        prompt+= f" As a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+        prompt+= f" As a result {kid_label} is a sibling of {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} with a same granularity. "
     else:
         prompt+= f" As a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
     prompt+= f"\n Answer:\n{'Yes'}"
@@ -364,7 +365,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
 
-    del hs, kid_, kid_label, prompt
+    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors
     # NEGATIVE sample
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
@@ -404,17 +405,19 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     except:
         print('error')
         continue
-    if len(selected_neighbors) > 1:
-        prompt+= f"\nWe know that {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} are children nodes of {definitions[parent_]['label']}."
-    else:
-        prompt+= f"\nWe know that {definitions[selected_neighbors[0]]['label']} is a child node of {parent_label}."
 
-    prompt+= f" We can add {grand_label} as a child node of {parent_label} without any conflicts."
+    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     if len(selected_neighbors) > 1:
-        prompt+= f" As a result, {grand_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
+        prompt+= f"\nWith the information that {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} are child term of {parent_label}."
     else:
-        prompt+= f" As a result, {grand_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
-    prompt+= f"\n Answer:\n{'No'}"
+        prompt+= f"\nWith the information that {nei_labels[0]} is a child node of {parent_label}."
+
+    prompt+= f" We can add {kid_label} as a child node of {parent_label} without any conflicts,"
+    if len(selected_neighbors) > 1:
+        prompt+= f" As a result {kid_label} is a sibling of {', '.join(nei_labels[:-1])} and {get_first_label_without_n(nei_labels[:-1])} with a same granularity. "
+    else:
+        prompt+= f" As a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
+    prompt+= f"\n Answer:\n{'Yes'}"
     prompt+= f"\n Explanation:\n"
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
