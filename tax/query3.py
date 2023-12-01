@@ -425,7 +425,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         prompt+= f" As a result {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
     else:
         prompt+= f" As a result {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
-    prompt+= f"\n Answer:\n{'Yes'}"
+    prompt+= f"\n Answer:\n{'No'}"
     prompt+= f"\n Explanation:\n"
 
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
