@@ -383,11 +383,11 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     grand_ = random.choice(list(all_grand))
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     q_grand_label = f'"{grand_label}"'
-    
+
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
    
-       prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n Question: "
+    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n Question: "
 
     prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
