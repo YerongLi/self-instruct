@@ -346,8 +346,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         prompt+= f" As a result {kid_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
     else:
         prompt+= f" As a result {kid_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
-    prompt+= "\nAnswer:\n{'Yes'}"
-    prompt+= "\nExplanation:\n"
+    prompt+= f"\n Answer:\n{'Yes'}"
+    prompt+= f"\n Explanation:\n"
 
 
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -414,8 +414,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         prompt+= f" As a result, {grand_label} is a sibling of {', '.join(definitions[n]['label'] for n in selected_neighbors[:-1])} and {definitions[selected_neighbors[-1]]['label']} with a same granularity. "
     else:
         prompt+= f" As a result, {grand_label} is a sibling of {definitions[selected_neighbors[0]]['label']} with a same granularity."
-    prompt+= "\nAnswer:\n{'No'}"
-    prompt+= "\nExplanation:\n"
+    prompt+= f"\n Answer:\n{'No'}"
+    prompt+= f"\n Explanation:\n"
     prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
     # predicted_label = predict_next_token(prompt)
