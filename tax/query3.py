@@ -394,7 +394,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     neighbors_of_parent = list(core_graph.neighbors(parent_))
 
     # Filter out nodes that are equal to kid_
-    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != grand_]
 
     # Take up to three random neighbors
     selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
