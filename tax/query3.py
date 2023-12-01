@@ -310,7 +310,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
     
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
+    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n Question: "
 
     prompt+= f"\n{parent_label} is the parenting node. \n{parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
@@ -378,7 +378,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent and give a very detailed explanation on your decision.\n Question: "
+    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n Question: "
 
     prompt+= f"\n{parent_label} is the parenting node. \n{parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
