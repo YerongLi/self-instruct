@@ -649,9 +649,6 @@ def predict_gpt_batch(prompts, batch_size=2):
             frequency_penalty=0,
             presence_penalty=0
         )
-        print(responses)
-        print(responses.choices)
-        print(type(responses.choices))
 
         break
     try:
@@ -659,7 +656,7 @@ def predict_gpt_batch(prompts, batch_size=2):
         for i in range(len(batch_prompts)):
             # print(f"Response for prompt {idx + 1}:")
             print(responses.choices[i].text)
-            predictions[item['hs']] = {'i' : item['prompt'], 'o': responses.choices[i].text}
+            # predictions[item['hs']] = {'i' : item['prompt'], 'o': responses.choices[i].text}
 
             # print(response.text)
             # print()
