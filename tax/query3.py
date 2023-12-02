@@ -319,8 +319,8 @@ predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=2):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=2):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
@@ -636,7 +636,7 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {openai_api_key}"
     }
-    # try:
+    try:
     for item in prompts:
         data = {
             # "model": "gpt-4-1106-preview",
@@ -648,10 +648,8 @@ def predict_gpt_batch(prompts, batch_size=10):
         response = requests.post(url, headers=headers, json=data).json()
         logging.info(response)
         predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
-
-        break
-    # except:
-        # save_predictions_to_file(predictions)
+    except:
+        save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
 
 
