@@ -634,14 +634,15 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {openai_api_key}"
     }
-    for prompt in prompts:
+    for item in prompts:
         data = {
             "model": "gpt-4-1106-preview",
-            "prompt": prompts[0],
+            "prompt": item['prompt'],
             "temperature": 0
         }
         response = requests.post(url, headers=headers, json=data)
-        print(response.json())
+        logging.info(response.json())
+        predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
 
         break
 
