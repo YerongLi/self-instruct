@@ -621,7 +621,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     save_predictions_to_file(predictions)
     #     return
     save_predictions_to_file(predictions)
-def predict_gpt_batch(prompts, batch_size=2):
+def predict_gpt_batch(prompts, batch_size=30):
     # Check if the predictions file exists
     predictions = {}
     if os.path.exists(filename):
@@ -630,7 +630,7 @@ def predict_gpt_batch(prompts, batch_size=2):
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
             predictions = json.load(f)
-
+        time.sleep(5)
     const_prompts = [item for item in prompts if item['hs'] not in predictions]
     del prompts
     # url = "https://api.openai.com/v1/completions"
@@ -654,23 +654,7 @@ def predict_gpt_batch(prompts, batch_size=2):
     try:
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
-            # print(f"Response for prompt {idx + 1}:")
-            # print(responses.choices[i].text)
             predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
-
-            # print(response.text)
-            # print()
-        #     data = {
-        #         # "model": "gpt-4-1106-preview",
-        #         "model": "gpt-3.5-turbo-instruct",
-        #         "prompt": item['prompt'],
-        #         "max_tokens": 200,
-        #         "temperature": 0
-        #     }
-        #     time.sleep(5)
-        #     response = requests.post(url, headers=headers, json=data).json()
-        #     logging.info(response)
-            # predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
 
     except KeyboardInterrupt as e:
         print(f"Interupt")
