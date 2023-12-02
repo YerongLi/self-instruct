@@ -637,17 +637,17 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Authorization": f"Bearer {openai_api_key}"
     }
     try:
-    for item in prompts:
-        data = {
-            # "model": "gpt-4-1106-preview",
-            "model": "gpt-3.5-turbo-instruct",
-            "prompt": item['prompt'],
-            "max_tokens": 200,
-            "temperature": 0
-        }
-        response = requests.post(url, headers=headers, json=data).json()
-        logging.info(response)
-        predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
+        for item in prompts:
+            data = {
+                # "model": "gpt-4-1106-preview",
+                "model": "gpt-3.5-turbo-instruct",
+                "prompt": item['prompt'],
+                "max_tokens": 200,
+                "temperature": 0
+            }
+            response = requests.post(url, headers=headers, json=data).json()
+            logging.info(response)
+            predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
     except:
         save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
