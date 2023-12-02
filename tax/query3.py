@@ -639,7 +639,7 @@ def predict_gpt_batch(prompts, batch_size=2):
     #     "Authorization": f"Bearer {openai_api_key}"
     # }
     try:
-        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
+        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
             batch_prompts = const_prompts[z:z + batch_size]
             responses = client.completions.create(
                 model="gpt-3.5-turbo-instruct",
@@ -668,9 +668,7 @@ def predict_gpt_batch(prompts, batch_size=2):
         #     response = requests.post(url, headers=headers, json=data).json()
         #     logging.info(response)
             # predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
-        for item in prompts:
 
-            break
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
