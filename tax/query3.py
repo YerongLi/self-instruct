@@ -656,9 +656,9 @@ def predict_gpt_batch(prompts, batch_size=2):
         break
     try:
         # Access individual responses in the list
-        for idx, response in enumerate(responses["choices"]):
+        for idx, response in enumerate(responses.choices):
             print(f"Response for prompt {idx + 1}:")
-            print(response["text"])
+            print(response.text)
             print()
         #     data = {
         #         # "model": "gpt-4-1106-preview",
