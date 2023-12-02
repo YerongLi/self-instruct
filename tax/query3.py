@@ -645,8 +645,8 @@ def predict_gpt_batch(prompts, batch_size=10):
             "prompt": item['prompt'],
             "temperature": 0
         }
-        response = requests.post(url, headers=headers, json=data)
-        logging.info(response.json())
+        response = requests.post(url, headers=headers, json=data).json()
+        logging.info(response)
         predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
 
         break
