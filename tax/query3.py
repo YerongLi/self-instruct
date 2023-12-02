@@ -485,7 +485,7 @@ def predict_batch(prompts, batch_size=10):
             if item['hs'] in predictions: continue
             sentence = item['prompt']
             result = palm.generate_text(prompt=sentence).result
-            predictions[hs] = {'i' : sentence, 'o': result}
+            predictions[item['hs']] = {'i' : sentence, 'o': result}
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
