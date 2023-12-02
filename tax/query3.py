@@ -652,11 +652,13 @@ def predict_gpt_batch(prompts, batch_size=20):
                 presence_penalty=0
             )
             time.sleep(5)
-            save_predictions_to_file(predictions)
 
-        # Access individual responses in the list
-        for i in range(len(batch_prompts)):
-            predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+            # Access individual responses in the list
+            for i in range(len(batch_prompts)):
+                predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+            if z % 2 == 0:
+                save_predictions_to_file(predictions)
+
 
     except KeyboardInterrupt as e:
         print(f"Interupt")
