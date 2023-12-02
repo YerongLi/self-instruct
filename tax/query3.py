@@ -367,10 +367,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         logging.info(prompt)
 
 
-
-
-
-    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors, prompt
+    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors
 
 
 
