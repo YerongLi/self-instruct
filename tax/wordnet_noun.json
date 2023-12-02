@@ -1,6 +1,6 @@
 {
   "taxofilename": "../../TaxoComplete/data/SemEval-Noun/wordnet_noun.taxo",
-  "all_path_pkl": "../../TaxoComplete/all_path.pkl",
-  "definitions_pkl": "../../TaxoComplete/definitions.pkl",
-  "edges_pkl": "../../TaxoComplete/edges.pkl"
+  "all_path_pkl": "../../TaxoComplete/data/SemEval-Noun/all_path.pkl",
+  "definitions_pkl": "../../TaxoComplete/data/SemEval-Noun/definitions.pkl",
+  "edges_pkl": "../../TaxoComplete/data/SemEval-Noun/edges.pkl"
 }
