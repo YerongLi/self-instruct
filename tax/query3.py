@@ -49,6 +49,8 @@ parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
 parser.add_argument("mode", type=str, default='llama', nargs="?", help="Prediction mode")
+filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
+
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
     hash_object = hashlib.sha256(input_string.encode())
@@ -472,7 +474,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=
     # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
@@ -634,18 +635,22 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {openai_api_key}"
     }
-    for item in prompts:
-        data = {
-            "model": "gpt-4-1106-preview",
-            "prompt": item['prompt'],
-            "temperature": 0
-        }
-        response = requests.post(url, headers=headers, json=data)
-        logging.info(response.json())
-        predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
+    try:
+        for item in prompts:
+            data = {
+                "model": "gpt-4-1106-preview",
+                "prompt": item['prompt'],
+                "temperature": 0
+            }
+            response = requests.post(url, headers=headers, json=data)
+            logging.info(response.json())
+            predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
 
-        break
-
+            break
+    except:
+        save_predictions_to_file(predictions)
+    save_predictions_to_file(predictions)
+    
 
 batch_size = 4
 
