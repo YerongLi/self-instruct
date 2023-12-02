@@ -1,10 +1,24 @@
-#     "Given two terms in a knowledge graph, your task is to determine whether two terms should be same level siblings of a common parent\n Question: \ncausal_agent : any entity that produces an effect or is responsible for events or results\nphysical_entity : an entity that has physical existence\n Is physical_entity a parent of causal_agent?\n Answer: Yes\n Explanation: ": "Causality is a property of an entity that
-#  produces an effect or is responsible for events or results. Anything that produces an effect or is responsible for events or results must have physica
-# l existence.",
-# Given B is a child node of A, V is a child node of A. We can add D as a child node of A, as a result D is a sibling of B and C with a same granularity. 
-#     "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanatio
-# n on your decision.\n Question: \nmatter : that which has mass and occupies space\nphysical_entity : an entity that has physical existence\n Is physica
-# l_entity a parent of matter?\n Answer: Yes\n Explanation: ": "A physical entity is something that has physical existence. Matter is that which has mass and occupies space. Therefore, a physical entity is a parent of matter.",
+# 12-01 20:59:46 INFO - query3.py:367 - Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possi
+# bility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming sib
+# lings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships withi
+# n the knowledge graph.
+
+#  Question: 
+# "entity" is the parenting node. 
+# "entity" : that which is perceived or known or inferred to have its own distinct existence (living or nonliving)"entity" has following existing childen
+# : 
+# "physical_entity" : an entity that has physical existence
+# Now we want to add "abstraction" as a new child to the term "entity"
+# "abstraction" : a general concept formed by extracting common features from specific examples
+# With the information that "physical_entity" is a child node of "entity". We can add "abstraction" as a child node of "entity" without any conflicts. As
+#  a result, "abstraction" is a sibling of "physical_entity" with a same granularity.
+
+#  Answer:
+# Yes
+
+#  Explanation:
+
+
 
 import argparse
 import json
@@ -70,12 +84,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
-# model = None
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-).eval()
+model = None
+# model = LlamaForCausalLM.from_pretrained(
+#   model_path,
+#   torch_dtype=torch.float16,
+#   device_map='auto',
+# ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
@@ -542,8 +556,8 @@ def predict_llama_batch(prompts, batch_size=10):
 
 batch_size = 4
 
-# predict_batch(prompts, batch_size)
-predict_llama_batch(prompts, batch_size)
+predict_batch(prompts, batch_size)
+# predict_llama_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
