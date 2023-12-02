@@ -49,7 +49,6 @@ parser = argparse.ArgumentParser(description="Your script description")
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
 parser.add_argument("mode", type=str, default='llama', nargs="?", help="Prediction mode")
-filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
 
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
@@ -70,6 +69,7 @@ with open(config_file) as f:
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 openai_api_key = os.environ.get("OPENAI")
+filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
 
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
