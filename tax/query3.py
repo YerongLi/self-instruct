@@ -370,77 +370,78 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
 
 
-    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors
+    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors, prompt
 
 
 
     # NEGATIVE sample
-    children = list(core_graph.neighbors(parent_))
-    all_grand = set()
-    for kid in children:
-        # Get all grandchild nodes that are children of one child from parent_
-        # For simplicity, this example assumes the graph is undirected
-        grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
-        all_grand = all_grand.union(grandchild_candidates)
-    if not all_grand : continue
-    grand_ = random.choice(list(all_grand))
-    grand_label = get_first_label_without_n(definitions[grand_]['label'])
-    q_grand_label = f'"{grand_label}"'
+    if random.random() < 0.25:
+        children = list(core_graph.neighbors(parent_))
+        all_grand = set()
+        for kid in children:
+            # Get all grandchild nodes that are children of one child from parent_
+            # For simplicity, this example assumes the graph is undirected
+            grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
+            all_grand = all_grand.union(grandchild_candidates)
+        if not all_grand : continue
+        grand_ = random.choice(list(all_grand))
+        grand_label = get_first_label_without_n(definitions[grand_]['label'])
+        q_grand_label = f'"{grand_label}"'
 
-    hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+        hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
-   
-    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+       
+        prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
 
-    prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
-    # Get neighbors of the parent_ node
-    neighbors_of_parent = list(core_graph.neighbors(parent_))
+        prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
+        # Get neighbors of the parent_ node
+        neighbors_of_parent = list(core_graph.neighbors(parent_))
 
-    # Filter out nodes that are equal to kid_
-    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != grand_]
+        # Filter out nodes that are equal to kid_
+        filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != grand_]
 
-    # Take up to three random neighbors
-    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
-    
-    prompt+= f"{q_parent_label} has following existing childen: "
-    # for k in selected_neighbors:
-    #     node_definitions.add(k)
+        # Take up to three random neighbors
+        selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
+        
+        prompt+= f"{q_parent_label} has following existing childen: "
+        # for k in selected_neighbors:
+        #     node_definitions.add(k)
 
-    try:
-        for node in selected_neighbors:
-            label = get_first_label_without_n(definitions[node]['label'])
-            # logging.info(node)
-            # logging.info(definitions[node])
-            description = definitions[node]['summary']
-            prompt += f"\n\"{label}\" : {description}"
-    except:
-        print('error')
-        continue
-    prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}"
-    prompt += f"\n{q_grand_label} : {definitions[grand_]['summary']}"
+        try:
+            for node in selected_neighbors:
+                label = get_first_label_without_n(definitions[node]['label'])
+                # logging.info(node)
+                # logging.info(definitions[node])
+                description = definitions[node]['summary']
+                prompt += f"\n\"{label}\" : {description}"
+        except:
+            print('error')
+            continue
+        prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}"
+        prompt += f"\n{q_grand_label} : {definitions[grand_]['summary']}"
 
-    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
-    q_nei_labels = [f'"{label}"' for label in nei_labels]
-    if len(selected_neighbors) > 1:
-        prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are child terms of {q_parent_label}."
-    else:
-        prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
+        nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
+        q_nei_labels = [f'"{label}"' for label in nei_labels]
+        if len(selected_neighbors) > 1:
+            prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are child terms of {q_parent_label}."
+        else:
+            prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
 
-    prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts."
-    if len(selected_neighbors) > 1:
-        prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
-    else:
-        prompt+= f" As a result, {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
-    prompt+= f"\n\n Answer:\n{'No'}"
-    prompt+= f"\n\n Explanation:\n"
+        prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts."
+        if len(selected_neighbors) > 1:
+            prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
+        else:
+            prompt+= f" As a result, {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
+        prompt+= f"\n\n Answer:\n{'No'}"
+        prompt+= f"\n\n Explanation:\n"
 
-    prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
+        prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
-    # predicted_label = predict_next_token(prompt)
-    if iteration <= 10:
-        logging.info(prompt)
-        # logging.info(predicted_label)
-    edge_list_len = len(edge_list)
+        # predicted_label = predict_next_token(prompt)
+        if iteration <= 10:
+            logging.info(prompt)
+            # logging.info(predicted_label)
+        edge_list_len = len(edge_list)
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
