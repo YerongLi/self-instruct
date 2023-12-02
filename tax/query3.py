@@ -648,7 +648,8 @@ def predict_gpt_batch(prompts, batch_size=10):
             response = requests.post(url, headers=headers, json=data).json()
             logging.info(response)
             predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
-    except:
+    except KeyboardInterrupt as e:
+        print(f"Interupt")
         save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
 
