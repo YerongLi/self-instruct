@@ -650,6 +650,8 @@ def predict_gpt_batch(prompts, batch_size=2):
             presence_penalty=0
         )
         print(responses)
+        print(responses.choices)
+        print(type(responses.choices))
 
         break
     try:
