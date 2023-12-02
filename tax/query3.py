@@ -542,7 +542,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     return
     save_predictions_to_file(predictions)
 
-batch_size = 3
+batch_size = 4
 
 # predict_batch(prompts, batch_size)
 predict_llama_batch(prompts, batch_size)
