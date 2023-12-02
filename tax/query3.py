@@ -74,6 +74,7 @@ filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
 
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
+client = OpenAI(api_key=openai_api_key)
 
 print(datapath)
 
@@ -320,8 +321,8 @@ predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=2):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
@@ -620,7 +621,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     save_predictions_to_file(predictions)
     #     return
     save_predictions_to_file(predictions)
-def predict_gpt_batch(prompts, batch_size=10):
+def predict_gpt_batch(prompts, batch_size=2):
     # Check if the predictions file exists
     predictions = {}
     if os.path.exists(filename):
@@ -630,26 +631,45 @@ def predict_gpt_batch(prompts, batch_size=10):
         with open(filename, "r") as f:
             predictions = json.load(f)
 
-    prompts = [item for item in prompts if item['hs'] not in predictions]
-
-    url = "https://api.openai.com/v1/completions"
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": f"Bearer {openai_api_key}"
-    }
+    const_prompts = [item for item in prompts if item['hs'] not in predictions]
+    del prompts
+    # url = "https://api.openai.com/v1/completions"
+    # headers = {
+    #     "Content-Type": "application/json",
+    #     "Authorization": f"Bearer {openai_api_key}"
+    # }
     try:
-        for item in tqdm.tqdm(prompts):
-            data = {
-                # "model": "gpt-4-1106-preview",
-                "model": "gpt-3.5-turbo-instruct",
-                "prompt": item['prompt'],
-                "max_tokens": 200,
-                "temperature": 0
-            }
-            time.sleep(5)
-            response = requests.post(url, headers=headers, json=data).json()
-            logging.info(response)
-            predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
+        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = const_prompts[z:z + batch_size]
+            responses = client.completions.create(
+                model="gpt-3.5-turbo-instruct",
+                data={"prompts": [p['prompt'] for p in batch_prompts]},
+                temperature=1,
+                max_tokens=256,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+
+# Access individual responses in the list
+for idx, response in enumerate(responses["choices"]):
+    print(f"Response for prompt {idx + 1}:")
+    print(response["text"])
+    print()
+        #     data = {
+        #         # "model": "gpt-4-1106-preview",
+        #         "model": "gpt-3.5-turbo-instruct",
+        #         "prompt": item['prompt'],
+        #         "max_tokens": 200,
+        #         "temperature": 0
+        #     }
+        #     time.sleep(5)
+        #     response = requests.post(url, headers=headers, json=data).json()
+        #     logging.info(response)
+            # predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
+        for item in prompts:
+
+            break
     except KeyboardInterrupt as e:
         print(f"Interupt")
         save_predictions_to_file(predictions)
