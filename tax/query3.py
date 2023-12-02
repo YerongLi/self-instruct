@@ -651,7 +651,7 @@ def predict_gpt_batch(prompts, batch_size=20):
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            time.sleep(2.5)
+            time.sleep(4)
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
             predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
