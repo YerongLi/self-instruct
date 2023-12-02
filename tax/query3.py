@@ -640,7 +640,7 @@ def predict_gpt_batch(prompts, batch_size=10):
     for item in prompts:
         data = {
             # "model": "gpt-4-1106-preview",
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo-instruct",
             "prompt": item['prompt'],
             "temperature": 0
         }
