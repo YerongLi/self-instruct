@@ -48,6 +48,7 @@ parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+parser.add_argument("mod", type=string, default='llama', nargs="?", help="Prediction mode")
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
     hash_object = hashlib.sha256(input_string.encode())
@@ -307,15 +308,17 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+if os.path.exists(filename):
+    with open(filename, "r") as f:
+        predictions = json.load(f)
+for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=2):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
-
+    if [hs] in predictions: continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
@@ -472,7 +475,7 @@ def save_predictions_to_file(predictions):
 
 
 # PALM
-def predict_batch(prompts, batch_size=10):
+def predict_palm_batch(prompts, batch_size=10):
     predictions = {}
 
     # Check if the predictions file exists
@@ -504,7 +507,6 @@ def predict_llama_batch(prompts, batch_size=10):
         shutil.copyfile(filename, backup_filename)
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
-
             predictions = json.load(f)
     prompts = [item for item in prompts if item['hs'] not in predictions]
     # Split prompts into batches
@@ -556,8 +558,8 @@ def predict_llama_batch(prompts, batch_size=10):
 
 batch_size = 4
 
-predict_batch(prompts, batch_size)
-# predict_llama_batch(prompts, batch_size)
+# predict_palm_batch(prompts, batch_size)
+predict_llama_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
