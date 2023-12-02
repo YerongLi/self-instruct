@@ -649,8 +649,8 @@ def predict_gpt_batch(prompts, batch_size=2):
             frequency_penalty=0,
             presence_penalty=0
         )
-        print(responses.dump())
         print(responses)
+
         break
     try:
         # Access individual responses in the list
