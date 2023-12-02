@@ -326,8 +326,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:2]), total=
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
-    print(hs)
-    if [hs] in predictions: continue
+    if hs in predictions: continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
