@@ -321,8 +321,8 @@ predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
-for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
