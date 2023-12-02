@@ -315,7 +315,7 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-predictions = []
+predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
@@ -640,7 +640,8 @@ def predict_gpt_batch(prompts, batch_size=10):
     # try:
     for item in prompts:
         data = {
-            "model": "gpt-4-1106-preview",
+            # "model": "gpt-4-1106-preview",
+            "model": "gpt-3.5-turbo",
             "prompt": item['prompt'],
             "temperature": 0
         }
