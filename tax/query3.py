@@ -646,7 +646,7 @@ def predict_gpt_batch(prompts, batch_size=10):
                 "max_tokens": 200,
                 "temperature": 0
             }
-            time.sleep(0.05)
+            time.sleep(0.2)
             response = requests.post(url, headers=headers, json=data).json()
             logging.info(response)
             predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
