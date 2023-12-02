@@ -315,6 +315,7 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
+predictions = []
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
@@ -650,7 +651,7 @@ def predict_gpt_batch(prompts, batch_size=10):
     except:
         save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
-    
+
 
 batch_size = 4
 
