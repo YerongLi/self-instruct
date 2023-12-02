@@ -621,6 +621,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     save_predictions_to_file(predictions)
     #     return
     save_predictions_to_file(predictions)
+
 def predict_gpt_batch(prompts, batch_size=20):
     # Check if the predictions file exists
     predictions = {}
@@ -630,7 +631,6 @@ def predict_gpt_batch(prompts, batch_size=20):
         print(f"Backup created: {backup_filename}")
         with open(filename, "r") as f:
             predictions = json.load(f)
-        time.sleep(5)
     const_prompts = [item for item in prompts if item['hs'] not in predictions]
     del prompts
     # url = "https://api.openai.com/v1/completions"
@@ -638,20 +638,20 @@ def predict_gpt_batch(prompts, batch_size=20):
     #     "Content-Type": "application/json",
     #     "Authorization": f"Bearer {openai_api_key}"
     # }
-    for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
-        batch_prompts = const_prompts[z:z + batch_size]
-        responses = client.completions.create(
-            model="gpt-3.5-turbo-instruct",
-            prompt=[p['prompt'] for p in batch_prompts],
-            temperature=0,
-            max_tokens=512,
-            top_p=1,
-            frequency_penalty=0,
-            presence_penalty=0
-        )
 
-        break
     try:
+        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = const_prompts[z:z + batch_size]
+            responses = client.completions.create(
+                model="gpt-3.5-turbo-instruct",
+                prompt=[p['prompt'] for p in batch_prompts],
+                temperature=0,
+                max_tokens=512,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            time.sleep(5)
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
             predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
