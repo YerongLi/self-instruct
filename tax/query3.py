@@ -638,20 +638,19 @@ def predict_gpt_batch(prompts, batch_size=2):
     #     "Content-Type": "application/json",
     #     "Authorization": f"Bearer {openai_api_key}"
     # }
+    for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
+        batch_prompts = const_prompts[z:z + batch_size]
+        responses = client.completions.create(
+            model="gpt-3.5-turbo-instruct",
+            data={"prompts": [p['prompt'] for p in batch_prompts]},
+            temperature=1,
+            max_tokens=200,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
+        )
+        break
     try:
-        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = const_prompts[z:z + batch_size]
-            responses = client.completions.create(
-                model="gpt-3.5-turbo-instruct",
-                data={"prompts": [p['prompt'] for p in batch_prompts]},
-                temperature=1,
-                max_tokens=256,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
-            )
-            break
-
         # Access individual responses in the list
         for idx, response in enumerate(responses["choices"]):
             print(f"Response for prompt {idx + 1}:")
