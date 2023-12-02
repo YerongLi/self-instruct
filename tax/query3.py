@@ -655,8 +655,8 @@ def predict_gpt_batch(prompts, batch_size=2):
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
             # print(f"Response for prompt {idx + 1}:")
-            print(responses.choices[i].text)
-            # predictions[item['hs']] = {'i' : item['prompt'], 'o': responses.choices[i].text}
+            # print(responses.choices[i].text)
+            predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
 
             # print(response.text)
             # print()
