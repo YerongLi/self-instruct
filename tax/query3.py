@@ -621,7 +621,7 @@ def predict_llama_batch(prompts, batch_size=10):
     #     save_predictions_to_file(predictions)
     #     return
     save_predictions_to_file(predictions)
-def predict_gpt_batch(prompts, batch_size=30):
+def predict_gpt_batch(prompts, batch_size=20):
     # Check if the predictions file exists
     predictions = {}
     if os.path.exists(filename):
