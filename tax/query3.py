@@ -637,7 +637,7 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Authorization": f"Bearer {openai_api_key}"
     }
     try:
-        for item in prompts:
+        for item in tqdm.tqdm(prompts):
             data = {
                 # "model": "gpt-4-1106-preview",
                 "model": "gpt-3.5-turbo-instruct",
@@ -645,11 +645,15 @@ def predict_gpt_batch(prompts, batch_size=10):
                 "max_tokens": 200,
                 "temperature": 0
             }
+            time.sleep(0.01)
             response = requests.post(url, headers=headers, json=data).json()
             logging.info(response)
             predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices'][0]['text']}
     except KeyboardInterrupt as e:
         print(f"Interupt")
+        save_predictions_to_file(predictions)
+    except Exception as e:
+        print(e)
         save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
 
