@@ -636,20 +636,20 @@ def predict_gpt_batch(prompts, batch_size=10):
         "Content-Type": "application/json",
         "Authorization": f"Bearer {openai_api_key}"
     }
-    try:
-        for item in prompts:
-            data = {
-                "model": "gpt-4-1106-preview",
-                "prompt": item['prompt'],
-                "temperature": 0
-            }
-            response = requests.post(url, headers=headers, json=data)
-            logging.info(response.json())
-            predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
+    # try:
+    for item in prompts:
+        data = {
+            "model": "gpt-4-1106-preview",
+            "prompt": item['prompt'],
+            "temperature": 0
+        }
+        response = requests.post(url, headers=headers, json=data)
+        logging.info(response.json())
+        predictions[item['hs']] = {'i' : item['prompt'], 'o': response['choices']['text']}
 
-            break
-    except:
-        save_predictions_to_file(predictions)
+        break
+    # except:
+        # save_predictions_to_file(predictions)
     save_predictions_to_file(predictions)
 
 
