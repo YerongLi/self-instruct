@@ -56,7 +56,7 @@ with open(definitions_pkl, 'rb') as f:
 with open(edges_pkl, 'rb') as f:
     edges = pickle.load(f)
 edges_dict = {pair: 0 for pair in list(edges)}
-logging.info(len(edges_dict))
+logging.info(f"Number of edges : {len(edges_dict)} ====")
 all_paths = [[] for _ in range(20)]
 for path in all_path:
     all_paths[len(path)].append(path)
