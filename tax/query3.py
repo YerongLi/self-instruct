@@ -642,13 +642,15 @@ def predict_gpt_batch(prompts, batch_size=2):
         batch_prompts = const_prompts[z:z + batch_size]
         responses = client.completions.create(
             model="gpt-3.5-turbo-instruct",
-            data={"prompts": [p['prompt'] for p in batch_prompts]},
+            prompt=[p['prompt'] for p in batch_prompts],
             temperature=1,
             max_tokens=200,
             top_p=1,
             frequency_penalty=0,
             presence_penalty=0
         )
+        print(response.dump())
+        print(response)
         break
     try:
         # Access individual responses in the list
