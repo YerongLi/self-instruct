@@ -481,8 +481,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_pair = (parent_, kid_)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
-logging.info("has_parent_count:", has_parent_count)
-logging.info("total_edge_count:", total_edge_count)
+logging.info(f"has_parent_count:{has_parent_count}")
+logging.info(f"total_edge_count: {total_edge_count}")
 
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
