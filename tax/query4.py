@@ -384,12 +384,19 @@ predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
+count_has_parent, total_edge_count = 0, 0
+
 # for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+    
+
     parent_, kid_ = edge
-    if len(list(core_graph.neighbors(parent_))) < 2:
-        continue
     if parent_ == rootkey or kid_ == rootkey : continue
+    total_edge_count+= 1
+    if len(list(core_graph.predecessors(parent_))) < 1:
+        continue
+
+    count_has_parent+= 1
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
     if hs in predictions: continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
@@ -538,7 +545,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_pair = (parent_, kid_)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
-
+logging.info("count_has_parent:", count_has_parent)
+logging.info("total_edge_count:", total_edge_count)
 
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
@@ -736,7 +744,7 @@ batch_size = 4
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-predict_gpt_batch(prompts)
+# predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
