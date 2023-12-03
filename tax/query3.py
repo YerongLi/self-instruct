@@ -1,4 +1,3 @@
-# Sibling queries
 # 12-01 20:59:46 INFO - query3.py:367 - Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possi
 # bility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming sib
 # lings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships withi
@@ -248,69 +247,7 @@ logging.info(f"Number of nodes with two or more neighbors: {multiple_neighbor_co
 #         logging.info(f"  ***     {definitions[nei]}")
 # logging.info("====   ====")
 ans = -0x7f7f7f7f
-single_nets = [item for item in prompts if item['hs'] not in predictions]
-    # Split prompts into batches
-    print(f'Total Number of Queries are {len(prompts)}')
-
-    try:
-        for z in tqdm.tqdm(range(0, len(prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = prompts[z:z + batch_size]
-            batch_sentences = [item['prompt'] for item in batch_prompts]
-            # Tokenize prompts and convert to PyTorch tensors
-            i_ids = tokenizer(batch_sentences, return_tensors="pt", padding=True).to(device)
-
-            # Generate logits for the next token using the model
-
-
-            sentence_lengths = []
-
-            # Assuming input_ids is a torch tensor
-            # Iterate through each batch
-            for batch in i_ids:
-                # Iterate through each sentence in the batch
-                for sentence in i_ids['input_ids']:
-                    # Get the length of the sentence
-                    sentence_length = torch.sum(sentence != 0)  # Assuming 0 is the padding token
-                    sentence_lengths.append(sentence_length.item())
-            c_ids, outputs = [], []
-            with torch.no_grad():
-                o_ids = model.generate(**i_ids, max_new_tokens=200, num_beams=10,
-    num_return_sequences=1,no_repeat_ngram_size=1,)
-                for i in range(len(batch_prompts)):
-                    o_id = o_ids[i][o_ids[i] != pad_token_id][sentence_lengths[i]:]
-                    c_ids.append(o_id)
-                # print(len(o_ids))
-                # print(o_ids)
-                
-                # print(c_ids)
-                for i in range(len(batch_prompts)):
-                    outputs.append(tokenizer.decode(c_ids[i], skip_special_tokens=True))
-
-                    predictions[batch_prompts[i]['hs']] = {'i' : batch_sentences[i], 'o' : outputs[i]}
-    except KeyboardInterrupt as e:
-        print(f"Interupt")
-        save_predictions_to_file(predictions)
-    # except Exception as e:
-    #     print(f"An error occurred: {e}")
-    #     save_predictions_to_file(predictions)
-    #     return
-    save_predictions_to_file(predictions)
-
-def predict_gpt_batch(prompts, batch_size=20):
-    # Check if the predictions file exists
-    predictions = {}
-    if os.path.exists(filename):
-        backup_filename = filename + ".backup"
-        shutil.copyfile(filename, backup_filename)
-        print(f"Backup created: {backup_filename}")
-        with open(filename, "r") as f:
-            predictions = json.load(f)
-    const_prompts = [item for item in prompts if item['hs'] not in predictions]
-    del prompts
-    # url = "https://api.openai.com/v1/completions"
-    # headers = {
-    #     "Content-Type": "application/json",
-    #    ighbor_count = 0
+single_neighbor_count = 0
 zero_neighbor_count = 0
 multiple_neighbor_count = 0
 
@@ -714,14 +651,13 @@ def predict_gpt_batch(prompts, batch_size=20):
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            time.sleep(16)
+            time.sleep(5)
 
-            # Access individual responses in the list
-            for i in range(len(batch_prompts)):
-                predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
-            # if z % 2 == 0:
-            save_predictions_to_file(predictions)
-
+        # Access individual responses in the list
+        for i in range(len(batch_prompts)):
+            predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+        save_predictions_to_file(predictions)
+        
 
     except KeyboardInterrupt as e:
         print(f"Interupt")
