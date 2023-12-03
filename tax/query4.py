@@ -328,7 +328,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
-    if len(list(core_graph.predecessors(parent_))) < 1 or 
+    if len(list(core_graph.predecessors(parent_))) < 1 or \
     len(list(core_graph.predecessors(parent_))) == 1 and rootkey in list(core_graph.predecessors(parent_)):
         continue
     has_parent_count += 1
