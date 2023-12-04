@@ -105,7 +105,6 @@ training_args = Seq2SeqTrainingArguments(
     logging_strategy="steps",
     logging_steps=500,
     save_strategy="no",
-    report_to="tensorboard",
 )
 
 # Create Trainer instance
