@@ -99,7 +99,7 @@ def process_json_file(file_path):
 for filename in os.listdir(datapath):
     if filename.endswith(".json"):
         # filename='siblings_0shot_300.json' #fixed
-        filename='parent_0shot_300.json' #fixed
+        # filename='parent_0shot_300.json' #fixed
         file_path = os.path.join(datapath, filename)
         process_json_file(file_path)
-        break
+        # break
