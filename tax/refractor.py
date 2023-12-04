@@ -79,7 +79,7 @@ def process_json_file(file_path):
                 item_value["i"] = i_cut
                 item_value["o"] = o_text
                 data[item_key] = item_value
-                logging.info(data[item_key][i])
+                logging.info(data[item_key]["i"])
 
     # Construct the new file name by appending 'r' to the original file name
     new_file_path = f"{file_path}r"
