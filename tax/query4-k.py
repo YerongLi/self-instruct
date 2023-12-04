@@ -372,7 +372,38 @@ Your task is to assess the consistent feasibility of adding a new node term as a
 If we choose to introduce a new node <X> as a child of <P>, it should conceptually become the consistent grandchild of A, B, and C.
 <X> : <Description>
 '''
+prefix = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
 
+    - Question: 
+"sacrifice" represents the parent node term under consideration. 
+ - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
+"sacrifice" is the subclass of "killing".
+ - "killing" : the act of terminating a life
+Now we want to add "hecatomb" as a new child to the term "sacrifice".
+ - "abort" : the act of terminating a project or procedure before it is completed
+If we decide to add a new node "abort" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
+
+ Answer:
+No
+
+ Explanation: 
+The definition of abort is to terminate a project or procedure before it is completed. 
+"abort" should never be a subclass of "killing".
+
+    - Question: 
+"capture" represents the parent node term under consideration. 
+ - "capture" : the removal of an opponent's piece from the chess board
+"capture" is the subclass of "chess_move".
+ - "chess_move" : the act of moving a chess piece
+Now we want to add "exchange" as a new child to the term "capture".
+ - "exchange" : (chess) gaining (or losing) a rook in return for a knight or bishop
+If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of"chess_move".
+
+ Answer:
+Yes
+
+ Explanation:
+Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n''' 
 for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -395,39 +426,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     
 
-    prompt = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
-
-    - Question: 
-"sacrifice" represents the parent node term under consideration. 
- - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
-"sacrifice" is the subclass of "killing".
- - "killing" : the act of terminating a life
-Now we want to add "hecatomb" as a new child to the term "sacrifice".
- - "abort" : the act of terminating a project or procedure before it is completed
-If we decide to add a new node "abort" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
-
- Answer:
-No
-
- Explanation:
-The definition of sacrifice is to kill in order to propitiate a deity. 
-The definition of abort is to terminate a project or procedure before it is completed. 
-These two are not consistent.
-
-    - Question: 
-"capture" represents the parent node term under consideration. 
- - "capture" : the removal of an opponent's piece from the chess board
-"capture" is the subclass of "chess_move".
- - "chess_move" : the act of moving a chess piece
-Now we want to add "exchange" as a new child to the term "capture".
- - "exchange" : (chess) gaining (or losing) a rook in return for a knight or bishop
-If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of"chess_move".
-
- Answer:
-Yes
-
- Explanation:
-Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n'''
+    prompt = prefix
     
 
     prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
@@ -514,39 +513,7 @@ Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subcla
 
         hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
-        prompt = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
-
-    - Question: 
-"sacrifice" represents the parent node term under consideration. 
- - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
-"sacrifice" is the subclass of "killing".
- - "killing" : the act of terminating a life
-Now we want to add "hecatomb" as a new child to the term "sacrifice".
- - "abort" : the act of terminating a project or procedure before it is completed
-If we decide to add a new node "abort" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
-
- Answer:
-No
-
- Explanation:
-The definition of sacrifice is to kill in order to propitiate a deity. 
-The definition of abort is to terminate a project or procedure before it is completed. 
-These two are not consistent.
-
-    - Question: 
-"capture" represents the parent node term under consideration. 
- - "capture" : the removal of an opponent's piece from the chess board
-"capture" is the subclass of "chess_move".
- - "chess_move" : the act of moving a chess piece
-Now we want to add "exchange" as a new child to the term "capture".
- - "exchange" : (chess) gaining (or losing) a rook in return for a knight or bishop
-If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of"chess_move".
-
- Answer:
-Yes
-
- Explanation:
-Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n'''
+        prompt = prefix
     
 
         prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
