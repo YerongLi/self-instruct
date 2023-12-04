@@ -409,8 +409,8 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     # Take up to three random neighbors
     selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
     pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
-    del q_pre_labels
     q_pre_labels = [f'"{label}"' for label in pre_labels]
+    del pre_labels
     
     if len(selected_predecessors) > 1:
     
@@ -434,8 +434,6 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
     prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
 
-    pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
-    q_pre_labels = [f'"{label}"' for label in pre_labels]
     prompt+= f"If we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
     if len(selected_predecessors) > 1:
         prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
