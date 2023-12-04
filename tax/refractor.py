@@ -80,7 +80,7 @@ def process_json_file(file_path):
 
                 # Update the "i" and "o" fields in the item
                 item_value["i"] = i_cut
-                item_value["o"] = f"{i_text[:cut_off_index]}{o_text}"
+                item_value["o"] = f"{i_text[cut_off_index:]}{o_text}"
                 data[item_key] = item_value
                 logging.info(data[item_key]["o"])
 
