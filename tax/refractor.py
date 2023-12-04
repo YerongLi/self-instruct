@@ -14,7 +14,7 @@ import torch
 import requests
 import json
 # import openai
-# import re
+import re
 import google.generativeai as palm
 import os
 
