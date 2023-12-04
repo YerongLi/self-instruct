@@ -338,7 +338,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     
     prompt = '''Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
 
- - Question: 
+     - Question: 
 "enclosure" is the parenting node. 
 "enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
 "packing" : the enclosure of something in a package or box
@@ -353,7 +353,7 @@ No
  Explanation:
 "Bundling" is not a child term of "enclosure". "Bundling" is about binding something into a bundle. "Enclosure" is about enclosing something inside something else. "Binding" is not the same as "enclosing". "Bundling" is not a sibling of "packing" and "encasement".
 
- - Question: 
+     - Question: 
 "union" is the parenting node. 
 "union" : the act of making or becoming a single unit
 "union" has following existing childen: 
@@ -372,7 +372,7 @@ The new child term "umbrella" is consistent with the parent term "union" and the
 
     '''
     # prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
-    prompt+= ' - Question:'
+    prompt+= '     - Question:'
     prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
     neighbors_of_parent = list(core_graph.neighbors(parent_))
