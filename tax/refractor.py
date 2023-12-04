@@ -74,7 +74,6 @@ def process_json_file(file_path):
             if matches:
                 # Extract the last match
                 last_match = matches[-1]
-                print(last_match)
                 cut_off_index = last_match.start() + len('Answer\n')
                 i_cut = i_text[:cut_off_index]
 
