@@ -404,7 +404,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     predecessors_of_parent = list(core_graph.predecessors(parent_))
 
     # Filter out nodes that are equal to kid_
-    filtered_predecessors = [predecessor for predecessors in predecessors_of_parent if predecessor != rootkey]
+    filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
 
     # Take up to three random neighbors
     selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
