@@ -720,6 +720,8 @@ def predict_gpt_batch(prompts, batch_size=20):
                 presence_penalty=0
             )
             time.sleep(16)
+            save_predictions_to_file(predictions)
+
 
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
