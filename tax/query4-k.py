@@ -547,7 +547,7 @@ If we decide to add a new node "exchange" as a child of "capture", it should con
 Yes
 
  Explanation:
-Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".'''
+Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n'''
     
 
         prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
