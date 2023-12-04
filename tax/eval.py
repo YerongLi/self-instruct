@@ -16,7 +16,7 @@ import openai
 import google.generativeai as palm
 import os
 
-from transformers import LlamaForCausalLM, AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
 from torch.utils.data import DataLoader, Dataset
 from openai import OpenAI
 LOGFILE='output.log'
