@@ -74,7 +74,7 @@ def process_json_file(file_path):
             if matches:
                 # Extract the last match
                 last_match = matches[-1]
-                cut_off_index = last_match.start() + len('Answer\n')
+                cut_off_index = last_match.start() + len('Answer:\n')
                 i_cut = i_text[:cut_off_index]
 
                 # Update the "i" and "o" fields in the item
