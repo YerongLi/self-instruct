@@ -4,7 +4,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 
 
 # huggingface hub model id
-model_id = "philschmid/flan-t5-xxl-sharded-fp16"
+model_id = "google/flan-t5-base"
 
 # load model from the hub
 model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
