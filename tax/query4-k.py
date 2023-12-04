@@ -106,7 +106,7 @@ with open(config_file) as f:
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 openai_api_key = os.environ.get("OPENAI")
-filename=f"{datapath}/parent_0shot_{TOTAL}.json"
+filename=f"{datapath}/parent_kshot_{TOTAL}.json"
 
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
@@ -515,7 +515,7 @@ Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subcla
 
         hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
-    prompt = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+        prompt = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
 
     - Question: 
 "sacrifice" represents the parent node term under consideration. 
@@ -550,7 +550,7 @@ Yes
 Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".'''
     
 
-    prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
+        prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
         predecessors_of_parent = list(core_graph.predecessors(parent_))
 
