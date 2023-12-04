@@ -403,8 +403,8 @@ Yes
 
  Explanation:
 Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n''' 
-for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
