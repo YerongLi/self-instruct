@@ -16,7 +16,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
-# dataset = load_dataset("samsum")
+dataset = load_dataset("samsum")
 
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
