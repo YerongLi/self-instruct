@@ -59,7 +59,7 @@ def process_json_file(file_path):
     # Extract the relevant portions from "i"
     i_text = data.get("i", "")
     match = re.search(r"Answer:\s*Yes|Answer:\s*No", i_text)
-    print(t_text)
+    print(i_text)
     if match:
         cut_off_index = match.start()
         i_cut = i_text[:cut_off_index].strip()
