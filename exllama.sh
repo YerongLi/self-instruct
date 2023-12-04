@@ -1,1 +1,0 @@
-python /scratch/yerong/exllama/test_benchmark_inference.py -d /scratch/yerong/.cache/pyllama/Llama-2-7B-GPTQ -p -ppl
