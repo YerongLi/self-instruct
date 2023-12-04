@@ -106,7 +106,7 @@ with open(config_file) as f:
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 openai_api_key = os.environ.get("OPENAI")
-filename=f"{datapath}/siblings_0shot_{TOTAL}.json"
+filename=f"{datapath}/parent_0shot_{TOTAL}.json"
 
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
@@ -375,8 +375,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-# for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
@@ -387,7 +387,6 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
 
-    continue
     if hs in predictions: continue
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
@@ -409,17 +408,17 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     # Take up to three random neighbors
     selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
-    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
-    del q_nei_labels
-    q_nei_labels = [f'"{label}"' for label in nei_labels]
+    pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
+    del q_pre_labels
+    q_pre_labels = [f'"{label}"' for label in pre_labels]
     
-    if len(selected_neighbors) > 1:
+    if len(selected_predecessors) > 1:
     
-        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} "
+        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]} "
     else:
-        prompt+= f"{q_parent_label} is the subclass of {q_nei_labels[0]} "
+        prompt+= f"{q_parent_label} is the subclass of {q_pre_labels[0]} "
 
-    # for k in selected_neighbors:
+    # for k in selected_predecessors:
     #     node_definitions.add(k)
 
     try:
@@ -435,19 +434,14 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
     prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
 
-    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
-    q_nei_labels = [f'"{label}"' for label in nei_labels]
-    prompt+= f"If weadd a new node {q_kid_label} as a child of {q_parent_label}"
-    if len(selected_neighbors) > 1:
-        prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are parenting terms of {q_parent_label}."
+    pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
+    q_pre_labels = [f'"{label}"' for label in pre_labels]
+    prompt+= f"If we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
+    if len(selected_predecessors) > 1:
+        prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
     else:
-        prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
+        prompt+= f"{q_pre_labels[0]}."
 
-    prompt+= f" We can add {q_kid_label} as a child node of {q_parent_label} without any conflicts."
-    if len(selected_neighbors) > 1:
-        prompt+= f" As a result, {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
-    else:
-        prompt+= f" As a result, {q_kid_label} is a sibling of {q_nei_labels[0]} with a same granularity."
     prompt+= f"\n\n Answer:\n{'Yes'}"
     prompt+= f"\n\n Explanation:\n"
 
@@ -463,78 +457,12 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         logging.info(prompt)
 
 
-    del hs, kid_, kid_label, prompt, nei_labels, selected_neighbors
+    del hs, kid_, kid_label, prompt, pre_labels, selected_predecessors
 
 
 
     # NEGATIVE sample
-    if random.random() < 0.25:
-        children = list(core_graph.neighbors(parent_))
-        all_grand = set()
-        for kid in children:
-            # Get all grandchild nodes that are children of one child from parent_
-            # For simplicity, this example assumes the graph is undirected
-            grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
-            all_grand = all_grand.union(grandchild_candidates)
-        if not all_grand : continue
-        grand_ = random.choice(list(all_grand))
-        grand_label = get_first_label_without_n(definitions[grand_]['label'])
-        q_grand_label = f'"{grand_label}"'
-
-        hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
-
-       
-        prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
-
-        prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
-        # Get neighbors of the parent_ node
-        neighbors_of_parent = list(core_graph.neighbors(parent_))
-
-        # Filter out nodes that are equal to kid_
-        filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != grand_]
-
-        # Take up to three random neighbors
-        selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
-        
-        prompt+= f"{q_parent_label} has following existing childen: "
-        # for k in selected_neighbors:
-        #     node_definitions.add(k)
-
-        try:
-            for node in selected_neighbors:
-                label = get_first_label_without_n(definitions[node]['label'])
-                # logging.info(node)
-                # logging.info(definitions[node])
-                description = definitions[node]['summary']
-                prompt += f"\n\"{label}\" : {description}"
-        except:
-            print('error')
-            continue
-        prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}"
-        prompt += f"\n{q_grand_label} : {definitions[grand_]['summary']}"
-
-        nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
-        q_nei_labels = [f'"{label}"' for label in nei_labels]
-        if len(selected_neighbors) > 1:
-            prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are child terms of {q_parent_label}."
-        else:
-            prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
-
-        prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts."
-        if len(selected_neighbors) > 1:
-            prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
-        else:
-            prompt+= f" As a result, {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
-        prompt+= f"\n\n Answer:\n{'No'}"
-        prompt+= f"\n\n Explanation:\n"
-
-        prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
-
-        # predicted_label = predict_next_token(prompt)
-        if iteration <= 10:
-            logging.info(prompt)
-            # logging.info(predicted_label)
-        edge_list_len = len(edge_list)
+        pass
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
