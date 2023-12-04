@@ -98,7 +98,7 @@ def process_json_file(file_path):
 # Iterate through all JSON files in the directory
 for filename in os.listdir(datapath):
     if filename.endswith(".json"):
-        filename='siblings_0shot_300.json' fixed
+        filename='siblings_0shot_300.json' #fixed
         file_path = os.path.join(datapath, filename)
         process_json_file(file_path)
         break
