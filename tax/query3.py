@@ -667,9 +667,9 @@ def predict_gpt_batch(prompts, batch_size=20):
 
 batch_size = 4
 
-# predict_palm_batch(prompts, batch_size)
+predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-predict_gpt_batch(prompts)
+# predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
