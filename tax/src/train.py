@@ -89,6 +89,7 @@ model.print_trainable_parameters()
 # we want to ignore tokenizer pad token in the loss
 label_pad_token_id = -100
 # Data collator
+output_dir = './results'
 data_collator = DataCollatorForSeq2Seq(
     tokenizer,
     model=model,
