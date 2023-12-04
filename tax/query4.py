@@ -429,7 +429,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     except:
         print('error')
         continue
-    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
+    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}."
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
     prompt+= f"If we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
@@ -666,7 +666,7 @@ def predict_gpt_batch(prompts, batch_size=20):
 
 batch_size = 4
 
-# predict_palm_batch(prompts, batch_size)
+predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
 # predict_gpt_batch(prompts)
 
