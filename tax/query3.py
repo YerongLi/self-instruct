@@ -324,8 +324,7 @@ if os.path.exists(filename):
 # for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
-    if len(list(core_graph.neighbors(parent_))) < 2:
-        continue
+    if len(list(core_graph.neighbors(parent_))) < 2: continue
     if parent_ == rootkey or kid_ == rootkey : continue
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
     if hs in predictions: continue
@@ -350,15 +349,13 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     # Take up to three random neighbors
     selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
     
-    prompt+= f"{q_parent_label} has following existing childen: "
+    prompt+= f"\n{q_parent_label} has following existing childen: "
     # for k in selected_neighbors:
     #     node_definitions.add(k)
 
     try:
         for node in selected_neighbors:
             label = get_first_label_without_n(definitions[node]['label'])
-            # logging.info(node)
-            # logging.info(definitions[node])
             description = definitions[node]['summary']
             prompt += f"\n\"{label}\" : {description}"
     except:
@@ -376,7 +373,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     prompt+= f" We can add {q_kid_label} as a child node of {q_parent_label} without any conflicts."
     if len(selected_neighbors) > 1:
-        prompt+= f" As a result, {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
+        prompt+= f" As a result, {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
     else:
         prompt+= f" As a result, {q_kid_label} is a sibling of {q_nei_labels[0]} with a same granularity."
     prompt+= f"\n\n Answer:\n{'Yes'}"

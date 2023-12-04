@@ -326,6 +326,8 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     if len(list(core_graph.predecessors(parent_))) < 1 or \
     len(list(core_graph.predecessors(parent_))) == 1 and rootkey in list(core_graph.predecessors(parent_)):
         continue
+    if len(list(core_graph.neighbors(parent_))) < 2: continue
+
     has_parent_count += 1
 
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
@@ -340,7 +342,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     
 
-    prompt = "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.\n\n Question: "
+    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.\n\n Question: "
 
     prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
@@ -374,6 +376,29 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     except:
         print('error')
         continue
+    neighbors_of_parent = list(core_graph.neighbors(parent_))
+
+    # Filter out nodes that are equal to kid_
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+
+    # Take up to three random neighbors
+    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
+    
+    prompt+= f"\n Also {q_parent_label} has following existing childen: "
+    # for k in selected_neighbors:
+    #     node_definitions.add(k)
+
+    try:
+        for node in selected_neighbors:
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"\n\"{label}\" : {description}"
+    except:
+        print('error')
+        continue
+
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
