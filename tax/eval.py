@@ -100,9 +100,15 @@ def predict_next_token_batch(prompts, batch_size=10):
 
         # Generate logits for the next token using the model
         with torch.no_grad():
-            outputs = model(input_ids=input_ids["input_ids"],
-    attention_mask=input_ids["attention_mask"])
-            logits = outputs.logits[:, -1, :]
+            model.generate(
+    input_ids=inputs["input_ids"],
+    attention_mask=inputs["attention_mask"],
+    do_sample=False,  # disable sampling to test if batching affects output
+    max_tokens = 1,
+)
+            # outputs = model(input_ids=input_ids["input_ids"],
+    # attention_mask=input_ids["attention_mask"])
+            # logits = outputs.logits[:, -1, :]
 
         # Process logits or do whatever you need with them
         next_tokens_scores = logits  # Assuming logits_processor is not used in this function
