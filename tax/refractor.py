@@ -75,7 +75,7 @@ def process_json_file(file_path):
 
     # Construct the new file name by appending 'r' to the original file name
     new_file_name = f"{file_path}r"
-    new_file_path = os.path.join(directory_path, new_file_name)
+    new_file_path = os.path.join(datapath, new_file_name)
     print(new_file_path)
 
     # # Save the modified data to the new file
