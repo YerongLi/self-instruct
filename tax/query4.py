@@ -516,7 +516,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         else:
             prompt+= f"{q_pre_labels[0]}."
 
-        prompt+= f"\n\n Answer:\n{'Yes'}"
+        prompt+= f"\n\n Answer:\n{'No'}"
         prompt+= f"\n\n Explanation:\n"
 
 
