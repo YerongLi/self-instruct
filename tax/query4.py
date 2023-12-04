@@ -458,8 +458,77 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
     # NEGATIVE sample
-    if random.random() < 0.25:
-        pass
+    if random.random() < 0.2:
+       children = list(core_graph.neighbors(parent_))
+        all_grand = set()
+        for kid in children:
+            # Get all grandchild nodes that are children of one child from parent_
+            # For simplicity, this example assumes the graph is undirected
+            grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
+            all_grand = all_grand.union(grandchild_candidates)
+        if not all_grand : continue
+        grand_ = random.choice(list(all_grand))
+        grand_label = get_first_label_without_n(definitions[grand_]['label'])
+        q_grand_label = f'"{grand_label}"'
+
+        hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+
+        prompt = "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.\n\n Question: "
+
+        prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
+        # Get neighbors of the parent_ node
+        predecessors_of_parent = list(core_graph.predecessors(parent_))
+
+        # Filter out nodes that are equal to kid_
+        filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
+
+        # Take up to three random neighbors
+        selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
+        pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
+        q_pre_labels = [f'"{label}"' for label in pre_labels]
+        del pre_labels
+        
+        if len(selected_predecessors) > 1:
+        
+            prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        else:
+            prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
+
+        # for k in selected_predecessors:
+        #     node_definitions.add(k)
+
+        try:
+            for node in selected_predecessors:
+                label = get_first_label_without_n(definitions[node]['label'])
+                # logging.info(node)
+                # logging.info(definitions[node])
+                description = definitions[node]['summary']
+                prompt += f"\n - \"{label}\" : {description}"
+        except:
+            print('error')
+            continue
+        prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}."
+        prompt += f"\n - {q_grand_label} : {definitions[grand_]['summary']}"
+
+        prompt+= f"If we decide to add a new node {q_grand_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
+        if len(selected_predecessors) > 1:
+            prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        else:
+            prompt+= f"{q_pre_labels[0]}."
+
+        prompt+= f"\n\n Answer:\n{'Yes'}"
+        prompt+= f"\n\n Explanation:\n"
+
+
+        # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
+        
+        prompts.append({'prompt': prompt, 
+            'label': core_graph[parent_][grand_]['weight'],
+            'hs': hs,
+            })
+
+        if iteration <= 10:
+            logging.info(prompt)
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
