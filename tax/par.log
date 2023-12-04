@@ -385,5 +385,313 @@ No
  Explanation:
 ",
     "o": "Surface is not a subclass of discovery."
+  },
+  "51630309808607207809935598901312261093895005892879251675339062096161907473099": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"chess_move" represents the parent node term under consideration. 
+ - "chess_move" : the act of moving a chess piece
+"chess_move" is the subclass of "move".
+ - "move" : (game) a player's turn to take some action permitted by the rules of the game
+Now we want to add "gambit" as a new child to the term "chess_move".
+ - "gambit" : a chess move early in the game in which the player sacrifices minor pieces in order to obtain an advantageous position
+If we decide to add a new node "gambit" as a child of "chess_move", it should conceptually become the consistent grandchild of"move".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Yes, because "chess_move" is a subclass of "move"."
+  },
+  "74206958068965962604346471045108668144576077111558871960270189349374080304657": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"chess_move" represents the parent node term under consideration. 
+ - "chess_move" : the act of moving a chess piece
+"chess_move" is the subclass of "move".
+ - "move" : (game) a player's turn to take some action permitted by the rules of the game
+Now we want to add "gambit" as a new child to the term "chess_move".
+ - "down" : (American football) a complete play to advance the football
+If we decide to add a new node "down" as a child of "chess_move", it should conceptually become the consistent grandchild of"move".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": ""down" is a game play in American football, which is not a valid child of "move"."
+  },
+  "58243573522860836893668999652103474152727808367280686609764692641946830121611": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"board_game" represents the parent node term under consideration. 
+ - "board_game" : a game played on a specially designed board
+"board_game" is the subclass of "parlor_game".
+ - "parlor_game" : a game suitable for playing in a parlor
+Now we want to add "checkers" as a new child to the term "board_game".
+ - "checkers" : a checkerboard game for two players who each have 12 pieces; the object is to jump over and so capture the opponent's pieces
+If we decide to add a new node "checkers" as a child of "board_game", it should conceptually become the consistent grandchild of"parlor_game".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The parent node, "board_game", is a subclass of "parlor_game". The new node, "checkers", is a subclass of "board_game". Therefore, if we decide to add the new node, "checkers", as a child of the parent node, "board_game", it should conceptually become the consistent grandchild of "parlor_game"."
+  },
+  "37732415330510463096976718341759542252630692047591214057501240687921757222962": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"board_game" represents the parent node term under consideration. 
+ - "board_game" : a game played on a specially designed board
+"board_game" is the subclass of "parlor_game".
+ - "parlor_game" : a game suitable for playing in a parlor
+Now we want to add "checkers" as a new child to the term "board_game".
+ - "zero-sum_game" : a game in which the total of all the gains and losses is zero
+If we decide to add a new node "zero-sum_game" as a child of "board_game", it should conceptually become the consistent grandchild of"parlor_game".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "Zero-sum game is not a type of board game. So it should not become the consistent grandchild of "parlor_game"."
+  },
+  "65262610099217546389859274634702433509559196281410828160000923670790178468977": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"division" represents the parent node term under consideration. 
+ - "division" : the act or process of dividing
+"division" is the subclass of "separation".
+ - "separation" : the act of dividing or disconnecting
+Now we want to add "parcellation" as a new child to the term "division".
+ - "parcellation" : the division into parcels
+If we decide to add a new node "parcellation" as a child of "division", it should conceptually become the consistent grandchild of"separation".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""parcellation" is a child of "division" and "division" is a subclass of "separation". So "parcellation" is the grandchild of "separation"."
+  },
+  "113510423682766061364194987585248497013904592562876974929749221747647702938656": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"division" represents the parent node term under consideration. 
+ - "division" : the act or process of dividing
+"division" is the subclass of "separation".
+ - "separation" : the act of dividing or disconnecting
+Now we want to add "parcellation" as a new child to the term "division".
+ - "damage" : the act of damaging something or someone
+If we decide to add a new node "damage" as a child of "division", it should conceptually become the consistent grandchild of"separation".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "Damage is not a consistent grandchild of separation."
+  },
+  "48825540719398205324822679681401175617963081593047742448241836648463739543477": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"workload" represents the parent node term under consideration. 
+ - "workload" : work that a person is expected to do in a specified time
+"workload" is the subclass of "employment".
+ - "employment" : the occupation for which you are paid
+Now we want to add "case_load" as a new child to the term "workload".
+ - "case_load" : the number of cases handled in a given period of time (as by a court or agency)
+If we decide to add a new node "case_load" as a child of "workload", it should conceptually become the consistent grandchild of"employment".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Yes, because the new node "case_load" is a consistent subclass of the parent node "workload" and the parent node "workload" is a consistent subclass of the parent node "employment"."
+  },
+  "99925114268180966242899575305340135821415967155769047187615812228293487942396": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"workload" represents the parent node term under consideration. 
+ - "workload" : work that a person is expected to do in a specified time
+"workload" is the subclass of "employment".
+ - "employment" : the occupation for which you are paid
+Now we want to add "case_load" as a new child to the term "workload".
+ - "accountancy" : the occupation of maintaining and auditing records and preparing financial reports for a business
+If we decide to add a new node "accountancy" as a child of "workload", it should conceptually become the consistent grandchild of"employment".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "The new node "accountancy" is not a child of "workload"."
+  },
+  "59406796901180825378969649773865724713102134757114227050366143013691993319884": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"sacrifice" represents the parent node term under consideration. 
+ - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
+"sacrifice" is the subclass of "killing".
+ - "killing" : the act of terminating a life
+Now we want to add "hecatomb" as a new child to the term "sacrifice".
+ - "hecatomb" : a great sacrifice; an ancient Greek or Roman sacrifice of 100 oxen
+If we decide to add a new node "hecatomb" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The term "hecatomb" is semantically consistent with the term "sacrifice" as "hecatomb" is a type of "sacrifice"."
+  },
+  "25717185149549546285357420393582207815816424933551797914114372734209942680732": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"sacrifice" represents the parent node term under consideration. 
+ - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
+"sacrifice" is the subclass of "killing".
+ - "killing" : the act of terminating a life
+Now we want to add "hecatomb" as a new child to the term "sacrifice".
+ - "abort" : the act of terminating a project or procedure before it is completed
+If we decide to add a new node "abort" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "The definition of sacrifice is to kill in order to propitiate a deity. 
+The definition of abort is to terminate a project or procedure before it is completed. 
+These two are not consistent."
+  },
+  "79197042331472713577868168700959667617049581025843153231953298401935335983107": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"position" represents the parent node term under consideration. 
+ - "position" : a job in an organization
+"position" is the subclass of "occupation".
+ - "occupation" : the principal activity in your life that you do to earn money
+Now we want to add "tribuneship" as a new child to the term "position".
+ - "tribuneship" : the position of tribune
+If we decide to add a new node "tribuneship" as a child of "position", it should conceptually become the consistent grandchild of"occupation".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The term "tribuneship" is a type of position that someone can hold. The term "position" is a subclass of "occupation" and the term "tribuneship" is a child of "position". Therefore, the term "tribuneship" is a grandchild of "occupation"."
+  },
+  "51200543968710731642687200481227323142122517715198716842283097980269549605288": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"position" represents the parent node term under consideration. 
+ - "position" : a job in an organization
+"position" is the subclass of "occupation".
+ - "occupation" : the principal activity in your life that you do to earn money
+Now we want to add "tribuneship" as a new child to the term "position".
+ - "bathing" : immersing the body in water or sunshine
+If we decide to add a new node "bathing" as a child of "position", it should conceptually become the consistent grandchild of"occupation".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "Bathing is not a position."
+  },
+  "89657060610859250131094132269005338432044299705480518915796426004811401810170": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"waste" represents the parent node term under consideration. 
+ - "waste" : useless or profitless activity; using or expending or consuming thoughtlessly or carelessly
+"waste" is the subclass of "activity".
+ - "activity" : any specific behavior
+Now we want to add "extravagance" as a new child to the term "waste".
+ - "extravagance" : excessive spending
+If we decide to add a new node "extravagance" as a child of "waste", it should conceptually become the consistent grandchild of"activity".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""waste" is the subclass of "activity".
+"extravagance" is the subclass of "waste".
+So "extravagance" is the grandchild of "activity"."
+  },
+  "95567508329330812201219836050478770408625199038859110765370712459147142765633": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"waste" represents the parent node term under consideration. 
+ - "waste" : useless or profitless activity; using or expending or consuming thoughtlessly or carelessly
+"waste" is the subclass of "activity".
+ - "activity" : any specific behavior
+Now we want to add "extravagance" as a new child to the term "waste".
+ - "contact" : close interaction
+If we decide to add a new node "contact" as a child of "waste", it should conceptually become the consistent grandchild of"activity".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": ""contact" is not a subclass of "waste"."
+  },
+  "44619355009327650742631493679970575085046883970246464213919795137663779034147": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"therapy" represents the parent node term under consideration. 
+ - "therapy" : (medicine) the act of caring for someone (as by medication or remedial training etc.)
+"therapy" is the subclass of "medical_care".
+ - "medical_care" : professional treatment for illness or injury
+Now we want to add "heliotherapy" as a new child to the term "therapy".
+ - "heliotherapy" : therapeutic exposure to sunlight
+If we decide to add a new node "heliotherapy" as a child of "therapy", it should conceptually become the consistent grandchild of"medical_care".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The proposed addition of the node term "heliotherapy" as a child of the term "therapy" would be consistent with the parent-child relationship between "therapy" and "medical_care", as it is a form of treatment for illness or injury."
+  },
+  "69901253082096952746451316695303117625182588637855416130533978873245831915930": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"therapy" represents the parent node term under consideration. 
+ - "therapy" : (medicine) the act of caring for someone (as by medication or remedial training etc.)
+"therapy" is the subclass of "medical_care".
+ - "medical_care" : professional treatment for illness or injury
+Now we want to add "heliotherapy" as a new child to the term "therapy".
+ - "naprapathy" : a drugless method of treatment based on the belief that disease symptoms arise from problems with ligaments and connective tissues
+If we decide to add a new node "naprapathy" as a child of "therapy", it should conceptually become the consistent grandchild of"medical_care".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "The child node "naprapathy" is not a subclass of "therapy"."
   }
 }
