@@ -381,7 +381,7 @@ prefix = '''Your task is to assess the consistent feasibility of adding a new no
  - "game_of_chance" : a game that involves gambling
 Now we want to add "athletic_game" as a new child to the term "lottery".
  - "athletic_game" : a game involving athletic activity
-If we decide to add a new node "athletic_game" as a child of "lottery", it should conceptually become the consistent grandchild of"game_of_chance".
+If we decide to add a new node "athletic_game" as a child of "lottery", it should conceptually become the consistent grandchild of "game_of_chance".
 
  Answer:
 No
@@ -396,7 +396,7 @@ No
  - "chess_move" : the act of moving a chess piece
 Now we want to add "exchange" as a new child to the term "capture".
  - "exchange" : (chess) gaining (or losing) a rook in return for a knight or bishop
-If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of"chess_move".
+If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of "chess_move".
 
  Answer:
 Yes
