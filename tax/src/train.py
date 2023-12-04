@@ -1,6 +1,9 @@
 import logging
 import os
 from datasets import load_dataset
+from datasets import concatenate_datasets
+import numpy as np
+
 from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
@@ -13,7 +16,7 @@ logging.basicConfig(
 
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
-dataset = load_dataset("samsum")
+# dataset = load_dataset("samsum")
 
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
@@ -27,10 +30,7 @@ from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
 model_id="google/flan-t5-base"
 
-# Load tokenizer of FLAN-t5-XL
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-from datasets import concatenate_datasets
-import numpy as np
 # The maximum total input sequence length after tokenization.
 # Sequences longer than this will be truncated, sequences shorter will be padded.
 tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["dialogue"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
@@ -76,7 +76,7 @@ tokenized_dataset["train"].save_to_disk("data/train")
 tokenized_dataset["test"].save_to_disk("data/eval")
 
 
-model = AutoModelForSeq2SeqLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto")
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 
 
 
