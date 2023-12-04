@@ -22,6 +22,13 @@ from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader, Dataset
 from openai import OpenAI
 LOGFILE='output.log'
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
+    level=logging.INFO,
+    filename=LOGFILE,
+    datefmt='%m-%d %H:%M:%S')
+
+logging.info(f'Logger start: {os.uname()[1]}')
 palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 # from torch.utils.data import DataLoader, Dataset
