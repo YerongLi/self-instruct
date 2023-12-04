@@ -79,7 +79,7 @@ def process_json_file(file_path):
                 item_value["i"] = i_cut
                 item_value["o"] = o_text
                 data[item_key] = item_value
-                logging.info(data[item_key]["i"])
+                logging.info(data[item_key]["o"])
 
     # Construct the new file name by appending 'r' to the original file name
     new_file_path = f"{file_path}r"
@@ -95,7 +95,7 @@ def process_json_file(file_path):
 # Iterate through all JSON files in the directory
 for filename in os.listdir(datapath):
     if filename.endswith(".json"):
-        filename='siblings_0shot_300.json'
+        # filename='siblings_0shot_300.json' fixed
         file_path = os.path.join(datapath, filename)
         process_json_file(file_path)
         break
