@@ -1,0 +1,250 @@
+{
+  "22662287191173697600276715802912552743926412658453007049518569312121240395567": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"breach" is the parenting node. 
+"breach" : a failure to perform some promised act or obligation
+"breach" has following existing childen: 
+"breach_of_contract" : a breach of a legal duty; failure to do something that is required in a contract
+Now we want to add "breach_of_duty" as a new child to the term "breach"
+"breach_of_duty" : a breach of due care
+With the information that "breach_of_contract" is a child node of "breach". We can add "breach_of_duty" as a child node of "breach" without any conflicts. As a result, "breach_of_duty" is a sibling of "breach_of_contract" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""breach_of_duty" and "breach_of_contract" are both a type of breach. They are at the same level of granularity. "breach_of_duty" is a specific type of breach. "breach_of_contract" is also a specific type of breach. The difference is that "breach_of_duty" is a breach of due care while "breach_of_contract" is a breach of a legal duty."
+  },
+  "113817897985015082766473661847480283411537671833795044118687157760255938886098": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"union" is the parenting node. 
+"union" : the act of making or becoming a single unit
+"union" has following existing childen: 
+"tribalization" : the act of making tribal; unification on a tribal basis
+"coalescence" : the union of diverse things into one body or form or group; the growing together of parts
+"reunion" : the act of coming together again
+Now we want to add "umbrella" as a new child to the term "union"
+"umbrella" : having the function of uniting a group of similar things
+With the information that "tribalization", "coalescence" and "reunion" are child terms of "union". We can add "umbrella" as a child node of "union" without any conflicts. As a result, "umbrella" is a sibling of "tribalization", "coalescence" and "reunion" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The new child term "umbrella" is consistent with the parent term "union" and the existing child terms "tribalization", "coalescence" and "reunion". "umbrella" has the function of uniting a group of similar things and it is a kind of union. So it is reasonable to add "umbrella" as a new child to the term "union"."
+  },
+  "66391103363483391114077215246194121799410463330669875099854344866421512051344": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"basketball_shot" is the parenting node. 
+"basketball_shot" : throwing the basketball toward the hoop
+"basketball_shot" has following existing childen: 
+"finger-roll" : a basketball shot that rolls off the tips of the fingers into the basket
+"jumper" : (basketball) a player releases the basketball at the high point of a jump
+"foul_shot" : an unhindered basketball shot from the foul line; given to penalize the other team for committing a foul
+Now we want to add "tip_in" as a new child to the term "basketball_shot"
+"tip_in" : a basketball shot made by tapping the rebounding ball back into the basket
+With the information that "finger-roll", "jumper" and "foul_shot" are child terms of "basketball_shot". We can add "tip_in" as a child node of "basketball_shot" without any conflicts. As a result, "tip_in" is a sibling of "finger-roll", "jumper" and "foul_shot" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""tip_in" is a type of basketball shot and falls under the same granularity as "finger-roll", "jumper" and "foul_shot". We can add "tip_in" as a child node of "basketball_shot" without any conflicts. As a result, "tip_in" is a sibling of "finger-roll", "jumper" and "foul_shot" with a same granularity."
+  },
+  "89511989830666892646041072807258443424637344228809027852164973397364441447270": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"stroke" is the parenting node. 
+"stroke" : (sports) the act of swinging or striking at a ball with a club or racket or bat or cue or hand
+"stroke" has following existing childen: 
+"break" : the opening shot that scatters the balls in billiards or pool
+"golf_stroke" : the act of swinging a golf club at a golf ball and (usually) hitting it
+"miscue" : a faulty shot in billiards; the cue tip slips off the cue ball
+Now we want to add "swipe" as a new child to the term "stroke"
+"swipe" : a sweeping stroke or blow
+With the information that "break", "golf_stroke" and "miscue" are child terms of "stroke". We can add "swipe" as a child node of "stroke" without any conflicts. As a result, "swipe" is a sibling of "break", "golf_stroke" and "miscue" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The given term "swipe" is a synonym of "stroke". 
+
+The existing terms "break", "golf_stroke" and "miscue" are all child terms of "stroke". We can add "swipe" as a child node of "stroke" without any conflicts. As a result, "swipe" is a sibling of "break", "golf_stroke" and "miscue" with a same granularity."
+  },
+  "3722426241684837412163588701383587127600439591951030704822093677858522773249": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"travel" is the parenting node. 
+"travel" : the act of going from one place to another
+"travel" has following existing childen: 
+"circumnavigation" : traveling around something (by ship or plane)
+"water_travel" : travel by water
+"walk" : the act of walking somewhere
+Now we want to add "peregrination" as a new child to the term "travel"
+"peregrination" : traveling or wandering around
+With the information that "circumnavigation", "water_travel" and "walk" are child terms of "travel". We can add "peregrination" as a child node of "travel" without any conflicts. As a result, "peregrination" is a sibling of "circumnavigation", "water_travel" and "walk" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""peregrination" is a term that means traveling or wandering around, and it is a sibling of "circumnavigation", "water_travel" and "walk" with a same granularity."
+  },
+  "16051440666949885144925930665128654710172977028846144911906968961305740427741": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"child's_game" is the parenting node. 
+"child's_game" : a game enjoyed by children
+"child's_game" has following existing childen: 
+"musical_chairs" : a child's game in which players march to music around a group of chairs that contains one chair less than the number of players; when the music abruptly stops the players scramble to sit and the player who does not find a chair is eliminated; then a chair is removed and the march resumes until only the winner is seated
+"cat's_cradle" : a game played with string looped over the fingers
+"tag" : a game in which one child chases the others; the one who is caught becomes the next chaser
+Now we want to add "cat_and_mouse" as a new child to the term "child's_game"
+"cat_and_mouse" : a game for children in which the players form a circle and join hands; they raise their hands to let a player inside the circle or lower their hands to bar a second player who is chasing the first
+With the information that "musical_chairs", "cat's_cradle" and "tag" are child terms of "child's_game". We can add "cat_and_mouse" as a child node of "child's_game" without any conflicts. As a result, "cat_and_mouse" is a sibling of "musical_chairs", "cat's_cradle" and "tag" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""cat_and_mouse" is a child term of "child's_game". "cat_and_mouse" is a game enjoyed by children. It is a sibling of "musical_chairs", "cat's_cradle" and "tag" with a same granularity."
+  },
+  "63029271638247338338972306600306034485248592297590848561140144076824265546760": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"evil" is the parenting node. 
+"evil" : morally objectionable behavior
+"evil" has following existing childen: 
+"foul_play" : unfair or dishonest behavior (especially involving violence)
+"irreverence" : a disrespectful act
+"deviltry" : wicked and cruel behavior
+Now we want to add "sexual_immorality" as a new child to the term "evil"
+"sexual_immorality" : the evil ascribed to sexual acts that violate social conventions
+With the information that "foul_play", "irreverence" and "deviltry" are child terms of "evil". We can add "sexual_immorality" as a child node of "evil" without any conflicts. As a result, "sexual_immorality" is a sibling of "foul_play", "irreverence" and "deviltry" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": null
+  },
+  "31346253594900056109159869213283078884733162152263676830618803639454347657579": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"sport" is the parenting node. 
+"sport" : an active diversion requiring physical exertion and competition
+"sport" has following existing childen: 
+"water_sport" : sports that involve bodies of water
+"contact_sport" : a sport that necessarily involves body contact between opposing players
+"gymnastics" : a sport that involves exercises intended to display strength and balance and agility
+Now we want to add "rock_climbing" as a new child to the term "sport"
+"rock_climbing" : the sport or pastime of scaling rock masses on mountain sides (especially with the help of ropes and special equipment)
+With the information that "water_sport", "contact_sport" and "gymnastics" are child terms of "sport". We can add "rock_climbing" as a child node of "sport" without any conflicts. As a result, "rock_climbing" is a sibling of "water_sport", "contact_sport" and "gymnastics" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Rock climbing is a sport and can be added as a child of "sport"."
+  },
+  "37858725728285023636368796603279704958233752246756395868860148078369542910195": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"evasion" is the parenting node. 
+"evasion" : nonperformance of something distasteful (as by deceit or trickery) that you are supposed to do
+"evasion" has following existing childen: 
+"malingering" : evading duty or work by pretending to be incapacitated
+"shirking" : the evasion of work or duty
+"escape_mechanism" : a form of behavior that evades unpleasant realities
+Now we want to add "circumvention" as a new child to the term "evasion"
+"circumvention" : the act of evading by going around
+With the information that "malingering", "shirking" and "escape_mechanism" are child terms of "evasion". We can add "circumvention" as a child node of "evasion" without any conflicts. As a result, "circumvention" is a sibling of "malingering", "shirking" and "escape_mechanism" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "All child terms of "evasion" are about the act of evading something, and "circumvention" is also about the act of evading something, so it makes sense for us to add "circumvention" as a new child of "evasion"."
+  },
+  "38596714452877914567775837677623639262556711678987481295566426570966229882537": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"larceny" is the parenting node. 
+"larceny" : the act of taking something from someone unlawfully
+"larceny" has following existing childen: 
+"skimming" : failure to declare income in order to avoid paying taxes on it
+"pilferage" : the act of stealing small amounts or small articles
+"biopiracy" : biological theft; illegal collection of indigenous plants by corporations who patent them for their own use
+Now we want to add "embezzlement" as a new child to the term "larceny"
+"embezzlement" : the fraudulent appropriation of funds or property entrusted to your care but actually owned by someone else
+With the information that "skimming", "pilferage" and "biopiracy" are child terms of "larceny". We can add "embezzlement" as a child node of "larceny" without any conflicts. As a result, "embezzlement" is a sibling of "skimming", "pilferage" and "biopiracy" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "The term "embezzlement" describes the fraudulent appropriation of funds or property entrusted to your care but actually owned by someone else. This definition is consistent with the other child terms of "larceny", which are all types of theft. Therefore, we can add "embezzlement" as a child node of "larceny" without any conflicts. As a result, "embezzlement" is a sibling of "skimming", "pilferage" and "biopiracy" with a same granularity."
+  },
+  "105789194946362089146764207366105585223930624660097109423926421997560763008642": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"enclosure" is the parenting node. 
+"enclosure" : the act of enclosing something inside something else
+"enclosure" has following existing childen: 
+"encasement" : the act of enclosing something in a case
+Now we want to add "packing" as a new child to the term "enclosure"
+"packing" : the enclosure of something in a package or box
+With the information that "encasement" is a child node of "enclosure". We can add "packing" as a child node of "enclosure" without any conflicts. As a result, "packing" is a sibling of "encasement" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""packing" is a sibling of "encasement" with a same granularity."
+  },
+  "80041980017857403025033395096651115549926912079597734164359817354488231764525": {
+    "i": "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
+
+ Question: 
+"enclosure" is the parenting node. 
+"enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
+"packing" : the enclosure of something in a package or box
+"encasement" : the act of enclosing something in a case
+Now we want to add "bundling" as a new child to the term "enclosure"
+"bundling" : the act of binding something into a bundle
+With the information that "packing" and "encasement" are child terms of "enclosure". We can add "bundling" as a child node of "enclosure" without any conflicts. As a result, "bundling" is a sibling of "packing" and "encasement" with a same granularity.
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": ""Bundling" is not a child term of "enclosure". "Bundling" is about binding something into a bundle. "Enclosure" is about enclosing something inside something else. "Binding" is not the same as "enclosing". "Bundling" is not a sibling of "packing" and "encasement"."
+  }
+}
