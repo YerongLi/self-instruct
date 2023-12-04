@@ -432,7 +432,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}."
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
-    prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
+    prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of "
     if len(selected_predecessors) > 1:
         prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
     else:
@@ -459,7 +459,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     # NEGATIVE sample
     # if random.random() < 0.2:
-    if random.random() < 2:
+    if random.random() < (1.5 if '0shot' in filename else 0.2):
         # Find immediate parents of the specified node (parents of parent_)
         parents_of_parent = set(core_graph.predecessors(parent_))
 
@@ -519,7 +519,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}."
         prompt += f"\n - {q_grand_label} : {definitions[grand_]['summary']}"
 
-        prompt+= f"\nIf we decide to add a new node {q_grand_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
+        prompt+= f"\nIf we decide to add a new node {q_grand_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of "
         if len(selected_predecessors) > 1:
             prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
         else:
@@ -744,9 +744,9 @@ def predict_gpt_batch(prompts, batch_size=20):
 
 batch_size = 4
 
-predict_palm_batch(prompts, batch_size)
+# predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-# predict_gpt_batch(prompts)
+predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
