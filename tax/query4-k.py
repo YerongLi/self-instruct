@@ -471,8 +471,7 @@ Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subcla
     else:
         prompt+= f"{q_pre_labels[0]}."
 
-    prompt+= f"\n\n Answer:\n{'Yes'}"
-    prompt+= f"\n\n Explanation:\n"
+    prompt+= f"\n\n Answer:\n"
 
 
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -591,8 +590,7 @@ Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subcla
         else:
             prompt+= f"{q_pre_labels[0]}."
 
-        prompt+= f"\n\n Answer:\n{'No'}"
-        prompt+= f"\n\n Explanation:\n"
+        prompt+= f"\n\n Answer:\n"
 
 
         # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
