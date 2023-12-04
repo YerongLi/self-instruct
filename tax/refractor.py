@@ -83,5 +83,5 @@ def process_json_file(file_path):
 # Iterate through all JSON files in the directory
 for filename in os.listdir(datapath):
     if filename.endswith(".json"):
-        file_path = os.path.join(directory_path, filename)
+        file_path = os.path.join(datapath, filename)
         process_json_file(file_path)
