@@ -336,9 +336,43 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     #POSTIVE
 
     
+    prompt = '''Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
 
-    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+ - Question: 
+"enclosure" is the parenting node. 
+"enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
+"packing" : the enclosure of something in a package or box
+"encasement" : the act of enclosing something in a case
+Now we want to add "bundling" as a new child to the term "enclosure"
+"bundling" : the act of binding something into a bundle
+With the information that "packing" and "encasement" are child terms of "enclosure". We can add "bundling" as a child node of "enclosure" without any conflicts. As a result, "bundling" is a sibling of "packing" and "encasement" with a same granularity.
 
+ Answer:
+No
+
+ Explanation:
+"Bundling" is not a child term of "enclosure". "Bundling" is about binding something into a bundle. "Enclosure" is about enclosing something inside something else. "Binding" is not the same as "enclosing". "Bundling" is not a sibling of "packing" and "encasement".
+
+ - Question: 
+"union" is the parenting node. 
+"union" : the act of making or becoming a single unit
+"union" has following existing childen: 
+"tribalization" : the act of making tribal; unification on a tribal basis
+"coalescence" : the union of diverse things into one body or form or group; the growing together of parts
+"reunion" : the act of coming together again
+Now we want to add "umbrella" as a new child to the term "union"
+"umbrella" : having the function of uniting a group of similar things
+With the information that "tribalization", "coalescence" and "reunion" are child terms of "union". We can add "umbrella" as a child node of "union" without any conflicts. As a result, "umbrella" is a sibling of "tribalization", "coalescence" and "reunion" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+The new child term "umbrella" is consistent with the parent term "union" and the existing child terms "tribalization", "coalescence" and "reunion". "umbrella" has the function of uniting a group of similar things and it is a kind of union. So it is reasonable to add "umbrella" as a new child to the term "union".
+
+    '''
+    # prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+    prompt+= ' - Question:'
     prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
     neighbors_of_parent = list(core_graph.neighbors(parent_))
@@ -396,7 +430,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
     # NEGATIVE sample
-    if random.random() < 0.25:
+    if random.random() < 0.2:
         children = list(core_graph.neighbors(parent_))
         all_grand = set()
         for kid in children:
@@ -412,8 +446,43 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
 
        
-        prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+        prompt = '''Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
 
+ - Question: 
+"enclosure" is the parenting node. 
+"enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
+"packing" : the enclosure of something in a package or box
+"encasement" : the act of enclosing something in a case
+Now we want to add "bundling" as a new child to the term "enclosure"
+"bundling" : the act of binding something into a bundle
+With the information that "packing" and "encasement" are child terms of "enclosure". We can add "bundling" as a child node of "enclosure" without any conflicts. As a result, "bundling" is a sibling of "packing" and "encasement" with a same granularity.
+
+ Answer:
+No
+
+ Explanation:
+"Bundling" is not a child term of "enclosure". "Bundling" is about binding something into a bundle. "Enclosure" is about enclosing something inside something else. "Binding" is not the same as "enclosing". "Bundling" is not a sibling of "packing" and "encasement".
+
+ - Question: 
+"union" is the parenting node. 
+"union" : the act of making or becoming a single unit
+"union" has following existing childen: 
+"tribalization" : the act of making tribal; unification on a tribal basis
+"coalescence" : the union of diverse things into one body or form or group; the growing together of parts
+"reunion" : the act of coming together again
+Now we want to add "umbrella" as a new child to the term "union"
+"umbrella" : having the function of uniting a group of similar things
+With the information that "tribalization", "coalescence" and "reunion" are child terms of "union". We can add "umbrella" as a child node of "union" without any conflicts. As a result, "umbrella" is a sibling of "tribalization", "coalescence" and "reunion" with a same granularity.
+
+ Answer:
+Yes
+
+ Explanation:
+The new child term "umbrella" is consistent with the parent term "union" and the existing child terms "tribalization", "coalescence" and "reunion". "umbrella" has the function of uniting a group of similar things and it is a kind of union. So it is reasonable to add "umbrella" as a new child to the term "union".
+
+    '''
+    # prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+    prompt+= ' - Question:'
         prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
         # Get neighbors of the parent_ node
         neighbors_of_parent = list(core_graph.neighbors(parent_))
