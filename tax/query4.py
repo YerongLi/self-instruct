@@ -648,7 +648,7 @@ def predict_gpt_batch(prompts, batch_size=20):
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            time.sleep(5)
+            time.sleep(15)
 
         # Access individual responses in the list
         for i in range(len(batch_prompts)):
