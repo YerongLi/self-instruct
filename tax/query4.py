@@ -399,7 +399,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     prompt = "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.\n\n Question: "
 
-    prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n{q_parent_label} : {definitions[parent_]['summary']}"
+    prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
     predecessors_of_parent = list(core_graph.predecessors(parent_))
 
@@ -414,9 +414,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     
     if len(selected_predecessors) > 1:
     
-        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]} "
+        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
     else:
-        prompt+= f"{q_parent_label} is the subclass of {q_pre_labels[0]} "
+        prompt+= f"{q_parent_label} is the subclass of {q_pre_labels[0]}."
 
     # for k in selected_predecessors:
     #     node_definitions.add(k)
@@ -427,12 +427,12 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
             # logging.info(node)
             # logging.info(definitions[node])
             description = definitions[node]['summary']
-            prompt += f"\n\"{label}\" : {description}"
+            prompt += f"\n - \"{label}\" : {description}"
     except:
         print('error')
         continue
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
-    prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
+    prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
     prompt+= f"If we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
     if len(selected_predecessors) > 1:
