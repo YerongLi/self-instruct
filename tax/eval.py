@@ -74,7 +74,7 @@ model_id="google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
-model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
+model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
 # model = LlamaForCausalLM.from_pretrained(
 #   model_path,
 #   torch_dtype=torch.float16,
