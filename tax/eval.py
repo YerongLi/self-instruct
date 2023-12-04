@@ -72,7 +72,8 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 model_id="google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
-
+logging.info(f'Yes id is : {tokenizer(["Yes"])}')
+logging.info(f'No id is : {tokenizer(["No"])}')
 model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 # model = LlamaForCausalLM.from_pretrained(
 #   model_path,
@@ -100,9 +101,9 @@ def predict_next_token_batch(prompts, batch_size=10):
 
         # Generate logits for the next token using the model
         with torch.no_grad():
-            model.generate(
-    input_ids=inputs["input_ids"],
-    attention_mask=inputs["attention_mask"],
+            next_token= model.generate(
+    input_ids=input_ids["input_ids"],
+    attention_mask=input_ids["attention_mask"],
     do_sample=False,  # disable sampling to test if batching affects output
     max_tokens = 1,
 )
