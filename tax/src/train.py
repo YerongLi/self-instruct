@@ -3,7 +3,7 @@ import os
 from datasets import load_dataset
 from datasets import concatenate_datasets
 import numpy as np
-
+import tqdm
 from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
@@ -21,7 +21,7 @@ dataset = load_dataset("samsum")
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
 logging.info(dataset['train'])
-for i in range(len(dataset['train']['dialogue'])):
+for i in tqdm.tqdm(range(len(dataset['train']['dialogue'][:100]))):
 	dataset['train']['dialogue'][i] = 1000 * dataset['train']['dialogue'][i]
 # 	logging.info(dataset['train']['dialogue'][i])
 # 	logging.info(dataset['train']['summary'][i])

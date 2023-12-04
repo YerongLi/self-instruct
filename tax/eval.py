@@ -399,8 +399,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         print('error')
         continue
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
-    del nei_labels
     q_nei_labels = [f'"{label}"' for label in nei_labels]
+    del nei_labels
+    
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
