@@ -109,7 +109,7 @@ def predict_next_token_batch(prompts, batch_size=10):
      output_scores=True, return_dict_in_generate=True
 )
             print(len(next_tokens.scores))
-            print(len(next_tokens.scores[0]))
+            print(len(next_tokens.scores[0].shape))
             # print(tokenizer.batch_decode(next_tokens, skip_special_tokens=True))
             # outputs = model(input_ids=input_ids["input_ids"],
     # attention_mask=input_ids["attention_mask"])
