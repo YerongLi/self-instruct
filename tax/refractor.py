@@ -72,9 +72,9 @@ def process_json_file(file_path):
 
             if match:
                 cut_off_index = match.start()
-                i_cut = i_text[:cut_off_index].strip()
-                o_text = f"Answer:\n{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
-                
+                i_cut = i_text[:cut_off_index].strip() + "Answer:\n"
+                o_text = f"{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
+
                 # Update the "i" and "o" fields in the item
                 item_value["i"] = i_cut
                 item_value["o"] = o_text
