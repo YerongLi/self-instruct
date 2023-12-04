@@ -1,4 +1,5 @@
 import logging
+import os
 from datasets import load_dataset
 from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq
