@@ -27,6 +27,8 @@ lora_config = LoraConfig(
 model = get_peft_model(model, lora_config)
 model.print_trainable_parameters()
 
+
+
 # trainable params: 18874368 || all params: 11154206720 || trainable%: 0.16921300163961817
 # we want to ignore tokenizer pad token in the loss
 label_pad_token_id = -100
@@ -38,8 +40,45 @@ data_collator = DataCollatorForSeq2Seq(
     pad_to_multiple_of=8
 )
 
+from datasets import concatenate_datasets
+import numpy as np
+# The maximum total input sequence length after tokenization.
+# Sequences longer than this will be truncated, sequences shorter will be padded.
+tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["dialogue"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
+input_lenghts = [len(x) for x in tokenized_inputs["input_ids"]]
+# take 85 percentile of max length for better utilization
+max_source_length = int(np.percentile(input_lenghts, 85))
+print(f"Max source length: {max_source_length}")
 
-output_dir="lora-flan-t5-xxl"
+# The maximum total sequence length for target text after tokenization.
+# Sequences longer than this will be truncated, sequences shorter will be padded."
+tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["summary"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
+target_lenghts = [len(x) for x in tokenized_targets["input_ids"]]
+# take 90 percentile of max length for better utilization
+max_target_length = int(np.percentile(target_lenghts, 90))
+print(f"Max target length: {max_target_length}")
+
+
+
+
+
+from datasets import concatenate_datasets
+import numpy as np
+# The maximum total input sequence length after tokenization.
+# Sequences longer than this will be truncated, sequences shorter will be padded.
+tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["dialogue"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
+input_lenghts = [len(x) for x in tokenized_inputs["input_ids"]]
+# take 85 percentile of max length for better utilization
+max_source_length = int(np.percentile(input_lenghts, 85))
+print(f"Max source length: {max_source_length}")
+
+# The maximum total sequence length for target text after tokenization.
+# Sequences longer than this will be truncated, sequences shorter will be padded."
+tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["summary"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
+target_lenghts = [len(x) for x in tokenized_targets["input_ids"]]
+# take 90 percentile of max length for better utilization
+max_target_length = int(np.percentile(target_lenghts, 90))
+print(f"Max target length: {max_target_length}")
 
 # Define training args
 training_args = Seq2SeqTrainingArguments(
