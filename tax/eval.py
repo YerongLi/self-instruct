@@ -398,18 +398,20 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     except:
         print('error')
         continue
-
+    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
+    del nei_labels
+    q_nei_labels = [f'"{label}"' for label in nei_labels]
     prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
     prompt+= f"If we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
     if len(selected_predecessors) > 1:
-        prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}. "
     else:
-        prompt+= f"{q_pre_labels[0]}."
+        prompt+= f"{q_pre_labels[0]}. "
 
-    prompt+= f"\n\n Answer:\n{'Yes'}"
-    prompt+= f"\n\n Explanation:\n"
+    prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
+    prompt+= f"\n\n Answer:\n"
 
 
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -427,9 +429,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
 
-    # NEGATIVE sample
-    if random.random() < 0.25:
-        pass
+    # # NEGATIVE sample
+    # if random.random() < 0.25:
+    #     pass
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
