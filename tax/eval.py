@@ -105,7 +105,7 @@ def predict_next_token_batch(prompts, batch_size=10):
     input_ids=input_ids["input_ids"],
     attention_mask=input_ids["attention_mask"],
     do_sample=False,  # disable sampling to test if batching affects output
-    max_tokens = 1,
+    max_new_tokens = 1,
 )
             # outputs = model(input_ids=input_ids["input_ids"],
     # attention_mask=input_ids["attention_mask"])
