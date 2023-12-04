@@ -1,14 +1,22 @@
+import logging
 from datasets import load_dataset
 from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
+    level=logging.INFO,
+    filename=LOGFILE,
+    datefmt='%m-%d %H:%M:%S')
 
+logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 dataset = load_dataset("samsum")
 
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
-
+for item in dataset['train'][:10]:
+	logging.info(item)
 # Train dataset size: 14732
 # Test dataset size: 819
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
