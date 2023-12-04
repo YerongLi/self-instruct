@@ -1,3 +1,39 @@
+'''
+Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+<P> represents the parent node term under consideration.
+<P> : <Description>
+<A>, <B>, and <C> are parents of <P>.
+<A> : <Description>
+<B> : <Description>
+<C> : <Description>
+If we choose to introduce a new node <X> as a child of <P>, it should conceptually become the consistent grandchild of A, B, and C.
+<X> : <Description>
+'''
+
+'''
+Your task involves determining the consistent addition of a new node term as a child to a parenting node, considering the parent of that parent of the parenting node.
+
+Consider <P> as the parent node term. The structure is as follows:
+
+<A>, <B>, and <C> serve as parents of <P>.
+<A>: <Description>
+<B>: <Description>
+<C>: <Description>
+'''
+
+'''
+Your task is to assess the feasibility of consistently introducing a new node term as a child of a designated parent node, taking into account the immediate parent and the grandparent of the specified parenting node.
+Consider the parent node term as <P> with the following structure:
+
+<P> : <Description>
+<A>, <B>, and <C> serve as the parents of <P>.
+<A> : <Description>
+<B> : <Description>
+<C> : <Description>
+If we choose to incorporate a new node <X> as a child of <P>, it is imperative that <X> maintains a consistent conceptual relationship as a grandchild of nodes A, B, and C.
+'''
+
 # 12-01 20:59:46 INFO - query3.py:367 - Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possi
 # bility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming sib
 # lings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships withi
@@ -323,6 +359,22 @@ if os.path.exists(filename):
         predictions = json.load(f)
 total_edge_count = 0
 has_parent_count = 0
+
+
+# START
+'''
+Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+<P> represents the parent node term under consideration.
+<P> : <Description>
+<A>, <B>, and <C> are parents of <P>.
+<A> : <Description>
+<B> : <Description>
+<C> : <Description>
+If we choose to introduce a new node <X> as a child of <P>, it should conceptually become the consistent grandchild of A, B, and C.
+<X> : <Description>
+'''
+
 # for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:40]), total=40):
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -346,24 +398,32 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     
 
-    prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
+    prompt = "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.\n\n Question: "
 
-    prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
+    prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n{q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
-    neighbors_of_parent = list(core_graph.neighbors(parent_))
+    predecessors_of_parent = list(core_graph.predecessors(parent_))
 
     # Filter out nodes that are equal to kid_
-    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+    filtered_predecessors = [predecessor for predecessors in predecessors_of_parent if predecessor != rootkey]
 
     # Take up to three random neighbors
-    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
+    selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
+    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
+    del q_nei_labels
+    q_nei_labels = [f'"{label}"' for label in nei_labels]
     
-    prompt+= f"{q_parent_label} has following existing childen: "
+    if len(selected_neighbors) > 1:
+    
+        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} "
+    else:
+        prompt+= f"{q_parent_label} is the subclass of {q_nei_labels[0]} "
+
     # for k in selected_neighbors:
     #     node_definitions.add(k)
 
     try:
-        for node in selected_neighbors:
+        for node in selected_predecessors:
             label = get_first_label_without_n(definitions[node]['label'])
             # logging.info(node)
             # logging.info(definitions[node])
@@ -377,8 +437,9 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
     q_nei_labels = [f'"{label}"' for label in nei_labels]
+    prompt+= f"If weadd a new node {q_kid_label} as a child of {q_parent_label}"
     if len(selected_neighbors) > 1:
-        prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are child terms of {q_parent_label}."
+        prompt+= f"\nWith the information that {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} are parenting terms of {q_parent_label}."
     else:
         prompt+= f"\nWith the information that {q_nei_labels[0]} is a child node of {q_parent_label}."
 
