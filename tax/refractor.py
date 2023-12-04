@@ -82,15 +82,16 @@ def process_json_file(file_path):
                 item_value["o"] = f"{i_text[cut_off_index:]}{o_text}"
                 data[item_key] = item_value
                 logging.info(data[item_key]["i"])
+                logging.info(data[item_key]["o"])
 
     # Construct the new file name by appending 'r' to the original file name
     new_file_path = f"{file_path}r"
     # new_file_path = os.path.join(datapath, new_file_name)
     print(new_file_path)
 
-    # # Save the modified data to the new file
-    # with open(new_file_path, 'w', encoding='utf-8') as new_json_file:
-    #     json.dump(data, new_json_file, ensure_ascii=False, indent=2)
+    # Save the modified data to the new file
+    with open(new_file_path, 'w', encoding='utf-8') as new_json_file:
+        json.dump(data, new_json_file, ensure_ascii=False, indent=2)
 
 # Set the directory path containing the JSON files
 
