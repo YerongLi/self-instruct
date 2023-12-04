@@ -343,7 +343,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 "enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
 "packing" : the enclosure of something in a package or box
 "encasement" : the act of enclosing something in a case
-Now we want to add "bundling" as a new child to the term "enclosure"
+Now we want to add "bundling" as a new child to the term "enclosure":
 "bundling" : the act of binding something into a bundle
 With the information that "packing" and "encasement" are child terms of "enclosure". We can add "bundling" as a child node of "enclosure" without any conflicts. As a result, "bundling" is a sibling of "packing" and "encasement" with a same granularity.
 
@@ -360,7 +360,7 @@ No
 "tribalization" : the act of making tribal; unification on a tribal basis
 "coalescence" : the union of diverse things into one body or form or group; the growing together of parts
 "reunion" : the act of coming together again
-Now we want to add "umbrella" as a new child to the term "union"
+Now we want to add "umbrella" as a new child to the term "union":
 "umbrella" : having the function of uniting a group of similar things
 With the information that "tribalization", "coalescence" and "reunion" are child terms of "union". We can add "umbrella" as a child node of "union" without any conflicts. As a result, "umbrella" is a sibling of "tribalization", "coalescence" and "reunion" with a same granularity.
 
@@ -395,7 +395,7 @@ The new child term "umbrella" is consistent with the parent term "union" and the
     except:
         print('error')
         continue
-    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
+    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}:"
     prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
 
     nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
@@ -449,12 +449,12 @@ The new child term "umbrella" is consistent with the parent term "union" and the
        
         prompt = '''Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.
 
- - Question: 
+     - Question: 
 "enclosure" is the parenting node. 
 "enclosure" : the act of enclosing something inside something else"enclosure" has following existing childen: 
 "packing" : the enclosure of something in a package or box
 "encasement" : the act of enclosing something in a case
-Now we want to add "bundling" as a new child to the term "enclosure"
+Now we want to add "bundling" as a new child to the term "enclosure":
 "bundling" : the act of binding something into a bundle
 With the information that "packing" and "encasement" are child terms of "enclosure". We can add "bundling" as a child node of "enclosure" without any conflicts. As a result, "bundling" is a sibling of "packing" and "encasement" with a same granularity.
 
@@ -464,14 +464,14 @@ No
  Explanation:
 "Bundling" is not a child term of "enclosure". "Bundling" is about binding something into a bundle. "Enclosure" is about enclosing something inside something else. "Binding" is not the same as "enclosing". "Bundling" is not a sibling of "packing" and "encasement".
 
- - Question: 
+     - Question: 
 "union" is the parenting node. 
 "union" : the act of making or becoming a single unit
 "union" has following existing childen: 
 "tribalization" : the act of making tribal; unification on a tribal basis
 "coalescence" : the union of diverse things into one body or form or group; the growing together of parts
 "reunion" : the act of coming together again
-Now we want to add "umbrella" as a new child to the term "union"
+Now we want to add "umbrella" as a new child to the term "union":
 "umbrella" : having the function of uniting a group of similar things
 With the information that "tribalization", "coalescence" and "reunion" are child terms of "union". We can add "umbrella" as a child node of "union" without any conflicts. As a result, "umbrella" is a sibling of "tribalization", "coalescence" and "reunion" with a same granularity.
 
