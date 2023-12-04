@@ -453,7 +453,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         logging.info(prompt)
 
 
-    del hs, kid_, kid_label, prompt, selected_predecessors
+    del hs, kid_, kid_label, q_kid_label, prompt, selected_predecessors
 
 
 
@@ -516,7 +516,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         except:
             print('error')
             continue
-        prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}."
+        prompt+= f"\nNow we want to add {q_grand_label} as a new child to the term {q_parent_label}."
         prompt += f"\n - {q_grand_label} : {definitions[grand_]['summary']}"
 
         prompt+= f"\nIf we decide to add a new node {q_grand_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
