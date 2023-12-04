@@ -108,6 +108,7 @@ def predict_next_token_batch(prompts, batch_size=10):
     max_new_tokens = 1,
      output_scores=True, return_dict_in_generate=True
 )
+            logging.info(next_tokens)
             print(len(next_tokens.scores))
             print(len(next_tokens.scores[0].shape))
             # print(tokenizer.batch_decode(next_tokens, skip_special_tokens=True))
