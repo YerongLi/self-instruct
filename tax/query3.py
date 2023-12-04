@@ -322,7 +322,7 @@ if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
 for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 12)), total=12):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2: continue
     if parent_ == rootkey or kid_ == rootkey : continue
