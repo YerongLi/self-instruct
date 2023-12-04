@@ -375,21 +375,20 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 prefix = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
 
     - Question: 
-"sacrifice" represents the parent node term under consideration. 
- - "sacrifice" : the act of killing (an animal or person) in order to propitiate a deity
-"sacrifice" is the subclass of "killing".
- - "killing" : the act of terminating a life
-Now we want to add "hecatomb" as a new child to the term "sacrifice".
- - "abort" : the act of terminating a project or procedure before it is completed
-If we decide to add a new node "abort" as a child of "sacrifice", it should conceptually become the consistent grandchild of"killing".
+"lottery" represents the parent node term under consideration. 
+ - "lottery" : players buy (or are given) chances and prizes are distributed by casting lots
+"lottery" is the subclass of "game_of_chance".
+ - "game_of_chance" : a game that involves gambling
+Now we want to add "athletic_game" as a new child to the term "lottery".
+ - "athletic_game" : a game involving athletic activity
+If we decide to add a new node "athletic_game" as a child of "lottery", it should conceptually become the consistent grandchild of"game_of_chance".
 
  Answer:
 No
 
- Explanation: 
-The definition of abort is to terminate a project or procedure before it is completed. 
-"abort" should never be a subclass of "killing".
-
+ Explanation:
+ "lottery" is a child of "game_of_chance", and "athletic_game" is not a type of "game_of_chance". So it is not consistent to add "athletic_game" as a child of "lottery".
+ 
     - Question: 
 "capture" represents the parent node term under consideration. 
  - "capture" : the removal of an opponent's piece from the chess board
