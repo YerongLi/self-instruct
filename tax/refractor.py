@@ -27,8 +27,8 @@ palm.configure(api_key=os.environ['PALM'])
 parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
-parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-parser.add_argument("mode", type=str, default='llama', nargs="?", help="Prediction mode")
+# parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+# parser.add_argument("mode", type=str, default='llama', nargs="?", help="Prediction mode")
 
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
