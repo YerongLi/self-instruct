@@ -56,27 +56,31 @@ def process_json_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as json_file:
         data = json.load(json_file)
 
-    # Extract the relevant portions from "i"
-    i_text = data.get("i", "")
-    match = re.search(r"Answer:\s*Yes|Answer:\s*No", i_text)
-    print(i_text)
-    if match:
-        cut_off_index = match.start()
-        i_cut = i_text[:cut_off_index].strip()
-        o_text = f"Answer:\n{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
-        
-        # Update the "i" and "o" fields in the data
-        data["i"] = i_cut
-        data["o"] = o_text
+    # Iterate over items in the dictionary
+    for item_key, item_value in data.items():
+        if isinstance(item_value, dict):
+            # Extract the relevant portions from "i"
+            i_text = item_value.get("i", "")
+            match = re.search(r"Answer:\s*Yes|Answer:\s*No", i_text)
 
-        # Construct the new file name by appending 'r' to the original file name
-        new_file_name = filepath+"r"
-        new_file_path = os.path.join(directory_path, new_file_name)
-        print(new_file_path)
+            if match:
+                cut_off_index = match.start()
+                i_cut = i_text[:cut_off_index].strip()
+                o_text = f"Answer:\n{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
+                
+                # Update the "i" and "o" fields in the item
+                item_value["i"] = i_cut
+                logging.info()
+                item_value["o"] = o_text
 
-        # Save the modified data to the new file
-        # with open(new_file_path, 'w', encoding='utf-8') as new_json_file:
-            # json.dump(data, new_json_file, ensure_ascii=False, indent=2)
+    # Construct the new file name by appending 'r' to the original file name
+    new_file_name = f"{file_path}r"
+    new_file_path = os.path.join(directory_path, new_file_name)
+    print(new_file_path)
+
+    # # Save the modified data to the new file
+    # with open(new_file_path, 'w', encoding='utf-8') as new_json_file:
+    #     json.dump(data, new_json_file, ensure_ascii=False, indent=2)
 
 # Set the directory path containing the JSON files
 
