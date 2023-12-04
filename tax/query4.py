@@ -462,6 +462,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
     # NEGATIVE sample
+    if random.random() < 0.25:
         pass
 
     if min_pair is None or edge_list_len < min_len:
