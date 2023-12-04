@@ -1,0 +1,221 @@
+{
+  "16059163343422445231206495393476706379868463243910960727406927933125042491573": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"abandonment" represents the parent node term under consideration. 
+ - "abandonment" : the act of giving something up
+"abandonment" is the subclass of "rejection".
+ - "rejection" : the act of rejecting something
+Now we want to add "apostasy" as a new child to the term "abandonment".
+ - "apostasy" : the act of abandoning a party for causeIf we decide to add a new node "apostasy" as a child of "abandonment", it should conceptually become the consistent grandchild of"rejection".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Yes, it is consistent with the parent-child relationship between "abandonment" and "rejection"."
+  },
+  "85400151404340882609185988625438564418852390399284688245586830673902063680572": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"vomit" represents the parent node term under consideration. 
+ - "vomit" : the reflex act of ejecting the contents of the stomach through the mouth
+"vomit" is the subclass of "expulsion".
+ - "expulsion" : the act of expelling or projecting or ejecting
+Now we want to add "rumination" as a new child to the term "vomit".
+ - "rumination" : regurgitation of small amounts of food; seen in some infants after feedingIf we decide to add a new node "rumination" as a child of "vomit", it should conceptually become the consistent grandchild of"expulsion".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""rumination" is a sub-class of "vomit". Since "vomit" is a sub-class of "expulsion", "rumination" is a sub-class of "expulsion"."
+  },
+  "49147753673800029507585713462477152779962956598281668212598263125577320736012": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"vomit" represents the parent node term under consideration. 
+ - "vomit" : the reflex act of ejecting the contents of the stomach through the mouth
+"vomit" is the subclass of "expulsion".
+ - "expulsion" : the act of expelling or projecting or ejecting
+Now we want to add "rumination" as a new child to the term "vomit".
+ - "hyperemesis_gravidarum" : hyperemesis during pregnancy; if severe it can result in damage to the brain and liver and kidneyIf we decide to add a new node "hyperemesis_gravidarum" as a child of "vomit", it should conceptually become the consistent grandchild of"expulsion".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "The parent node term "vomit" is the subclass of "expulsion". If we add a new node "hyperemesis_gravidarum" as a child of "vomit", it should conceptually become the consistent grandchild of "expulsion". But "hyperemesis_gravidarum" is not a subclass of "expulsion". So it is not conceptually consistent to add "hyperemesis_gravidarum" as a child of "vomit"."
+  },
+  "13297663886921474371224089877696133727217377285144818829111545625825981864275": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"moderation" represents the parent node term under consideration. 
+ - "moderation" : the action of lessening in severity or intensity
+"moderation" is the subclass of "decrease".
+ - "decrease" : the act of decreasing or reducing something
+Now we want to add "abatement" as a new child to the term "moderation".
+ - "abatement" : the act of abatingIf we decide to add a new node "abatement" as a child of "moderation", it should conceptually become the consistent grandchild of"decrease".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""abatement" is the act of abating. Abating is lessening in severity or intensity. This is the same as the definition of "moderation". So it is consistent to add "abatement" as a child of "moderation"."
+  },
+  "36069505517446398177596751142516747725469335163583744364102097563426804547654": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"game_of_chance" represents the parent node term under consideration. 
+ - "game_of_chance" : a game that involves gambling
+"game_of_chance" is the subclass of "gambling" and "game".
+ - "gambling" : the act of playing for stakes in the hope of winning (including the payment of a price for a chance to win a prize)
+ - "game" : a contest with rules to determine a winner
+Now we want to add "craps" as a new child to the term "game_of_chance".
+ - "craps" : a gambling game played with two dice; a first throw of 7 or 11 wins and a first throw of 2, 3, or 12 loses and a first throw of any other number must be repeated to win before a 7 is thrown, which loses the bet and the diceIf we decide to add a new node "craps" as a child of "game_of_chance", it should conceptually become the consistent grandchild of"gambling" and "game".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Yes. "craps" is a game of chance and a gambling game. So it is the consistent grandchild of "gambling" and "game"."
+  },
+  "27998708940375093084955299454272819004222165832096140717824298523112060364983": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"country-dance" represents the parent node term under consideration. 
+ - "country-dance" : a type of folk dance in which couples are arranged in sets or face one another in a line
+"country-dance" is the subclass of "folk_dancing".
+ - "folk_dancing" : a style of dancing that originated among ordinary people (not in the royal courts)
+Now we want to add "longways" as a new child to the term "country-dance".
+ - "longways" : country dancing performed with couples in two long lines facing each otherIf we decide to add a new node "longways" as a child of "country-dance", it should conceptually become the consistent grandchild of"folk_dancing".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""longways" is a subclass of "country-dance".
+"country-dance" is a subclass of "folk_dancing".
+Therefore, "longways" is a subclass of "folk_dancing"."
+  },
+  "66853354726161056319760630220532468851765017834174430543977531637316906310349": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"country-dance" represents the parent node term under consideration. 
+ - "country-dance" : a type of folk dance in which couples are arranged in sets or face one another in a line
+"country-dance" is the subclass of "folk_dancing".
+ - "folk_dancing" : a style of dancing that originated among ordinary people (not in the royal courts)
+Now we want to add "longways" as a new child to the term "country-dance".
+ - "reel" : a lively dance of Scottish Highlanders; marked by circular moves and gliding stepsIf we decide to add a new node "reel" as a child of "country-dance", it should conceptually become the consistent grandchild of"folk_dancing".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": ""reel" is not a child of "country-dance"."
+  },
+  "100888265324089025904476637789147402184011845558614003199764954357660017186089": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"microscopy" represents the parent node term under consideration. 
+ - "microscopy" : research with the use of microscopes
+"microscopy" is the subclass of "research".
+ - "research" : systematic investigation to establish facts
+Now we want to add "electron_microscopy" as a new child to the term "microscopy".
+ - "electron_microscopy" : microscopy with the use of electron microscopesIf we decide to add a new node "electron_microscopy" as a child of "microscopy", it should conceptually become the consistent grandchild of"research".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "We can add "electron_microscopy" as a new child to the term "microscopy" because it is a subcategory of "microscopy". "microscopy" is a category of "research". Therefore, "electron_microscopy" is also a category of "research"."
+  },
+  "4322498847403671041257856046380561809851307062781235114132885440976897494083": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"act" represents the parent node term under consideration. 
+ - "act" : something that people do or cause to happen
+"act" is the subclass of "event".
+ - "event" : something that happens at a given place and time
+Now we want to add "rocket_firing" as a new child to the term "act".
+ - "rocket_firing" : the launching of a rocket or missile under its own powerIf we decide to add a new node "rocket_firing" as a child of "act", it should conceptually become the consistent grandchild of"event".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Rocket firing is an act that people do or cause to happen. It is also an event that happens at a given place and time. So it is consistent to add "rocket_firing" as a new child of "act"."
+  },
+  "68741188637793678535597439696521007566851990876272162529602549971970192773173": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"music" represents the parent node term under consideration. 
+ - "music" : musical activity (singing or whistling etc.)
+"music" is the subclass of "activity".
+ - "activity" : any specific behavior
+Now we want to add "whistling" as a new child to the term "music".
+ - "whistling" : the act of whistling a tuneIf we decide to add a new node "whistling" as a child of "music", it should conceptually become the consistent grandchild of"activity".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": "Yes, because "activity" is the parent of "music" and "music" is the parent of "whistling". So, "whistling" is the grandchild of "activity"."
+  },
+  "29989210137307990156112248221605825232032961080406472342805882488936379592648": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"work" represents the parent node term under consideration. 
+ - "work" : activity directed toward making or doing something
+"work" is the subclass of "activity".
+ - "activity" : any specific behavior
+Now we want to add "shining" as a new child to the term "work".
+ - "shining" : the work of making something smooth and shiny by rubbing or waxing itIf we decide to add a new node "shining" as a child of "work", it should conceptually become the consistent grandchild of"activity".
+
+ Answer:
+Yes
+
+ Explanation:
+",
+    "o": ""shining" is a specific type of work."
+  },
+  "49455916798783747011906958132917311330332196117956414836468009283970737967453": {
+    "i": "Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
+
+ Question: 
+"work" represents the parent node term under consideration. 
+ - "work" : activity directed toward making or doing something
+"work" is the subclass of "activity".
+ - "activity" : any specific behavior
+Now we want to add "shining" as a new child to the term "work".
+ - "treatment" : care provided to improve a situation (especially medical procedures or applications that are intended to relieve illness or injury)If we decide to add a new node "treatment" as a child of "work", it should conceptually become the consistent grandchild of"activity".
+
+ Answer:
+No
+
+ Explanation:
+",
+    "o": "The new node "treatment" is not conceptually consistent with the parent node "work"."
+  }
+}
