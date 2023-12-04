@@ -450,7 +450,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
         prompt+= f" We can add {q_grand_label} as a child node of {q_parent_label} without any conflicts."
         if len(selected_neighbors) > 1:
-            prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[:-1]} with a same granularity."
+            prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
         else:
             prompt+= f" As a result, {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
         prompt+= f"\n\n Answer:\n{'No'}"
