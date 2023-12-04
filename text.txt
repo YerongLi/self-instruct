@@ -1,0 +1,73 @@
+Generate as many inforomation extraction problem with specified format, in the predefined schema not every field have to have a ground truth value:
+1.
+Instruction:
+Given the input sentences, identify and extract words that demonstrate a relationship between two entities. The output format should be "relation1: word1, word2; relation2: word3, word4". 
+Option: conjunction, feature of, hyponym of, used for, part of, compare, evaluate for
+Input:
+Specifically , we show how to incorporate a simple prior on the distribution of natural images into support vector machines .
+Output:
+ used for: prior on the distribution of natural images, support vector machines
+
+2.
+Instruction:
+Given a sentence, please extract the subject and object containing a certain relation in the sentence according to the following relation types, in the format of "relation1: word1, word2; relation2: word3, word4". 
+Option: conjunction, feature of, hyponym of, used for, part of, compare, evaluate for
+Input:
+Evaluation on the ACE 2003 corpus shows that the convolution kernel over parse trees can achieve comparable performance with the previous best-reported feature-based methods on the 24 ACE relation subtypes .
+Output:
+ evaluate for: ACE 2003 corpus, convolution kernel over parse trees; compare: feature-based methods, convolution kernel over parse trees
+
+3.
+Instruction:
+Given a trigger word and an event type, extract and list the argument roles associated with it. Use the format "name1: role1; name2: role2". 
+Event type: meet 
+  Option: entity, place
+Input:
+After talks in Saint Petersburg ' s grand Konstantinovsky Palace , they also warned North Korea to abandon its nuclear aspirations and signed documents implementing the Moscow Treaty , which mandates sharp cuts in Cold War nuclear weapons stocks .
+Output:
+ Konstantinovsky Palace: place; they: entity
+
+4.
+Instruction:
+For the specified event type and trigger, identify and report the roles of all the related arguments. Present the results in the format of "name1: role1; name2: role2". 
+Event type: start organization 
+  Option: agent, organization, place
+Input:
+The Daily Planet Ltd , about to become the first brothel to list on the Australian Stock Exchange , plans to follow up its May Day launching by opening a " sex Disneyland " here , the Melbourne - based bordello announced Wednesday .
+Output:
+ Daily Planet Ltd: organization
+
+5.
+Instruction:
+Retrieve and display entity words belonging to a specified category within the text. Output format is "type1: word1; type2: word2". 
+Option: location, person, organization
+Input:
+Commodore had built up CD32 inventory in their Philippine manufacturing facility for the United States launch , but , being unable to sell the consoles , they remained in the Philippines until the debts owed to the owners of the facility were settled .
+Output:
+ organization: Commodore; location: Philippine
+
+6.
+Instruction:
+Locate and present all entity words associated with a given category within the provided text. Output format is "type1: word1; type2: word2". 
+Option: GENE
+Input:
+This raises the possibility that recombination occurred between corresponding LTR and vif loci of the quasi - species present in the isolates described here .
+Output:
+ GENE: vif loci
+
+7.
+Instruction:
+Please identify the event type and its trigger word from the list of options. Format the output as "type: trigger".  Option: adverse event, potential therapeutic event
+Input:
+A 10-year-old boy with osteosarcoma and normal renal function manifested laboratory evidence of impending renal toxicity and extreme elevation of aspartate aminotrasferase and alanine aminotransferase within 2 hours after the completion of a 4-hour infusion of high-dose methotrexate (MTX) (12 g/m2), and went on to develop acute renal failure with life-threatening hyperkalemia 29 hours later.
+Output:
+ adverse event: develop 
+
+8.
+Instruction:
+From the options provided, select the event type and its corresponding trigger word. Output should be structured as "type: trigger".  Option: adverse event, potential therapeutic event
+Input:
+Type II heparin-induced thrombocytopenia (HIT) is an immunological disorder characterized by antibodies to heparin-platelet factor 4 complexes and a high risk of thrombotic complications.
+Output:
+ adverse event: induced 
+
