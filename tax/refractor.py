@@ -68,9 +68,15 @@ def process_json_file(file_path):
         if isinstance(item_value, dict):
             # Extract the relevant portions from "i"
             i_text = item_value.get("i", "")
-            match = re.search(r"Answer:\s*Yes|Answer:\s*No", i_text)
+            matches = list(re.finditer(r"Answer:\s*Yes|Answer:\s*No", i_text))
 
-            if match:
+            if matches:
+                # Extract the last match
+                last_match = matches[-1]
+                cut_off_index = last_match.start()
+                i_cut = i_text[:cut_off_index].strip() + "Answer:\n"
+                o_text = f"{last_match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(last_match.group()):].strip()}"
+
                 cut_off_index = match.start()
                 i_cut = i_text[:cut_off_index] + "Answer:\n"
                 o_text = f"{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
