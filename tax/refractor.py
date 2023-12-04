@@ -68,6 +68,7 @@ def process_json_file(file_path):
         if isinstance(item_value, dict):
             # Extract the relevant portions from "i"
             i_text = item_value.get("i", "")
+            o_text = item_value.get("o", "")
             matches = list(re.finditer(r"Answer:\s*Yes|Answer:\s*No", i_text))
 
             if matches:
