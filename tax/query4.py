@@ -459,7 +459,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     # NEGATIVE sample
     if random.random() < 0.2:
-       children = list(core_graph.neighbors(parent_))
+        children = list(core_graph.neighbors(parent_))
         all_grand = set()
         for kid in children:
             # Get all grandchild nodes that are children of one child from parent_
