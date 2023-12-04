@@ -410,8 +410,9 @@ The new child term "umbrella" is consistent with the parent term "union" and the
         prompt+= f" As a result, {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
     else:
         prompt+= f" As a result, {q_kid_label} is a sibling of {q_nei_labels[0]} with a same granularity."
-    prompt+= f"\n\n Answer:\n{'Yes'}"
-    prompt+= f"\n\n Explanation:\n"
+    prompt+= f"\n\n Answer:\n"    
+    # prompt+= f"\n\n Answer:\n{'Yes'}"
+    # prompt+= f"\n\n Explanation:\n"
 
 
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
@@ -482,7 +483,7 @@ The new child term "umbrella" is consistent with the parent term "union" and the
 
     '''
     # prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
-    prompt+= ' - Question:'
+        prompt+= ' - Question:'
         prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
         # Get neighbors of the parent_ node
         neighbors_of_parent = list(core_graph.neighbors(parent_))
@@ -522,8 +523,9 @@ The new child term "umbrella" is consistent with the parent term "union" and the
             prompt+= f" As a result, {q_grand_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
         else:
             prompt+= f" As a result, {q_grand_label} is a sibling of {q_nei_labels[0]} with a same granularity."
-        prompt+= f"\n\n Answer:\n{'No'}"
-        prompt+= f"\n\n Explanation:\n"
+        # prompt+= f"\n\n Answer:\n{'No'}"
+        prompt+= f"\n\n Answer:\n"
+        # prompt+= f"\n\n Explanation:\n"
 
         prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
