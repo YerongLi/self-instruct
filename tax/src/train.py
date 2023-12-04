@@ -7,6 +7,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 model_id = "google/flan-t5-base"
 
 # load model from the hub
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 from peft import LoraConfig, get_peft_model, TaskType
 
