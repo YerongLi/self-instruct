@@ -458,16 +458,25 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
     # NEGATIVE sample
-    if random.random() < 0.2:
-        children = list(core_graph.neighbors(parent_))
-        all_grand = set()
-        for kid in children:
-            # Get all grandchild nodes that are children of one child from parent_
-            # For simplicity, this example assumes the graph is undirected
-            grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
-            all_grand = all_grand.union(grandchild_candidates)
-        if not all_grand : continue
-        grand_ = random.choice(list(all_grand))
+    # if random.random() < 0.2:
+    if random.random() < 2:
+        # Find immediate parents of the specified node (parents of parent_)
+        parents_of_parent = set(core_graph.predecessors(parent_))
+
+        # Find grandparents (parents of parents of parent_)
+        grandparents_of_parent = set([grandparent for parent in parents_of_parent for grandparent in core_graph.predecessors(parent)])
+
+        # Find the set of children of grandparents that are not in parents_of_parent
+        children_of_grandparents_not_in_parents_of_parent = set()
+        for grandparent in grandparents_of_parent:
+            children_of_grandparent = set(core_graph.successors(grandparent))
+            children_of_grandparents_not_in_parents_of_parent.update(children_of_grandparent - parents_of_parent)
+
+        # Randomly sample one element and name it grand_
+        if children_of_grandparents_not_in_parents_of_parent:
+            grand_ = random.sample(children_of_grandparents_not_in_parents_of_parent, 1).pop()
+        else:
+            continue
         grand_label = get_first_label_without_n(definitions[grand_]['label'])
         q_grand_label = f'"{grand_label}"'
 
@@ -735,7 +744,7 @@ def predict_gpt_batch(prompts, batch_size=20):
 
 batch_size = 4
 
-predict_palm_batch(prompts, batch_size)
+# predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
 # predict_gpt_batch(prompts)
 
