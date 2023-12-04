@@ -17,8 +17,10 @@ dataset = load_dataset("samsum")
 
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
-for item in dataset['train'][:10]:
-	logging.info(item)
+logging.info(datasets['train'])
+for i in range(len(dataset['train']['dialogue'])):
+	logging.info(dataset['train']['dialogue'][i])
+	logging.info(dataset['train']['summary'][i])
 # Train dataset size: 14732
 # Test dataset size: 819
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
