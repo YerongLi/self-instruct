@@ -414,9 +414,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     
     if len(selected_predecessors) > 1:
     
-        prompt+= f"{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
     else:
-        prompt+= f"{q_parent_label} is the subclass of {q_pre_labels[0]}."
+        prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
 
     # for k in selected_predecessors:
     #     node_definitions.add(k)
