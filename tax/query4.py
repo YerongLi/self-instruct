@@ -146,8 +146,6 @@ device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
 # 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
 
-
-
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
     labels = label_str.split('||')

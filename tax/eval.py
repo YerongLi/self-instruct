@@ -89,7 +89,37 @@ device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 # 11-27 02:16:11 INFO - query1.py:28 - Yes id is : {'input_ids': [[1, 3869]], 'attention_mask': [[1, 1]]}
 # 11-27 02:16:11 INFO - query1.py:29 - No id is : {'input_ids': [[1, 1939]], 'attention_mask': [[1, 1]]}
 
+def predict_next_token_batch(prompts, batch_size=10):
+    predictions = []
+    sentences = [item['prompt'] for item in prompts]
+    # Split prompts into batches
+    for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
+        batch_prompts = sentences[i:i + batch_size]
+        # Tokenize prompts and convert to PyTorch tensors
+        input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
 
+        # Generate logits for the next token using the model
+        with torch.no_grad():
+            outputs = model(**input_ids)
+            logits = outputs.logits[:, -1, :]
+
+        # Process logits or do whatever you need with them
+        next_tokens_scores = logits  # Assuming logits_processor is not used in this function
+        next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+        # Example: Extract probabilities for specific tokens (adjust token IDs as needed)
+        yes_prob = next_tokens_scores[:, 3869]
+        no_prob = next_tokens_scores[:, 1939]
+
+        # Calculate the difference in probabilities
+        prob_diff = yes_prob - no_prob
+
+        # Determine the predictions based on probability differences
+        batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
+    
+        # Append batch predictions to the overall predictions list
+        predictions.extend(batch_predictions)
+
+    return predictions
 
 def get_first_label_without_n(label_str):
     # Split the label string by "||"
@@ -647,3 +677,115 @@ batch_size = 4
 #     logging.info(output) 
 
 
+redictions =predict_next_token_batch(prompts, batch_size)
+print(len(predictions))
+print(len(prompts))
+result = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
+# output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
+
+# print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
+logging.info(f"Count number of -1 {count_neg_label}")
+
+if min_pair is not None:
+    parent, kid = min_pair
+    logging.info("Minimum pair:")
+    logging.info(definitions[parent])
+    logging.info(definitions[kid])
+
+if max_pair is not None:
+    parent, kid = max_pair
+    logging.info("Maximum pair:")
+    logging.info(definitions[parent])
+    logging.info(definitions[kid])
+
+logging.info(f"The minimum length of the edge lists is {min_len}.")
+logging.info(f"The maximum length of the edge lists is {max_len}.")
+logging.info(core_graph)
+#     try:
+#         weight = core_graph[parent][kid]['weight']
+#         if weight == -1:
+#             print(parent, kid)
+#     except:
+#         logging.info(definitions[parent])
+#         logging.info(definitions[kid])
+#         logging.info(core_graph[parent][kid])
+
+
+
+
+
+
+
+
+
+
+
+
+from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_score, confusion_matrix
+
+# Extract ground truth and predicted labels
+ground_truth = [label_dict['label'] for label_dict in result]
+predicted_labels = [label_dict['pred'] for label_dict in result]
+
+# Calculate F1 score
+f1_score_value = f1_score(ground_truth, predicted_labels, average='macro')
+
+if isinstance(f1_score_value, tuple):
+    # Handle tuple output
+    f1 = f1_score_value[0]
+    logging.info("F1 score: %f", f1)
+    print("F1 score: %f", f1)
+else:
+    # Handle single value output
+    f1 = f1_score_value
+    logging.info("F1 score: %f", f1)
+    print("F1 score: %f", f1)
+
+# Calculate accuracy score
+accuracy_score_value = accuracy_score(ground_truth, predicted_labels)
+
+if isinstance(accuracy_score_value, tuple):
+    # Handle tuple output
+    accuracy = accuracy_score_value[0]
+    logging.info("Accuracy score: %f", accuracy)
+    print("Accuracy score: %f", accuracy)
+else:
+    # Handle single value output
+    accuracy = accuracy_score_value
+    logging.info("Accuracy score: %f", accuracy)
+    print("Accuracy score: %f", accuracy)
+
+
+# Calculate recall score
+recall_score_value = recall_score(ground_truth, predicted_labels, average='macro')
+
+if isinstance(recall_score_value, tuple):
+    # Handle tuple output
+    recall = recall_score_value[0]
+    logging.info("Recall score: %f", recall)
+    print("Recall score: %f", recall)
+else:
+    # Handle single value output
+    recall = recall_score_value
+    logging.info("Recall score: %f", recall)
+    print("Recall score: %f", recall)
+
+# Calculate AUC score
+auc_score_value = roc_auc_score(ground_truth, predicted_labels)
+
+if isinstance(auc_score_value, tuple):
+    # Handle tuple output
+    auc = auc_score_value[0]
+    logging.info("AUC score: %f", auc)
+    print("AUC score: %f", auc)
+
+else:
+    # Handle single value output
+    auc = auc_score_value
+    logging.info("AUC score: %f", auc)
+    print("AUC score: %f", auc)
+
+# Print confusion matrix
+conf_matrix = confusion_matrix(ground_truth, predicted_labels, labels=[1, -1])
+logging.info("Confusion matrix:")
+print(conf_matrix)
