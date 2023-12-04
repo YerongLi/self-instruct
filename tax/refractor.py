@@ -13,7 +13,8 @@ import tqdm
 import torch
 import requests
 import json
-import openai
+# import openai
+# import re
 import google.generativeai as palm
 import os
 
@@ -37,7 +38,6 @@ def HASH(input_string):
 
     return str(hash_value)
 args = parser.parse_args()
-TOTAL = args.TOTAL
 
 config_file = args.config_file
 # Read the configuration file
@@ -49,3 +49,39 @@ with open(config_file) as f:
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 print(datapath)
+
+
+# Define the function to process each JSON file
+def process_json_file(file_path):
+    with open(file_path, 'r', encoding='utf-8') as json_file:
+        data = json.load(json_file)
+
+    # Extract the relevant portions from "i"
+    i_text = data.get("i", "")
+    match = re.search(r"Answer:\s*Yes|Answer:\s*No", i_text)
+    
+    if match:
+        cut_off_index = match.start()
+        i_cut = i_text[:cut_off_index].strip()
+        o_text = f"Answer:\n{match.group().strip()}\n\nExplanation:\n{i_text[cut_off_index + len(match.group()):].strip()}"
+        
+        # Update the "i" and "o" fields in the data
+        data["i"] = i_cut
+        data["o"] = o_text
+
+        # Construct the new file name by appending 'r' to the original file name
+        new_file_name = filepath+"r"
+        new_file_path = os.path.join(directory_path, new_file_name)
+        print(new_file_path)
+
+        # Save the modified data to the new file
+        # with open(new_file_path, 'w', encoding='utf-8') as new_json_file:
+            # json.dump(data, new_json_file, ensure_ascii=False, indent=2)
+
+# Set the directory path containing the JSON files
+
+# Iterate through all JSON files in the directory
+for filename in os.listdir(datapath):
+    if filename.endswith(".json"):
+        file_path = os.path.join(directory_path, filename)
+        process_json_file(file_path)
