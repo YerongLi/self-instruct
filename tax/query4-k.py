@@ -375,34 +375,34 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 prefix = '''Your task is to assess the consistent feasibility of adding a new node term as a child to a designated parent node, considering the parent of the parent of the specified parenting node.
 
     - Question: 
-"lottery" represents the parent node term under consideration. 
- - "lottery" : players buy (or are given) chances and prizes are distributed by casting lots
-"lottery" is the subclass of "game_of_chance".
- - "game_of_chance" : a game that involves gambling
-Now we want to add "athletic_game" as a new child to the term "lottery".
- - "athletic_game" : a game involving athletic activity
-If we decide to add a new node "athletic_game" as a child of "lottery", it should conceptually become the consistent grandchild of "game_of_chance".
+"employment" represents the parent node term under consideration. 
+ - "employment" : the occupation for which you are paid
+"employment" is the subclass of "occupation".
+ - "occupation" : the principal activity in your life that you do to earn money
+Now we want to add "gambling" as a new child to the term "employment".
+ - "gambling" : the act of playing for stakes in the hope of winning (including the payment of a price for a chance to win a prize)
+If we decide to add a new node "gambling" as a child of "employment", it should conceptually become the consistent grandchild of "occupation".
 
  Answer:
 No
 
  Explanation:
- "lottery" is a child of "game_of_chance", and "athletic_game" is not a type of "game_of_chance". So it is not consistent to add "athletic_game" as a child of "lottery".
+Based on the given definitions, "gambling" does not fit the concept of "employment" as a subclass of "occupation". "Gambling" is not a type of occupation or a principal activity in one's life that is done to earn money. It is a form of entertainment or leisure activity. Therefore, adding "gambling" as a child of "employment" would not be consistent with the concept of "occupation" and would not make sense in this hierarchy.
 
     - Question: 
-"capture" represents the parent node term under consideration. 
- - "capture" : the removal of an opponent's piece from the chess board
-"capture" is the subclass of "chess_move".
- - "chess_move" : the act of moving a chess piece
-Now we want to add "exchange" as a new child to the term "capture".
- - "exchange" : (chess) gaining (or losing) a rook in return for a knight or bishop
-If we decide to add a new node "exchange" as a child of "capture", it should conceptually become the consistent grandchild of "chess_move".
+"skiing" represents the parent node term under consideration. 
+ - "skiing" : a sport in which participants must travel on skis
+"skiing" is the subclass of "sport".
+ - "sport" : an active diversion requiring physical exertion and competition
+Now we want to add "cross-country_skiing" as a new child to the term "skiing".
+ - "cross-country_skiing" : the sport of skiing across the countryside (rather than downhill)
+If we decide to add a new node "cross-country_skiing" as a child of "skiing", it should conceptually become the consistent grandchild of "sport".
 
  Answer:
 Yes
 
  Explanation:
-Yes, because "capture" is a subclass of "chess_move", and "exchange" is a subclass of "capture". So "exchange" is a grandchild of "chess_move".\n''' 
+Based on the given information, it is consistent to add "cross-country_skiing" as a child of "skiing" and have it be the grandchild of "sport". This is because "skiing" is already defined as a subclass of "sport", and "cross-country_skiing" is a specific type of skiing that falls under the broader category of "sport". Therefore, adding "cross-country_skiing" as a child of "skiing" would not contradict the existing relationship between "skiing" and "sport".\n''' 
 # for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -774,7 +774,7 @@ batch_size = 4
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-predict_gpt_batch(prompts)
+# predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
