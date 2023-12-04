@@ -107,8 +107,8 @@ def predict_next_token_batch(prompts, batch_size=10):
     do_sample=False,  # disable sampling to test if batching affects output
     max_new_tokens = 1,
      output_scores=True, return_dict_in_generate=True
-)
-            print(next_tokens)
+).scores
+            print(next_tokens.shape)
             # print(tokenizer.batch_decode(next_tokens, skip_special_tokens=True))
             # outputs = model(input_ids=input_ids["input_ids"],
     # attention_mask=input_ids["attention_mask"])
