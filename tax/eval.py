@@ -70,7 +70,7 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 
 # model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
-model_id="/scratch/yerong/.cache/pyllama/google/flan-t5-base"
+model_id="google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 
 model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
