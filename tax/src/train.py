@@ -1,103 +1,91 @@
-import nltk
-import evaluate
-import logging
-import numpy as np
-from datasets import load_dataset
-from transformers import T5Tokenizer, DataCollatorForSeq2Seq
-from transformers import T5ForConditionalGeneration, Seq2SeqTrainingArguments, Seq2SeqTrainer
-
-# Load the tokenizer, model, and data collator
-MODEL_NAME = "google/flan-t5-base"
-
-tokenizer = T5Tokenizer.from_pretrained(MODEL_NAME)
-model = T5ForConditionalGeneration.from_pretrained(MODEL_NAME)
-data_collator = DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
-
-# Acquire the training data from Hugging Face
-DATA_NAME = "yahoo_answers_qa"
-yahoo_answers_qa = load_dataset(DATA_NAME)
-
-yahoo_answers_qa = yahoo_answers_qa["train"].train_test_split(test_size=0.3)
-
-logging.info(yahoo_answers_qa)
+from transformers import AutoModelForSeq2SeqLM
+from transformers import DataCollatorForSeq2Seq
+from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 
 
-# We prefix our tasks with "answer the question"
-prefix = "Please answer this question: "
+# huggingface hub model id
+model_id = "philschmid/flan-t5-xxl-sharded-fp16"
 
-# Define the preprocessing function
+# load model from the hub
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto")
+from peft import LoraConfig, get_peft_model, prepare_model_for_int8_training, TaskType
 
-def preprocess_function(examples):
-   """Add prefix to the sentences, tokenize the text, and set the labels"""
-   # The "inputs" are the tokenized answer:
-   inputs = [prefix + doc for doc in examples["question"]]
-   model_inputs = tokenizer(inputs, max_length=128, truncation=True)
-  
-   # The "labels" are the tokenized outputs:
-   labels = tokenizer(text_target=examples["answer"], 
-                      max_length=512,         
-                      truncation=True)
+# Define LoRA Config
+lora_config = LoraConfig(
+ r=16,
+ lora_alpha=32,
+ target_modules=["q", "v"],
+ lora_dropout=0.05,
+ bias="none",
+ task_type=TaskType.SEQ_2_SEQ_LM
+)
+# prepare int-8 model for training
+# model = prepare_model_for_int8_training(model)
 
-   model_inputs["labels"] = labels["input_ids"]
-   return model_inputs
+# add LoRA adaptor
+model = get_peft_model(model, lora_config)
+model.print_trainable_parameters()
 
-# Map the preprocessing function across our dataset
-tokenized_dataset = yahoo_answers_qa.map(preprocess_function, batched=True)
+# trainable params: 18874368 || all params: 11154206720 || trainable%: 0.16921300163961817
+# we want to ignore tokenizer pad token in the loss
+label_pad_token_id = -100
+# Data collator
+data_collator = DataCollatorForSeq2Seq(
+    tokenizer,
+    model=model,
+    label_pad_token_id=label_pad_token_id,
+    pad_to_multiple_of=8
+)
 
-nltk.download("punkt", quiet=True)
-metric = evaluate.load("rouge")
 
+output_dir="lora-flan-t5-xxl"
 
-def compute_metrics(eval_preds):
-   preds, labels = eval_preds
-
-   # decode preds and labels
-   labels = np.where(labels != -100, labels, tokenizer.pad_token_id)
-   decoded_preds = tokenizer.batch_decode(preds, skip_special_tokens=True)
-   decoded_labels = tokenizer.batch_decode(labels, skip_special_tokens=True)
-
-   # rougeLSum expects newline after each sentence
-   decoded_preds = ["\n".join(nltk.sent_tokenize(pred.strip())) for pred in decoded_preds]
-   decoded_labels = ["\n".join(nltk.sent_tokenize(label.strip())) for label in decoded_labels]
-
-   result = metric.compute(predictions=decoded_preds, references=decoded_labels, use_stemmer=True)
-  
-   return result
-# Global Parameters
-L_RATE = 3e-4
-BATCH_SIZE = 8
-PER_DEVICE_EVAL_BATCH = 4
-WEIGHT_DECAY = 0.01
-SAVE_TOTAL_LIM = 3
-NUM_EPOCHS = 3
-
-# Set up training arguments
+# Define training args
 training_args = Seq2SeqTrainingArguments(
-   output_dir="./results",
-   evaluation_strategy="epoch",
-   learning_rate=L_RATE,
-   per_device_train_batch_size=BATCH_SIZE,
-   per_device_eval_batch_size=PER_DEVICE_EVAL_BATCH,
-   weight_decay=WEIGHT_DECAY,
-   save_total_limit=SAVE_TOTAL_LIM,
-   num_train_epochs=NUM_EPOCHS,
-   predict_with_generate=True,
-   push_to_hub=False
+    output_dir=output_dir,
+	auto_find_batch_size=True,
+    learning_rate=1e-3, # higher learning rate
+    num_train_epochs=5,
+    logging_dir=f"{output_dir}/logs",
+    logging_strategy="steps",
+    logging_steps=500,
+    save_strategy="no",
+    report_to="tensorboard",
 )
 
+# Create Trainer instance
 trainer = Seq2SeqTrainer(
-   model=model,
-   args=training_args,
-   train_dataset=tokenized_dataset["train"],
-   eval_dataset=tokenized_dataset["test"],
-   tokenizer=tokenizer,
-   data_collator=data_collator,
-   compute_metrics=compute_metrics
+    model=model,
+    args=training_args,
+    data_collator=data_collator,
+    train_dataset=tokenized_dataset["train"],
 )
-
+model.config.use_cache = False  # silence the warnings. Please re-enable for inference!
+# train model
 trainer.train()
+# Save our LoRA model & tokenizer results
+peft_model_id="results"
+trainer.model.save_pretrained(peft_model_id)
+tokenizer.save_pretrained(peft_model_id)
+# if you want to save the base model to call
+# trainer.model.base_model.save_pretrained(peft_model_id)
 
-# last_checkpoint = "./results/checkpoint-22500"
 
-# finetuned_model = T5ForConditionalGeneration.from_pretrained(last_checkpoint)
-# tokenizer = T5Tokenizer.from_pretrained(last_checkpoint)
+
+import torch
+from peft import PeftModel, PeftConfig
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
+
+# Load peft config for pre-trained checkpoint etc.
+peft_model_id = "results"
+config = PeftConfig.from_pretrained(peft_model_id)
+
+# load base LLM model and tokenizer
+model = AutoModelForSeq2SeqLM.from_pretrained(config.base_model_name_or_path,  load_in_8bit=True,  device_map={"":0})
+tokenizer = AutoTokenizer.from_pretrained(config.base_model_name_or_path)
+
+# Load the Lora model
+model = PeftModel.from_pretrained(model, peft_model_id, device_map={"":0})
+model.eval()
+
+print("Peft model loaded")
