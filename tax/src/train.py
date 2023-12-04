@@ -17,7 +17,7 @@ dataset = load_dataset("samsum")
 
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
-logging.info(datasets['train'])
+logging.info(dataset['train'])
 for i in range(len(dataset['train']['dialogue'])):
 	logging.info(dataset['train']['dialogue'][i])
 	logging.info(dataset['train']['summary'][i])
