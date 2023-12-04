@@ -95,7 +95,7 @@ def process_json_file(file_path):
 # Iterate through all JSON files in the directory
 for filename in os.listdir(datapath):
     if filename.endswith(".json"):
-        filename='../../TaxoComplete/data/SemEval-Noun/siblings_0shot_300.json'
+        filename='siblings_0shot_300.json'
         file_path = os.path.join(datapath, filename)
         process_json_file(file_path)
         break
