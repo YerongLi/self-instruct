@@ -7,7 +7,7 @@ from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 model_id = "philschmid/flan-t5-xxl-sharded-fp16"
 
 # load model from the hub
-model = AutoModelForSeq2SeqLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto")
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 from peft import LoraConfig, get_peft_model, prepare_model_for_int8_training, TaskType
 
 # Define LoRA Config
