@@ -10,8 +10,7 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
     with open(filename, "r") as file:
         content = file.readlines()
     with open(summary_json_filename, 'r') as json_file:
-        data = json.load(json_file)
-    print(filename in data)
+        summary = json.load(json_file)
     # Extract the conversation between the user and the specified name
     conversation = []
     for line in content:
@@ -46,6 +45,7 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
         data["instruction"] = instruction
         data["output"] = output
         data["history"] = history
+        data["summary"] = summary[filename]['o']
         # Dump each conversation as a separate JSON object in the file
         with open(json_filename, "a") as f:
             json.dump(data, f)
