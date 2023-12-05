@@ -91,6 +91,6 @@ if os.path.exists(directory_path) and os.path.isdir(directory_path):
                         # print(f"Contents of {file_path}:\n{file_contents}\n{'-' * 50}")
 else:
     print(f"The directory '{directory_path}' does not exist.")
-for prompt in prompts[:10]:
-    logging.info(prompt)
-predict_gpt_batch(prompts[:3])
+# for prompt in prompts[:10]:
+#     logging.info(prompt)
+predict_gpt_batch(prompts)
