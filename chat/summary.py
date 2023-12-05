@@ -3,7 +3,7 @@ import os
 directory_path = "sampled"  # Change this to the desired directory path
 
 # Check if the directory exists
-prompt = []
+prompts = []
 prefix = "Could you give a summary on the following dialogue, keeping [PERSON], [LOC] as privacy tokens?\n"
 suffix = "\nSummary:\n"
 if os.path.exists(directory_path) and os.path.isdir(directory_path):
