@@ -9,7 +9,9 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
     # Open the input file
     with open(filename, "r") as file:
         content = file.readlines()
-    print(filename)
+    with open(summary_json_filename, 'r') as json_file:
+        data = json.load(json_file)
+    print(filename in data)
     # Extract the conversation between the user and the specified name
     conversation = []
     for line in content:
