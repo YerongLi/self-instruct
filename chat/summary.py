@@ -10,6 +10,10 @@ logging.basicConfig(
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
+def save_predictions_to_file(predictions):
+    with open(filename, "w") as file:
+        json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
+    print(f"Predictions saved to {filename} === Total {len(predictions)}")
 def predict_gpt_batch(prompts, batch_size=20):
     # Check if the predictions file exists
     predictions = {}
@@ -76,3 +80,4 @@ else:
     print(f"The directory '{directory_path}' does not exist.")
 for prompt in prompts[:10]:
     logging.info(prompt)
+predict_gpt_batch(prompts)
