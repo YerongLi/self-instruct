@@ -1,5 +1,6 @@
-import os
+import json
 import logging
+import os
 directory_path = "sampled"  # Change this to the desired directory path
 filename = 'sampled/summary.json'
 LOGFILE='output.log'
