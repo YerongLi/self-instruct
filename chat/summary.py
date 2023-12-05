@@ -4,14 +4,15 @@ directory_path = "sampled"  # Change this to the desired directory path
 
 # Check if the directory exists
 if os.path.exists(directory_path) and os.path.isdir(directory_path):
-    # Get a list of all *.txt files in the directory
-    txt_files = [file for file in os.listdir(directory_path) if file.endswith(".txt")]
-    print(txt_files)
-    # Read and print the contents of each *.txt file
-    for txt_file in txt_files:
-        file_path = os.path.join(directory_path, txt_file)
-        with open(file_path, 'r') as file:
-            file_contents = file.read()
-            print(f"Contents of {txt_file}:\n{file_contents}\n{'-' * 50}")
+    # Walk through the directory and its immediate subdirectories (depth=1)
+    for root, dirs, files in os.walk(directory_path):
+        # Ignore subdirectories beyond depth=2
+        if root[len(directory_path):].count(os.sep) <= 2:
+            for file in files:
+                if file.endswith(".txt"):
+                    file_path = os.path.join(root, file)
+                    with open(file_path, 'r') as txt_file:
+                        file_contents = txt_file.read()
+                        print(f"Contents of {file_path}:\n{file_contents}\n{'-' * 50}")
 else:
     print(f"The directory '{directory_path}' does not exist.")
