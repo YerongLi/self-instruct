@@ -3,6 +3,7 @@ import logging
 import os
 import shutil
 import tqdm
+import 
 directory_path = "sampled"  # Change this to the desired directory path
 filename = 'sampled/summary.json'
 LOGFILE='output.log'
@@ -52,7 +53,8 @@ def predict_gpt_batch(prompts, batch_size=20):
 
             # Access individual responses in the list
             for i in range(len(batch_prompts)):
-                predictions[batch_prompts[i]['filename']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+                # predictions[batch_prompts[i]['filename']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+                predictions[batch_prompts[i]['filename']] = {'i' : batch_prompts[i]['prompt'], 'o': responses}
             save_predictions_to_file(predictions)
         
 
