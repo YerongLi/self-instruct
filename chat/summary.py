@@ -1,7 +1,14 @@
 import os
-
+import logging
 directory_path = "sampled"  # Change this to the desired directory path
 filename = 'sampled/summary.json'
+logging.basicConfig(
+    format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
+    level=logging.INFO,
+    filename=LOGFILE,
+    datefmt='%m-%d %H:%M:%S')
+
+logging.info(f'Logger start: {os.uname()[1]}')
 def predict_gpt_batch(prompts, batch_size=20):
     # Check if the predictions file exists
     predictions = {}
@@ -32,7 +39,7 @@ def predict_gpt_batch(prompts, batch_size=20):
             #     presence_penalty=0
             # )
             responses = batch_prompts.copy
-            time.sleep(16)
+            # time.sleep(16)
 
 
             # Access individual responses in the list
@@ -67,4 +74,4 @@ if os.path.exists(directory_path) and os.path.isdir(directory_path):
 else:
     print(f"The directory '{directory_path}' does not exist.")
 for prompt in prompts[:10]:
-    print(prompt)
+    logging.info(prompt)
