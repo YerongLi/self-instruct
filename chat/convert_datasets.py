@@ -32,6 +32,7 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
         "output": None,
         "history": [],
         "summary": None,
+        "filename": None,
     }
     for i in range(len(conversation) - 1):
         if not (conversation[i]["role"] == "Human" and conversation[i + 1]["role"] == "Assistant"):
@@ -47,6 +48,8 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
         data["output"] = output
         data["history"] = history
         data["summary"] = summary[filename]['o']
+        data["filename"] = filename
+        
         # Dump each conversation as a separate JSON object in the file
         with open(json_filename, "a") as f:
             json.dump(data, f)
