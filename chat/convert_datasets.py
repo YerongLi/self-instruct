@@ -30,7 +30,8 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
     data = {
         "instruction": None,
         "output": None,
-        "history": []
+        "history": [],
+        "summary": None,
     }
     for i in range(len(conversation) - 1):
         if not (conversation[i]["role"] == "Human" and conversation[i + 1]["role"] == "Assistant"):
