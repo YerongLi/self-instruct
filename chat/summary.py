@@ -62,7 +62,6 @@ def predict_gpt_batch(prompts, batch_size=20):
             for i in range(len(batch_prompts)):
                 predictions[batch_prompts[i]['filename']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
                 # predictions[batch_prompts[i]['filename']] = {'i' : batch_prompts[i]['prompt'], 'o': responses}
-            print(predictions)
             save_predictions_to_file(predictions)
         
 
