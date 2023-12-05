@@ -4,6 +4,7 @@ import os
 import shutil
 import tqdm
 from openai import OpenAI
+import time
 directory_path = "sampled"  # Change this to the desired directory path
 filename = 'sampled/summary.json'
 LOGFILE='output.log'
