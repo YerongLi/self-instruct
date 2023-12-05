@@ -2,6 +2,7 @@ import os
 import logging
 directory_path = "sampled"  # Change this to the desired directory path
 filename = 'sampled/summary.json'
+LOGFILE='output.log'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
