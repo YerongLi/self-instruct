@@ -14,6 +14,12 @@ logging.basicConfig(
     datefmt='%m-%d %H:%M:%S')
 
 logging.info(f'Logger start: {os.uname()[1]}')
+openai_api_key = os.environ.get("OPENAI")
+
+if not openai_api_key:
+    print("OpenAI API key not found in environment variables.")
+client = OpenAI(api_key=openai_api_key)
+
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
@@ -38,15 +44,15 @@ def predict_gpt_batch(prompts, batch_size=20):
     try:
         for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
             batch_prompts = const_prompts[z:z + batch_size]
-            # responses = client.completions.create(
-            #     model="gpt-3.5-turbo-instruct",
-            #     prompt=[p['prompt'] for p in batch_prompts],
-            #     temperature=0,
-            #     max_tokens=512,
-            #     top_p=1,
-            #     frequency_penalty=0,
-            #     presence_penalty=0
-            # )
+            responses = client.completions.create(
+                model="gpt-3.5-turbo-instruct",
+                prompt=[p['prompt'] for p in batch_prompts],
+                temperature=0,
+                max_tokens=512,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
             responses = batch_prompts.copy()
             # time.sleep(16)
 
@@ -86,4 +92,4 @@ else:
     print(f"The directory '{directory_path}' does not exist.")
 for prompt in prompts[:10]:
     logging.info(prompt)
-predict_gpt_batch(prompts)
+predict_gpt_batch(prompts[:3])
