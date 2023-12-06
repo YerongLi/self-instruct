@@ -404,6 +404,7 @@ Yes
  Explanation:
 Based on the given information, it is consistent to add "cross-country_skiing" as a child of "skiing" and have it be the grandchild of "sport". This is because "skiing" is already defined as a subclass of "sport", and "cross-country_skiing" is a specific type of skiing that falls under the broader category of "sport". Therefore, adding "cross-country_skiing" as a child of "skiing" would not contradict the existing relationship between "skiing" and "sport".\n''' 
 # for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+iter_count = 0 
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
@@ -416,6 +417,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
 
     if hs in predictions: continue
+    iter_count+= 1
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
@@ -481,8 +483,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     print('Before logging')
     print(iteration)
     logging.info(prompt)
-    
-    if iteration <= 10:
+
+    if iter_count <= 10:
         logging.info(prompt)
 
 
