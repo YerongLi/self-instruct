@@ -479,6 +479,9 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         'hs': hs,
         })
     print('Before logging')
+    print(iteration)
+    logging.info(prompt)
+    
     if iteration <= 10:
         logging.info(prompt)
 
