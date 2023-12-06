@@ -478,7 +478,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         'label': core_graph[parent_][kid_]['weight'],
         'hs': hs,
         })
-
+    print('Before logging')
     if iteration <= 10:
         logging.info(prompt)
 
