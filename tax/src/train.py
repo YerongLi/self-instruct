@@ -151,7 +151,7 @@ trainer = Seq2SeqTrainer(
     data_collator=data_collator,
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["test"],
-    # callbacks=[save_best_model_callback],  # Include the callback here
+    callbacks=[save_best_model_callback],  # Include the callback here
 )
 model.config.use_cache = False
 # train model
