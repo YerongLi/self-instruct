@@ -103,10 +103,10 @@ class SaveBestModelCallback(TrainerCallback):
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
 # logging.info(dataset['train'])
-for i in tqdm.tqdm(range(len(dataset['train'][input_header][:100]))):
-	dataset['train'][input_header][i] = 10000 *'Here it is ' +  dataset['train'][input_header][i]
-	# logging.info(dataset['train'][input_header][i])
-	# logging.info(dataset['train'][output_header][i])
+for i in tqdm.tqdm(range(len(dataset['train'][input_header][:20]))):
+	# dataset['train'][input_header][i] = 10000 *'Here it is ' +  dataset['train'][input_header][i]
+	logging.info(dataset['train'][input_header][i])
+	logging.info(dataset['train'][output_header][i])
 # Train dataset size: 14732
 # Test dataset size: 819
 
