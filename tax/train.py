@@ -82,8 +82,8 @@ with open(filename, "r") as f:
 # dataset = load_dataset("samsum")
 dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
 
-print(dataset)
-print(type(dataset))
+# print(dataset)
+# print(type(dataset))
 class SaveBestModelCallback(TrainerCallback):
     def __init__(self, output_dir):
         self.output_dir = output_dir
