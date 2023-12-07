@@ -345,7 +345,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     q_parent_label = f'"{parent_label}"'
     q_kid_label = f'"{kid_label}"'
-    del parent_label, q_kid_label
+    del parent_label, kid_label
     #POSTIVE
     # pairs.append((parent_label, kid_label, 'Yes'))
     # eligible_keys = [key for key in exemplars if key != hs]
