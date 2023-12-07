@@ -330,7 +330,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # Create a dictionary with the sampled instances
     # pairs = [exemplars[key] for key in sampled_keys]
 
-    prompt = prompt + prefix
+    prompt = prefix
     # prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
     # for pair in pairs:
 
