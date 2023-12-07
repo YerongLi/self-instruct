@@ -75,6 +75,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 
 filename = f"{datapath}/dataset{TOTAL}.json",
+print(filename)
 with open(filename, "r") as f:
         dataset = json.load(f)
 # dataset = load_dataset("samsum")
