@@ -17,7 +17,8 @@ import google.generativeai as palm
 import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
-from torch.utils.data import DataLoader, Dataset
+from torch.utils.data import DataLoader
+from datasets import Dataset
 openai_api_key = os.environ.get("OPENAI")
 
 if not openai_api_key:
