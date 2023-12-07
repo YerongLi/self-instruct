@@ -24,7 +24,7 @@ class SaveBestModelCallback(TrainerCallback):
         self.best_eval_loss = float("inf")
 
     def on_evaluate(self, args, state, control, model, tokenizer, **kwargs):
-        eval_loss = state.loss
+        eval_loss = control.metrics['eval_loss']
         if eval_loss < self.best_eval_loss:
             # Save the model if the evaluation loss improves
             model.save_pretrained(f"{self.output_dir}/best/")
@@ -149,7 +149,7 @@ trainer = Seq2SeqTrainer(
     data_collator=data_collator,
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["test"],
-    callbacks=[save_best_model_callback],  # Include the callback here
+    # callbacks=[save_best_model_callback],  # Include the callback here
 )
 model.config.use_cache = False
 # train model
