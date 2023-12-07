@@ -296,8 +296,7 @@ logging.info(f"Number of edges : {count_edges}")
 prompts = []
 # with open(f'{datapath}/predictions_1shot_{TOTAL}.json', "r") as f:
 #     exemplars = json.load(f)
-prefix = '''
-Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.
+prefix = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.
  
     - Question: 
 "peeper" : an animal that makes short high-pitched sounds
@@ -310,7 +309,9 @@ Yes
 The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
 '''
 filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
-
+if os.path.exists(filename):
+    with open(filename, "r") as f:
+        predictions = json.load(f)
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -318,6 +319,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         continue
     if parent_ == rootkey or kid_ == rootkey : continue
     hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
+    if hs in predictions: continue
 
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
@@ -353,6 +355,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     #         prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
     #         prompt+= f"\n Explanation: \n{pair['o']}\n"
 
+    prompt+= "\n\n    - Question:"
 
     node_definitions = set()
     node_definitions.add(parent_)
@@ -368,9 +371,8 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
         print('error')
         continue
 
-    prompt+= "\n\n - Question: "
-    prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer: {"Yes"}' 
-    prompt+= f'\n Explanation: \n'
+    prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer:\n' 
+    # prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
     prompts.append({'prompt': prompt, 
