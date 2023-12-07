@@ -18,8 +18,8 @@ import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader
-from datasets.dataset_dict import DatasetDict
-from datasets import Dataset
+# from datasets.dataset_dict import DatasetDict
+from datasets import Dataset, DatasetDict
 openai_api_key = os.environ.get("OPENAI")
 
 if not openai_api_key:
@@ -59,7 +59,8 @@ f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
 
-
+train_df = pd.DataFrame(columns=['i', 'o'])
+test_df = pd.DataFrame(columns=['i', 'o'])
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
