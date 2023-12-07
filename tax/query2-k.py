@@ -390,7 +390,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     del hs, kid_, kid_label, prompt
 
     # NEGATIVE sample
-    if random.random() < (1.5 if '0shot' in filename else 0.2):
+    if random.random() <100* (1.5 if '0shot' in filename else 0.2):
 
         children = list(core_graph.neighbors(parent_))
         all_grand = set()
