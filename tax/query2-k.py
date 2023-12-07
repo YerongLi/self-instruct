@@ -71,12 +71,12 @@ logging.info(f'Logger start: {os.uname()[1]}')
 model_path = "/scratch/yerong/.cache/pyllama/Llama-2-7b-hf/"
 
 # model = None
-model = LlamaForCausalLM.from_pretrained(
-  model_path,
-  torch_dtype=torch.float16,
-  device_map='auto',
-  low_cpu_mem_usage=True,
-).eval()
+# model = LlamaForCausalLM.from_pretrained(
+#   model_path,
+#   torch_dtype=torch.float16,
+#   device_map='auto',
+#   low_cpu_mem_usage=True,
+# ).eval()
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 tokenizer.pad_token = "[PAD]"
 pad_token_id = tokenizer.encode(tokenizer.pad_token)[0]
@@ -323,12 +323,12 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
     #POSTIVE
     # pairs.append((parent_label, kid_label, 'Yes'))
-    eligible_keys = [key for key in exemplars if key != hs]
+    # eligible_keys = [key for key in exemplars if key != hs]
 
-    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
+    # sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
 
     # Create a dictionary with the sampled instances
-    pairs = [exemplars[key] for key in sampled_keys]
+    # pairs = [exemplars[key] for key in sampled_keys]
 
     prompt = prompt + prefix
     # prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
