@@ -56,7 +56,7 @@ f"{datapath}/prediction_kshot_{TOTAL}.json",
 f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
-dataset = {'train' : [], 'test' : None}
+dataset = {'train' : [], 'test' : []}
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
