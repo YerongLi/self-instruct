@@ -397,9 +397,6 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     grand_label = get_first_label_without_n(definitions[grand_]['label'])
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
     
-    # eligible_keys = [key for key in exemplars if key != hs]
-
-    sampled_keys = random.sample(eligible_keys, min(3, len(eligible_keys)))
 
     # Create a dictionary with the sampled instances
     pairs = [exemplars[key] for key in sampled_keys]
