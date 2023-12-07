@@ -42,10 +42,10 @@ parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-parser.add_argument("--r", default=None, type=str,
-                        help="Path to the checkpoint to resume training. Default is 'results/best'.")
-parser.add_argument("--r", default=None, type=str,
-                        help="Path to the checkpoint to resume training. Default is 'results/'.")
+parser.add_argument("--r", default=None,
+                        help="Path to the checkpoint to resume training. Default is None.")
+parser.add_argument("--d", default=None, type=str,
+                        help="Path to the checkpoint to resume training. Default is 'dataset'.")
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
     hash_object = hashlib.sha256(input_string.encode())
@@ -80,7 +80,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 
 # dataset = load_dataset("samsum")
-dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
+dataset= DatasetDict.load_from_disk(f"{datapath}/{args.d}{TOTAL}.data")
 
 
 model_id='/scratch/yerong/.cache/pyllama/flan-t5-base'
@@ -195,7 +195,7 @@ tokenized_dataset["test"].save_to_disk("data/eval")
 # we want to ignore tokenizer pad token in the loss
 label_pad_token_id = -100
 # Data collator
-output_dir = args.o
+output_dir = args.d
 data_collator = DataCollatorForSeq2Seq(
     tokenizer,
     model=model,
