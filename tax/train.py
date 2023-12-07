@@ -46,7 +46,7 @@ parser.add_argument("--r", default=None,
                     help="Path to the checkpoint to resume training. Default is None.")
 
 # Define the --d argument
-parser.add_argument("--d", default=None, type=str,
+parser.add_argument("--d", default='dataset', type=str,
                     help="dataset. Default is 'dataset'.")
 
 def HASH(input_string):
@@ -80,6 +80,8 @@ logging.basicConfig(
 input_header='i'
 output_header='o'
 logging.info(f'Logger start: {os.uname()[1]}')
+logging.info(f'{args.d}')
+print(f'{args.d}')
 # Load dataset from the hub
 
 # dataset = load_dataset("samsum")
