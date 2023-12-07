@@ -557,12 +557,58 @@ def predict_llama_batch(prompts, batch_size=10):
     #     save_predictions_to_file(predictions)
     #     return
     save_predictions_to_file(predictions)
+def predict_gpt_batch(prompts, batch_size=20):
+    # Check if the predictions file exists
+    predictions = {}
+    if os.path.exists(filename):
+        backup_filename = filename + ".backup"
+        shutil.copyfile(filename, backup_filename)
+        print(f"Backup created: {backup_filename}")
+        with open(filename, "r") as f:
+            predictions = json.load(f)
+    const_prompts = [item for item in prompts if item['hs'] not in predictions]
+    del prompts
+    # url = "https://api.openai.com/v1/completions"
+    # headers = {
+    #     "Content-Type": "application/json",
+    #     "Authorization": f"Bearer {openai_api_key}"
+    # }
+
+    try:
+        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
+            batch_prompts = const_prompts[z:z + batch_size]
+            responses = client.completions.create(
+                model="gpt-3.5-turbo-instruct",
+                prompt=[p['prompt'] for p in batch_prompts],
+                temperature=0,
+                max_tokens=512,
+                top_p=1,
+                frequency_penalty=0,
+                presence_penalty=0
+            )
+            time.sleep(16)
+
+
+            # Access individual responses in the list
+            for i in range(len(batch_prompts)):
+                predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
+            save_predictions_to_file(predictions)
+        
+
+    except KeyboardInterrupt as e:
+        print(f"Interupt")
+        save_predictions_to_file(predictions)
+    except Exception as e:
+        print(e)
+        save_predictions_to_file(predictions)
+    save_predictions_to_file(predictions)
+
 
 batch_size = 1
 
 # predict_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-
+predict_gpt_batch(prompts)
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
 #     logging.info(output) 
