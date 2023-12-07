@@ -309,6 +309,8 @@ Yes
 "Animal" is a general category that includes various living organisms with voluntary movement. "Peeper" falls under the category of "animal" based on its definition, indicating that it is a specific type of animal.
 The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
 '''
+filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
+
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -388,62 +390,61 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # NEGATIVE sample
     if random.random() < (1.5 if '0shot' in filename else 0.2):
 
-    children = list(core_graph.neighbors(parent_))
-    all_grand = set()
-    for kid in children:
-        # Get all grandchild nodes that are children of one child from parent_
-        # For simplicity, this example assumes the graph is undirected
-        grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
-        all_grand = all_grand.union(grandchild_candidates)
-    if not all_grand : continue
-    grand_ = random.choice(list(all_grand))
-    grand_label = get_first_label_without_n(definitions[grand_]['label'])
-    hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
-    
+        children = list(core_graph.neighbors(parent_))
+        all_grand = set()
+        for kid in children:
+            # Get all grandchild nodes that are children of one child from parent_
+            # For simplicity, this example assumes the graph is undirected
+            grandchild_candidates = set(core_graph.neighbors(kid)) - {parent_, kid}
+            all_grand = all_grand.union(grandchild_candidates)
+        if not all_grand : continue
+        grand_ = random.choice(list(all_grand))
+        grand_label = get_first_label_without_n(definitions[grand_]['label'])
+        hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+        
 
 
-    del description
+        del description
 
-    prompt = prefix
+        prompt = prefix
 
-    prompt+= "\n\n - Question: "
-    node_definitions = set()
-    node_definitions.add(parent_)
-    node_definitions.add(grand_)
-    try:
-        for node in node_definitions:
-            label = get_first_label_without_n(definitions[node]['label'])
-            # logging.info(node)
-            # logging.info(definitions[node])
-            description = definitions[node]['summary']
-            prompt += f"\n{label} : {description}"
-    except:
-        print('err')
-        continue
+        prompt+= "\n\n - Question: "
+        node_definitions = set()
+        node_definitions.add(parent_)
+        node_definitions.add(grand_)
+        try:
+            for node in node_definitions:
+                label = get_first_label_without_n(definitions[node]['label'])
+                # logging.info(node)
+                # logging.info(definitions[node])
+                description = definitions[node]['summary']
+                prompt += f"\n{label} : {description}"
+        except:
+            print('err')
+            continue
 
-    prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
-    prompt+= f'\n Explanation: \n'
-    # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
-    
-    prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
+        prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
+        prompt+= f'\n Explanation: \n'
+        # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
+        
+        prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
 
-    # predicted_label = predict_next_token(prompt)
-    if iteration <= 10:
-        logging.info(prompt)
-        # logging.info(predicted_label)
-    edge_list_len = len(edge_list)
+        # predicted_label = predict_next_token(prompt)
+        if iteration <= 10:
+            logging.info(prompt)
+            # logging.info(predicted_label)
+        edge_list_len = len(edge_list)
 
-    if min_pair is None or edge_list_len < min_len:
-        min_pair = (parent_, kid_)
-        min_len = edge_list_len
+        if min_pair is None or edge_list_len < min_len:
+            min_pair = (parent_, kid_)
+            min_len = edge_list_len
 
-    if max_pair is None or edge_list_len > max_len:
-        max_pair = (parent_, kid_)
-        max_len = edge_list_len
-    # Check if we need to sample additional negative pairs
+        if max_pair is None or edge_list_len > max_len:
+            max_pair = (parent_, kid_)
+            max_len = edge_list_len
+        # Check if we need to sample additional negative pairs
 
 
-filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
 def save_predictions_to_file(predictions):
     with open(filename, "w") as file:
         json.dump(predictions, file, indent=4)  # Add 'indent' parameter for pretty formatting
