@@ -343,7 +343,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     parent_label = get_first_label_without_n(definitions[parent_]['label'])
     kid_label = get_first_label_without_n(definitions[kid_]['label'])
 
-
+    q_parent_label = f'"{parent_label}"'
+    q_kid_label = f'"{kid_label}"'
+    del parent_label, q_kid_label
     #POSTIVE
     # pairs.append((parent_label, kid_label, 'Yes'))
     # eligible_keys = [key for key in exemplars if key != hs]
@@ -379,16 +381,19 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
-    try:
-        for node in node_definitions:
-            label = get_first_label_without_n(definitions[node]['label'])
-            # logging.info(node)
-            # logging.info(definitions[node])
-            description = definitions[node]['summary']
-            prompt += f"\n{label} : {description}"
-    except:
-        print('error')
-        continue
+    prompt += f"\n{q_parent_label} : {definitions[parent_]['label']}"
+    prompt += f"\n{q_kid_label} : {definitions[kid_]['label']}"
+
+    # try:
+    #     for node in node_definitions:
+    #         label = get_first_label_without_n(definitions[node]['label'])
+    #         # logging.info(node)
+    #         # logging.info(definitions[node])
+    #         description = definitions[node]['summary']
+    #         prompt += f"\n{label} : {description}"
+    # except:
+    #     print('error')
+    #     continue
 
     prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer:\n' 
     # prompt+= f'\n Explanation: \n'

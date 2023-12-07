@@ -423,9 +423,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
     q_parent_label = f'"{parent_label}"'
     q_kid_label = f'"{kid_label}"'
-    #POSTIVE
-
     
+    #POSTIVE
 
     prompt = prefix
     
