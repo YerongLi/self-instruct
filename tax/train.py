@@ -44,7 +44,8 @@ parser.add_argument("config_file", type=str, help="Path to the configuration fil
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
 parser.add_argument("--r", default=None, type=str,
                         help="Path to the checkpoint to resume training. Default is 'results/best'.")
-
+parser.add_argument("--r", default=None, type=str,
+                        help="Path to the checkpoint to resume training. Default is 'results/'.")
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
     hash_object = hashlib.sha256(input_string.encode())
@@ -194,7 +195,7 @@ tokenized_dataset["test"].save_to_disk("data/eval")
 # we want to ignore tokenizer pad token in the loss
 label_pad_token_id = -100
 # Data collator
-output_dir = './results'
+output_dir = args.o
 data_collator = DataCollatorForSeq2Seq(
     tokenizer,
     model=model,

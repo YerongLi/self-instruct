@@ -99,3 +99,106 @@ output_file_path = f"{datapath}/dataset{TOTAL}.data"
 dataset_dict.save_to_disk(output_file_path)
 
 print(f"Dataset saved to {output_file_path}")
+
+
+###############################
+'''filenames=[
+f"{datapath}/prediction_kshot_{TOTAL}.json",
+]'''
+del train_df, test_df
+del filenames, predictions, train_dataset, test_dataset, dataset_dict
+
+filenames=[
+f"{datapath}/prediction_kshot_{TOTAL}.json",
+]
+train_df = pd.DataFrame(columns=['id', 'i', 'o'])
+test_df = pd.DataFrame(columns=['id', 'i', 'o'])
+
+for filename in filenames:
+    with open(filename, "r") as f:
+        predictions = json.load(f)
+
+    # Iterate through keys in predictions and append 'id', 'i', and 'o' values to DataFrames
+    for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
+        entry = predictions[key]
+        entry['id'] = idx  # Add 'id' field with idx value
+        if idx % 4 == 0:
+            test_df = pd.concat([test_df, pd.DataFrame([entry])], ignore_index=True)
+        else:
+            train_df = pd.concat([train_df, pd.DataFrame([entry])], ignore_index=True)
+
+# Convert DataFrames to Dataset
+train_dataset = Dataset.from_pandas(train_df)
+test_dataset = Dataset.from_pandas(test_df)
+
+# Create DatasetDict
+dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+
+
+# train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
+
+# # # Create 'test' dataset
+# test_dataset = Dataset({'id': list(range(len(dataset['test']['i']))), 'i': dataset['test']['i'], 'o': dataset['test']['o']})
+
+
+# # # Create a DatasetDict
+# dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+
+
+output_file_path = f"{datapath}/base{TOTAL}.data"
+
+
+dataset_dict.save_to_disk(output_file_path)
+
+print(f"Dataset saved to {output_file_path}")
+
+
+###### 
+del train_df, test_df
+del filenames, predictions, train_dataset, test_dataset, dataset_dict
+
+filenames=[
+f"{datapath}/prediction_kshot_{TOTAL}.json",
+f"{datapath}/siblings_kshot_{TOTAL}.json",
+f"{datapath}/parent_kshot_{TOTAL}.json",
+]
+train_df = pd.DataFrame(columns=['id', 'i', 'o'])
+test_df = pd.DataFrame(columns=['id', 'i', 'o'])
+
+for filename in filenames:
+    with open(filename, "r") as f:
+        predictions = json.load(f)
+
+    # Iterate through keys in predictions and append 'id', 'i', and 'o' values to DataFrames
+    for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
+        entry = predictions[key]
+        entry['id'] = idx  # Add 'id' field with idx value
+        if idx % 4 == 0:
+            test_df = pd.concat([test_df, pd.DataFrame([entry])], ignore_index=True)
+        else:
+            train_df = pd.concat([train_df, pd.DataFrame([entry])], ignore_index=True)
+
+# Convert DataFrames to Dataset
+train_dataset = Dataset.from_pandas(train_df)
+test_dataset = Dataset.from_pandas(test_df)
+
+# Create DatasetDict
+dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+
+
+# train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
+
+# # # Create 'test' dataset
+# test_dataset = Dataset({'id': list(range(len(dataset['test']['i']))), 'i': dataset['test']['i'], 'o': dataset['test']['o']})
+
+
+# # # Create a DatasetDict
+# dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+
+
+output_file_path = f"{datapath}/nosib{TOTAL}.data"
+
+
+dataset_dict.save_to_disk(output_file_path)
+
+print(f"Dataset saved to {output_file_path}")
