@@ -34,7 +34,6 @@ openai_api_key = os.environ.get("OPENAI")
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
 client = OpenAI(api_key=openai_api_key)
-LOGFILE='output.log'
 palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 # from torch.utils.data import DataLoader, Dataset
@@ -69,7 +68,7 @@ datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
 
 print(datapath)
-LOGFILE='output.log'
+LOGFILE=f'{args.d}_output.log'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
