@@ -24,8 +24,7 @@ class SaveBestModelCallback(TrainerCallback):
         self.best_eval_loss = float("inf")
 
     def on_evaluate(self, args, state, control, model, tokenizer, **kwargs):
-        print(kwargs)
-        eval_loss = ['eval_loss']
+        eval_loss = kwargs['metrics']['eval_loss']
         print(self.output_dir)
         logging.info(eval_loss, self.best_eval_loss)
         if eval_loss < self.best_eval_loss:
