@@ -4,7 +4,7 @@ from datasets import load_dataset
 from datasets import concatenate_datasets
 import numpy as np
 import tqdm
-from peft import LoraConfig, get_peft_model, TaskType
+from peft import LoraConfig, get_peft_model, TaskType, PeftModel
 from transformers import DataCollatorForSeq2Seq, TrainerCallback
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
@@ -82,6 +82,29 @@ with open(filename, "r") as f:
 # dataset = load_dataset("samsum")
 dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
 
+
+model_id='/scratch/yerong/.cache/pyllama/flan-t5-base'
+logging.info(model_id)
+# Define LoRA Config
+lora_config = LoraConfig(
+ r=16,
+ lora_alpha=32,
+ target_modules=["q", "v"],
+ lora_dropout=0.05,
+ bias="none",
+ task_type=TaskType.SEQ_2_SEQ_LM
+)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
+
+# add LoRA adaptor
+checkpoint_to_resume = 'results/checkpoint-400'
+if checkpoint_to_resume:
+        print('Loading checkpoint')
+        model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=true)
+else:
+
+    model = get_peft_model(model, lora_config)
+    model.print_trainable_parameters()
 # print(dataset)
 # print(type(dataset))
 class SaveBestModelCallback(TrainerCallback):
@@ -111,8 +134,7 @@ for i in tqdm.tqdm(range(len(dataset['train'][input_header][:20]))):
 # Test dataset size: 819
 
 # model_id="google/flan-t5-xl"
-model_id='/scratch/yerong/.cache/pyllama/flan-t5-base'
-logging.info(model_id)
+
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 # The maximum total input sequence length after tokenization.
 # Sequences longer than this will be truncated, sequences shorter will be padded.
@@ -165,26 +187,6 @@ tokenized_dataset["test"].save_to_disk("data/eval")
 
 
 
-# Define LoRA Config
-lora_config = LoraConfig(
- r=16,
- lora_alpha=32,
- target_modules=["q", "v"],
- lora_dropout=0.05,
- bias="none",
- task_type=TaskType.SEQ_2_SEQ_LM
-)
-model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
-
-# add LoRA adaptor
-checkpoint_to_resume = 'results/checkpoint-400'
-if checkpoint_to_resume:
-        print('Loading checkpoint')
-        model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=is_trainable)
-else:
-
-    model = get_peft_model(model, lora_config)
-    model.print_trainable_parameters()
 
 # trainable params: 18874368 || all params: 11154206720 || trainable%: 0.16921300163961817
 
