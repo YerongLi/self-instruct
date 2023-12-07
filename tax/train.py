@@ -78,8 +78,8 @@ filename = f"{datapath}/dataset{TOTAL}.json"
 print(filename)
 with open(filename, "r") as f:
         dataset = json.load(f)
-# dataset = load_dataset("samsum")
-
+dataset = load_dataset("samsum")
+print(dataset)
 class SaveBestModelCallback(TrainerCallback):
     def __init__(self, output_dir):
         self.output_dir = output_dir
