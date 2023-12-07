@@ -62,7 +62,7 @@ for filename in filenames:
         predictions = json.load(f)
 
     # Iterate through keys in predictions and append 'i' and 'o' values to lists
-    for key in tqdm.tqdm(predictions):
+    for idx, key in tqdm.tqdm(enumerate(predictions)):
         entry = predictions[key]
         if idx % 4 == 0:
             dataset['test']['i'].append(entry['i'])
@@ -71,7 +71,7 @@ for filename in filenames:
             dataset['train']['i'].append(entry['i'])
             dataset['train']['o'].append(entry['o'])
 
-output_file_path = f"dataset{TOTAL}.json"
+output_file_path = f"{datapath}/dataset{TOTAL}.json"
 
 # Dump the dataset to the JSON file
 with open(output_file_path, "w") as json_file:
