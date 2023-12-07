@@ -57,7 +57,8 @@ f"{datapath}/prediction_kshot_{TOTAL}.json",
 f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
-dataset = {'train' : {'i' : [], 'o' : []}, 'test' :{'i' : [], 'o' : []}}
+dataset_dict = DatasetDict({'train': {'i': [], 'o': []}, 'test': {'i': [], 'o': []}})
+
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
@@ -66,11 +67,11 @@ for filename in filenames:
     for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
         entry = predictions[key]
         if idx % 4 == 0:
-            dataset['test']['i'].append(entry['i'])
-            dataset['test']['o'].append(entry['o'])
+            dataset_dict['test']['i'].append(entry['i'])
+            dataset_dict['test']['o'].append(entry['o'])
         else:
-            dataset['train']['i'].append(entry['i'])
-            dataset['train']['o'].append(entry['o'])
+            dataset_dict['train']['i'].append(entry['i'])
+            dataset_dict['train']['o'].append(entry['o'])
 
 train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
 
@@ -82,9 +83,9 @@ train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dat
 # dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
 
 
-# output_file_path = f"{datapath}/dataset{TOTAL}.data"
+output_file_path = f"{datapath}/dataset{TOTAL}.data"
 
 
-# dataset_dict.save_to_disk(output_file_path)
+dataset_dict.save_to_disk(output_file_path)
 
-# print(f"Dataset saved to {output_file_path}")
+print(f"Dataset saved to {output_file_path}")
