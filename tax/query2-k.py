@@ -433,7 +433,6 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         
 
 
-        del description
 
         prompt = prefix
 
