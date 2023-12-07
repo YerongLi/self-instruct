@@ -69,9 +69,10 @@ for filename in filenames:
     for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
         entry = predictions[key]
         if idx % 4 == 0:
-            test_df = test_df.append(entry, ignore_index=True)
+            test_df = pd.concat([test_df, pd.DataFrame([entry])], ignore_index=True)
         else:
-            train_df = train_df.append(entry, ignore_index=True)
+            train_df = pd.concat([train_df, pd.DataFrame([entry])], ignore_index=True)
+
 
 # Convert DataFrames to Dataset
 train_dataset = Dataset.from_pandas(train_df)
