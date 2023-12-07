@@ -48,8 +48,8 @@ for i in tqdm.tqdm(range(len(dataset['train'][input_header][:100]))):
 # Test dataset size: 819
 
 # model_id="google/flan-t5-xl"
-model_id='/scratch/yerong/.cache/pyllama/flan-t5-xl'
-
+model_id='/scratch/yerong/.cache/pyllama/flan-t5-large'
+logging.info(model_id)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 # The maximum total input sequence length after tokenization.
 # Sequences longer than this will be truncated, sequences shorter will be padded.
