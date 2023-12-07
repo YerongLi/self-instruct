@@ -309,6 +309,7 @@ Yes
 The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
 '''
 filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
+predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
