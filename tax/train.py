@@ -42,7 +42,7 @@ parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-parser.add_argument("--checkpoint_to_resume", default=None, type=str,
+parser.add_argument("--r", default=None, type=str,
                         help="Path to the checkpoint to resume training. Default is 'results/best'.")
 
 def HASH(input_string):
