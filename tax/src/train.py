@@ -133,8 +133,10 @@ training_args = Seq2SeqTrainingArguments(
     logging_dir=f"{output_dir}/logs",
     logging_strategy="steps",
     logging_steps=500,
-    save_strategy="no",
+    # save_strategy="no",
 )
+
+save_best_model_callback = SaveBestModelCallback(output_dir=training_args.output_dir)
 
 
 # Create Trainer instance
