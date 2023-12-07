@@ -319,11 +319,7 @@ incline_bench_press : a bench press performed on an inclined bench
 
 "Incline Bench Press" is a specific type of exercise that involves performing a bench press on an inclined bench. While it does involve lifting weights, it is a distinct and specific exercise within the broader category of weightlifting.
 
-Given this analysis:
-
-"Weightlift" is a broader category encompassing a variety of weightlifting exercises, not specifically inclined bench presses.
-
-"Incline Bench Press" is a specific type of weightlifting exercise, but it does not represent the entirety of bodybuilding exercises involving lifting weights.
+Given this analysis, "Weightlift" is a broader category encompassing a variety of weightlifting exercises, not specifically inclined bench presses. "Incline Bench Press" is a specific type of weightlifting exercise, but it does not represent the entirety of bodybuilding exercises involving lifting weights.
 
 Therefore, in this knowledge graph, "weightlift" is not a parent of "incline_bench_press." Instead, "weightlift" is a broader category that includes various types of weightlifting exercises, and "incline_bench_press" is a specific exercise falling within the weightlifting domain. The relationship is better described as a broader category (weightlift) and a specific type or instance (incline_bench_press), rather than a parent-child relationship.'''
 filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
@@ -381,8 +377,8 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
-    prompt += f"\n{q_parent_label} : {definitions[parent_]['label']}"
-    prompt += f"\n{q_kid_label} : {definitions[kid_]['label']}"
+    prompt += f"\n{q_parent_label} : {definitions[parent_]['description']}"
+    prompt += f"\n{q_kid_label} : {definitions[kid_]['description']}"
 
     # try:
     #     for node in node_definitions:
