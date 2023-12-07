@@ -71,8 +71,12 @@ for filename in filenames:
             dataset['train']['i'].append(entry['i'])
             dataset['train']['o'].append(entry['o'])
 
-train_dataset = Dataset.from_dict({'id': range(len(train_i)), 'i': train_i, 'o': train_o})
-test_dataset = Dataset.from_dict({'id': range(len(test_i)), 'i': test_i, 'o': test_o})
+# Create 'train' dataset
+train_dataset = Dataset({'id': list(range(len(train_i))), 'i': train_i, 'o': train_o})
+
+# Create 'test' dataset
+test_dataset = Dataset({'id': list(range(len(test_i))), 'i': test_i, 'o': test_o})
+
 
 # Create a DatasetDict
 dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
