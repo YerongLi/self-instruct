@@ -8,18 +8,76 @@ from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq, TrainerCallback
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import argparse
+import json
+import logging
+import hashlib
+import os
+import pickle
+import random
+import shutil
+import tqdm
+# import networkx as nx
+import torch
+import requests
+import json
+import time
+from openai import OpenAI
+import google.generativeai as palm
+import os
 
+from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+from torch.utils.data import DataLoader, Dataset
+openai_api_key = os.environ.get("OPENAI")
+
+if not openai_api_key:
+    print("OpenAI API key not found in environment variables.")
+client = OpenAI(api_key=openai_api_key)
+LOGFILE='output.log'
+palm.configure(api_key=os.environ['PALM'])
+# from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
+# from torch.utils.data import DataLoader, Dataset
+parser = argparse.ArgumentParser(description="Your script description")
+# Add the configuration file argument
+parser.add_argument("config_file", type=str, help="Path to the configuration file")
+parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
+def HASH(input_string):
+    # Use SHA-256 for deterministic hashing
+    hash_object = hashlib.sha256(input_string.encode())
+    hash_value = int.from_bytes(hash_object.digest(), byteorder='big')
+
+    return str(hash_value)
+args = parser.parse_args()
+TOTAL = args.TOTAL
+
+config_file = args.config_file
+# Read the configuration file
+with open(config_file) as f:
+    config = json.load(f)
+
+# Get the configuration values
+# Extract the base filename without the ".taxo" extension
+datapath = config['taxofilename'].split('/')[:-1]
+datapath = '/'.join(datapath)
+
+print(datapath)
 LOGFILE='output.log'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
     filename=LOGFILE,
     datefmt='%m-%d %H:%M:%S')
-input_header='dialogue'
-output_header='summary'
+# input_header='dialogue'
+# output_header='summary'
+input_header='i'
+output_header='o'
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
-dataset = load_dataset("samsum")
+
+filename = f"{datapath}/dataset{TOTAL}.json",
+with open(filename, "r") as f:
+        dataset = json.load(f)
+# dataset = load_dataset("samsum")
 
 class SaveBestModelCallback(TrainerCallback):
     def __init__(self, output_dir):
