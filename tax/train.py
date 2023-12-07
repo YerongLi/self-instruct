@@ -75,10 +75,6 @@ output_header='o'
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 
-filename = f"{datapath}/dataset{TOTAL}.json"
-print(filename)
-with open(filename, "r") as f:
-        dataset = json.load(f)
 # dataset = load_dataset("samsum")
 dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
 
@@ -100,7 +96,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 checkpoint_to_resume = 'results/checkpoint-400'
 if checkpoint_to_resume:
         print('Loading checkpoint')
-        model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=true)
+        model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
 else:
 
     model = get_peft_model(model, lora_config)
