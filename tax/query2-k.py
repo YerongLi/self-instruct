@@ -383,7 +383,7 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
 
-    del hs, kid_, kid_label, prompt, pairs
+    del hs, kid_, kid_label, prompt
     # NEGATIVE sample
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
