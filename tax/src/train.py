@@ -26,12 +26,12 @@ class SaveBestModelCallback(TrainerCallback):
     def on_evaluate(self, args, state, control, model, tokenizer, **kwargs):
         eval_loss = kwargs['metrics']['eval_loss']
         # print(self.output_dir)
-        print(eval_loss, self.best_eval_loss)
+        # print(eval_loss, self.best_eval_loss)
         if eval_loss < self.best_eval_loss:
             # Save the model if the evaluation loss improves
             model.save_pretrained(f"{self.output_dir}/best/")
             self.best_eval_loss = eval_loss
-            print(f"Model saved with eval loss: {eval_loss}")
+            logging.info(f"Model saved with eval loss: {eval_loss}")
 
 
 print(f"Train dataset size: {len(dataset['train'])}")
