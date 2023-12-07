@@ -96,7 +96,6 @@ lora_config = LoraConfig(
 model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 
 # add LoRA adaptor
-checkpoint_to_resume = 'results/checkpoint-400'
 if checkpoint_to_resume:
         print('Loading checkpoint')
         model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
