@@ -451,8 +451,8 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
             print('err')
             continue
 
-        prompt+= f'\n Is {parent_label} a parent of {grand_label}?\n Answer: {"No"}' 
-        prompt+= f'\n Explanation: \n'
+        prompt+= f'\n Is {q_parent_label} a parent of {q_grand_label}?\n Answer:\n' 
+        # prompt+= f'\n Explanation: \n'
         # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
         
         prompts.append({'prompt': prompt, 'label': -1, 'hs' : hs})
