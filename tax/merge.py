@@ -57,7 +57,7 @@ f"{datapath}/prediction_kshot_{TOTAL}.json",
 f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
-dataset_dict = DatasetDict({'train': {'i': [], 'o': []}, 'test': {'i': [], 'o': []}})
+dataset_dict = DatasetDict({'train': Dataset({'i': [], 'o': []}), 'test': Dataset({'i': [], 'o': []})})
 print(type(dataset_dict))
 for filename in filenames:
     with open(filename, "r") as f:
