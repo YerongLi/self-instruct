@@ -7,13 +7,16 @@ import tqdm
 from peft import LoraConfig, get_peft_model, TaskType
 from transformers import DataCollatorForSeq2Seq, TrainerCallback
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
 LOGFILE='output.log'
 logging.basicConfig(
     format='%(asctime)s %(levelname)-4s - %(filename)-6s:%(lineno)d - %(message)s',
     level=logging.INFO,
     filename=LOGFILE,
     datefmt='%m-%d %H:%M:%S')
-
+input_header='dialogue'
+output_header='summary'
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 dataset = load_dataset("samsum")
@@ -37,22 +40,22 @@ class SaveBestModelCallback(TrainerCallback):
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
 # logging.info(dataset['train'])
-for i in tqdm.tqdm(range(len(dataset['train']['dialogue'][:100]))):
-	dataset['train']['dialogue'][i] = 10000 *'Here it is ' +  dataset['train']['dialogue'][i]
-	# logging.info(dataset['train']['dialogue'][i])
-	# logging.info(dataset['train']['summary'][i])
+for i in tqdm.tqdm(range(len(dataset['train'][input_header][:100]))):
+	dataset['train'][input_header][i] = 10000 *'Here it is ' +  dataset['train'][input_header][i]
+	# logging.info(dataset['train'][input_header][i])
+	# logging.info(dataset['train'][output_header][i])
 # Train dataset size: 14732
 # Test dataset size: 819
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
-model_id="google/flan-t5-base"
+# model_id="google/flan-t5-xl"
+model_id='/scratch/yerong/.cache/pyllama/flan-t5-xl'
 
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 # The maximum total input sequence length after tokenization.
 # Sequences longer than this will be truncated, sequences shorter will be padded.
 
-# tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["dialogue"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
-tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["dialogue"], truncation=False), batched=True, remove_columns=["dialogue", "summary"])
+# tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x[input_header], truncation=True), batched=True, remove_columns=[input_header, output_header])
+tokenized_inputs = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x[input_header], truncation=False), batched=True, remove_columns=[input_header, output_header])
 input_lenghts = [len(x) for x in tokenized_inputs["input_ids"]]
 # take 85 percentile of max length for better utilization
 max_source_length = int(np.percentile(input_lenghts, 85))
@@ -60,8 +63,8 @@ print(f"Max source length: {max_source_length}")
 
 # The maximum total sequence length for target text after tokenization.
 # Sequences longer than this will be truncated, sequences shorter will be padded."
-# tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["summary"], truncation=True), batched=True, remove_columns=["dialogue", "summary"])
-tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x["summary"], truncation=False), batched=True, remove_columns=["dialogue", "summary"])
+# tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x[output_header], truncation=True), batched=True, remove_columns=[input_header, output_header])
+tokenized_targets = concatenate_datasets([dataset["train"], dataset["test"]]).map(lambda x: tokenizer(x[output_header], truncation=False), batched=True, remove_columns=[input_header, output_header])
 target_lenghts = [len(x) for x in tokenized_targets["input_ids"]]
 # take 90 percentile of max length for better utilization
 max_target_length = int(np.percentile(target_lenghts, 90))
@@ -70,13 +73,13 @@ print(f"Max target length: {max_target_length}")
 
 def preprocess_function(sample,padding="max_length"):
     # add prefix to the input for t5
-    inputs = ["summarize: " + item for item in sample["dialogue"]]
+    inputs = ["summarize: " + item for item in sample[input_header]]
 
     # tokenize inputs
     model_inputs = tokenizer(inputs, max_length=max_source_length, padding=padding, truncation=True)
 
     # Tokenize targets with the `text_target` keyword argument
-    labels = tokenizer(text_target=sample["summary"], max_length=max_target_length, padding=padding, truncation=True)
+    labels = tokenizer(text_target=sample[output_header], max_length=max_target_length, padding=padding, truncation=True)
 
     # If we are padding here, replace all tokenizer.pad_token_id in the labels by -100 when we want to ignore
     # padding in the loss.
@@ -88,7 +91,7 @@ def preprocess_function(sample,padding="max_length"):
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
 
-tokenized_dataset = dataset.map(preprocess_function, batched=True, remove_columns=["dialogue", "summary", "id"])
+tokenized_dataset = dataset.map(preprocess_function, batched=True, remove_columns=[input_header, output_header, "id"])
 print(f"Keys of tokenized dataset: {list(tokenized_dataset['train'].features)}")
 
 # save datasets to disk for later easy loading
