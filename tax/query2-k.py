@@ -377,8 +377,8 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     node_definitions = set()
     node_definitions.add(parent_)
     node_definitions.add(kid_)
-    prompt += f"\n{q_parent_label} : {definitions[parent_]['description']}"
-    prompt += f"\n{q_kid_label} : {definitions[kid_]['description']}"
+    prompt += f"\n{q_parent_label} : {definitions[parent_]['summary']}"
+    prompt += f"\n{q_kid_label} : {definitions[kid_]['summary']}"
 
     # try:
     #     for node in node_definitions:
