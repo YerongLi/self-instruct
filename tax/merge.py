@@ -18,7 +18,7 @@ import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader
-from datasets import Dataset
+from datasets import Dataset, DatasetDict
 openai_api_key = os.environ.get("OPENAI")
 
 if not openai_api_key:
