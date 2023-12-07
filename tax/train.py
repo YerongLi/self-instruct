@@ -79,8 +79,8 @@ filename = f"{datapath}/dataset{TOTAL}.json"
 print(filename)
 with open(filename, "r") as f:
         dataset = json.load(f)
-dataset = load_dataset("samsum")
-# dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
+# dataset = load_dataset("samsum")
+dataset= DatasetDict.load_from_disk(f"{datapath}/dataset{TOTAL}.data")
 
 print(dataset)
 print(type(dataset))
