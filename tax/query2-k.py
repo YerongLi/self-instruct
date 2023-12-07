@@ -395,7 +395,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     #     print('error')
     #     continue
 
-    prompt+= f'\n Is {parent_label} a parent of {kid_label}?\n Answer:\n' 
+    prompt+= f'\n Is {q_parent_label} a parent of {q_kid_label}?\n Answer:\n' 
     # prompt+= f'\n Explanation: \n'
     # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
     
@@ -411,7 +411,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
 
 
-    del hs, kid_, kid_label, prompt
+    del hs, kid_, q_kid_label, prompt
 
     # NEGATIVE sample
     if random.random() <100* (1.5 if '0shot' in filename else 0.2):
@@ -426,6 +426,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         if not all_grand : continue
         grand_ = random.choice(list(all_grand))
         grand_label = get_first_label_without_n(definitions[grand_]['label'])
+        q_grand_label = f'"{grand_label}"'
+        del grand_label
+
         hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
         
 
