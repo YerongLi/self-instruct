@@ -133,7 +133,7 @@ training_args = Seq2SeqTrainingArguments(
     logging_dir=f"{output_dir}/logs",
     logging_strategy="steps",
     logging_steps=500,
-    do_eval=False,
+    do_eval=True,
     # save_strategy="no",
 )
 
