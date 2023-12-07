@@ -58,7 +58,7 @@ f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
 dataset_dict = DatasetDict({'train': {'i': [], 'o': []}, 'test': {'i': [], 'o': []}})
-
+print(type(dataset_dict))
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
