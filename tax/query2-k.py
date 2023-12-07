@@ -384,7 +384,10 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
 
 
     del hs, kid_, kid_label, prompt
+
     # NEGATIVE sample
+    if random.random() < (1.5 if '0shot' in filename else 0.2):
+
     children = list(core_graph.neighbors(parent_))
     all_grand = set()
     for kid in children:
@@ -398,32 +401,10 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
     
 
-    # Create a dictionary with the sampled instances
-    pairs = [exemplars[key] for key in sampled_keys]
 
     del description
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision."
-    for pair in pairs:
-
-        random_number = random.randint(1, 10)  # Adjust the range as needed
-
-        # Perform an action based on the random number
-        if random_number % 2 == 0:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            # Perform actions for the even case
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
-        else:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
+    prompt = prefix
 
     prompt+= "\n\n - Question: "
     node_definitions = set()
