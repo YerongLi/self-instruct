@@ -5,7 +5,7 @@ from datasets import concatenate_datasets
 import numpy as np
 import tqdm
 from peft import LoraConfig, get_peft_model, TaskType
-from transformers import DataCollatorForSeq2Seq, ProgressCallback
+from transformers import DataCollatorForSeq2Seq, Callback
 from transformers import Seq2SeqTrainer, Seq2SeqTrainingArguments
 LOGFILE='output.log'
 logging.basicConfig(
@@ -18,7 +18,7 @@ logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 dataset = load_dataset("samsum")
 
-class SaveBestModelCallback(ProgressCallback):
+class SaveBestModelCallback(Callback):
     def __init__(self, output_dir):
         self.output_dir = output_dir
         self.best_eval_loss = float("inf")
@@ -27,7 +27,7 @@ class SaveBestModelCallback(ProgressCallback):
         eval_loss = state.loss
         if eval_loss < self.best_eval_loss:
             # Save the model if the evaluation loss improves
-            model.save_pretrained(self.output_dir)
+            model.save_pretrained(f"{self.output_dir}/best/")
             self.best_eval_loss = eval_loss
             print(f"Model saved with eval loss: {eval_loss}")
 
