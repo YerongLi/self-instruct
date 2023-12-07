@@ -58,22 +58,27 @@ f"{datapath}/prediction_kshot_{TOTAL}.json",
 f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
-dataset_dict = DatasetDict({'train': Dataset({'i': [], 'o': []}), 'test': Dataset({'i': [], 'o': []})})
-print(type(dataset_dict))
+
+
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
 
-    # Iterate through keys in predictions and append 'i' and 'o' values to lists
+    # Iterate through keys in predictions and append 'i' and 'o' values to DataFrames
     for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
         entry = predictions[key]
         if idx % 4 == 0:
-            dataset_dict['test']['i'].append(entry['i'])
-            dataset_dict['test']['o'].append(entry['o'])
+            test_df = test_df.append(entry, ignore_index=True)
         else:
-            dataset_dict['train']['i'].append(entry['i'])
-            dataset_dict['train']['o'].append(entry['o'])
-print(type(dataset_dict))
+            train_df = train_df.append(entry, ignore_index=True)
+
+# Convert DataFrames to Dataset
+train_dataset = Dataset.from_pandas(train_df)
+test_dataset = Dataset.from_pandas(test_df)
+
+# Create DatasetDict
+dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+
 
 # train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
 
