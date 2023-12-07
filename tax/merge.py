@@ -72,19 +72,19 @@ for filename in filenames:
             dataset['train']['i'].append(entry['i'])
             dataset['train']['o'].append(entry['o'])
 
-train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
+# train_dataset = Dataset({'id': list(range(len(dataset['train']['i']))), 'i': dataset['train']['i'], 'o': dataset['train']['o']})
 
-# # Create 'test' dataset
-test_dataset = Dataset({'id': list(range(len(dataset['test']['i']))), 'i': dataset['test']['i'], 'o': dataset['test']['o']})
-
-
-# # Create a DatasetDict
-dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
+# # # Create 'test' dataset
+# test_dataset = Dataset({'id': list(range(len(dataset['test']['i']))), 'i': dataset['test']['i'], 'o': dataset['test']['o']})
 
 
-output_file_path = f"{datapath}/dataset{TOTAL}.data"
+# # # Create a DatasetDict
+# dataset_dict = DatasetDict({'train': train_dataset, 'test': test_dataset})
 
 
-dataset_dict.save_to_disk(output_file_path)
+# output_file_path = f"{datapath}/dataset{TOTAL}.data"
 
-print(f"Dataset saved to {output_file_path}")
+
+# dataset_dict.save_to_disk(output_file_path)
+
+# print(f"Dataset saved to {output_file_path}")
