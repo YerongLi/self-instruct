@@ -294,8 +294,21 @@ logging.info(core_graph)
 logging.info(f"Number of edges : {count_edges}")
 
 prompts = []
-with open(f'{datapath}/predictions_0shot_{TOTAL}.json', "r") as f:
-    exemplars = json.load(f)
+# with open(f'{datapath}/predictions_1shot_{TOTAL}.json', "r") as f:
+#     exemplars = json.load(f)
+prefix = '''
+Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision.
+ 
+    - Question: 
+"peeper" : an animal that makes short high-pitched sounds
+"animal" : a living organism characterized by voluntary movement
+ Is "animal" a parent of "peeper"?
+ Answer:
+Yes
+ Explanation:
+"Animal" is a general category that includes various living organisms with voluntary movement. "Peeper" falls under the category of "animal" based on its definition, indicating that it is a specific type of animal.
+The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
+'''
 for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total=12):
 # for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
@@ -317,26 +330,26 @@ for iteration, edge in tqdm.tqdm(enumerate(list(core_graph.edges())[:12]), total
     # Create a dictionary with the sampled instances
     pairs = [exemplars[key] for key in sampled_keys]
 
+    prompt = prompt + prefix
+    # prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
+    # for pair in pairs:
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and given a very detailed explanation on your decision."
-    for pair in pairs:
+    #     random_number = random.randint(1, 10)  # Adjust the range as needed
+    #     # Perform an action based on the random number
+    #     if random_number % 2 == 0:
+    #         prompt+= "\n\n - Question: "
+    #         prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+    #         prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+    #         # Perform actions for the even case
+    #         prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
+    #         prompt+= f"\n Explanation: \n{pair['o']}\n"
 
-        random_number = random.randint(1, 10)  # Adjust the range as needed
-        # Perform an action based on the random number
-        if random_number % 2 == 0:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            # Perform actions for the even case
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}" 
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
-
-        else:
-            prompt+= "\n\n - Question: "
-            prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
-            prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
-            prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
-            prompt+= f"\n Explanation: \n{pair['o']}\n"
+    #     else:
+    #         prompt+= "\n\n - Question: "
+    #         prompt += f"\n{pair['p'][1]} : {pair['su'][1]}"
+    #         prompt += f"\n{pair['p'][0]} : {pair['su'][0]}"
+    #         prompt+= f"\n Is {pair['p'][0]} a parent of {pair['p'][1]}?\n Answer: {'Yes' if pair['lbl'] > 0 else 'No'}"
+    #         prompt+= f"\n Explanation: \n{pair['o']}\n"
 
 
     node_definitions = set()
@@ -545,7 +558,7 @@ def predict_llama_batch(prompts, batch_size=10):
 batch_size = 1
 
 # predict_batch(prompts, batch_size)
-predict_llama_batch(prompts, batch_size)
+# predict_llama_batch(prompts, batch_size)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
