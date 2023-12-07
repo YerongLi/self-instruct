@@ -306,8 +306,7 @@ prefix = '''Given two terms in a knowledge graph, your task is to determine whet
 Yes
  Explanation:
 "Animal" is a general category that includes various living organisms with voluntary movement. "Peeper" falls under the category of "animal" based on its definition, indicating that it is a specific type of animal.
-The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
-'''
+The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.'''
 filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
 predictions = {}
 if os.path.exists(filename):
