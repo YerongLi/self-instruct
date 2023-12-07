@@ -18,7 +18,7 @@ import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader
-from datasets import Dataset, DatasetDict
+from datasets import Dataset, dataset_dict
 openai_api_key = os.environ.get("OPENAI")
 
 if not openai_api_key:
@@ -57,7 +57,7 @@ f"{datapath}/prediction_kshot_{TOTAL}.json",
 f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
-dataset_dict = DatasetDict({'train': {'i': [], 'o': []}, 'test': {'i': [], 'o': []}})
+dataset_dict = dataset_dict.DatasetDict({'train': {'i': [], 'o': []}, 'test': {'i': [], 'o': []}})
 
 for filename in filenames:
     with open(filename, "r") as f:
