@@ -19,13 +19,18 @@ import tqdm
 import torch
 import requests
 import json
-
+from openai import OpenAI
 import google.generativeai as palm
 import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 from torch.utils.data import DataLoader, Dataset
+openai_api_key = os.environ.get("OPENAI")
+filename=f"{datapath}/prediction_kshot_{TOTAL}.json"
 
+if not openai_api_key:
+    print("OpenAI API key not found in environment variables.")
+client = OpenAI(api_key=openai_api_key)
 LOGFILE='output.log'
 palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
