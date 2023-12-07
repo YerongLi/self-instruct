@@ -17,7 +17,18 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 dataset = load_dataset("samsum")
+class SaveBestModelCallback:
+    def __init__(self, output_dir):
+        self.output_dir = output_dir
+        self.best_eval_loss = float("inf")
 
+    def __call__(self, trainer, model, eval_metrics, epoch, step):
+        eval_loss = eval_metrics["eval_loss"]
+        if eval_loss < self.best_eval_loss:
+            # Save the model if the evaluation loss improves
+            trainer.save_model(self.output_dir)
+            self.best_eval_loss = eval_loss
+            print(f"Model saved with eval loss: {eval_loss}")
 print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
 logging.info(dataset['train'])
@@ -119,6 +130,8 @@ training_args = Seq2SeqTrainingArguments(
     logging_steps=500,
     save_strategy="no",
 )
+save_best_model_callback = SaveBestModelCallback(output_dir=training_args.output_dir)
+
 
 # Create Trainer instance
 trainer = Seq2SeqTrainer(
@@ -126,6 +139,7 @@ trainer = Seq2SeqTrainer(
     args=training_args,
     data_collator=data_collator,
     train_dataset=tokenized_dataset["train"],
+    eval_dataset=tokenized_dataset["train"],
 )
 model.config.use_cache = False
 # train model
