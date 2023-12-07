@@ -59,20 +59,21 @@ f"{datapath}/siblings_kshot_{TOTAL}.json",
 f"{datapath}/parent_kshot_{TOTAL}.json",
 ]
 
-train_df = pd.DataFrame(columns=['i', 'o'])
-test_df = pd.DataFrame(columns=['i', 'o'])
+train_df = pd.DataFrame(columns=['id', 'i', 'o'])
+test_df = pd.DataFrame(columns=['id', 'i', 'o'])
+
 for filename in filenames:
     with open(filename, "r") as f:
         predictions = json.load(f)
 
-    # Iterate through keys in predictions and append 'i' and 'o' values to DataFrames
+    # Iterate through keys in predictions and append 'id', 'i', and 'o' values to DataFrames
     for idx, key in tqdm.tqdm(enumerate(predictions), total=len(predictions)):
         entry = predictions[key]
+        entry['id'] = idx  # Add 'id' field with idx value
         if idx % 4 == 0:
             test_df = pd.concat([test_df, pd.DataFrame([entry])], ignore_index=True)
         else:
             train_df = pd.concat([train_df, pd.DataFrame([entry])], ignore_index=True)
-
 
 # Convert DataFrames to Dataset
 train_dataset = Dataset.from_pandas(train_df)
