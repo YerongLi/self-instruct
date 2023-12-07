@@ -17,6 +17,7 @@ logging.basicConfig(
 logging.info(f'Logger start: {os.uname()[1]}')
 # Load dataset from the hub
 dataset = load_dataset("samsum")
+
 class SaveBestModelCallback:
     def __init__(self, output_dir):
         self.output_dir = output_dir
@@ -142,6 +143,7 @@ trainer = Seq2SeqTrainer(
     data_collator=data_collator,
     train_dataset=tokenized_dataset["train"],
     eval_dataset=tokenized_dataset["train"],
+    callbacks=[save_best_model_callback],  # Include the callback here
 )
 model.config.use_cache = False
 # train model
