@@ -111,7 +111,7 @@ for i in tqdm.tqdm(range(len(dataset['train'][input_header][:20]))):
 # Test dataset size: 819
 
 # model_id="google/flan-t5-xl"
-model_id='/scratch/yerong/.cache/pyllama/flan-t5-large'
+model_id='/scratch/yerong/.cache/pyllama/flan-t5-base'
 logging.info(model_id)
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 # The maximum total input sequence length after tokenization.
@@ -212,6 +212,7 @@ training_args = Seq2SeqTrainingArguments(
 
 save_best_model_callback = SaveBestModelCallback(output_dir=training_args.output_dir)
 
+tokenized_dataset['train'] = tokenized_dataset['train'].shuffle(seed=42)
 
 # Create Trainer instance
 trainer = Seq2SeqTrainer(
