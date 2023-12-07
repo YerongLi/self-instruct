@@ -162,7 +162,6 @@ tokenized_dataset["train"].save_to_disk("data/train")
 tokenized_dataset["test"].save_to_disk("data/eval")
 
 
-model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 
 
 
@@ -175,10 +174,17 @@ lora_config = LoraConfig(
  bias="none",
  task_type=TaskType.SEQ_2_SEQ_LM
 )
+model = AutoModelForSeq2SeqLM.from_pretrained(model_id, device_map="auto")
 
 # add LoRA adaptor
-model = get_peft_model(model, lora_config)
-model.print_trainable_parameters()
+checkpoint_to_resume = 'results/checkpoint-400'
+if checkpoint_to_resume:
+        print('Loading checkpoint')
+        model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=is_trainable)
+else:
+
+    model = get_peft_model(model, lora_config)
+    model.print_trainable_parameters()
 
 # trainable params: 18874368 || all params: 11154206720 || trainable%: 0.16921300163961817
 
@@ -199,7 +205,7 @@ training_args = Seq2SeqTrainingArguments(
 	auto_find_batch_size=True,
     learning_rate=1e-3, # higher learning rate
     num_train_epochs=5,
-    save_steps=200,
+    save_steps=100,
     save_total_limit=2,
     logging_dir=f"{output_dir}/logs",
     logging_strategy="steps",
