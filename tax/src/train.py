@@ -27,6 +27,7 @@ class SaveBestModelCallback(TrainerCallback):
         eval_loss = control.metrics['eval_loss']
         if eval_loss < self.best_eval_loss:
             # Save the model if the evaluation loss improves
+            print(self.output_dir)
             model.save_pretrained(f"{self.output_dir}/best/")
             self.best_eval_loss = eval_loss
             print(f"Model saved with eval loss: {eval_loss}")
