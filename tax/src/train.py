@@ -33,9 +33,9 @@ print(f"Train dataset size: {len(dataset['train'])}")
 print(f"Test dataset size: {len(dataset['test'])}")
 logging.info(dataset['train'])
 for i in tqdm.tqdm(range(len(dataset['train']['dialogue'][:100]))):
-	dataset['train']['dialogue'][i] = 1000 * dataset['train']['dialogue'][i]
-# 	logging.info(dataset['train']['dialogue'][i])
-# 	logging.info(dataset['train']['summary'][i])
+	# dataset['train']['dialogue'][i] = 1000 * dataset['train']['dialogue'][i]
+	logging.info(dataset['train']['dialogue'][i])
+	logging.info(dataset['train']['summary'][i])
 # Train dataset size: 14732
 # Test dataset size: 819
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
