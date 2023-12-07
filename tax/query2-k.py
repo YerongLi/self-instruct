@@ -306,7 +306,26 @@ prefix = '''Given two terms in a knowledge graph, your task is to determine whet
 Yes
  Explanation:
 "Animal" is a general category that includes various living organisms with voluntary movement. "Peeper" falls under the category of "animal" based on its definition, indicating that it is a specific type of animal.
-The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.'''
+The hierarchical relationship is akin to a parent-child relationship, where "animal" serves as the parent category, and "peeper" is a specific type or child category within that broader classification.
+
+    - Question: 
+weightlift : bodybuilding by exercise that involves lifting weights
+incline_bench_press : a bench press performed on an inclined bench
+ Is weightlift a parent of incline_bench_press?
+  Answer:
+ No
+  Explanation
+"Weightlift" is a general term that refers to bodybuilding exercises involving lifting weights. This can include various exercises such as weightlifting, dumbbell exercises, and more.
+
+"Incline Bench Press" is a specific type of exercise that involves performing a bench press on an inclined bench. While it does involve lifting weights, it is a distinct and specific exercise within the broader category of weightlifting.
+
+Given this analysis:
+
+"Weightlift" is a broader category encompassing a variety of weightlifting exercises, not specifically inclined bench presses.
+
+"Incline Bench Press" is a specific type of weightlifting exercise, but it does not represent the entirety of bodybuilding exercises involving lifting weights.
+
+Therefore, in this knowledge graph, "weightlift" is not a parent of "incline_bench_press." Instead, "weightlift" is a broader category that includes various types of weightlifting exercises, and "incline_bench_press" is a specific exercise falling within the weightlifting domain. The relationship is better described as a broader category (weightlift) and a specific type or instance (incline_bench_press), rather than a parent-child relationship.'''
 filename=f"{datapath}/predictions_kshot_{TOTAL}.json"
 predictions = {}
 if os.path.exists(filename):
