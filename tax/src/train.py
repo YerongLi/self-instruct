@@ -135,7 +135,7 @@ training_args = Seq2SeqTrainingArguments(
     logging_steps=500,
     do_eval=True,
     evaluation_strategy='step',
-    eval_step=10,
+    eval_steps=10,
     # save_strategy="no",
 )
 
