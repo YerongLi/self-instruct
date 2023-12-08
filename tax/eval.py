@@ -14,6 +14,7 @@ import requests
 import json
 import os
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
+from sklearn.metrics import f1_score, precision_score, accuracy_score, roc_auc_score
 
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
@@ -711,7 +712,30 @@ predictions =predict_next_token_batch(prompts, batch_size)
 print(len(predictions))
 print(predictions)
 print(len(prompts))
-result = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
+predictions = [1 if entry == 'Yes' else -1 if entry == 'No' else -3 for entry in predictions]
+
+result = [{'label': prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
+# Filter out instances where the label is -3
+valid_indices = [i for i, label in enumerate(labels) if label != -3]
+
+filtered_labels = [labels[i] for i in valid_indices]
+filtered_predictions = [predictions[i] for i in valid_indices]
+
+# Calculate metrics
+f1 = f1_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
+precision = precision_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
+accuracy = accuracy_score(filtered_labels, filtered_predictions)
+
+# AUC score is calculated only if both classes are present
+if len(set(filtered_labels)) == 2:
+    auc_score = roc_auc_score(filtered_labels, filtered_predictions)
+else:
+    auc_score = None
+
+print(f"F1 Score: {f1}")
+print(f"Precision: {precision}")
+print(f"Accuracy: {accuracy}")
+print(f"AUC Score: {auc_score}")
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 print(result)
 #         weight = core_graph[parent][kid]['weight']
@@ -726,78 +750,3 @@ print(result)
 
 
 
-
-
-
-
-
-
-
-from sklearn.metrics import f1_score, accuracy_score, recall_score, roc_auc_score, confusion_matrix
-
-# Extract ground truth and predicted labels
-ground_truth = [label_dict['label'] for label_dict in result]
-predicted_labels = [label_dict['pred'] for label_dict in result]
-
-# Calculate F1 score
-f1_score_value = f1_score(ground_truth, predicted_labels, average='macro')
-
-if isinstance(f1_score_value, tuple):
-    # Handle tuple output
-    f1 = f1_score_value[0]
-    logging.info("F1 score: %f", f1)
-    print("F1 score: %f", f1)
-else:
-    # Handle single value output
-    f1 = f1_score_value
-    logging.info("F1 score: %f", f1)
-    print("F1 score: %f", f1)
-
-# Calculate accuracy score
-accuracy_score_value = accuracy_score(ground_truth, predicted_labels)
-
-if isinstance(accuracy_score_value, tuple):
-    # Handle tuple output
-    accuracy = accuracy_score_value[0]
-    logging.info("Accuracy score: %f", accuracy)
-    print("Accuracy score: %f", accuracy)
-else:
-    # Handle single value output
-    accuracy = accuracy_score_value
-    logging.info("Accuracy score: %f", accuracy)
-    print("Accuracy score: %f", accuracy)
-
-
-# Calculate recall score
-recall_score_value = recall_score(ground_truth, predicted_labels, average='macro')
-
-if isinstance(recall_score_value, tuple):
-    # Handle tuple output
-    recall = recall_score_value[0]
-    logging.info("Recall score: %f", recall)
-    print("Recall score: %f", recall)
-else:
-    # Handle single value output
-    recall = recall_score_value
-    logging.info("Recall score: %f", recall)
-    print("Recall score: %f", recall)
-
-# Calculate AUC score
-auc_score_value = roc_auc_score(ground_truth, predicted_labels)
-
-if isinstance(auc_score_value, tuple):
-    # Handle tuple output
-    auc = auc_score_value[0]
-    logging.info("AUC score: %f", auc)
-    print("AUC score: %f", auc)
-
-else:
-    # Handle single value output
-    auc = auc_score_value
-    logging.info("AUC score: %f", auc)
-    print("AUC score: %f", auc)
-
-# Print confusion matrix
-conf_matrix = confusion_matrix(ground_truth, predicted_labels, labels=[1, -1])
-logging.info("Confusion matrix:")
-print(conf_matrix)
