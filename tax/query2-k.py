@@ -320,7 +320,7 @@ weightlift : bodybuilding by exercise that involves lifting weights
 incline_bench_press : a bench press performed on an inclined bench
  Is weightlift a parent of incline_bench_press?
   Answer:
- No
+No
   Explanation
 "Weightlift" is a general term that refers to bodybuilding exercises involving lifting weights. This can include various exercises such as weightlifting, dumbbell exercises, and more.
 
