@@ -392,8 +392,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
@@ -606,7 +606,7 @@ if len(set(filtered_labels)) == 2:
     auc_score = roc_auc_score(filtered_labels, filtered_predictions)
 else:
     auc_score = None
-
+print(args.c)
 print(f"F1 Score: {f1:.3f}")
 print(f"Precision: {precision:.3f}")
 print(f"Accuracy: {accuracy:.3f}")
@@ -615,6 +615,7 @@ if auc_score is not None:
 else:
     print("AUC Score: N/A")
 
+logging.info(args.c)
 
 logging.info(f"F1 Score: {f1:.3f}")
 logging.info(f"Precision: {precision:.3f}")
