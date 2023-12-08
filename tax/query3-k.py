@@ -719,7 +719,8 @@ def predict_gpt_batch(prompts, batch_size=20):
                 frequency_penalty=0,
                 presence_penalty=0
             )
-            time.sleep(16)
+            # time.sleep(16)
+            time.sleep(0.15)
 
 
             # Access individual responses in the list
@@ -741,7 +742,7 @@ batch_size = 4
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-# predict_gpt_batch(prompts)
+predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
