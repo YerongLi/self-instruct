@@ -79,8 +79,8 @@ logging.info(f'No id is : {tokenizer(["No"])}')
 model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
 checkpoint_to_resume = args.c
 if checkpoint_to_resume:
-    print('Loading checkpoint')
-    logging.info('Loading checkpoint')
+    print(f'Loading checkpoint : {args.c}')
+    logging.info(f'Loading checkpoint : {args.c}')
     model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
 else:
     raise ValueError("No checkpoint specified")
@@ -568,7 +568,7 @@ def predict_palm_batch(prompts, batch_size=10):
 
 
 
-batch_size = 30
+batch_size = 40
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
@@ -580,9 +580,9 @@ batch_size = 30
 
 
 predictions =predict_next_token_batch(prompts, batch_size)
-print(len(predictions))
-print(predictions)
-print(len(prompts))
+# print(len(predictions))
+# print(predictions)
+# print(len(prompts))
 predictions = [1 if entry == 'Yes' else -1 if entry == 'No' else -3 for entry in predictions]
 
 result = [{'label': prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
@@ -615,8 +615,15 @@ if auc_score is not None:
 else:
     print("AUC Score: N/A")
 
+
+logging.info(f"F1 Score: {f1:.3f}")
+logging.info(f"Precision: {precision:.3f}")
+logging.info(f"Accuracy: {accuracy:.3f}")
+if auc_score is not None:
+    logging.info(f"AUC Score: {auc_score:.3f}")
+else:
+    logging.info("AUC Score: N/A")
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
-print(result)
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
 #             print(parent, kid)
