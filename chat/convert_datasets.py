@@ -19,7 +19,8 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
     #     else:
     #         role = "Human"
     #     utterance = line[line.index("]") + 1:].strip()
-        if f"User" in line:
+        # if f"User" in line:
+        if f"Admin" in line:
             role = "Assistant"
         else :
             role = "Human"
