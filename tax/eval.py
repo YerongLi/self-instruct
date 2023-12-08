@@ -76,7 +76,7 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
 model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
-checkpoint_to_resume = args.r
+checkpoint_to_resume = args.c
 if checkpoint_to_resume:
     print('Loading checkpoint')
     model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
