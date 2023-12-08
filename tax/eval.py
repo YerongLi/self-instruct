@@ -44,12 +44,12 @@ with open(config_file) as f:
 # Extract the base filename without the ".taxo" extension
 datapath = config['taxofilename'].split('/')[:-1]
 datapath = '/'.join(datapath)
-openai_api_key = os.environ.get("OPENAI")
+# openai_api_key = os.environ.get("OPENAI")
 filename=f"{datapath}/parent_0shot_{TOTAL}.json"
 
 if not openai_api_key:
     print("OpenAI API key not found in environment variables.")
-client = OpenAI(api_key=openai_api_key)
+# client = OpenAI(api_key=openai_api_key)
 
 print(datapath)
 
