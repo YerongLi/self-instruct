@@ -122,8 +122,8 @@ def predict_next_token_batch(prompts, batch_size=10):
         inputs = tokenizer([sentence for sentence in batch_prompts], return_tensors="pt", padding=True)
 
         output_sequences = model.generate(
-            input_ids=inputs["input_ids"],
-            attention_mask=inputs["attention_mask"],
+            input_ids=inputs["input_ids"].to(device),
+            attention_mask=inputs["attention_mask"].to(device),
             max_new_tokens=1,
             do_sample=False,  # disable sampling to test if batching affects output
         )
