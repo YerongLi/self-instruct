@@ -14,7 +14,7 @@ import requests
 import json
 import os
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from sklearn.metrics import recall_score, roc_auc_score, precision_recall_auc_score, confusion_matrix
+from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix
 
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
@@ -610,7 +610,7 @@ tn, fp, fn, tp = conf_matrix.ravel()
 specificity = tn / (tn + fp)
 g_mean = (tp / (tp + fn)) * (tn / (tn + fp)) ** 0.5
 
-pr_auc_score = precision_recall_auc_score(filtered_labels, filtered_predictions)
+pr_auc_score = auc(filtered_labels, filtered_predictions)
 
 # AUC score is calculated only if both classes are present
 if len(set(filtered_labels)) == 2:
