@@ -124,7 +124,7 @@ def predict_next_token_batch(prompts, batch_size=10):
             do_sample=False,  # disable sampling to test if batching affects output
         )
 
-        batch_result=(tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
+        batch_result=tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
         predictions.extend(batch_result)
         print(predictions)
         # outputs = model(input_ids=inputs["input_ids"],attention_mask=inputs["attention_mask"])
