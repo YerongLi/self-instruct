@@ -606,6 +606,7 @@ precision = precision_score(filtered_labels, filtered_predictions, average='bina
 recall = recall_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
 
 conf_matrix = confusion_matrix(filtered_labels, filtered_predictions)
+print(conf_matrix.ravel())
 tn, fp, fn, tp = conf_matrix.ravel()
 specificity = tn / (tn + fp)
 g_mean = (tp / (tp + fn)) * (tn / (tn + fp)) ** 0.5
