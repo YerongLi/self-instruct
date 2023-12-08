@@ -79,7 +79,7 @@ logging.info(f'No id is : {tokenizer(["No"])}')
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 
 # model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
-model = T5ForConditionalGeneration.from_pretrained(model_id, device=device)
+model = T5ForConditionalGeneration.from_pretrained(model_id).to(device)
 checkpoint_to_resume = args.c
 if checkpoint_to_resume:
     print(f'Loading checkpoint : {args.c}')
