@@ -14,7 +14,7 @@ import requests
 import json
 import os
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix, f1_score
+from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix, f1_score, precision_score
 
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
