@@ -14,7 +14,7 @@ import requests
 import json
 import os
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix
+from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix, f1_score
 
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
@@ -392,8 +392,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
