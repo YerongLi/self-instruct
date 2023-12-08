@@ -12,8 +12,6 @@ import tqdm
 import torch
 import requests
 import json
-import openai
-import google.generativeai as palm
 import os
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
