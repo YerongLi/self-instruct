@@ -392,8 +392,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
@@ -606,7 +606,7 @@ precision = precision_score(filtered_labels, filtered_predictions, average='bina
 recall = recall_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
 
 conf_matrix = confusion_matrix(filtered_labels, filtered_predictions)
-print(conf_matrix.ravel())
+# print(conf_matrix.ravel())
 tn, fp, fn, tp = conf_matrix.ravel()
 specificity = tn / (tn + fp)
 g_mean = (tp / (tp + fn)) * (tn / (tn + fp)) ** 0.5
