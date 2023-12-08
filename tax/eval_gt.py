@@ -78,8 +78,8 @@ logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
 device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
 
-# model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
-model = T5ForConditionalGeneration.from_pretrained(model_id).to(device)
+model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
+# model = T5ForConditionalGeneration.from_pretrained(model_id).to(device)
 checkpoint_to_resume = args.c
 if checkpoint_to_resume:
     print(f'Loading checkpoint : {args.c}')
@@ -395,8 +395,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
