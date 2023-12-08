@@ -611,7 +611,7 @@ tn, fp, fn, tp = conf_matrix.ravel()
 specificity = tn / (tn + fp)
 g_mean = (tp / (tp + fn)) * (tn / (tn + fp)) ** 0.5
 
-pr_auc_score = auc(filtered_labels, filtered_predictions)
+# pr_auc_score = auc(filtered_labels, filtered_predictions)
 
 # AUC score is calculated only if both classes are present
 if len(set(filtered_labels)) == 2:
@@ -634,7 +634,7 @@ logging.info(f"F1 Score: {f1:.3f}")
 logging.info(f"Precision: {precision:.3f}")
 logging.info(f"Recall: {recall:.3f}")
 logging.info(f"G-mean: {g_mean:.3f}")
-logging.info(f"PR AUC Score: {pr_auc_score:.3f}")
+# logging.info(f"PR AUC Score: {pr_auc_score:.3f}")
 logging.info(f"ROC AUC Score: {roc_auc_score_value:.3f}" if roc_auc_score_value is not None else "ROC AUC Score: N/A")
 logging.info(f"Specificity: {specificity:.3f}")
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
