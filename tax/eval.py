@@ -92,7 +92,6 @@ else:
 #     do_sample=False,  # disable sampling to test if batching affects output
 # )
 
-print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
 # model = LlamaForCausalLM.from_pretrained(
 #   model_path,
 #   torch_dtype=torch.float16,
