@@ -76,7 +76,7 @@ model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
 
 sentences = ["The house is wonderful.", "I like to work in NYC."]
 
-inputs = tokenizer([task_prefix + sentence for sentence in sentences], return_tensors="pt", padding=True)
+inputs = tokenizer([sentence for sentence in sentences], return_tensors="pt", padding=True)
 
 output_sequences = model.generate(
     input_ids=inputs["input_ids"],
