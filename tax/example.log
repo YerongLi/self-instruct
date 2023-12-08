@@ -1,0 +1,161 @@
+12-08 04:39:17 INFO - eval.py:71 - Logger start: golub378.campuscluster.illinois.edu
+12-08 04:39:17 INFO - eval.py:76 - Yes id is : {'input_ids': [[2163, 1]], 'attention_mask': [[1, 1]]}
+12-08 04:39:17 INFO - eval.py:77 - No id is : {'input_ids': [[465, 1]], 'attention_mask': [[1, 1]]}
+12-08 04:39:21 INFO - eval.py:82 - Loading checkpoint
+12-08 04:39:21 INFO - eval.py:239 - Total number of edges: 4091
+12-08 04:39:21 INFO - eval.py:240 - Number of edges (excluding root): 4091
+12-08 04:39:21 INFO - eval.py:241 - Number of edges where a parent has more than one child: 3688
+12-08 04:39:21 INFO - eval.py:242 - Percentage of edges where a parent has more than one child: 90.15%
+12-08 04:39:21 INFO - eval.py:286 - Max number of the neighbors are 108
+12-08 04:39:21 INFO - eval.py:287 - Number of nodes with zero neighbors: 2887
+12-08 04:39:21 INFO - eval.py:288 - Number of nodes with one neighbor: 403
+12-08 04:39:21 INFO - eval.py:289 - Number of nodes with two or more neighbors: 619
+12-08 04:39:21 INFO - eval.py:326 - Max number of the predecessors are 4
+12-08 04:39:21 INFO - eval.py:327 - Number of nodes with zero predecessors: 0
+12-08 04:39:21 INFO - eval.py:328 - Number of nodes with one predecessor: 3740
+12-08 04:39:21 INFO - eval.py:329 - Number of nodes with two or more predecessors: 169
+12-08 04:39:21 INFO - eval.py:355 - Minimum pair:
+12-08 04:39:21 INFO - eval.py:356 - {'label': 'award||award.n.01', 'summary': 'a grant made by a law court'}
+12-08 04:39:21 INFO - eval.py:357 - {'label': 'addiction||addiction.n.03', 'summary': '(Roman law) a formal award by a magistrate of a thing or person to another person (as the award of a debtor to his creditor); a surrender to a master'}
+12-08 04:39:21 INFO - eval.py:361 - Maximum pair:
+12-08 04:39:21 INFO - eval.py:362 - {'label': 'action||action.n.01', 'summary': 'something done (usually as opposed to something said)'}
+12-08 04:39:21 INFO - eval.py:363 - {'label': 'change||change.n.03', 'summary': 'the action of changing something'}
+12-08 04:39:21 INFO - eval.py:365 - The minimum length of the edge lists is 4.
+12-08 04:39:21 INFO - eval.py:366 - The maximum length of the edge lists is 903.
+12-08 04:39:21 INFO - eval.py:367 - DiGraph with 3910 nodes and 4091 edges
+12-08 04:39:21 INFO - eval.py:368 - Number of edges : 4044
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"position" represents the parent node term under consideration. 
+ - "position" : a job in an organization
+"position" is the subclass of "occupation".
+ - "occupation" : the principal activity in your life that you do to earn money
+ Also "position" has following existing childen: 
+"praetorship" : the office of praetor
+"judgeship" : the position of judge
+"cadetship" : the position of cadet
+Now we want to add "sainthood" as a new child to the term "position"
+ - "sainthood" : the status and dignity of a saint
+If we decide to add a new node "sainthood" as a child of "position", it should conceptually become the consistent grandchild of"occupation". Also "sainthood" is a sibling of "praetorship", "judgeship" and "cadetship" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"golf" represents the parent node term under consideration. 
+ - "golf" : a game played on a large open course with 9 or 18 holes; the object is use as few strokes as possible in playing all the holes
+"golf" is the subclass of "outdoor_game".
+ - "outdoor_game" : an athletic game that is played outdoors
+ Also "golf" has following existing childen: 
+"professional_golf" : playing golf for money
+"clock_golf" : a form of golf in which you putt from positions arranged on the circumference of a circle around the hole
+"medal_play" : golf scoring by total strokes taken
+Now we want to add "miniature_golf" as a new child to the term "golf"
+ - "miniature_golf" : a novelty version of golf played with golf balls and putters on a miniature course featuring many obstacles
+If we decide to add a new node "miniature_golf" as a child of "golf", it should conceptually become the consistent grandchild of"outdoor_game". Also "miniature_golf" is a sibling of "professional_golf", "clock_golf" and "medal_play" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"analysis" represents the parent node term under consideration. 
+ - "analysis" : an investigation of the component parts of a whole and their relations in making up the whole
+"analysis" is the subclass of "investigation".
+ - "investigation" : the work of inquiring into something thoroughly and systematically
+ Also "analysis" has following existing childen: 
+"chemical_analysis" : the act of decomposing a substance into its constituent elements
+"anatomy" : a detailed analysis
+"salvage" : the act of rescuing a ship or its crew or its cargo from a shipwreck or a fire
+Now we want to add "technical_analysis" as a new child to the term "analysis"
+ - "technical_analysis" : (stock exchange) analysis of past price changes in the hope of forecasting future price changes
+If we decide to add a new node "technical_analysis" as a child of "analysis", it should conceptually become the consistent grandchild of"investigation". Also "technical_analysis" is a sibling of "chemical_analysis", "anatomy" and "salvage" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"ocean_trip" represents the parent node term under consideration. 
+ - "ocean_trip" : an act of traveling by water
+"ocean_trip" is the subclass of "water_travel".
+ - "water_travel" : travel by water
+ Also "ocean_trip" has following existing childen: 
+"cruise" : an ocean trip taken for pleasure
+Now we want to add "maiden_voyage" as a new child to the term "ocean_trip"
+ - "maiden_voyage" : the first voyage of its kind
+If we decide to add a new node "maiden_voyage" as a child of "ocean_trip", it should conceptually become the consistent grandchild of"water_travel". Also "maiden_voyage" is a sibling of  and "cruise" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"motion" represents the parent node term under consideration. 
+ - "motion" : the act of changing location from one place to another
+"motion" is the subclass of "change".
+ - "change" : the action of changing something
+ Also "motion" has following existing childen: 
+"descent" : the act of changing your location in a downward direction
+"trek" : a journey by ox wagon (especially an organized migration by a group of settlers)
+"locomotion" : self-propelled movement
+Now we want to add "haste" as a new child to the term "motion"
+ - "haste" : the act of moving hurriedly and in a careless manner
+If we decide to add a new node "haste" as a child of "motion", it should conceptually become the consistent grandchild of"change". Also "haste" is a sibling of "descent", "trek" and "locomotion" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"improvement" represents the parent node term under consideration. 
+ - "improvement" : the act of improving something
+"improvement" is the subclass of "change_of_state".
+ - "change_of_state" : the act of changing something into something different in essential characteristics
+ Also "improvement" has following existing childen: 
+"clearing" : the act of removing solid particles from a liquid
+"optimization" : the act of rendering optimal
+"repair" : the act of putting something in working order again
+Now we want to add "amelioration" as a new child to the term "improvement"
+ - "amelioration" : the act of relieving ills and changing for the better
+If we decide to add a new node "amelioration" as a child of "improvement", it should conceptually become the consistent grandchild of"change_of_state". Also "amelioration" is a sibling of "clearing", "optimization" and "repair" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"exercise" represents the parent node term under consideration. 
+ - "exercise" : the activity of exerting your muscles in various ways to keep fit
+"exercise" is the subclass of "effort".
+ - "effort" : use of physical or mental energy; hard work
+ Also "exercise" has following existing childen: 
+"set" : several exercises intended to be done in series
+"calisthenics" : light exercises designed to promote general fitness
+"bodybuilding" : exercise that builds muscles through tension
+Now we want to add "back_exercise" as a new child to the term "exercise"
+ - "back_exercise" : exercise designed to strengthen the back muscles
+If we decide to add a new node "back_exercise" as a child of "exercise", it should conceptually become the consistent grandchild of"effort". Also "back_exercise" is a sibling of "set", "calisthenics" and "bodybuilding" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:498 - Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+
+ Question: 
+"direct_primary" represents the parent node term under consideration. 
+ - "direct_primary" : a primary where voters directly select the candidates who will run for office
+"direct_primary" is the subclass of "primary" and "out".
+ - "primary" : a preliminary election where delegates or nominees are chosen
+ - "out" : (baseball) a failure by a batter or runner to reach a base safely in baseball
+ Also "direct_primary" has following existing childen: 
+"closed_primary" : a primary in which only registered members of a particular political party can vote
+Now we want to add "open_primary" as a new child to the term "direct_primary"
+ - "open_primary" : a primary in which any registered voter can vote (but must vote for candidates of only one party)
+If we decide to add a new node "open_primary" as a child of "direct_primary", it should conceptually become the consistent grandchild of"primary" and "out". Also "open_primary" is a sibling of  and "closed_primary" with a same granularity.
+
+ Answer:
+
+12-08 04:39:21 INFO - eval.py:517 - has_parent_count:8
+12-08 04:39:21 INFO - eval.py:518 - total_edge_count: 10
