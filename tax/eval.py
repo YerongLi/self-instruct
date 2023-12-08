@@ -107,39 +107,46 @@ def predict_next_token_batch(prompts, batch_size=10):
     for i in tqdm.tqdm(range(0, len(sentences), batch_size), desc="Processing Batches", unit="batch"):
         batch_prompts = sentences[i:i + batch_size]
         # Tokenize prompts and convert to PyTorch tensors
-        input_ids = tokenizer(batch_prompts, return_tensors="pt", padding=True).to(device)
+        inputs = tokenizer([sentence for sentence in batch_prompts], return_tensors="pt", padding=True)
 
-        # Generate logits for the next token using the model
-        with torch.no_grad():
-            next_tokens = model.generate(
-    input_ids=input_ids["input_ids"],
-    attention_mask=input_ids["attention_mask"],
-    do_sample=False,  # disable sampling to test if batching affects output
-     output_scores=True, return_dict_in_generate=True
-)
-            logging.info(next_tokens)
-            print(len(next_tokens.scores))
-            print(len(next_tokens.scores[0].shape))
-            print(tokenizer.batch_decode(next_tokens, skip_special_tokens=True))
-            # outputs = model(input_ids=input_ids["input_ids"],
-    # attention_mask=input_ids["attention_mask"])
-            # logits = outputs.logits[:, -1, :]
+        output_sequences = model.generate(
+            input_ids=inputs["input_ids"],
+            attention_mask=inputs["attention_mask"],
+            do_sample=False,  # disable sampling to test if batching affects output
+        )
 
-        # Process logits or do whatever you need with them
-        next_tokens_scores = logits  # Assuming logits_processor is not used in this function
-        next_tokens = torch.argmax(next_tokens_scores, dim=-1)
-        # Example: Extract probabilities for specific tokens (adjust token IDs as needed)
-        yes_prob = next_tokens_scores[:, 3869]
-        no_prob = next_tokens_scores[:, 1939]
+        print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
+#         # Generate logits for the next token using the model
+#         with torch.no_grad():
+#             next_tokens = model.generate(
+#     input_ids=input_ids["input_ids"],
+#     attention_mask=input_ids["attention_mask"],
+#     do_sample=False,  # disable sampling to test if batching affects output
+#      output_scores=True, return_dict_in_generate=True
+# )
+#             logging.info(next_tokens)
+#             print(len(next_tokens.scores))
+#             print(len(next_tokens.scores[0].shape))
+#             print(tokenizer.batch_decode(next_tokens, skip_special_tokens=True))
+#             # outputs = model(input_ids=input_ids["input_ids"],
+#     # attention_mask=input_ids["attention_mask"])
+#             # logits = outputs.logits[:, -1, :]
 
-        # Calculate the difference in probabilities
-        prob_diff = yes_prob - no_prob
+#         # Process logits or do whatever you need with them
+#         next_tokens_scores = logits  # Assuming logits_processor is not used in this function
+#         next_tokens = torch.argmax(next_tokens_scores, dim=-1)
+#         # Example: Extract probabilities for specific tokens (adjust token IDs as needed)
+#         yes_prob = next_tokens_scores[:, 3869]
+#         no_prob = next_tokens_scores[:, 1939]
 
-        # Determine the predictions based on probability differences
-        batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
+#         # Calculate the difference in probabilities
+#         prob_diff = yes_prob - no_prob
+
+#         # Determine the predictions based on probability differences
+#         batch_predictions = torch.where(prob_diff > 0, 1, -1).tolist()
     
-        # Append batch predictions to the overall predictions list
-        predictions.extend(batch_predictions)
+#         # Append batch predictions to the overall predictions list
+#         predictions.extend(batch_predictions)
 
     return predictions
 
