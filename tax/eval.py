@@ -392,8 +392,8 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
     total_edge_count += 1
@@ -442,7 +442,9 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
 
     # Take up to three random neighbors
+    
     selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
+    del filtered_predecessors
     pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
     q_pre_labels = [f'"{label}"' for label in pre_labels]
     del pre_labels
@@ -473,8 +475,9 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
 
     # Take up to three random neighbors
     selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
-    
-    prompt+= f"\n Also {q_parent_label} has following existing childen: "
+    del filtered_neighbors
+    if len(selected_neighbors) > 1:
+        prompt+= f"\n Also {q_parent_label} has following existing childen: "
     # for k in selected_neighbors:
     #     node_definitions.add(k)
 
@@ -501,7 +504,8 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     else:
         prompt+= f"{q_pre_labels[0]}. "
 
-    prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
+    if q_nei_labels:
+        prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
     prompt+= f"\n\n Answer:\n"
 
 
@@ -517,8 +521,6 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
 
 
     del hs, kid_, kid_label, prompt, selected_predecessors
-
-
 
     # # NEGATIVE sample
     # if random.random() < 0.25:

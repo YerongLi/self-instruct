@@ -452,12 +452,12 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
     q_pre_labels = [f'"{label}"' for label in pre_labels]
     del pre_labels
-    
-    if len(selected_predecessors) > 1:
-    
-        prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
-    else:
-        prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
+    if len(selected_predecessors) >= 0:
+        if len(selected_predecessors) > 1:
+        
+            prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        else:
+            prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
 
     # for k in selected_predecessors:
     #     node_definitions.add(k)
