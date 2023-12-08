@@ -624,7 +624,7 @@ print(f"F1 Score: {f1:.3f}")
 print(f"Precision: {precision:.3f}")
 print(f"Recall: {recall:.3f}")
 print(f"G-mean: {g_mean:.3f}")
-print(f"PR AUC Score: {pr_auc_score:.3f}")
+# print(f"PR AUC Score: {pr_auc_score:.3f}")
 print(f"ROC AUC Score: {roc_auc_score_value:.3f}" if roc_auc_score_value is not None else "ROC AUC Score: N/A")
 print(f"Specificity: {specificity:.3f}")
 
