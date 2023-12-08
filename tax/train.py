@@ -199,7 +199,7 @@ tokenized_dataset["test"].save_to_disk("data/eval")
 # we want to ignore tokenizer pad token in the loss
 label_pad_token_id = -100
 # Data collator
-output_dir = args.d
+output_dir = f'{datapath.split("/")[-1]}+{args.d}+{TOTAL}'
 data_collator = DataCollatorForSeq2Seq(
     tokenizer,
     model=model,

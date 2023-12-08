@@ -7,3 +7,8 @@ query.py probe the LLM for question
 ## 
 query2-k.py probe the original question with 
 python query2-k.py wordnet_noun.json 159
+
+## Evaluation
+python eval.py wordnet_noun.json 300 --c dataset/best
+
+## train.py
