@@ -495,6 +495,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         parents_of_parent = set(core_graph.predecessors(parent_))
 
         # Find grandparents (parents of parents of parent_)
+        # DEBUG
         grandparents_of_parent = set([grandparent for parent in parents_of_parent for grandparent in core_graph.predecessors(parent)])
 
         # Find the set of children of grandparents that are not in parents_of_parent

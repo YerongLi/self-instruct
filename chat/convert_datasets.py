@@ -49,6 +49,7 @@ def extract_conversation(filename, name, json_filename, summary_json_filename):
         data["history"] = history
         data["summary"] = summary[filename]['o']
         data["filename"] = filename
+        data["type"] = filename.split('/')[-2]
         
         # Dump each conversation as a separate JSON object in the file
         with open(json_filename, "a") as f:
