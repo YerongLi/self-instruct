@@ -124,7 +124,9 @@ def predict_next_token_batch(prompts, batch_size=10):
             do_sample=False,  # disable sampling to test if batching affects output
         )
 
-        print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
+        batch_result=(tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
+        predictions.extend(batch_result)
+        print(predictions)
         # outputs = model(input_ids=inputs["input_ids"],attention_mask=inputs["attention_mask"])
         # logits = outputs.logits[:, -1, :]
         # print(logits)
@@ -446,7 +448,7 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
 
  Answer:
  Yes'''
-    prompt+="\n    - Question:"
+    prompt+="\n\n    - Question:"
     prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
     predecessors_of_parent = list(core_graph.predecessors(parent_))
@@ -693,51 +695,6 @@ def predict_llama_batch(prompts, batch_size=10):
     #     return
     save_predictions_to_file(predictions)
 
-def predict_gpt_batch(prompts, batch_size=20):
-    # Check if the predictions file exists
-    predictions = {}
-    if os.path.exists(filename):
-        backup_filename = filename + ".backup"
-        shutil.copyfile(filename, backup_filename)
-        print(f"Backup created: {backup_filename}")
-        with open(filename, "r") as f:
-            predictions = json.load(f)
-    const_prompts = [item for item in prompts if item['hs'] not in predictions]
-    del prompts
-    # url = "https://api.openai.com/v1/completions"
-    # headers = {
-    #     "Content-Type": "application/json",
-    #     "Authorization": f"Bearer {openai_api_key}"
-    # }
-
-    try:
-        for z in tqdm.tqdm(range(0, len(const_prompts), batch_size), desc="Processing Batches", unit="batch"):
-            batch_prompts = const_prompts[z:z + batch_size]
-            responses = client.completions.create(
-                model="gpt-3.5-turbo-instruct",
-                prompt=[p['prompt'] for p in batch_prompts],
-                temperature=0,
-                max_tokens=512,
-                top_p=1,
-                frequency_penalty=0,
-                presence_penalty=0
-            )
-            time.sleep(15)
-
-        # Access individual responses in the list
-        for i in range(len(batch_prompts)):
-            predictions[batch_prompts[i]['hs']] = {'i' : batch_prompts[i]['prompt'], 'o': responses.choices[i].text}
-        save_predictions_to_file(predictions)
-        
-
-    except KeyboardInterrupt as e:
-        print(f"Interupt")
-        save_predictions_to_file(predictions)
-    except Exception as e:
-        print(e)
-        save_predictions_to_file(predictions)
-    save_predictions_to_file(predictions)
-
 
 batch_size = 4
 
@@ -750,8 +707,9 @@ batch_size = 4
 #     logging.info(output) 
 
 
-redictions =predict_next_token_batch(prompts, batch_size)
+predictions =predict_next_token_batch(prompts, batch_size)
 print(len(predictions))
+print(predictions)
 print(len(prompts))
 result = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
