@@ -18,7 +18,7 @@ from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGenera
 from torch.utils.data import DataLoader, Dataset
 from openai import OpenAI
 LOGFILE='output.log'
-palm.configure(api_key=os.environ['PALM'])
+# palm.configure(api_key=os.environ['PALM'])
 # from transformers import LlamaForCausalLM, AutoTokenizer, LogitsProcessorList
 # from torch.utils.data import DataLoader, Dataset
 parser = argparse.ArgumentParser(description="Your script description")
