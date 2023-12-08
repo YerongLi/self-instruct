@@ -718,7 +718,7 @@ result = [{'label': prompts[i]['label'], 'pred': predictions[i]} for i in range(
 # Filter out instances where the label is -3
 
 
-labels = [label_mapping.get(entry['label'], -3) for entry in result]
+labels = [entry['label']for entry in result]
 
 valid_indices = [i for i, label in enumerate(labels) if label != -3]
 
@@ -736,10 +736,14 @@ if len(set(filtered_labels)) == 2:
 else:
     auc_score = None
 
-print(f"F1 Score: {f1}")
-print(f"Precision: {precision}")
-print(f"Accuracy: {accuracy}")
-print(f"AUC Score: {auc_score}")
+print(f"F1 Score: {f1:.3f}")
+print(f"Precision: {precision:.3f}")
+print(f"Accuracy: {accuracy:.3f}")
+if auc_score is not None:
+    print(f"AUC Score: {auc_score:.3f}")
+else:
+    print("AUC Score: N/A")
+
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 print(result)
 #         weight = core_graph[parent][kid]['weight']
