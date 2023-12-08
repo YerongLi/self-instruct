@@ -121,7 +121,9 @@ def predict_next_token_batch(prompts, batch_size=10):
             attention_mask=inputs["attention_mask"],
             do_sample=False,  # disable sampling to test if batching affects output
         )
-
+        outputs = model(**inputs)
+        logits = outputs.logits[:, -1, :]
+        print(logits)
         print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
 #         # Generate logits for the next token using the model
 #         with torch.no_grad():
