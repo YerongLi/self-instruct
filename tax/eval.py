@@ -716,6 +716,10 @@ predictions = [1 if entry == 'Yes' else -1 if entry == 'No' else -3 for entry in
 
 result = [{'label': prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
 # Filter out instances where the label is -3
+
+
+labels = [label_mapping.get(entry['label'], -3) for entry in result]
+
 valid_indices = [i for i, label in enumerate(labels) if label != -3]
 
 filtered_labels = [labels[i] for i in valid_indices]
