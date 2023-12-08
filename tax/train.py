@@ -128,6 +128,7 @@ class SaveBestModelCallback(TrainerCallback):
             model.save_pretrained(f"{self.output_dir}/best/")
             self.best_eval_loss = eval_loss
             logging.info(f"Model saved with eval loss: {eval_loss}")
+            print(output_dir)
 
 
 print(f"Train dataset size: {len(dataset['train'])}")

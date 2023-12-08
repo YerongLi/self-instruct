@@ -568,7 +568,7 @@ def predict_palm_batch(prompts, batch_size=10):
 
 
 
-batch_size = 40
+batch_size = 20
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
