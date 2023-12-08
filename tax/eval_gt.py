@@ -504,10 +504,13 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
     prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
-    if len(selected_predecessors) > 1:
-        prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}. "
-    else:
-        prompt+= f"{q_pre_labels[0]}. "
+    
+    if len(selected_predecessors) >= 1:
+    
+        if len(selected_predecessors) > 1:
+            prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}. "
+        else:
+            prompt+= f"{q_pre_labels[0]}. "
 
     if q_nei_labels:
         prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
