@@ -370,7 +370,7 @@ Yes
  Explanation:
 The new child term "umbrella" is consistent with the parent term "union" and the existing child terms "tribalization", "coalescence" and "reunion". "umbrella" has the function of uniting a group of similar things and it is a kind of union. So it is reasonable to add "umbrella" as a new child to the term "union".
 
-    '''
+'''
     # prompt = "Given multiple child terms associated with a parent term in a knowledge graph, your task is to evaluate the possibility of introducing a provided candidate term as a new child under the same parent. The new term should align with the existing children, forming siblings at the same hierarchical level. Please provide a thorough and detailed explanation for your decision, taking into account the relationships within the knowledge graph.\n\n Question: "
     prompt+= '     - Question:'
     prompt+= f"\n{q_parent_label} is the parenting node. \n{q_parent_label} : {definitions[parent_]['summary']}"
