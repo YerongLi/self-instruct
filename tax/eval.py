@@ -414,7 +414,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     
 
-    prompt = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
+    prompt = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship (Yes/No).
 
     - Question: 
 "position" represents the parent node term under consideration. 
