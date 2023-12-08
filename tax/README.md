@@ -11,4 +11,7 @@ python query2-k.py wordnet_noun.json 159
 ## Evaluation
 python eval.py wordnet_noun.json 300 --c dataset/best
 
+## Merge the dataset from the GPT4
+python merge.py wordnet_noun.json 159
+
 ## train.py

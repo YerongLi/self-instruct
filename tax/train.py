@@ -47,6 +47,9 @@ parser.add_argument("--r", default=None,
 # Define the --d argument
 parser.add_argument("--d", default='dataset', type=str,
                     help="dataset. Default is 'dataset'.")
+parser.add_argument("--e", default=5, type=int,
+                    help="Number of epochs")
+
 
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
@@ -210,7 +213,7 @@ training_args = Seq2SeqTrainingArguments(
     output_dir=output_dir,
 	auto_find_batch_size=True,
     learning_rate=1e-3, # higher learning rate
-    num_train_epochs=5,
+    num_train_epochs=args.e,
     save_steps=100,
     save_total_limit=2,
     logging_dir=f"{output_dir}/logs",
