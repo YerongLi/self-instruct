@@ -127,7 +127,6 @@ def predict_next_token_batch(prompts, batch_size=10):
 
         batch_result=tokenizer.batch_decode(output_sequences, skip_special_tokens=True)
         predictions.extend(batch_result)
-        print(predictions)
         # outputs = model(input_ids=inputs["input_ids"],attention_mask=inputs["attention_mask"])
         # logits = outputs.logits[:, -1, :]
         # print(logits)
@@ -418,21 +417,6 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     
 
     prompt = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship (Yes/No).
-
-    - Question: 
-"position" represents the parent node term under consideration. 
- - "position" : a job in an organization
-"position" is the subclass of "occupation".
- - "occupation" : the principal activity in your life that you do to earn money
- Also "position" has following existing childen: 
-"praetorship" : the office of praetor
-"judgeship" : the position of judge
-"cadetship" : the position of cadet
-Now we want to add "sainthood" as a new child to the term "position"
- - "sainthood" : the status and dignity of a saint
-If we decide to add a new node "sainthood" as a child of "position", it should conceptually become the consistent grandchild of"occupation". Also "sainthood" is a sibling of "praetorship", "judgeship" and "cadetship" with a same granularity.
- Answer:
-No
 
     - Question:
 "golf" represents the parent node term under consideration. 
