@@ -713,26 +713,7 @@ print(predictions)
 print(len(prompts))
 result = [{'label':prompts[i]['label'], 'pred': predictions[i]} for i in range(len(prompts))]
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
-
-# print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
-logging.info(f"Count number of -1 {count_neg_label}")
-
-if min_pair is not None:
-    parent, kid = min_pair
-    logging.info("Minimum pair:")
-    logging.info(definitions[parent])
-    logging.info(definitions[kid])
-
-if max_pair is not None:
-    parent, kid = max_pair
-    logging.info("Maximum pair:")
-    logging.info(definitions[parent])
-    logging.info(definitions[kid])
-
-logging.info(f"The minimum length of the edge lists is {min_len}.")
-logging.info(f"The maximum length of the edge lists is {max_len}.")
-logging.info(core_graph)
-#     try:
+print(result)
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
 #             print(parent, kid)
