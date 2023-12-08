@@ -481,7 +481,8 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     # Take up to three random neighbors
     selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
     del filtered_neighbors
-    prompt+= f"\n Also {q_parent_label} has following existing childen: "
+    if len(selected_neighbors) > 1:
+        prompt+= f"\n Also {q_parent_label} has following existing childen: "
     # for k in selected_neighbors:
     #     node_definitions.add(k)
 
@@ -508,7 +509,8 @@ If we decide to add a new node "miniature_golf" as a child of "golf", it should 
     else:
         prompt+= f"{q_pre_labels[0]}. "
 
-    prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
+    if q_nei_labels:
+        prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
     prompt+= f"\n\n Answer:\n"
 
 
