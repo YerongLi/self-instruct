@@ -76,7 +76,10 @@ model_id="google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_id)
 logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
-model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
+device = "cuda:0" # You can set this to "cpu" if you don't have a GPU
+
+# model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
+model = T5ForConditionalGeneration.from_pretrained(model_id, device=device)
 checkpoint_to_resume = args.c
 if checkpoint_to_resume:
     print(f'Loading checkpoint : {args.c}')
