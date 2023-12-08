@@ -392,8 +392,138 @@ If we choose to introduce a new node <X> as a child of <P>, it should conceptual
 <X> : <Description>
 '''
 
-    if len(selected_predecessors) > 1:
+# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
+for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+    parent_, kid_ = edge
+    if parent_ == rootkey or kid_ == rootkey : continue
+    total_edge_count += 1
+    if len(list(core_graph.predecessors(parent_))) < 1 or \
+    len(list(core_graph.predecessors(parent_))) == 1 and rootkey in list(core_graph.predecessors(parent_)):
+        continue
+    if len(list(core_graph.neighbors(parent_))) < 2: continue
 
+    has_parent_count += 1
+
+    hs = HASH(definitions[parent_]['summary']+definitions[kid_]['summary'])
+
+    if hs in predictions: continue
+    parent_label = get_first_label_without_n(definitions[parent_]['label'])
+    kid_label = get_first_label_without_n(definitions[kid_]['label'])
+
+    q_parent_label = f'"{parent_label}"'
+    q_kid_label = f'"{kid_label}"'
+    #POSTIVE
+
+    
+
+    prompt = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship (Yes/No).
+
+    - Question:
+"golf" represents the parent node term under consideration. 
+ - "golf" : a game played on a large open course with 9 or 18 holes; the object is use as few strokes as possible in playing all the holes
+"golf" is the subclass of "outdoor_game".
+ - "outdoor_game" : an athletic game that is played outdoors
+ Also "golf" has following existing childen: 
+"professional_golf" : playing golf for money
+"clock_golf" : a form of golf in which you putt from positions arranged on the circumference of a circle around the hole
+"medal_play" : golf scoring by total strokes taken
+Now we want to add "miniature_golf" as a new child to the term "golf"
+ - "miniature_golf" : a novelty version of golf played with golf balls and putters on a miniature course featuring many obstacles
+If we decide to add a new node "miniature_golf" as a child of "golf", it should conceptually become the consistent grandchild of"outdoor_game". Also "miniature_golf" is a sibling of "professional_golf", "clock_golf" and "medal_play" with a same granularity.
+
+ Answer:
+ Yes'''
+    prompt+="\n\n    - Question:"
+    prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
+    # Get neighbors of the parent_ node
+    predecessors_of_parent = list(core_graph.predecessors(parent_))
+
+    # Filter out nodes that are equal to kid_
+    filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
+
+    # Take up to three random neighbors
+    
+    selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
+    del filtered_predecessors
+    pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
+    q_pre_labels = [f'"{label}"' for label in pre_labels]
+    del pre_labels
+    if len(selected_predecessors) >= 1:
+        if len(selected_predecessors) > 1:
+        
+            prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+        else:
+            prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
+
+    # for k in selected_predecessors:
+    #     node_definitions.add(k)
+
+    try:
+        for node in selected_predecessors:
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"\n - \"{label}\" : {description}"
+    except:
+        print('error')
+        continue
+    neighbors_of_parent = list(core_graph.neighbors(parent_))
+
+    # Filter out nodes that are equal to kid_
+    filtered_neighbors = [neighbor for neighbor in neighbors_of_parent if neighbor != kid_]
+
+    # Take up to three random neighbors
+    selected_neighbors = random.sample(filtered_neighbors, min(3, len(filtered_neighbors)))
+    del filtered_neighbors
+    if len(selected_neighbors) > 1:
+        prompt+= f"\n Also {q_parent_label} has following existing childen: "
+    # for k in selected_neighbors:
+    #     node_definitions.add(k)
+
+    try:
+        for node in selected_neighbors:
+            label = get_first_label_without_n(definitions[node]['label'])
+            # logging.info(node)
+            # logging.info(definitions[node])
+            description = definitions[node]['summary']
+            prompt += f"\n\"{label}\" : {description}"
+    except:
+        print('error')
+        continue
+    nei_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_neighbors]
+    q_nei_labels = [f'"{label}"' for label in nei_labels]
+    del nei_labels
+
+    prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}"
+    prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
+
+    prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of"
+    
+    if len(selected_predecessors) >= 1:
+    
+        if len(selected_predecessors) > 1:
+            prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}. "
+        else:
+            prompt+= f"{q_pre_labels[0]}. "
+
+    if q_nei_labels:
+        prompt+= f"Also {q_kid_label} is a sibling of {', '.join(q_nei_labels[:-1])} and {q_nei_labels[-1]} with a same granularity."
+    prompt+= f"\n\n Answer:\n"
+
+
+    # prompt+= f'\n Question: Is {get_first_label_without_n(definitions[parent_]["label"])} a parent of {get_first_label_without_n(definitions[kid_]["label"])}?\n Answer:' 
+    
+    prompts.append({'prompt': prompt, 
+        'label': core_graph[parent_][kid_]['weight'],
+        'hs': hs,
+        })
+
+    if iteration <= 10:
+        logging.info(prompt)
+
+
+    del hs, kid_, kid_label, prompt, selected_predecessors
     # # NEGATIVE sample
     # if random.random() < 0.25:
     #     pass
