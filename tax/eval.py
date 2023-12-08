@@ -47,8 +47,8 @@ datapath = '/'.join(datapath)
 # openai_api_key = os.environ.get("OPENAI")
 filename=f"{datapath}/parent_0shot_{TOTAL}.json"
 
-if not openai_api_key:
-    print("OpenAI API key not found in environment variables.")
+# if not openai_api_key:
+    # print("OpenAI API key not found in environment variables.")
 # client = OpenAI(api_key=openai_api_key)
 
 print(datapath)
