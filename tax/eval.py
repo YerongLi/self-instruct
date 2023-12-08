@@ -414,8 +414,39 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
 
     
 
-    prompt = "Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.\n\n Question: "
+    prompt = '''Given two terms in a knowledge graph, your task is to determine whether they have a parent-child relationship and give a very detailed explanation on your decision.
 
+    - Question: 
+"position" represents the parent node term under consideration. 
+ - "position" : a job in an organization
+"position" is the subclass of "occupation".
+ - "occupation" : the principal activity in your life that you do to earn money
+ Also "position" has following existing childen: 
+"praetorship" : the office of praetor
+"judgeship" : the position of judge
+"cadetship" : the position of cadet
+Now we want to add "sainthood" as a new child to the term "position"
+ - "sainthood" : the status and dignity of a saint
+If we decide to add a new node "sainthood" as a child of "position", it should conceptually become the consistent grandchild of"occupation". Also "sainthood" is a sibling of "praetorship", "judgeship" and "cadetship" with a same granularity.
+ Answer:
+No
+
+    - Question:
+"golf" represents the parent node term under consideration. 
+ - "golf" : a game played on a large open course with 9 or 18 holes; the object is use as few strokes as possible in playing all the holes
+"golf" is the subclass of "outdoor_game".
+ - "outdoor_game" : an athletic game that is played outdoors
+ Also "golf" has following existing childen: 
+"professional_golf" : playing golf for money
+"clock_golf" : a form of golf in which you putt from positions arranged on the circumference of a circle around the hole
+"medal_play" : golf scoring by total strokes taken
+Now we want to add "miniature_golf" as a new child to the term "golf"
+ - "miniature_golf" : a novelty version of golf played with golf balls and putters on a miniature course featuring many obstacles
+If we decide to add a new node "miniature_golf" as a child of "golf", it should conceptually become the consistent grandchild of"outdoor_game". Also "miniature_golf" is a sibling of "professional_golf", "clock_golf" and "medal_play" with a same granularity.
+
+ Answer:
+ Yes'''
+    prompt+="\n    - Question:"
     prompt+= f"\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
     # Get neighbors of the parent_ node
     predecessors_of_parent = list(core_graph.predecessors(parent_))
