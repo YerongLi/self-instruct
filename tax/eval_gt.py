@@ -14,7 +14,7 @@ import requests
 import json
 import os
 from peft import LoraConfig, get_peft_model, TaskType, PeftModel
-from sklearn.metrics import f1_score, precision_score, accuracy_score, roc_auc_score
+from sklearn.metrics import recall_score, roc_auc_score, auc, confusion_matrix, f1_score, precision_score
 
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
@@ -611,31 +611,40 @@ filtered_predictions = [predictions[i] for i in valid_indices]
 # Calculate metrics
 f1 = f1_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
 precision = precision_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
-accuracy = accuracy_score(filtered_labels, filtered_predictions)
+recall = recall_score(filtered_labels, filtered_predictions, average='binary', pos_label=1)
+
+conf_matrix = confusion_matrix(filtered_labels, filtered_predictions)
+# print(conf_matrix.ravel())
+tn, fp, fn, tp = conf_matrix.ravel()
+specificity = tn / (tn + fp)
+g_mean = (tp / (tp + fn)) * (tn / (tn + fp)) ** 0.5
+
+# pr_auc_score = auc(filtered_labels, filtered_predictions)
 
 # AUC score is calculated only if both classes are present
 if len(set(filtered_labels)) == 2:
-    auc_score = roc_auc_score(filtered_labels, filtered_predictions)
+    roc_auc_score_value = roc_auc_score(filtered_labels, filtered_predictions)
 else:
-    auc_score = None
+    roc_auc_score_value = None
+
 print(args.c)
 print(f"F1 Score: {f1:.3f}")
 print(f"Precision: {precision:.3f}")
-print(f"Accuracy: {accuracy:.3f}")
-if auc_score is not None:
-    print(f"AUC Score: {auc_score:.3f}")
-else:
-    print("AUC Score: N/A")
+print(f"Recall: {recall:.3f}")
+print(f"G-mean: {g_mean:.3f}")
+# print(f"PR AUC Score: {pr_auc_score:.3f}")
+print(f"ROC AUC Score: {roc_auc_score_value:.3f}" if roc_auc_score_value is not None else "ROC AUC Score: N/A")
+print(f"Specificity: {specificity:.3f}")
 
 logging.info(args.c)
 
 logging.info(f"F1 Score: {f1:.3f}")
 logging.info(f"Precision: {precision:.3f}")
-logging.info(f"Accuracy: {accuracy:.3f}")
-if auc_score is not None:
-    logging.info(f"AUC Score: {auc_score:.3f}")
-else:
-    logging.info("AUC Score: N/A")
+logging.info(f"Recall: {recall:.3f}")
+logging.info(f"G-mean: {g_mean:.3f}")
+# logging.info(f"PR AUC Score: {pr_auc_score:.3f}")
+logging.info(f"ROC AUC Score: {roc_auc_score_value:.3f}" if roc_auc_score_value is not None else "ROC AUC Score: N/A")
+logging.info(f"Specificity: {specificity:.3f}")
 # output_sequences = model.generate(**inputs, max_new_tokens=20, do_sample=True, top_p=0.9)
 #         weight = core_graph[parent][kid]['weight']
 #         if weight == -1:
