@@ -203,6 +203,8 @@ tokenized_dataset["test"].save_to_disk("data/eval")
 label_pad_token_id = -100
 # Data collator
 output_dir = f'{datapath.split("/")[-1]}+{args.d}+{TOTAL}'
+logging.info(output_dir)
+print(output_dir)
 data_collator = DataCollatorForSeq2Seq(
     tokenizer,
     model=model,

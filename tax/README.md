@@ -15,3 +15,4 @@ python eval.py wordnet_noun.json 300 --c dataset/best
 python merge.py wordnet_noun.json 159
 
 ## train.py
+python train.py wordnet_noun.json 159 --d dataset --e 100
