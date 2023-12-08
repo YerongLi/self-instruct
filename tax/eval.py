@@ -73,6 +73,18 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
 model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
+
+sentences = ["The house is wonderful.", "I like to work in NYC."]
+
+inputs = tokenizer([task_prefix + sentence for sentence in sentences], return_tensors="pt", padding=True)
+
+output_sequences = model.generate(
+    input_ids=inputs["input_ids"],
+    attention_mask=inputs["attention_mask"],
+    do_sample=False,  # disable sampling to test if batching affects output
+)
+
+print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
 # model = LlamaForCausalLM.from_pretrained(
 #   model_path,
 #   torch_dtype=torch.float16,
