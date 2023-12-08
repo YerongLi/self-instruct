@@ -13,6 +13,8 @@ import torch
 import requests
 import json
 import os
+from peft import LoraConfig, get_peft_model, TaskType, PeftModel
+
 
 from transformers import LlamaForCausalLM, AutoTokenizer, T5ForConditionalGeneration
 from torch.utils.data import DataLoader, Dataset
@@ -25,7 +27,8 @@ parser = argparse.ArgumentParser(description="Your script description")
 # Add the configuration file argument
 parser.add_argument("config_file", type=str, help="Path to the configuration file")
 parser.add_argument("TOTAL", type=int, default=700, nargs="?", help="Number of total items to process")
-
+parser.add_argument("--c", default=None,
+                    help="Path to the checkpoint to resume training. Default is None.")
 def HASH(input_string):
     # Use SHA-256 for deterministic hashing
     hash_object = hashlib.sha256(input_string.encode())
@@ -73,16 +76,21 @@ tokenizer = AutoTokenizer.from_pretrained(model_id)
 logging.info(f'Yes id is : {tokenizer(["Yes"])}')
 logging.info(f'No id is : {tokenizer(["No"])}')
 model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
+checkpoint_to_resume = args.r
+if checkpoint_to_resume:
+    print('Loading checkpoint')
+    model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
+else:
+    raise ValueError("No checkpoint specified")
+# sentences = ["The house is wonderful.", "I like to work in NYC."]
 
-sentences = ["The house is wonderful.", "I like to work in NYC."]
+# inputs = tokenizer([sentence for sentence in sentences], return_tensors="pt", padding=True)
 
-inputs = tokenizer([sentence for sentence in sentences], return_tensors="pt", padding=True)
-
-output_sequences = model.generate(
-    input_ids=inputs["input_ids"],
-    attention_mask=inputs["attention_mask"],
-    do_sample=False,  # disable sampling to test if batching affects output
-)
+# output_sequences = model.generate(
+#     input_ids=inputs["input_ids"],
+#     attention_mask=inputs["attention_mask"],
+#     do_sample=False,  # disable sampling to test if batching affects output
+# )
 
 print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
 # model = LlamaForCausalLM.from_pretrained(
