@@ -79,6 +79,7 @@ model = T5ForConditionalGeneration.from_pretrained(model_id, device_map="auto")
 checkpoint_to_resume = args.c
 if checkpoint_to_resume:
     print('Loading checkpoint')
+    logging.info('Loading checkpoint')
     model = PeftModel.from_pretrained(model, checkpoint_to_resume, is_trainable=True)
 else:
     raise ValueError("No checkpoint specified")
@@ -122,10 +123,11 @@ def predict_next_token_batch(prompts, batch_size=10):
             do_sample=False,  # disable sampling to test if batching affects output
         )
 
-        print(logits)
         print(tokenizer.batch_decode(output_sequences, skip_special_tokens=True))
         outputs = model(input_ids=inputs["input_ids"],attention_mask=inputs["attention_mask"])
         logits = outputs.logits[:, -1, :]
+        print(logits)
+
 #         # Generate logits for the next token using the model
 #         with torch.no_grad():
 #             next_tokens = model.generate(
