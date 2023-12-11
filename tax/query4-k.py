@@ -572,7 +572,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
         selected_predecessors = set(selected_predecessors)
         selected_predecessors.add(f_grandparent)
-        print(f_grandparent in core_graph.predecessors(f_parent_), f_grandparent not in parents_of_parents_of_kid)
+        assert f_grandparent in core_graph.predecessors(f_parent_), 'f_grandparent in core_graph.predecessors(f_parent_)'
+        assert f_grandparent not in parents_of_parents_of_kid, 'f_grandparent not in parents_of_parents_of_kid' # DEBUG
         pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
         q_pre_labels = [f'"{label}"' for label in pre_labels]
         del pre_labels
@@ -831,7 +832,7 @@ batch_size = 4
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-# predict_gpt_batch(prompts)
+predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
