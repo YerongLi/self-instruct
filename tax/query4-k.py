@@ -531,14 +531,15 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         q_pre_labels = [f'"{label}"' for label in pre_labels]
         del pre_labels
         
-        if len(selected_predecessors) > 1:
-        
-            prompt+= f"\n{q_f_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
-        else:
-            prompt+= f"\n{q_f_parent_label} is the subclass of {q_pre_labels[0]}."
+        if len(selected_predecessors) > 0:
+            if len(selected_predecessors) > 1:
+            
+                prompt+= f"\n{q_f_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+            else:
+                prompt+= f"\n{q_f_parent_label} is the subclass of {q_pre_labels[0]}."
 
-        # for k in selected_predecessors:
-        #     node_definitions.add(k)
+            # for k in selected_predecessors:
+            #     node_definitions.add(k)
 
         try:
             for node in selected_predecessors:
