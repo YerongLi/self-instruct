@@ -557,6 +557,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         # Randomly sample one element and name it grand_
 
         f_parent_label = get_first_label_without_n(definitions[f_parent_]['label'])
+        del f_parent_label
         q_f_parent_label = f'"{f_parent_label}"'
 
         hs = HASH(definitions[f_parent_]['summary']+definitions[kid_]['summary'])
