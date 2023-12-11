@@ -493,6 +493,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     # NEGATIVE sample
     # if random.random() < (1.5 if '0shot' in filename else 0.2):
     if random.random() < 1.5:
+        logging.info('Negative')
         parents_of_parent = set(core_graph.predecessors(parent_))
 
         # Find grandparents (parents of parents of parent_)
