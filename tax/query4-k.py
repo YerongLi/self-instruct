@@ -404,7 +404,8 @@ Yes
  Explanation:
 Based on the given information, it is consistent to add "cross-country_skiing" as a child of "skiing" and have it be the grandchild of "sport". This is because "skiing" is already defined as a subclass of "sport", and "cross-country_skiing" is a specific type of skiing that falls under the broader category of "sport". Therefore, adding "cross-country_skiing" as a child of "skiing" would not contradict the existing relationship between "skiing" and "sport".\n''' 
 # for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 10)), total=10):
-iter_count = 0 
+iter_count = 0
+neg_count = 0
 for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if parent_ == rootkey or kid_ == rootkey : continue
@@ -492,11 +493,52 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
 
     # NEGATIVE sample
-    if random.random() < (1.5 if '0shot' in filename else 0.2):
-    # if True:
+    # if random.random() < (1.5 if '0shot' in filename else 0.2):
+    if True:
+        # Assuming 'core_graph' is your graph structure and 'parent_' is a specific node
+
+        # Get the parents of the parent node
         parents_of_parent = set(core_graph.predecessors(parent_))
 
-        # Find grandparents (parents of parents of parent_)
+        # Initialize an empty set to store the siblings
+        siblings = set()
+
+        # Iterate over each parent of the parent node
+        for parent_of_parent in parents_of_parent:
+            # Add all successors (children) of the parent of the parent node to the siblings set
+            siblings.update(core_graph.successors(parent_of_parent))
+
+        # Remove the original parent node from the siblings set
+        siblings.discard(parent_)
+
+        # Initialize an empty set to store the parents of the siblings
+        parents_of_siblings = set()
+
+        # Iterate over each sibling
+        for sibling in siblings:
+            # Add all parents of the sibling node to the set
+            parents_of_siblings.update(core_graph.predecessors(sibling))
+
+        # Now, 'parents_of_siblings' set contains all the parents of the siblings
+
+        difference_set = parents_of_siblings - parents_of_parent
+
+        # Check if the difference set is not empty
+        if difference_set:
+            # Randomly sample one node from the difference set as f_grandparent
+            f_grandparent = random.sample(difference_set, 1)[0]
+
+            # Get the neighbors of f_grandparent from core_graph
+            f_grandparent_neighbors = set(core_graph.neighbors(f_grandparent))
+
+            # Check if f_grandparent has neighbors
+            if f_grandparent_neighbors:
+                # Randomly pick one f_parent from the neighbors of f_grandparent
+                f_parent = random.sample(f_grandparent_neighbors, 1)[0]
+            else:
+                continue
+        else:
+            continue
         # DEBUG
         grandparents_of_parent = set([grandparent for parent in parents_of_parent for grandparent in core_graph.predecessors(parent)])
 
@@ -574,11 +616,11 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             'label': -1,
             'hs': hs,
             })
-
+        neg_count+= 1
         # if iter_count <= 10:
-        logging.info('Negative')
-        logging.info(prompt)
-        logging.info(p_prompt)
+        # logging.info('Negative')
+        # logging.info(prompt)
+        # logging.info(p_prompt)
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
@@ -588,6 +630,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         max_pair = (parent_, kid_)
         max_len = edge_list_len
     # Check if we need to sample additional negative pairs
+print(f'Number of negative samples is {neg_count}')
 logging.info(f"has_parent_count:{has_parent_count}")
 logging.info(f"total_edge_count: {total_edge_count}")
 
