@@ -518,7 +518,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         prompt = prefix
     
 
-        prompt+= f"\n    - Question:\n{q_f_parent_label} represents the parent node term under consideration. \n - {q_f_parent_label} : {definitions[f_parent_label]['summary']}"
+        prompt+= f"\n    - Question:\n{q_f_parent_label} represents the parent node term under consideration. \n - {q_f_parent_label} : {definitions[f_parent_]['summary']}"
     # Get neighbors of the parent_ node
         predecessors_of_parent = list(core_graph.predecessors(f_parent_label))
 
@@ -551,7 +551,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             print('error')
             continue
         prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_f_parent_label}."
-        prompt += f"\n - {q_kid_label} : {definitions[kid]['summary']}"
+        prompt += f"\n - {q_kid_label} : {definitions[kid_]['summary']}"
 
         prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_f_parent_label}, it should conceptually become the consistent grandchild of "
         if len(selected_predecessors) > 1:
