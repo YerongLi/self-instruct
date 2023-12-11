@@ -540,25 +540,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         else:
             continue
         # DEBUG
-        grandparents_of_parent = set([grandparent for parent in parents_of_parent for grandparent in core_graph.predecessors(parent)])
-
-        # Find the set of children of grandparents that are not in parents_of_parent
-        children_of_grandparents_not_in_parents_of_parent = set()
-        for grandparent in grandparents_of_parent:
-            children_of_grandparent = set(core_graph.successors(grandparent))
-            children_of_grandparents_not_in_parents_of_parent.update(children_of_grandparent - parents_of_parent)
         del parent_
         # Randomly sample one element and name it grand_
-        children_of_grandparents_not_in_parents_of_parent = set(children_of_grandparents_not_in_parents_of_parent)
-
-        if not children_of_grandparents_not_in_parents_of_parent: continue
-        for f_parent_ in children_of_grandparents_not_in_parents_of_parent:
-            predecessors_of_parent = list(core_graph.predecessors(f_parent_))
-
-            # Filter out nodes that are equal to kid_
-            filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
-            if filtered_predecessors: break
-        if not filtered_predecessors: continue
 
         f_parent_label = get_first_label_without_n(definitions[f_parent_]['label'])
         q_f_parent_label = f'"{f_parent_label}"'
