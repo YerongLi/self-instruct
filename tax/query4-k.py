@@ -520,7 +520,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
         prompt+= f"\n    - Question:\n{q_f_parent_label} represents the parent node term under consideration. \n - {q_f_parent_label} : {definitions[f_parent_]['summary']}"
     # Get neighbors of the parent_ node
-        predecessors_of_parent = list(core_graph.predecessors(f_parent_label))
+        predecessors_of_parent = list(core_graph.predecessors(f_parent_))
 
         # Filter out nodes that are equal to kid_
         filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
