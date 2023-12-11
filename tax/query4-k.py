@@ -486,7 +486,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     if iter_count <= 10:
         logging.info(prompt)
 
-
+    prompt = prompt
     del hs, parent_label, q_parent_label,prompt, selected_predecessors
 
 
@@ -578,6 +578,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         # if iter_count <= 10:
         logging.info('Negative')
         logging.info(prompt)
+        logging.info(p_prompt)
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
