@@ -491,7 +491,8 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
 
     # NEGATIVE sample
-    if random.random() < (1.5 if '0shot' in filename else 0.2):
+    # if random.random() < (1.5 if '0shot' in filename else 0.2):
+    if random.random() < 1.5:
         parents_of_parent = set(core_graph.predecessors(parent_))
 
         # Find grandparents (parents of parents of parent_)
@@ -778,7 +779,7 @@ batch_size = 4
 
 # predict_palm_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-predict_gpt_batch(prompts)
+# predict_gpt_batch(prompts)
 
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
