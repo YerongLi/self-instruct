@@ -521,7 +521,20 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
         # Now, 'parents_of_siblings' set contains all the parents of the siblings
 
-        difference_set = parents_of_siblings - parents_of_parent
+        parents_of_kid = set(core_graph.predecessors(kid_))
+
+        # Initialize an empty set to store the parents of parents (grandparents) of the kid_
+        parents_of_parents_of_kid = set()
+
+        # Iterate over each parent of the kid_
+        for parent_of_kid in parents_of_kid:
+            # Add all parents of the parent of the kid_ to the set
+            parents_of_parents_of_kid.update(core_graph.predecessors(parent_of_kid))
+
+
+
+
+        difference_set = parents_of_siblings - parents_of_parents_of_kid
 
         # Check if the difference set is not empty
         if difference_set:
@@ -559,7 +572,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
         selected_predecessors = set(selected_predecessors)
         selected_predecessors.add(f_grandparent)
-        print(f_grandparent in core_graph.predecessors(f_parent_))
+        print(f_grandparent in core_graph.predecessors(f_parent_), f_grandparent_ not in parents_of_parents_of_kid)
         pre_labels = [get_first_label_without_n(definitions[node]['label']) for node in selected_predecessors]
         q_pre_labels = [f'"{label}"' for label in pre_labels]
         del pre_labels
