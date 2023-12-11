@@ -534,7 +534,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             # Check if f_grandparent has neighbors
             if f_grandparent_neighbors:
                 # Randomly pick one f_parent from the neighbors of f_grandparent
-                f_parent = random.sample(f_grandparent_neighbors, 1)[0]
+                f_parent_ = random.sample(f_grandparent_neighbors, 1)[0]
             else:
                 continue
         else:
