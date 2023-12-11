@@ -486,7 +486,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         logging.info(prompt)
 
 
-    del hs, kid_, kid_label, prompt, selected_predecessors
+    del hs, parent_label, q_parent_label,prompt, selected_predecessors
 
 
 
@@ -504,23 +504,23 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         for grandparent in grandparents_of_parent:
             children_of_grandparent = set(core_graph.successors(grandparent))
             children_of_grandparents_not_in_parents_of_parent.update(children_of_grandparent - parents_of_parent)
-
+        del parent_
         # Randomly sample one element and name it grand_
         if children_of_grandparents_not_in_parents_of_parent:
-            grand_ = random.sample(children_of_grandparents_not_in_parents_of_parent, 1).pop()
+            f_parent_ = random.sample(children_of_grandparents_not_in_parents_of_parent, 1).pop()
         else:
             continue
-        grand_label = get_first_label_without_n(definitions[grand_]['label'])
-        q_grand_label = f'"{grand_label}"'
+        f_parent_label = get_first_label_without_n(definitions[f_parent_]['label'])
+        q_f_parent_label = f'"{f_parent_label}"'
 
-        hs = HASH(definitions[parent_]['summary']+definitions[grand_]['summary'])
+        hs = HASH(definitions[f_parent_]['summary']+definitions[kid_]['summary'])
 
         prompt = prefix
     
 
-        prompt+= f"\n    - Question:\n{q_parent_label} represents the parent node term under consideration. \n - {q_parent_label} : {definitions[parent_]['summary']}"
+        prompt+= f"\n    - Question:\n{q_f_parent_label} represents the parent node term under consideration. \n - {q_f_parent_label} : {definitions[f_parent_label]['summary']}"
     # Get neighbors of the parent_ node
-        predecessors_of_parent = list(core_graph.predecessors(parent_))
+        predecessors_of_parent = list(core_graph.predecessors(f_parent_label))
 
         # Filter out nodes that are equal to kid_
         filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
@@ -533,9 +533,9 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         
         if len(selected_predecessors) > 1:
         
-            prompt+= f"\n{q_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
+            prompt+= f"\n{q_f_parent_label} is the subclass of {', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
         else:
-            prompt+= f"\n{q_parent_label} is the subclass of {q_pre_labels[0]}."
+            prompt+= f"\n{q_f_parent_label} is the subclass of {q_pre_labels[0]}."
 
         # for k in selected_predecessors:
         #     node_definitions.add(k)
@@ -550,10 +550,10 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         except:
             print('error')
             continue
-        prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_parent_label}."
-        prompt += f"\n - {q_grand_label} : {definitions[grand_]['summary']}"
+        prompt+= f"\nNow we want to add {q_kid_label} as a new child to the term {q_f_parent_label}."
+        prompt += f"\n - {q_kid_label} : {definitions[kid]['summary']}"
 
-        prompt+= f"\nIf we decide to add a new node {q_grand_label} as a child of {q_parent_label}, it should conceptually become the consistent grandchild of "
+        prompt+= f"\nIf we decide to add a new node {q_kid_label} as a child of {q_f_parent_label}, it should conceptually become the consistent grandchild of "
         if len(selected_predecessors) > 1:
             prompt+= f"{', '.join(q_pre_labels[:-1])} and {q_pre_labels[-1]}."
         else:
