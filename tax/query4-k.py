@@ -486,7 +486,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
     if iter_count <= 10:
         logging.info(prompt)
 
-    prompt = prompt
+    p_prompt = prompt
     del hs, parent_label, q_parent_label,prompt, selected_predecessors
 
 
