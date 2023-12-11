@@ -507,10 +507,17 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             children_of_grandparents_not_in_parents_of_parent.update(children_of_grandparent - parents_of_parent)
         del parent_
         # Randomly sample one element and name it grand_
-        if children_of_grandparents_not_in_parents_of_parent:
-            f_parent_ = random.sample(children_of_grandparents_not_in_parents_of_parent, 1).pop()
-        else:
-            continue
+        children_of_grandparents_not_in_parents_of_parent = set(children_of_grandparents_not_in_parents_of_parent)
+
+        if notchildren_of_grandparents_not_in_parents_of_parent: continue
+        for f_parent_ in notchildren_of_grandparents_not_in_parents_of_parent:
+            predecessors_of_parent = list(core_graph.predecessors(f_parent_))
+
+            # Filter out nodes that are equal to kid_
+            filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
+            if filtered_predecessors: break
+        if not filtered_predecessors: continue
+
         f_parent_label = get_first_label_without_n(definitions[f_parent_]['label'])
         q_f_parent_label = f'"{f_parent_label}"'
 
@@ -521,10 +528,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
 
         prompt+= f"\n    - Question:\n{q_f_parent_label} represents the parent node term under consideration. \n - {q_f_parent_label} : {definitions[f_parent_]['summary']}"
     # Get neighbors of the parent_ node
-        predecessors_of_parent = list(core_graph.predecessors(f_parent_))
-
         # Filter out nodes that are equal to kid_
-        filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
 
         # Take up to three random neighbors
         selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
@@ -571,9 +575,9 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             'hs': hs,
             })
 
-        if iter_count <= 10:
-            logging.info('Negative')
-            logging.info(prompt)
+        # if iter_count <= 10:
+        logging.info('Negative')
+        logging.info(prompt)
 
     if min_pair is None or edge_list_len < min_len:
         min_pair = (parent_, kid_)
