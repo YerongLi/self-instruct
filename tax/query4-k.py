@@ -509,7 +509,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         # Randomly sample one element and name it grand_
         children_of_grandparents_not_in_parents_of_parent = set(children_of_grandparents_not_in_parents_of_parent)
 
-        if notchildren_of_grandparents_not_in_parents_of_parent: continue
+        if not children_of_grandparents_not_in_parents_of_parent: continue
         for f_parent_ in notchildren_of_grandparents_not_in_parents_of_parent:
             predecessors_of_parent = list(core_graph.predecessors(f_parent_))
 
