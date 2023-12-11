@@ -488,7 +488,7 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         logging.info(prompt)
 
     p_prompt = prompt
-    del hs, parent_label, q_parent_label,prompt, selected_predecessors
+    del hs, parent_label, q_parent_label,prompt, filtered_predecessors, selected_predecessors
 
 
 
@@ -554,11 +554,12 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
             continue
         # DEBUG
         del parent_
+
         # Randomly sample one element and name it grand_
 
         f_parent_label = get_first_label_without_n(definitions[f_parent_]['label'])
-        del f_parent_label
         q_f_parent_label = f'"{f_parent_label}"'
+        del f_parent_label
 
         hs = HASH(definitions[f_parent_]['summary']+definitions[kid_]['summary'])
 
@@ -570,6 +571,10 @@ for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph
         # Filter out nodes that are equal to kid_
 
         # Take up to three random neighbors
+        predecessors_of_parent = list(core_graph.predecessors(f_parent_))
+
+        # Filter out nodes that are equal to kid_
+        filtered_predecessors = [predecessor for predecessor in predecessors_of_parent if predecessor != rootkey]
         selected_predecessors = random.sample(filtered_predecessors, min(3, len(filtered_predecessors)))
         selected_predecessors = set(selected_predecessors)
         selected_predecessors.add(f_grandparent)
