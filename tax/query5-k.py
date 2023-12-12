@@ -372,7 +372,31 @@ Your task is to assess the consistent feasibility of adding a new node term as a
 If we choose to introduce a new node <X> as a child of <P>, it should conceptually become the consistent grandchild of A, B, and C.
 <X> : <Description>
 '''
-prefix = "You have a term within a taxonomy graph along with its known children. Your goal is to add this term as a new child to a parent term. Your task is to assess whether, upon adding this term as a child to the parent term, the existing children of this term will consistently become grandchildren of the newly designated parent term. Please provide a detailed explanation for your evaluation.\n"
+prefix = '''You have a term within a taxonomy graph along with its known children. Your goal is to add this term as a new child to a parent term. Your task is to assess whether, upon adding this term as a child to the parent term, the existing children of this term will consistently become grandchildren of the newly designated parent term. Please provide a detailed explanation for your evaluation.
+    
+    - Question:
+"blood_sport" represents the child node term under consideration. 
+ - "blood_sport" : sport that involves killing animals (especially hunting)
+"blood_sport" has children of "hunt", "bullfighting" and "cockfighting".
+ - "hunt" : the pursuit and killing or capture of wild animals regarded as a sport
+ - "bullfighting" : the activity at a bullfight
+ - "cockfighting" : participation in the sport of matching gamecocks in a cockfight
+Now we want to add "blood_sport" as a new child to the term "sport".
+ - "sport" : an active diversion requiring physical exertion and competition
+If we decide to add a new node "blood_sport" as a child of "sport", it should conceptually become the consistent grandchild of "hunt", "bullfighting" a
+nd "cockfighting".
+
+ Answer:
+Yes
+ Explanation:
+hunt: Originally a child of "blood_sport," it will now be a grandchild of "sport" in the expanded hierarchy. This is because "blood_sport" is becoming a child of "sport," making "hunt" a consistent grandchild.
+
+bullfighting: Similar to "hunt," "bullfighting" was a direct child of "blood_sport" and will now be a consistent grandchild of "sport" after the addition of "blood_sport" as a child of "sport."
+
+cockfighting: In the same manner, "cockfighting" was a child of "blood_sport" and will become a consistent grandchild of "sport" once "blood_sport" is added as a child of "sport."
+
+In summary, the addition of "blood_sport" as a child to the term "sport" ensures that its existing children ("hunt," "bullfighting," and "cockfighting") consistently become grandchildren of the newly designated parent term "sport."
+'''
 iter_count = 0
 neg_count = 0
 predictions = {}
