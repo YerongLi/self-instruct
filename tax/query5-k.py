@@ -372,7 +372,7 @@ Your task is to assess the consistent feasibility of adding a new node term as a
 If we choose to introduce a new node <X> as a child of <P>, it should conceptually become the consistent grandchild of A, B, and C.
 <X> : <Description>
 '''
-prefix = ""
+prefix = "You have a term within a taxonomy graph along with its known children. Your goal is to add this term as a new child to a parent term. Your task is to assess whether, upon adding this term as a child to the parent term, the existing children of this term will consistently become grandchildren of the newly designated parent term. Please provide a detailed explanation for your evaluation.\n"
 iter_count = 0
 neg_count = 0
 predictions = {}
@@ -418,9 +418,9 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
     if len(selected_grands) == 0 : continue
     if len(selected_grands) > 1:
     
-        prompt+= f"\n{q_g_labels} is the subclass of {', '.join(q_g_labels[:-1])} and {q_g_labels[-1]}."
+        prompt+= f"\n{q_kid_label} has children of {', '.join(q_g_labels[:-1])} and {q_g_labels[-1]}."
     else:
-        prompt+= f"\n{q_g_labels} is the subclass of {q_g_labels[0]}."
+        prompt+= f"\n{q_kid_label} has one children of {q_g_labels[0]}."
 
     # for k in selected_predecessors:
     #     node_definitions.add(k)
