@@ -47,7 +47,7 @@ parser.add_argument("--r", default=None,
 # Define the --d argument
 parser.add_argument("--d", default='dataset', type=str,
                     help="dataset. Default is 'dataset'.")
-parser.add_argument("--e", default=5, type=int,
+parser.add_argument("--e", default=1000, type=int,
                     help="Number of epochs")
 
 
