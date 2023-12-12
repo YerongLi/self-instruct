@@ -334,8 +334,9 @@ predictions = {}
 if os.path.exists(filename):
     with open(filename, "r") as f:
         predictions = json.load(f)
-# for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 20)), total=20):
-for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
+predictions = {}
+for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()), 20)), total=20):
+# for iteration, edge in tqdm.tqdm(enumerate(core_graph.edges()), total=core_graph.number_of_edges()):
     parent_, kid_ = edge
     if len(list(core_graph.neighbors(parent_))) < 2:
         continue
@@ -616,7 +617,7 @@ batch_size = 1
 
 # predict_batch(prompts, batch_size)
 # predict_llama_batch(prompts, batch_size)
-predict_gpt_batch(prompts)
+# predict_gpt_batch(prompts)
 # for prompt, output in zip(prompts, predictions):
 #     logging.info(prompt['prompt'])
 #     logging.info(output) 
