@@ -460,7 +460,7 @@ for iteration, edge in tqdm.tqdm(enumerate(random.sample(list(core_graph.edges()
         logging.info(prompt)
 
     p_prompt = prompt
-    del hs, parent_label, q_parent_label,prompt, filtered_predecessors, selected_predecessors
+    del hs, kid_label, q_kid_label,prompt, filtered_grands, selected_grands
 
 
 
