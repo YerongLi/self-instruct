@@ -2,7 +2,7 @@ import json
 import os
 
 # Define the file path
-file_path = 'path/to/police1.json'  # Replace with the actual file path
+file_path = 'police1.json'  # Replace with the actual file path
 
 # Read JSON file line by line
 with open(file_path, 'r') as file:
