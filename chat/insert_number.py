@@ -29,10 +29,10 @@ with open(file_path, 'r') as file:
                             admin_count += 1
 
                 # Print the counts for the current entry
-                print(f"File: {filename}")
-                print(f"User lines count: {user_count}")
-                print(f"Admin lines count: {admin_count}")
-                print("\n")
+                # print(f"File: {filename}")
+                # print(f"User lines count: {user_count}")
+                # print(f"Admin lines count: {admin_count}")
+                # print("\n")
             else:
                 print(f"File not found: {filename}")
 
