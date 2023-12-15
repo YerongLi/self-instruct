@@ -4,6 +4,7 @@ import os
 # Define the file path
 input_file_path = 'police1.json'  # Replace with the actual file path
 output_file_path = 'police2.json'  # Replace with the actual file path
+modified_entries = []
 
 # Read JSON file line by line
 with open(input_file_path, 'r') as input_file:
