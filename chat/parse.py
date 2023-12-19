@@ -72,3 +72,4 @@ for index, row in chat_df.iterrows():
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
+print(len(result_dict))
