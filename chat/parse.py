@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the CSV file
-df = pd.read_csv('event.csv')
+df = pd.read_csv('chat.csv')
 
 # Initialize a dictionary to store conversations for each event
 event_conversations = {}
@@ -18,7 +18,8 @@ for index, row in df.iterrows():
     else:
         # Create a new list for the event_id and add the chat history
         event_conversations[event_id] = [chat_history]
-
+    if index > 200:
+        break
 # Print or store the result as needed
 print(len(event_conversations))
 # for event_id, conversations in event_conversations.items():
