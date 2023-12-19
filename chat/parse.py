@@ -61,6 +61,7 @@ for index, row in chat_df.iterrows():
             "history": history,
             "type": event_type,
             "output": chat_history,
+            'his_len': result_dict[event_id]['his_len'],
             # Add other fields as needed
         }
 
