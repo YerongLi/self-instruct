@@ -24,7 +24,7 @@ for index, row in chat_df.iterrows():
     else:
         # Create a new dictionary entry for the event_id
         result_dict[event_id] = {'chat': [chat_history]}
-
+current_event_type = None
 # Iterate through rows in the event dataframe to add event category
 for index, row in event_df.iterrows():
     event_id = row['Anonymized Event ID']
