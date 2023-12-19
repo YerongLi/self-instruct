@@ -41,7 +41,7 @@ for index, row in chat_df.iterrows():
             "type": event_type,
             # Add other fields as needed
         }
-        with open('police.json', 'a') as json_file:
+        with open('police-full.json', 'a') as json_file:
             json.dump(entry, json_file)
             json_file.write('\n')  # Add a newline for better readability
 
