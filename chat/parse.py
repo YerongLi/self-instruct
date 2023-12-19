@@ -27,7 +27,7 @@ for index, row in chat_df.iterrows():
 
 # Iterate through rows in the event dataframe to add event category
 for index, row in event_df.iterrows():
-    event_id = row['Anonymized Eventid']
+    event_id = row['Anonymized Event ID']
     event_category = row['Eventcategory']
 
     # Check if the event_id is in the result_dict
