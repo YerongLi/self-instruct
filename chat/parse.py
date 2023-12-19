@@ -4,6 +4,9 @@ import json
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
 filename = 'police-full.json'
+if os.path.exists(filename):
+    # Remove the file
+    os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
 event_df = pd.read_csv('event.csv', encoding=encoding)
 event_type_map = dict(zip(event_df['Anonymized Event ID'], event_df['Eventcategory']))
