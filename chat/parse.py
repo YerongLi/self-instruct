@@ -24,6 +24,7 @@ for index, row in event_df.iterrows():
     print('id')
     print(event_id)
     print(event_category)
+    print(row)
     # Assign the event category to the event ID in the map
     event_type_map[event_id] = event_category
 print(event_type_map[1992077])
