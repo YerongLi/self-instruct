@@ -46,6 +46,7 @@ for index, row in chat_df.iterrows():
             "instruction": instruction,
             "history": history,
             "type": event_type,
+            "output": chat_history,
             # Add other fields as needed
         }
         with open(filename, 'a') as json_file:
