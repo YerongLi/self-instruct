@@ -18,7 +18,21 @@ chat_df = pd.read_csv('chat.csv', encoding=encoding)
 
 # Create a dictionary to store the result
 result_dict = {}
+for index, row in chat_df.iterrows():
+    event_id = row['Anonymized Eventid']
+    chat_history = row['Chat']
 
+    # Check if the event_id is already in the dictionary
+    if event_id in result_dict:
+        # Append the chat history to the existing list
+        result_dict[event_id]['chat'].append(chat_history)
+    else:
+        # Create a new dictionary entry for the event_id
+        result_dict[event_id] = {'chat': [chat_history]}
+    result_dict[event_id][history] = len(result_dict[event_id]['chat'])
+for event_id in result_dict:
+    del result_dict[event_id]['chat']
+    result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
 for index, row in chat_df.iterrows():
     event_id = row['Anonymized Eventid']
@@ -49,6 +63,7 @@ for index, row in chat_df.iterrows():
             "output": chat_history,
             # Add other fields as needed
         }
+
         with open(filename, 'a') as json_file:
             json.dump(entry, json_file)
             json_file.write('\n')  # Add a newline for better readability
