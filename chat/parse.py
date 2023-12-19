@@ -20,7 +20,7 @@ for index, row in event_df.iterrows():
     event_category = row['Eventcategory (group)']
     # if event_id == 2073482:
         # print(event_category)
-    if index != 4417 : continue
+    if index != 4412 : continue
     print('id')
     print(event_id)
     print(event_category)
