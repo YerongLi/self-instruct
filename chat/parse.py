@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the CSV file
-df = pd.read_csv('chat.csv')
+df = pd.read_csv('chat.csv', encoding='latin-1')
 
 # Initialize a dictionary to store conversations for each event
 event_conversations = {}
