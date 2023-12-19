@@ -10,7 +10,7 @@ if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
-event_df = pd.read_csv('event.csv', encoding=encoding, quotechar='"')
+event_df = pd.read_csv('event1.csv', encoding=encoding, quotechar='"')
 event_type_map = {}
 
 # Iterate over rows in the event_df DataFrame
