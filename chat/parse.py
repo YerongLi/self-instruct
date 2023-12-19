@@ -46,5 +46,5 @@ for index, row in chat_df.iterrows():
             json_file.write('\n')  # Add a newline for better readability
 
 # Print or store the result_dict as needed
-for event_id, data in result_dict.items():
-    print(f"Event {event_id}: {data}")
+# for event_id, data in result_dict.items():
+    # print(f"Event {event_id}: {data}")
