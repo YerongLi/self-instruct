@@ -1,3 +1,4 @@
+import json
 import pandas as pd
 
 # Specify the correct encoding of your CSV files
@@ -68,4 +69,3 @@ for index, row in chat_df.iterrows():
 for event_id, data in result_dict.items():
     print(f"Event {event_id}: {data}")
 
-    
