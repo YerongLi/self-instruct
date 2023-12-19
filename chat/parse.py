@@ -29,7 +29,7 @@ for index, row in chat_df.iterrows():
     else:
         # Create a new dictionary entry for the event_id
         result_dict[event_id] = {'chat': [chat_history]}
-    result_dict[event_id][history] = len(result_dict[event_id]['chat'])
+    result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
