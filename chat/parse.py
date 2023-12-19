@@ -10,7 +10,7 @@ if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
-event_df = pd.read_csv('event.csv', encoding=encoding, quotechar='"')
+event_df = pd.read_csv('event1.csv', encoding=encoding, quotechar='"')
 event_type_map = {}
 
 # Iterate over rows in the event_df DataFrame
@@ -20,8 +20,8 @@ for index, row in event_df.iterrows():
     event_category = row['Eventcategory (group)']
     # if event_id == 2073482:
         # print(event_category)
-    # print('id')
-    # print(event_id)
+    print('id')
+    print(event_id)
     # print(event_category)
     # Assign the event category to the event ID in the map
     event_type_map[event_id] = event_category
