@@ -115,9 +115,3 @@ Iteration 74
 Iteration 77
  Name: session
    Overlay Parent name: context
-Iteration 78
- Name: group_behaviour
-   Overlay Parent name: social_behavior
-Iteration 80
- Name: reorganization
-   Overlay Parent name: change
