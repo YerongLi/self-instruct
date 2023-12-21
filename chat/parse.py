@@ -41,6 +41,7 @@ chat_df = pd.read_pickle('df_chat.pkl')
 # Create a dictionary to store the result
 result_dict = {}
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
+    if index % 100 == 0:
     event_id = row['Anonymized Eventid']
     chat_history = row['Chat']
 
