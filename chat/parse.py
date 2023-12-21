@@ -34,7 +34,8 @@ for index, row in event_df.iterrows():
         # event_type_map[event_id] = event_category
 # print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
-chat_df = pd.read_csv('chat.csv', encoding=encoding)
+# chat_df = pd.read_csv('chat.csv', encoding=encoding)
+chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
