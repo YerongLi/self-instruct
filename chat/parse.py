@@ -20,7 +20,7 @@ event_type_map = {}
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_id = row['Anonymized Event ID']
-    print(event_id)
+    # print(event_id)
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     # if event_id == 2073482:
