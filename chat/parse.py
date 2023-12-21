@@ -57,7 +57,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         # Create a new dictionary entry for the event_id
         result_dict[event_id] = {'chat': [chat_history]}
     result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
-    if len(result_dict[event_id]['chat']) % 2 == 0:
+    # if len(result_dict[event_id]['chat']) % 2 == 0:
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
