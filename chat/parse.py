@@ -25,7 +25,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     if index % 2 == 0: continue
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
-    if event_category == 'unknown' or event_type not in type_set: continue
+    if event_category == 'unknown' or event_category not in type_set: continue
     
     # if event_id == 2073482:
         # print(event_category)
