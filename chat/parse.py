@@ -32,7 +32,7 @@ for index, row in event_df.iterrows():
         # print(event_category)
         # print('==========')
         # event_type_map[event_id] = event_category
-print(event_type_map[1992077])
+# print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
 chat_df = pd.read_csv('chat.csv', encoding=encoding)
 
