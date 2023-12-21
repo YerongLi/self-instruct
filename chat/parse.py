@@ -14,7 +14,7 @@ if os.path.exists(filename):
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
 event_df = pd.read_csv('event.csv', encoding=encoding, on_bad_lines='skip')
-# event_df = pickle.load(open('df_event.pkl', 'rb'))
+event_df = pickle.load(open('df_event.pkl', 'rb'))
 # event_df = pd.read_pickle('df_event.pkl')
 event_type_map = {}
 type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
@@ -26,6 +26,8 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     if index % 2 == 0: continue
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
+    if event_category == 'unknown' or event_type not in type_set: continue
+    
     # if event_id == 2073482:
         # print(event_category)
 
@@ -36,11 +38,8 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
         print(event_category)
         print('==========')
     event_type_map[event_id] = event_category
-    if index > 40*8935: break
-# print(event_type_map[1992077])
-# Read the chat CSV file containing chat data
-chat_df = pd.read_csv('chat.csv', encoding=encoding)
-# chat_df = pd.read_pickle('df_chat.pkl')
+# chat_df = pd.read_csv('chat.csv', encoding=encoding)
+chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
