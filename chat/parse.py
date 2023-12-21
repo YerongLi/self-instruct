@@ -17,7 +17,7 @@ event_type_map = {}
 for index, row in event_df.iterrows():
     event_id = row['Anonymized Event ID']
     # event_category = row['Eventcategory']
-    event_category = row['Eventcategory (group)']
+    event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     # if event_id == 2073482:
         # print(event_category)
 
