@@ -32,7 +32,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     if len(event_category) > 40 and event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
         print(event_category)
         print('==========')
-        # event_type_map[event_id] = event_category
+    event_type_map[event_id] = event_category
 # print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
 # chat_df = pd.read_csv('chat.csv', encoding=encoding)
