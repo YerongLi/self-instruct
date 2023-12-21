@@ -40,7 +40,7 @@ chat_df = pd.read_pickle('df_chat.pkl')
 # Create a dictionary to store the result
 result_dict = {}
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
-    if index % 200 != 0: continue
+    if index % 190 != 0: continue
     event_id = row['Anonymized Eventid']
     chat_history = row['Chat']
 
@@ -57,10 +57,11 @@ for event_id in result_dict:
     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
 
-for index, row in tqdm(chat_df.iterrows()):
-    if index % 200 != 0: continue
-
+for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
+    if index % 190 != 0: continue
     event_id = row['Anonymized Eventid']
+    event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
+    if event_type == 'unknown': continue
     chat_history = row['Chat']
 
     # Check if the event_id is already in the dictionary
