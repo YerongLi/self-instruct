@@ -8,6 +8,7 @@ import pandas as pd
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
 filename = 'police-full.json'
+result_type_set = set()
 if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
@@ -71,6 +72,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
+    result_type_set.add(event_type)
     chat_history = row['Chat']
     # if result_dict[event_id]['his_len'] < 6 or result_dict[event_id]['his_len'] > 50: continue
     max_len = max(max_len, result_dict[event_id]['his_len'])
@@ -109,4 +111,5 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
 print(count)
+print(result_type_set)
 print(max_len)
