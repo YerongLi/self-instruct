@@ -19,7 +19,7 @@ print(event_df)
 event_type_map = {}
 
 # Iterate over rows in the event_df DataFrame
-for index, row in tqdm(event_df.iterrows()):
+for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_id = row['Anonymized Event ID']
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
@@ -40,7 +40,7 @@ chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
-for index, row in tqdm(chat_df.iterrows()):
+for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     chat_history = row['Chat']
 
