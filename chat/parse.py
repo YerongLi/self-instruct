@@ -21,6 +21,7 @@ event_type_map = {}
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_id = row['Anonymized Event ID']
     # print(event_id)
+    if index % 2 == 0: continue
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     # if event_id == 2073482:
@@ -40,10 +41,8 @@ chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
-count = 0
 
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
-    if index % 4 != 0: continue
 
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
@@ -60,14 +59,11 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
     if len(result_dict[event_id]['chat']) % 2 == 0:
         count+= 1
-    if count > 9394: break
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
-count = 0
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
-    if index % 4 != 0: continue
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown': continue
