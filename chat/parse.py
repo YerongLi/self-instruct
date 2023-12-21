@@ -12,11 +12,11 @@ if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
-# event_df = pd.read_csv('event.csv', encoding=encoding)
+event_df = pd.read_csv('event.csv', encoding=encoding, error_bad_lines=False)
 # event_df = pickle.load(open('df_event.pkl', 'rb'))
-event_df = pd.read_pickle('df_event.pkl')
+# event_df = pd.read_pickle('df_event.pkl')
 event_type_map = {}
-type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
+# type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
@@ -31,7 +31,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     # if index != 4413 and index != 4414 : continue
     # print('id')
     # print(event_id)
-    if len(event_category) > 40 and event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
+    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
         print(event_category)
         print('==========')
     event_type_map[event_id] = event_category
