@@ -40,8 +40,10 @@ chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
+count = 0
+
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
-    if index % 6 != 0: continue
+    if index % 7 != 0: continue
 
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
@@ -56,13 +58,15 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         # Create a new dictionary entry for the event_id
         result_dict[event_id] = {'chat': [chat_history]}
     result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
+    count+= 1
+    if count > 9394: break
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
 count = 0
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
-    if index % 6 != 0: continue
+    if index % 7 != 0: continue
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown': continue
@@ -98,7 +102,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         with open(filename, 'a') as json_file:
             json.dump(entry, json_file)
             json_file.write('\n')  # Add a newline for better readability
-        count+= 1
+    count+= 1
+    if count > 9394: break
+        
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
