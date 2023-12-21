@@ -15,23 +15,23 @@ if os.path.exists(filename):
 # event_df = pickle.load(open('df_event.pkl', 'rb'))
 event_df = pd.read_pickle('df_event.pkl')
 print(event_df)
-# event_type_map = {}
+event_type_map = {}
 
-# # Iterate over rows in the event_df DataFrame
-# for index, row in event_df.iterrows():
-#     event_id = row['Anonymized Event ID']
-#     # event_category = row['Eventcategory']
-#     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
-#     # if event_id == 2073482:
-#         # print(event_category)
+# Iterate over rows in the event_df DataFrame
+for index, row in event_df.iterrows():
+    event_id = row['Anonymized Event ID']
+    # event_category = row['Eventcategory']
+    event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
+    # if event_id == 2073482:
+        # print(event_category)
 
-#     # if index != 4413 and index != 4414 : continue
-#     # print('id')
-#     # print(event_id)
-#     if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
-#         print(event_category)
-#         print('==========')
-#         event_type_map[event_id] = event_category
+    # if index != 4413 and index != 4414 : continue
+    # print('id')
+    # print(event_id)
+    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
+        print(event_category)
+        print('==========')
+        event_type_map[event_id] = event_category
 # # print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
 chat_df = pd.read_csv('chat.csv', encoding=encoding)
