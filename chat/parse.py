@@ -29,8 +29,8 @@ for index, row in event_df.iterrows():
     # print('id')
     # print(event_id)
     if len(event_category) > 20 and event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
-        # print(event_category)
-        # print('==========')
+        print(event_category)
+        print('==========')
         # event_type_map[event_id] = event_category
 # print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
