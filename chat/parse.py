@@ -34,7 +34,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
         print(event_category)
         print('==========')
     event_type_map[event_id] = event_category
-    if index > 20*8935: break
+    if index > 40*8935: break
 # print(event_type_map[1992077])
 # Read the chat CSV file containing chat data
 # chat_df = pd.read_csv('chat.csv', encoding=encoding)
@@ -42,12 +42,13 @@ chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
+type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
 
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
-    if event_type == 'unknown': continue
+    if event_type == 'unknown' or type_set not in type_set: continue
     chat_history = row['Chat']
 
     # Check if the event_id is already in the dictionary
@@ -68,9 +69,9 @@ max_len = 0
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
-    if event_type == 'unknown': continue
+    if event_type == 'unknown' or type_set not in type_set: continue
     chat_history = row['Chat']
-    if result_dict[event_id]['his_len'] < 6: continue
+    if result_dict[event_id]['his_len'] < 6 or result_dict[event_id]['his_len'] > 50: continue
     max_len = max(max_len, result_dict[event_id]['his_len'])
     # Check if the event_id is already in the dictionary
     if event_id in result_dict:
