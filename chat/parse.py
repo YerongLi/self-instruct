@@ -50,7 +50,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type != 'unknown': print(event_type)
 
-    if event_type == 'unknown' or type_set not in type_set: continue
+    if event_type == 'unknown' or event_type not in type_set: continue
     chat_history = row['Chat']
 
     # Check if the event_id is already in the dictionary
