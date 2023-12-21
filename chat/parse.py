@@ -57,6 +57,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         # Create a new dictionary entry for the event_id
         result_dict[event_id] = {'chat': [chat_history]}
     result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
+    if len(result_dict[event_id]['chat']) % 2 == 0:
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
@@ -97,8 +98,6 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         with open(filename, 'a') as json_file:
             json.dump(entry, json_file)
             json_file.write('\n')  # Add a newline for better readability
-        count+= 1
-    if count > 9394: break
 
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
