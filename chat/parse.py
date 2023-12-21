@@ -16,7 +16,7 @@ event_df = pd.read_csv('event.csv', encoding=encoding, on_bad_lines='skip')
 # event_df = pickle.load(open('df_event.pkl', 'rb'))
 # event_df = pd.read_pickle('df_event.pkl')
 event_type_map = {}
-# type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
+type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
