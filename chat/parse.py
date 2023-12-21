@@ -12,7 +12,8 @@ if os.path.exists(filename):
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
 # event_df = pd.read_csv('event.csv', encoding=encoding)
-event_df = pickle.load(open('df_event.pkl', 'rb'))
+# event_df = pickle.load(open('df_event.pkl', 'rb'))
+event_df = pd.read_pickle('df_event.pkl')
 print(event_df)
 # event_type_map = {}
 
