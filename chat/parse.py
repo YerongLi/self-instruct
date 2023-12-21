@@ -24,7 +24,7 @@ for index, row in event_df.iterrows():
     # if index != 4413 and index != 4414 : continue
     # print('id')
     # print(event_id)
-    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}: continue
+    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
         print(event_category)
         print('==========')
         event_type_map[event_id] = event_category
