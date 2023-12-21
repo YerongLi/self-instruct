@@ -83,6 +83,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         result_dict[event_id] = {'chat': [chat_history]}
 
     # Check if the length of chat_history is even
+    print(len(result_dict[event_id]['chat']))
     if len(result_dict[event_id]['chat']) % 2 == 1:
         # Extract information for the police.json entry
         instruction = result_dict[event_id]['chat'][-1]
