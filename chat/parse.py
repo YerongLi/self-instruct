@@ -107,3 +107,4 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
 print(count)
+print(max_len)
