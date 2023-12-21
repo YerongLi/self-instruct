@@ -15,7 +15,6 @@ if os.path.exists(filename):
 # event_df = pd.read_csv('event.csv', encoding=encoding)
 # event_df = pickle.load(open('df_event.pkl', 'rb'))
 event_df = pd.read_pickle('df_event.pkl')
-print(event_df)
 event_type_map = {}
 
 # Iterate over rows in the event_df DataFrame
@@ -58,7 +57,9 @@ for event_id in result_dict:
     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
 
-for index, row in chat_df.iterrows():
+for index, row in tqdm(chat_df.iterrows()):
+    if index % 200 != 0: continue
+
     event_id = row['Anonymized Eventid']
     chat_history = row['Chat']
 
