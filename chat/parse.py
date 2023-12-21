@@ -20,11 +20,12 @@ for index, row in event_df.iterrows():
     event_category = row['Eventcategory (group)']
     # if event_id == 2073482:
         # print(event_category)
-    if index != 4412 and index != 4413 : continue
+    if index != 4413 and index != 4414 : continue
     print('id')
     print(event_id)
     print(event_category)
     print(row)
+    print('==========')
     # Assign the event category to the event ID in the map
     event_type_map[event_id] = event_category
 print(event_type_map[1992077])
