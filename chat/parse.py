@@ -62,6 +62,7 @@ for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
+count = 0
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
@@ -98,7 +99,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         with open(filename, 'a') as json_file:
             json.dump(entry, json_file)
             json_file.write('\n')  # Add a newline for better readability
-
+            count+= 1
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
