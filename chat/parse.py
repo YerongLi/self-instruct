@@ -43,7 +43,8 @@ result_dict = {}
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if index % 190 != 0: continue
     event_id = row['Anonymized Eventid']
-    print(event_id)
+    event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
+    if event_type == 'unknown': continue
     chat_history = row['Chat']
 
     # Check if the event_id is already in the dictionary
