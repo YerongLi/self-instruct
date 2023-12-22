@@ -26,7 +26,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     if event_category == 'unknown' or event_category not in type_set: continue
-    
+
     # if event_id == 2073482:
         # print(event_category)
 
@@ -72,7 +72,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_type == 'unknown' or event_type not in type_set: continue
     result_type_set.add(event_type)
     chat_history = row['Chat']
-    if result_dict[event_id]['his_len'] < 6 or result_dict[event_id]['his_len'] > 50: continue
+    if result_dict[event_id]['his_len'] < 4 or result_dict[event_id]['his_len'] > 50: continue
     max_len = max(max_len, result_dict[event_id]['his_len'])
     # Check if the event_id is already in the dictionary
     if event_id in result_dict:
