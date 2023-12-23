@@ -86,6 +86,11 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if len(result_dict[event_id]['chat']) % 2 == 1:
         # Extract information for the police.json entry
         instruction = result_dict[event_id]['chat'][-1]
+        if not isinstance(instruction, str):
+            print("Instruction is not a string.")
+            print("Instruction:", instruction)
+            print("Chat history:", result_dict[event_id]['chat'])
+            break
         history = [['', result_dict[event_id]['chat'][0]]]
         # history.extend(
             # [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat']), 2)])
