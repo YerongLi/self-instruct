@@ -105,10 +105,10 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 
         # Dump the entry to police.json
         entry = {
+            "output": result_dict[event_id]['chat'][-1],
             "instruction": result_dict[event_id]['chat'][-2],
             "history": history,
             "type": event_type,
-            "output": result_dict[event_id]['chat'][-1],
             'his_len': result_dict[event_id]['his_len'],
             # Add other fields as needed
         }
