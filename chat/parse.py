@@ -16,6 +16,8 @@ if os.path.exists(filename):
 # event_df = pd.read_csv('event.csv', encoding=encoding, on_bad_lines='skip')
 event_df = pd.read_pickle('df_event.pkl')
 event_type_map = {}
+del event_df['Event Text']
+
 type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
 
 # Iterate over rows in the event_df DataFrame
@@ -39,7 +41,11 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_type_map[event_id] = event_category
 # chat_df = pd.read_csv('chat.csv', encoding=encoding)
 chat_df = pd.read_pickle('df_chat.pkl')
+# Dump event_df to event_df.csv
+event_df.to_csv('event_df.csv', index=False)
 
+# Dump chat_df to chat_df.csv
+chat_df.to_csv('chat_df.csv', index=False)
 # Create a dictionary to store the result
 result_dict = {}
 not_good = set()
