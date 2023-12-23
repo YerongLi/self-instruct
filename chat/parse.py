@@ -41,6 +41,8 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_type_map[event_id] = event_category
 # chat_df = pd.read_csv('chat.csv', encoding=encoding)
 chat_df = pd.read_pickle('df_chat.pkl')
+unique_chat_types = set(chat_df['Chattype'])
+print(unique_chat_types)
 # Dump event_df to event_df.csv
 event_df.to_csv('event_df.csv', index=False)
 
