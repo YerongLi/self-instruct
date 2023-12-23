@@ -100,7 +100,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         #     break
         history = [['', result_dict[event_id]['chat'][0]]]
         history.extend(
-            [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat']-2), 2)])
+            [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat'])-2, 2)])
         event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
 
         # Dump the entry to police.json
