@@ -42,14 +42,17 @@ chat_df = pd.read_pickle('df_chat.pkl')
 
 # Create a dictionary to store the result
 result_dict = {}
-
+not_good = set()
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 
     event_id = row['Anonymized Eventid']
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
-
+    chat_history = row['Chat']
+    if event_id in not_good: continue
     if event_type == 'unknown' or event_type not in type_set: continue
     chat_history = row['Chat']
+    if not isinstance(chat_history, str):
+        not_good.add(event_id)
 
     # Check if the event_id is already in the dictionary
     if event_id in result_dict:
@@ -68,6 +71,8 @@ count = 0
 max_len = 0
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
+    if event_id in not_good: continue
+
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
     result_type_set.add(event_type)
@@ -83,9 +88,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         result_dict[event_id] = {'chat': [chat_history]}
 
     # Check if the length of chat_history is even
-    if len(result_dict[event_id]['chat']) % 2 == 1:
+    if len(result_dict[event_id]['chat']) % 2 == 1 and len(result_dict[event_id]['chat']) >= 2:
         # Extract information for the police.json entry
-        instruction = result_dict[event_id]['chat'][-1]
+        instruction = result_dict[event_id]['chat'][-2]
         if not isinstance(instruction, str):
             print("Instruction is not a string.")
             print("Instruction:", instruction)
@@ -93,8 +98,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             print(row)
             break
         history = [['', result_dict[event_id]['chat'][0]]]
-        # history.extend(
-            # [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat']), 2)])
+        history.extend(
+            [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat']), 2)])
         event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
 
         # Dump the entry to police.json
