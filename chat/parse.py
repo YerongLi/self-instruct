@@ -90,6 +90,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             print("Instruction is not a string.")
             print("Instruction:", instruction)
             print("Chat history:", result_dict[event_id]['chat'])
+            print(row)
             break
         history = [['', result_dict[event_id]['chat'][0]]]
         # history.extend(
