@@ -58,29 +58,29 @@ chat_df.to_csv('chat_df.csv', index=False)
 # Create a dictionary to store the result
 result_dict = {}
 not_good = set()
-for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
+# for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 
-    event_id = row['Anonymized Eventid']
-    event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
-    chat_history = row['Chat']
-    if event_id in not_good: continue
-    if event_type == 'unknown' or event_type not in type_set: continue
-    chat_history = row['Chat']
-    if not isinstance(chat_history, str):
-        not_good.add(event_id)
+#     event_id = row['Anonymized Eventid']
+#     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
+#     chat_history = row['Chat']
+#     if event_id in not_good: continue
+#     if event_type == 'unknown' or event_type not in type_set: continue
+#     chat_history = row['Chat']
+#     if not isinstance(chat_history, str):
+#         not_good.add(event_id)
 
-    # Check if the event_id is already in the dictionary
-    if event_id in result_dict:
-        # Append the chat history to the existing list
-        result_dict[event_id]['chat'].append(chat_history)
-    else:
-        # Create a new dictionary entry for the event_id
-        result_dict[event_id] = {'chat': [chat_history]}
-    result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
-    # if len(result_dict[event_id]['chat']) % 2 == 0:
-for event_id in result_dict:
-    del result_dict[event_id]['chat']
-    result_dict[event_id]['chat'] = []
+#     # Check if the event_id is already in the dictionary
+#     if event_id in result_dict:
+#         # Append the chat history to the existing list
+#         result_dict[event_id]['chat'].append(chat_history)
+#     else:
+#         # Create a new dictionary entry for the event_id
+#         result_dict[event_id] = {'chat': [chat_history]}
+#     result_dict[event_id]['his_len'] = len(result_dict[event_id]['chat'])
+#     # if len(result_dict[event_id]['chat']) % 2 == 0:
+# for event_id in result_dict:
+#     del result_dict[event_id]['chat']
+#     result_dict[event_id]['chat'] = []
 # Iterate through rows in the chat dataframe
 count = 0
 max_len = 0
@@ -94,17 +94,15 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     chat_turn = row['Chat']
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
-    if result_dict[event_id]['his_len'] < 4 or result_dict[event_id]['his_len'] > 70: continue
     if event_id == previous_event_id and chat_type != chat_history[-1][1]:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
     # print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
-    if len(chat_history) % 2 == 0 and chat_history[-1][1] == 'Admin':
-        print('dump')
+    if len(chat_history) % 2 == 0 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
         entry = {
-            'history': [[chat_history[i][1], chat_history[i+2][1]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
+            'history': [[chat_history[i][0], chat_history[i+2][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'instruction': chat_history[-2][1],
             'output': chat_history[-1][1]
         }
