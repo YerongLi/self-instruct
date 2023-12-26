@@ -43,8 +43,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
 chat_df = pd.read_pickle('df_chat.pkl')
 chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
 
-chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
-chat_df.sort_values(by='Chat Date', inplace=True)
+chat_df.sort_values(by=['Anonymized Eventid', 'Chat Date'], inplace=True)
 unique_chat_types = set(chat_df['Chattype'])
 print(unique_chat_types)
 # Dump event_df to event_df.csv
