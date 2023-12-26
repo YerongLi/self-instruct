@@ -102,7 +102,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     # print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) % 2 == 0 and chat_history[-1][1] == 'Admin':
-
+        print('dump')
         entry = {
             'history': [[chat_history[i][1], chat_history[i+2][1]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'instruction': chat_history[-2][1],
