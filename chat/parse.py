@@ -88,8 +88,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_id in not_good: continue # No error
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
-    if event_type not in result_type_set: result_type_set[event_type] = 0
-    result_type_set[event_type]+= 1
+
     chat_turn = row['Chat']
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
@@ -114,6 +113,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             'instruction': str(chat_history[-2][0]),
             'output': str(chat_history[-1][0]),
         }
+        if event_type not in result_type_set: result_type_set[event_type] = 0
+        result_type_set[event_type]+= 1
         with open(filename, 'a') as json_file:
           json.dump(entry, json_file)
           json_file.write('\n') # Add a newline for better readability
