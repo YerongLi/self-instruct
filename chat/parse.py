@@ -101,13 +101,17 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
     print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
+    if len(chat_history) % 2 == 0 and chat_history[-1] == 'Admin':
 
-    # Check if the length of chat_history is even
-
-        # with open(filename, 'a') as json_file:
-        #     json.dump(entry, json_file)
-        #     json_file.write('\n')  # Add a newline for better readability
-        #     count+= 1
+        entry = {
+            'history': [chat_history[i:i+2] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
+            'instruction': chat_history[-2],
+            'output': chat_history[-1]
+        }
+        with open(filename, 'a') as json_file:
+          json.dump(entry, json_file)
+          json_file.write('\n') # Add a newline for better readability
+          count+= 1
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
