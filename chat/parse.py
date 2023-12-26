@@ -106,11 +106,11 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) % 2 == 0 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
         entry = {
+            'type': chat_type,
             'history': [[chat_history[i][0], chat_history[i+1][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
+            'his_len': his_len[event_id],
             'instruction': str(chat_history[-2][0]),
             'output': str(chat_history[-1][0]),
-            'his_len': his_len[event_id],
-
         }
         with open(filename, 'a') as json_file:
           json.dump(entry, json_file)
