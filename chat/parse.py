@@ -35,9 +35,9 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     # if index != 4413 and index != 4414 : continue
     # print('id')
     # print(event_id)
-    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
-        print(event_category)
-        print('==========')
+    # if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
+    #     print(event_category)
+    #     print('==========')
     event_type_map[event_id] = event_category
 # Dump event_df to event_df.csv
 event_df.to_csv('event_df.csv', index=False)
@@ -88,9 +88,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     if event_id in not_good: continue # No error
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
-    print(event_type)
     if event_type == 'unknown' or event_type not in type_set: continue
     result_type_set.add(event_type)
+    print(event_type)
     chat_history = row['Chat']
     if result_dict[event_id]['his_len'] < 4 or result_dict[event_id]['his_len'] > 70: continue
     max_len = max(max_len, result_dict[event_id]['his_len'])
