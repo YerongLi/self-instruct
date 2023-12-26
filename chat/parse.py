@@ -103,13 +103,14 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if len(chat_history) % 2 == 0 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
         entry = {
             'history': [[chat_history[i][0], chat_history[i+2][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
-            'instruction': chat_history[-2][1],
-            'output': chat_history[-1][1]
+            'instruction': chat_history[-2][0],
+            'output': chat_history[-1][0]
         }
         with open(filename, 'a') as json_file:
           json.dump(entry, json_file)
           json_file.write('\n') # Add a newline for better readability
           count+= 1
+          print(count)
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
