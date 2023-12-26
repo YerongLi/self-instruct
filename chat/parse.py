@@ -27,17 +27,13 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     if index % 2 == 0: continue
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
+    if event_category not in type_set:
+        print(event_category)
     if event_category == 'unknown' or event_category not in type_set: continue
 
     # if event_id == 2073482:
         # print(event_category)
 
-    # if index != 4413 and index != 4414 : continue
-    # print('id')
-    # print(event_id)
-    # if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
-    #     print(event_category)
-    #     print('==========')
     event_type_map[event_id] = event_category
 # Dump event_df to event_df.csv
 event_df.to_csv('event_df.csv', index=False)
@@ -110,10 +106,6 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
           json.dump(entry, json_file)
           json_file.write('\n') # Add a newline for better readability
           count+= 1
-          print(count)
-# Print or store the result_dict as needed
-# for event_id, data in result_dict.items():
-    # print(f"Event {event_id}: {data}")
 print(count)
 print(result_type_set)
 print(max_len)
