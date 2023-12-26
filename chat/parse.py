@@ -90,7 +90,6 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
     result_type_set.add(event_type)
-    print(event_type)
     chat_history = row['Chat']
     if result_dict[event_id]['his_len'] < 4 or result_dict[event_id]['his_len'] > 70: continue
     max_len = max(max_len, result_dict[event_id]['his_len'])
