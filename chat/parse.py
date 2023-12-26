@@ -103,35 +103,12 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         result_dict[event_id] = {'chat': [chat_history]}
 
     # Check if the length of chat_history is even
-    if len(result_dict[event_id]['chat']) % 2 == 1 and len(result_dict[event_id]['chat']) >= 2:
-        # Extract information for the police.json entry
-        # instruction = result_dict[event_id]['chat'][-2]
-        # instruction = result_dict[event_id]['chat'][-2]
-        # if not isinstance(instruction, str):
-        #     print("Instruction is not a string.")
-        #     print("Instruction:", instruction)
-        #     print("Chat history:", result_dict[event_id]['chat'])
-        #     print(row)
-        #     break
-        history = [['', result_dict[event_id]['chat'][0]]]
-        history.extend(
-            [result_dict[event_id]['chat'][i:i+2] for i in range(1, len(result_dict[event_id]['chat'])-2, 2)])
-        event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
+    print(row['Chattype'])
 
-        # Dump the entry to police.json
-        entry = {
-            "output": result_dict[event_id]['chat'][-1],
-            "instruction": result_dict[event_id]['chat'][-2],
-            "history": history,
-            "type": event_type,
-            'his_len': result_dict[event_id]['his_len'],
-            # Add other fields as needed
-        }
-
-        with open(filename, 'a') as json_file:
-            json.dump(entry, json_file)
-            json_file.write('\n')  # Add a newline for better readability
-            count+= 1
+        # with open(filename, 'a') as json_file:
+        #     json.dump(entry, json_file)
+        #     json_file.write('\n')  # Add a newline for better readability
+        #     count+= 1
 # Print or store the result_dict as needed
 # for event_id, data in result_dict.items():
     # print(f"Event {event_id}: {data}")
