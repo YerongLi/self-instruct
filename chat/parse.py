@@ -104,7 +104,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if len(chat_history) % 2 == 0 and chat_history[-1][1] == 'Admin':
 
         entry = {
-            'history': [chat_history[i][1], chat_history[i+2][1] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
+            'history': [[chat_history[i][1], chat_history[i+2][1]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'instruction': chat_history[-2][1],
             'output': chat_history[-1][1]
         }
