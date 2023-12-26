@@ -81,6 +81,7 @@ not_good = set()
 count = 0
 max_len = 0
 previous_event_id = None
+his_len = {}
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     if event_id in not_good: continue # No error
@@ -94,13 +95,22 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
+
+    
+    if event_id == previous_event_id:
+        his_len[previous_event_id] = len(full_chat_history)
+        full_chat_history.append((chat_turn, chat_type))  # Append to existing full_chat_history
+    else:
+        full_chat_history = [(chat_turn, chat_type)]  # Start a new full_chat_history
     # print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) % 2 == 0 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
         entry = {
             'history': [[chat_history[i][0], chat_history[i+1][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'instruction': str(chat_history[-2][0]),
-            'output': str(chat_history[-1][0])
+            'output': str(chat_history[-1][0]),
+            'his_len': his_len[event_id],
+
         }
         with open(filename, 'a') as json_file:
           json.dump(entry, json_file)
