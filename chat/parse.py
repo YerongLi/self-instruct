@@ -9,6 +9,7 @@ import pandas as pd
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
 filename = 'police-full.json'
 result_type_set = dict()
+all_type_set = set()
 if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
@@ -28,7 +29,7 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     if event_category not in type_set:
-        print(event_category)
+        all_type_set.add(event_category)
     if event_category == 'unknown' or event_category not in type_set: continue
 
     # if event_id == 2073482:
@@ -117,6 +118,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
           json.dump(entry, json_file)
           json_file.write('\n') # Add a newline for better readability
           count+= 1
+print(all_type_set)
+print()
 print(count)
 print(result_type_set)
 print(max_len)
