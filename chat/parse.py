@@ -84,25 +84,25 @@ for event_id in result_dict:
 # Iterate through rows in the chat dataframe
 count = 0
 max_len = 0
+previous_event_id = None
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     if event_id in not_good: continue # No error
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
     result_type_set.add(event_type)
-    chat_history = row['Chat']
+    chat_turn = row['Chat']
+    chat_type = row['Chattype']
+    if chat_type not in {"Admin", "User"}: continue 
     if result_dict[event_id]['his_len'] < 4 or result_dict[event_id]['his_len'] > 70: continue
-    max_len = max(max_len, result_dict[event_id]['his_len'])
-    # Check if the event_id is already in the dictionary
-    if event_id in result_dict:
-        # Append the chat history to the existing list
-        result_dict[event_id]['chat'].append(chat_history)
+    if event_id == previous_event_id and chat_type != chat_history[-1][1]:
+        chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
-        # Create a new dictionary entry for the event_id
-        result_dict[event_id] = {'chat': [chat_history]}
+        chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
+    print([item[1] for item in chat_history])
+    previous_event_id = event_id  # Update previous_event_id for the next iteration
 
     # Check if the length of chat_history is even
-    print(row['Chattype'])
 
         # with open(filename, 'a') as json_file:
         #     json.dump(entry, json_file)
