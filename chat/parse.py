@@ -8,7 +8,7 @@ import pandas as pd
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
 filename = 'police-full.json'
-result_type_set = set()
+result_type_set = dict()
 if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
@@ -18,7 +18,7 @@ event_df = pd.read_pickle('df_event.pkl')
 event_type_map = {}
 del event_df['Event Text']
 
-type_set = {'InjuryMedical', 'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'SafeRide&SafeWalk', 'NoiseDisturbance', 'FacilitiesMaintenance'}
+type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'SafeRide&SafeWalk', 'NoiseDisturbance', 'FacilitiesMaintenance'}
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
@@ -87,7 +87,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_id in not_good: continue # No error
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
-    result_type_set.add(event_type)
+    if event_type not in result_type_set: result_type_set[event_type] = 0
+    result_type_set[event_type]+= 1
     chat_turn = row['Chat']
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
