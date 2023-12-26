@@ -13,48 +13,53 @@ if os.path.exists(filename):
     # Remove the file
     os.remove(filename)
 # Read the event CSV file to create a hashmap from event ID to event category
-# event_df = pd.read_csv('event.csv', encoding=encoding, on_bad_lines='skip')
-event_df = pd.read_pickle('df_event.pkl')
-event_type_map = {}
-del event_df['Event Text']
+if not os.path.exists('event_df.csv'):
+    print('Creating df_event.csv file')
+    event_df = pd.read_pickle('df_event.pkl')
+    event_type_map = {}
+    del event_df['Event Text']
 
-type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
+    type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}
 
-# Iterate over rows in the event_df DataFrame
-for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
-    event_id = row['Anonymized Event ID']
-    # print(event_id)
-    if index % 2 == 0: continue
-    # event_category = row['Eventcategory']
-    event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
-    if event_category == 'unknown' or event_category not in type_set: continue
+    # Iterate over rows in the event_df DataFrame
+    for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
+        event_id = row['Anonymized Event ID']
+        # print(event_id)
+        if index % 2 == 0: continue
+        # event_category = row['Eventcategory']
+        event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
+        if event_category == 'unknown' or event_category not in type_set: continue
 
-    # if event_id == 2073482:
-        # print(event_category)
+        # if event_id == 2073482:
+            # print(event_category)
 
-    # if index != 4413 and index != 4414 : continue
-    # print('id')
-    # print(event_id)
-    if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
-        print(event_category)
-        print('==========')
+        # if index != 4413 and index != 4414 : continue
+        # print('id')
+        # print(event_id)
+        if event_category not in {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage'}:
+            print(event_category)
+            print('==========')
     event_type_map[event_id] = event_category
+    # Dump event_df to event_df.csv
+    event_df.to_csv('event_df.csv', index=False)
+else:
+    event_df = pd.read_csv('event_df.csv')  # Read the CSV file into a DataFrame
+    
 # chat_df = pd.read_csv('chat.csv', encoding=encoding)
 if not os.path.exists('chat_df.csv'):
-
+    print('Creating chat_df.csv file')
     chat_df = pd.read_pickle('df_chat.pkl')
     chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
 
     chat_df.sort_values(by=['Anonymized Eventid', 'Chat Date'], inplace=True)
     unique_chat_types = set(chat_df['Chattype'])
     print(unique_chat_types)
-    # Dump event_df to event_df.csv
-    event_df.to_csv('event_df.csv', index=False)
+
 
     # Dump chat_df to chat_df.csv
     chat_df.to_csv('chat_df.csv', index=False)
 else:
-        chat_df = pd.read_csv('chat_df.csv')  # Read the CSV file into a DataFrame
+    chat_df = pd.read_csv('chat_df.csv')  # Read the CSV file into a DataFrame
 
 # Create a dictionary to store the result
 result_dict = {}
