@@ -20,9 +20,10 @@ event_type_map = {}
 del event_df['Event Text']
 
 # The evaluation for the SafeRide&SafeWalk is too low 
+# The number of MedicalInjuiry is too low
 
 # type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'SafeRide&SafeWalk', 'NoiseDisturbance', 'FacilitiesMaintenance'}
-type_set = ['DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance', 'InjuryMedical']
+type_set = ['DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance']
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
@@ -120,5 +121,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 print(all_type_set)
 print()
 print(count)
-print(result_type_set)
+for key in type_set:
+    if key in result_type_set:
+        print(key, ":", result_type_set[key])
 print(max_len)
