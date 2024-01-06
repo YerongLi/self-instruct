@@ -28,7 +28,6 @@ type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     event_id = row['Anonymized Event ID']
     # print(event_id)
-    if index % 2 == 0: continue
     # event_category = row['Eventcategory']
     event_category = row['Eventcategory (group)'].replace('/', '').replace(' ', '')
     if event_category not in type_set:
