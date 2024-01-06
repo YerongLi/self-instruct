@@ -22,7 +22,7 @@ del event_df['Event Text']
 # The evaluation for the SafeRide&SafeWalk is too low 
 
 # type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'SafeRide&SafeWalk', 'NoiseDisturbance', 'FacilitiesMaintenance'}
-type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance'}
+type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance', 'InjuryMedical'}
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
