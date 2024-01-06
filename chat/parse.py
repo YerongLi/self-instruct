@@ -22,7 +22,7 @@ del event_df['Event Text']
 # The evaluation for the SafeRide&SafeWalk is too low 
 
 # type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'SafeRide&SafeWalk', 'NoiseDisturbance', 'FacilitiesMaintenance'}
-type_set = {'DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance', 'InjuryMedical'}
+type_set = ['DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance', 'InjuryMedical']
 
 # Iterate over rows in the event_df DataFrame
 for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
@@ -33,10 +33,6 @@ for index, row in tqdm(event_df.iterrows(), total=event_df.shape[0]):
     if event_category not in type_set:
         all_type_set.add(event_category)
     if event_category == 'unknown' or event_category not in type_set: continue
-
-    # if event_id == 2073482:
-        # print(event_category)
-
     event_type_map[event_id] = event_category
 # Dump event_df to event_df.csv
 event_df.to_csv('event_df.csv', index=False)
@@ -47,8 +43,8 @@ chat_df = pd.read_pickle('df_chat.pkl')
 chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
 
 chat_df.sort_values(by=['Anonymized Eventid', 'Chat Date'], inplace=True)
-unique_chat_types = set(chat_df['Chattype'])
-print(unique_chat_types)
+unique_chat_roles = set(chat_df['Chattype'])
+print(unique_chat_roles)
 
 
 # Dump chat_df to chat_df.csv
