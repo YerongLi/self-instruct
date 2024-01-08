@@ -30,7 +30,16 @@ def split_and_count(input_file):
             json.dump(record, outfile1)
             outfile1.write('\n')
 
-    print("Number of each type:")
+    print("Number of each type in police.json:")
+    for record_type in type_set:
+        print(f"{record_type}: {type_counts[record_type]}")
+
+    type_counts = {record_type: 0 for record_type in type_set}
+    print("\nNumber of each type in police1.json:")
+    for record in police1_data:
+        record_type = record.get("type")
+        type_counts[record_type] += 1
+
     for record_type in type_set:
         print(f"{record_type}: {type_counts[record_type]}")
 
