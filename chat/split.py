@@ -7,10 +7,10 @@ def split_and_count(input_file):
     type_set = ['DrugsAlcohol', 'HarassmentAbuse', 'MentalHealth', 'TheftLostItem', 'SuspiciousActivity', 'EmergencyMessage', 'AccidentTrafficParking', 'NoiseDisturbance', 'FacilitiesMaintenance']
 
     with open(input_file, 'r') as infile:
-        for line in infile:
+        for i, line in enumerate(infile):
             record = json.loads(line)
             
-            if len(police_data) % 4 == 0:
+            if i % 4 == 0:
                 police1_data.append(record)
             else:
                 police_data.append(record)
@@ -37,9 +37,7 @@ def split_and_count(input_file):
 
     for record_type in type_set:
         print(f"{record_type}: {type_counts[record_type]}")
-    print("Number of each type in police.json:")
-    for record_type in type_set:
-        print(f"{record_type}: {type_counts[record_type]}")
+
 
     type_counts = {record_type: 0 for record_type in type_set}
     print("\nNumber of each type in police1.json:")
