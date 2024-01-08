@@ -35,5 +35,5 @@ def split_and_count(input_file):
         print(f"{record_type}: {type_counts[record_type]}")
 
 if __name__ == "__main__":
-    input_file = "police-full.txt"  # Replace with the actual file path
+    input_file = "police-full.json"  # Replace with the actual file path
     split_and_count(input_file)
