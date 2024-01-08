@@ -78,7 +78,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 for event_id in result_dict:
     del result_dict[event_id]['chat']
     result_dict[event_id]['chat'] = []
-Iterate through rows in the chat dataframe
+# Iterate through rows in the chat dataframe
 count = 0
 max_len = 0
 previous_event_id = None
