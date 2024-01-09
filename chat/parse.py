@@ -43,7 +43,7 @@ event_df.to_csv('event_df.csv', index=False)
 print('Creating chat_df.csv file')
 chat_df = pd.read_pickle('df_chat.pkl')
 chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
-print(chat_df['Chat Date'])
+# print(chat_df['Chat Date'])
 chat_df.sort_values(by=['Anonymized Eventid', 'Chat Date'], inplace=True)
 unique_chat_roles = set(chat_df['Chattype'])
 print(unique_chat_roles)
@@ -106,11 +106,13 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     # print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
+        print(row['Chat Date'].dt.time)
         entry = {
             'type': event_type,
             'history': [[chat_history[i][0], chat_history[i+1][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
             'instruction': str(chat_history[-2][0]),
+            'time': row['Chat Date'].dt.time,
             'output': str(chat_history[-1][0]),
         }
         if event_type not in result_type_set: result_type_set[event_type] = 0
