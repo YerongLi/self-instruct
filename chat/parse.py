@@ -106,13 +106,13 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     # print([item[1] for item in chat_history])
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
-        print(row['Chat Date'].time())
+        print(row['Chat Date'].time().strftime('%H:%M:%S'))
         entry = {
             'type': event_type,
             'history': [[chat_history[i][0], chat_history[i+1][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
             'instruction': str(chat_history[-2][0]),
-            'time': row['Chat Date'].time(),
+            'time': row['Chat Date'].time().strftime('%H:%M:%S'),
             'output': str(chat_history[-1][0]),
         }
         if event_type not in result_type_set: result_type_set[event_type] = 0
