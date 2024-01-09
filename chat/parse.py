@@ -43,7 +43,7 @@ event_df.to_csv('event_df.csv', index=False)
 print('Creating chat_df.csv file')
 chat_df = pd.read_pickle('df_chat.pkl')
 chat_df['Chat Date'] = pd.to_datetime(chat_df['Chat Date'])
-
+print(chat_df['Chat Date'])
 chat_df.sort_values(by=['Anonymized Eventid', 'Chat Date'], inplace=True)
 unique_chat_roles = set(chat_df['Chattype'])
 print(unique_chat_roles)
