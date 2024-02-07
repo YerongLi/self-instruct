@@ -8,7 +8,7 @@ import pandas as pd
 
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
-filename = 'police-full.json'
+filename = 'police-full1.json'
 result_type_set = dict()
 all_type_set = set()
 if os.path.exists(filename):
@@ -115,10 +115,18 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             'hour': row['Chat Date'].time().strftime('%H'),
             'output': str(chat_history[-1][0]),
         }
+        entry1 = {
+            'type': event_type,
+            'history': [{chat_history[i][1] : chat_history[i][0]} for i in range(len(chat_history))],  # Concatenate pairs
+            'his_len': his_len[event_id] if event_id in his_len else 10,
+            'instruction': str(chat_history[-2][0]),
+            'hour': row['Chat Date'].time().strftime('%H'),
+            'output': str(chat_history[-1][0]),
+        }
         if event_type not in result_type_set: result_type_set[event_type] = 0
         result_type_set[event_type]+= 1
         with open(filename, 'a') as json_file:
-          json.dump(entry, json_file)
+          json.dump(entry1, json_file)
           json_file.write('\n') # Add a newline for better readability
           count+= 1
 print(all_type_set)
