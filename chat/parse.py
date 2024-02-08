@@ -117,12 +117,18 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         }
         entry1 = {
             'type': event_type,
-            'history': [{chat_history[i][1] : chat_history[i][0]} for i in range(len(chat_history))],  # Concatenate pairs
+            'history': [{chat_history[i][1] if chat_history != 'Admin' else 'Dispatcher' : chat_history[i][0]} for i in range(len(chat_history))],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
             'instruction': str(chat_history[-2][0]),
             'hour': row['Chat Date'].time().strftime('%H'),
             'output': str(chat_history[-1][0]),
         }
+        # Check if entry1['history'] is a list
+        assert isinstance(entry1['history'], list), "entry1['history'] is not a list"
+
+        # Check if all elements in entry1['history'] are dictionaries
+        assert all(isinstance(item, dict) for item in entry1['history']), "Not all elements in entry1['history'] are dictionaries"
+
         if event_type not in result_type_set: result_type_set[event_type] = 0
         result_type_set[event_type]+= 1
         with open(filename, 'a') as json_file:
