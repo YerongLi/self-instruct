@@ -8,7 +8,7 @@ import pandas as pd
 
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
-filename = 'police-full1.json'
+filename = 'police-full.json'
 result_type_set = dict()
 all_type_set = set()
 if os.path.exists(filename):
@@ -92,7 +92,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     chat_turn = row['Chat']
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
-    if event_id == previous_event_id and chat_type != chat_history[-1][1]:
+    # if event_id == previous_event_id and chat_type != chat_history[-1][1]:
+    if event_id == previous_event_id:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
@@ -103,19 +104,10 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         full_chat_history.append((chat_turn, chat_type))  # Append to existing full_chat_history
     else:
         full_chat_history = [(chat_turn, chat_type)]  # Start a new full_chat_history
-    # print([item[1] for item in chat_history])
+
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
-        # print(row['Chat Date'].time().strftime('%H:%M:%S'))
         entry = {
-            'type': event_type,
-            'history': [[chat_history[i][0], chat_history[i+1][0]] for i in range(0, len(chat_history) - 2, 2)],  # Concatenate pairs
-            'his_len': his_len[event_id] if event_id in his_len else 10,
-            'instruction': str(chat_history[-2][0]),
-            'hour': row['Chat Date'].time().strftime('%H'),
-            'output': str(chat_history[-1][0]),
-        }
-        entry1 = {
             'type': event_type,
             'history': [{chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher' : chat_history[i][0]} for i in range(len(chat_history))],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
@@ -124,7 +116,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             'output': str(chat_history[-1][0]),
         }
         # Check if entry1['history'] is a list
-        assert isinstance(entry1['history'], list), "entry1['history'] is not a list"
+        assert isinstance(entry['history'], list), "entry['history'] is not a list"
 
         # Check if all elements in entry1['history'] are dictionaries
         assert all(isinstance(item, dict) for item in entry1['history']), "Not all elements in entry1['history'] are dictionaries"
@@ -132,7 +124,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         if event_type not in result_type_set: result_type_set[event_type] = 0
         result_type_set[event_type]+= 1
         with open(filename, 'a') as json_file:
-          json.dump(entry1, json_file)
+          json.dump(entry, json_file)
           json_file.write('\n') # Add a newline for better readability
           count+= 1
 print(all_type_set)
