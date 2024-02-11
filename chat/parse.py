@@ -107,7 +107,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         full_chat_history = [(chat_turn, chat_type)]  # Start a new full_chat_history
 
     previous_event_id = event_id  # Update previous_event_id for the next iteration
-    if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
+    # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
+    if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin' and chat_history[-2][1] != 'Admin':
         entry = {
             'type': event_type,
             'history': [{chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher' : chat_history[i][0]} for i in range(len(chat_history))],  # Concatenate pairs
