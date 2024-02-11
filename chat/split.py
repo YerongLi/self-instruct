@@ -16,12 +16,12 @@ def split_and_count(input_file):
             else:
                 police_data.append(record)
 
-    with open('police.json', 'w') as outfile:
+    with open('police.jsonl', 'w') as outfile:
         for record in police_data:
             json.dump(record, outfile)
             outfile.write('\n')
 
-    with open('police1.json', 'w') as outfile1:
+    with open('police1.jsonl', 'w') as outfile1:
         for record in police1_data:
             json.dump(record, outfile1)
             outfile1.write('\n')
@@ -49,5 +49,5 @@ def split_and_count(input_file):
         print(f"{record_type}: {type_counts_police1[record_type]}")
 
 if __name__ == "__main__":
-    input_file = "police-full.json"  # Replace with the actual file path
+    input_file = "police-full.jsonl"  # Replace with the actual file path
     split_and_count(input_file)
