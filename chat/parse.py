@@ -111,16 +111,17 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin' and chat_history[-2][1] != 'Admin':
         entry = {
             'type': event_type,
-            'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
+            'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher' chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
             'instruction': str(chat_history[-2][0]),
             'hour': row['Chat Date'].time().strftime('%H'),
             'output': str(chat_history[-1][0]),
         }
         # Check if entry['history'] is a list
+        assert isinstance(entry['history'], list), "entry['history'] is not a list"
 
         # Check if all elements in entry['history'] are dictionaries
-        assert all(isinstance(item, dict) for item in entry['history']), "Not all elements in entry1['history'] are dictionaries"
+        # assert all(isinstance(item, dict) for item in entry['history']), "Not all elements in entry1['history'] are dictionaries"
 
         if event_type not in result_type_set: result_type_set[event_type] = 0
         result_type_set[event_type]+= 1
