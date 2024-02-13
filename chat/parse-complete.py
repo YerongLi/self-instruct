@@ -84,6 +84,7 @@ count = 0
 max_len = 0
 previous_event_id = None
 his_len = {}
+chat_history = []
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     if event_id in not_good: continue # No error
@@ -94,7 +95,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
     # if event_id == previous_event_id and chat_type != chat_history[-1][1]:
-    if event_id == previous_event_id:
+    if event_id == previous_event_id and chat_history:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
         print('chat_history')
