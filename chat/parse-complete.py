@@ -83,11 +83,13 @@ for event_id in result_dict:
 count = 0
 max_len = 0
 previous_event_id = None
+previous_event_type, event_type = None, None
 his_len = {}
 chat_history = []
 for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     event_id = row['Anonymized Eventid']
     if event_id in not_good: continue # No error
+    previous_event_type = event_type
     event_type = event_type_map.get(event_id, 'unknown')  # Get event category from the hashmap
     if event_type == 'unknown' or event_type not in type_set: continue
 
