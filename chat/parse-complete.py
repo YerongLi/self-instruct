@@ -8,7 +8,7 @@ import pandas as pd
 
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
-filename = 'police-complete.jsonl'
+filename = 'police-complete.json'
 result_type_set = dict()
 all_type_set = set()
 if os.path.exists(filename):
@@ -97,27 +97,23 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_id == previous_event_id:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
-        chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
 
-    
-    if event_id == previous_event_id:
-        his_len[previous_event_id] = len(full_chat_history)
-        full_chat_history.append((chat_turn, chat_type))  # Append to existing full_chat_history
-    else:
         entry = {
             'type': event_type,
-            'history': [[full_chat_history[i][1] if full_chat_history[i][1] != 'Admin' else 'Dispatcher', full_chat_history[i][0]] for i in range(len(full_chat_history))],  # Concatenate pairs
+            'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
             'instruction': str(chat_history[-2][0]),
             # 'hour': row['Chat Date'].time().strftime('%H'),
             'output': str(chat_history[-1][0]),
             'event_id' : previous_event_id,
         }
-        full_chat_history = [(chat_turn, chat_type)]  # Start a new full_chat_history
+        chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
+
         with open(filename, 'a') as json_file:
-          json.dump(entry, json_file)
-          json_file.write('\n') # Add a newline for better readability
-          count+= 1
+        json.dump(entry, json_file)
+        json_file.write('\n') # Add a newline for better readability
+        count+= 1
+
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
     # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin' and chat_history[-2][1] != 'Admin':
