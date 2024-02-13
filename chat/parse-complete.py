@@ -97,7 +97,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_id == previous_event_id:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     else:
-
+        print(chat_history)
         entry = {
             'type': event_type,
             'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
