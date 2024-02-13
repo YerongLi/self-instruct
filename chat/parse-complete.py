@@ -106,9 +106,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             'type': event_type,
             'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
             'his_len': his_len[event_id] if event_id in his_len else 10,
-            'instruction': str(chat_history[-2][0]),
+            # 'instruction': str(chat_history[-2][0]),
             # 'hour': row['Chat Date'].time().strftime('%H'),
-            'output': str(chat_history[-1][0]),
+            # 'output': str(chat_history[-1][0]),
             'event_id' : previous_event_id,
         }
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
