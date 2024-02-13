@@ -8,7 +8,7 @@ import pandas as pd
 
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
-filename = 'police-complete.json'
+filename = 'police-complete.jsonl'
 result_type_set = dict()
 all_type_set = set()
 if os.path.exists(filename):
@@ -98,8 +98,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     if event_id == previous_event_id:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
     elif chat_history:
-        print('chat_history')
-        print(chat_history)
+        # print('chat_history')
+        # print(chat_history)
         entry = {
             'type': event_type,
             'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
