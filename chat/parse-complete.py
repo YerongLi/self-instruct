@@ -95,9 +95,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     chat_type = row['Chattype']
     if chat_type not in {"Admin", "User"}: continue 
     # if event_id == previous_event_id and chat_type != chat_history[-1][1]:
-    if event_id == previous_event_id and chat_history:
+    if event_id == previous_event_id:
         chat_history.append((chat_turn, chat_type))  # Append to existing chat_history
-    else:
+    elif chat_history:
         print('chat_history')
         print(chat_history)
         entry = {
