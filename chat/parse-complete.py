@@ -110,9 +110,9 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
 
         with open(filename, 'a') as json_file:
-        json.dump(entry, json_file)
-        json_file.write('\n') # Add a newline for better readability
-        count+= 1
+            json.dump(entry, json_file)
+            json_file.write('\n') # Add a newline for better readability
+            count+= 1
 
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
