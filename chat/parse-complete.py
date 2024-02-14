@@ -103,20 +103,16 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
         # print('chat_history')
         # print(chat_history)
         entry = {
-            'type': event_type,
+            'type': previous_event_type,
             'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
-            'his_len': his_len[event_id] if event_id in his_len else 10,
+            'his_len': his_len[previous_event_id] if previous_event_id in his_len else 10,
             # 'instruction': str(chat_history[-2][0]),
-            # 'hour': row['Chat Date'].time().strftime('%H'),
+            'hour': row['Chat Date'].time().strftime('%H'),
             # 'output': str(chat_history[-1][0]),
             'event_id' : previous_event_id,
         }
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
 
-        with open(filename, 'a') as json_file:
-            json.dump(entry, json_file)
-            json_file.write('\n') # Add a newline for better readability
-            count+= 1
 
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
@@ -141,7 +137,29 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     #       json.dump(entry, json_file)
     #       json_file.write('\n') # Add a newline for better readability
     #       count+= 1
+
+
+with open(filename, 'a') as json_file:
+    json.dump(entry, json_file)
+    json_file.write('\n') # Add a newline for better readability
+    count+= 1
+entry = {
+    'type': previous_event_type,
+    'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
+    'his_len': his_len[previous_event_id] if previous_event_id in his_len else 10,
+    # 'instruction': str(chat_history[-2][0]),
+    'hour': row['Chat Date'].time().strftime('%H'),
+    # 'output': str(chat_history[-1][0]),
+    'event_id' : previous_event_id,
+}
+chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
+
+with open(filename, 'a') as json_file:
+    json.dump(entry, json_file)
+    json_file.write('\n') # Add a newline for better readability
+    count+= 1
 print(all_type_set)
+
 print()
 print(count)
 for key in type_set:
