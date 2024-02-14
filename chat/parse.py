@@ -116,6 +116,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             'instruction': str(chat_history[-2][0]),
             'hour': row['Chat Date'].time().strftime('%H'),
             'output': str(chat_history[-1][0]),
+            'event_id': event_id,
         }
         # Check if entry['history'] is a list
         assert isinstance(entry['history'], list), "entry['history'] is not a list"
