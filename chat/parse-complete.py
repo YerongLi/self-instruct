@@ -111,6 +111,10 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
             # 'output': str(chat_history[-1][0]),
             'event_id' : previous_event_id,
         }
+        with open(filename, 'a') as json_file:
+            json.dump(entry, json_file)
+            json_file.write('\n') # Add a newline for better readability
+            count+= 1
         chat_history = [(chat_turn, chat_type)]  # Start a new chat_history
 
 
@@ -139,10 +143,7 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
     #       count+= 1
 
 
-with open(filename, 'a') as json_file:
-    json.dump(entry, json_file)
-    json_file.write('\n') # Add a newline for better readability
-    count+= 1
+
 entry = {
     'type': previous_event_type,
     'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
