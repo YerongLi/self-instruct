@@ -57,5 +57,5 @@ def split_and_count(input_file):
         print(f"{record_type}: {type_counts_police1[record_type]}")
 
 if __name__ == "__main__":
-    input_file = f"{args,role}-full.jsonl"  # Replace with the actual file path
+    input_file = f"{args.role}-full.jsonl"  # Replace with the actual file path
     split_and_count(input_file)
