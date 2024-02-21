@@ -6,9 +6,22 @@ import pandas as pd
 
 # his_len in the parse file has some error
 
+parser = argparse.ArgumentParser(description='Process some files.')
+
+# Add the role argument
+parser.add_argument('role', type=str, help='Role to construct the filename')
+
+# Parse the arguments
+args = parser.parse_args()
+
 # Specify the correct encoding of your CSV files
 encoding = 'latin-1'  # or 'ISO-8859-1' or other suitable encoding
-filename = 'police-full.jsonl'
+
+# Construct the filename based on the role argument
+filename = f'{args.role}-full.jsonl'
+
+# Now you can use 'filename' variable to read the JSONL file
+
 result_type_set = dict()
 all_type_set = set()
 if os.path.exists(filename):
@@ -108,7 +121,8 @@ for index, row in tqdm(chat_df.iterrows(),total=chat_df.shape[0]):
 
     previous_event_id = event_id  # Update previous_event_id for the next iteration
     # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin':
-    if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin' and chat_history[-2][1] != 'Admin':
+    if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == args.role and chat_history[-2][1] != 'Admin':
+    # if len(chat_history) >= 2 and len(chat_history) <= 70 and chat_history[-1][1] == 'Admin' and chat_history[-2][1] != 'Admin':
         entry = {
             'type': event_type,
             'history': [[chat_history[i][1] if chat_history[i][1] != 'Admin' else 'Dispatcher', chat_history[i][0]] for i in range(len(chat_history))],  # Concatenate pairs
