@@ -1,5 +1,13 @@
 import json
+import argparse
 
+parser = argparse.ArgumentParser(description='Process some files.')
+
+# Add the role argument
+parser.add_argument('role', type=str, help='Role to construct the filename')
+
+# Parse the arguments
+args = parser.parse_args()
 def split_and_count(input_file):
     police1_data = []
     police_data = []
@@ -49,5 +57,5 @@ def split_and_count(input_file):
         print(f"{record_type}: {type_counts_police1[record_type]}")
 
 if __name__ == "__main__":
-    input_file = "police-full.jsonl"  # Replace with the actual file path
+    input_file = f"{args,role}-full.jsonl"  # Replace with the actual file path
     split_and_count(input_file)
