@@ -24,12 +24,12 @@ def split_and_count(input_file):
             else:
                 police_data.append(record)
 
-    with open('police.jsonl', 'w') as outfile:
+    with open(f'{args.role}_train.jsonl', 'w') as outfile:
         for record in police_data:
             json.dump(record, outfile)
             outfile.write('\n')
 
-    with open('police1.jsonl', 'w') as outfile1:
+    with open(f'{args.role}_test.jsonl', 'w') as outfile1:
         for record in police1_data:
             json.dump(record, outfile1)
             outfile1.write('\n')
